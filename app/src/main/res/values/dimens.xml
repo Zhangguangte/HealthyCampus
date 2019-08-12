@@ -1,0 +1,62 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="top_margin">20dp</dimen>
+    <dimen name="top_margin_less">10dp</dimen>
+    <dimen name="top_margin_more">40dp</dimen>
+
+    <dimen name="left_margin">15dp</dimen>
+    <dimen name="left_margin_more">25dp</dimen>
+
+    <!-- font -->
+    <!-- login -->
+    <dimen name="login_normal_font">19dp</dimen>
+    <dimen name="login_button">18dp</dimen>
+
+    <!-- register1 -->
+    <dimen name="register_normal_font">25dp</dimen>
+    <dimen name="register_phone_hint">40dp</dimen>
+    <dimen name="register_background">230dp</dimen>
+    <dimen name="register_background_logo1">80dp</dimen>
+    <dimen name="register_background_logo2">30dp</dimen>
+    <dimen name="register_pic">30dp</dimen>
+    <dimen name="register_spaced">10dp</dimen>
+    <dimen name="register_spaced_size">1dp</dimen>
+
+    <!-- register2 -->
+    <dimen name="register2_prompt">20dp</dimen>
+    <dimen name="register2_hint_pwd">16sp</dimen>
+
+    <!-- 导航条 -->
+    <dimen name="navigation_height">55dp</dimen>
+
+    <!-- fragment_home_page -->
+    <dimen name="carousel_height">150dp</dimen>
+    <dimen name="dot_size">5dp</dimen>
+    <dimen name="title_left">8dp</dimen>
+    <dimen name="title_height">35dp</dimen>
+    <dimen name="doctor_display">120dp</dimen>
+    <dimen name="docotor_name">15dp</dimen>
+    <dimen name="tiny_padding_left_right">15dp</dimen>
+    <dimen name="tiny_margin_top">15dp</dimen>
+    <dimen name="head_portrait_size">55dp</dimen>
+    <dimen name="head_portrait_border_width">2dp</dimen>
+    <dimen name="head_portrait_padding_top_bottom">5dp</dimen>
+    <dimen name="home_big_font">16dp</dimen>
+    <dimen name="home_normal_font">14dp</dimen>
+    <dimen name="home_icon_height">40dp</dimen>
+    <dimen name="home_icon_width">60dp</dimen>
+    <dimen name="home_margin_left">10dp</dimen>
+    <dimen name="interval_height">30dp</dimen>
+
+    <!-- information_item -->
+    <dimen name="item_image_width">100dp</dimen>
+    <dimen name="item_image_height">50dp</dimen>
+    <dimen name="item_image_margin_top">5dp</dimen>
+    <dimen name="item_title_head_font">14dp</dimen>
+    <dimen name="item_title_content_font">12dp</dimen>
+    <dimen name="item_margin_right_left">5dp</dimen>
+    <dimen name="item_margin_right">10dp</dimen>
+
+
+</resources>

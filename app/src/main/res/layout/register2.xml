@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/top_margin_less"
+        android:paddingBottom="@dimen/top_margin_less"
+        android:paddingTop="@dimen/top_margin"
+        android:background="@color/green5"
+        android:orientation="horizontal">
+
+        <ImageView
+            app:srcCompat="@drawable/left"
+            android:layout_width="@dimen/register_phone_hint"
+            android:layout_alignParentLeft="true"
+            android:layout_height="@dimen/top_margin" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_height="@dimen/register_background_logo2"
+            app:srcCompat="@drawable/logo2" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/top_margin_more"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register2_prompt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/register2_prompt"
+            android:layout_gravity="center"
+            android:gravity="center"
+             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register2_phone"
+            android:textColor="@color/green1"
+            android:layout_marginTop="@dimen/top_margin_less"
+            android:layout_marginBottom="@dimen/top_margin_less"
+            android:textSize="@dimen/register2_prompt"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register2_set_pwd"
+            android:textColor="@color/black"
+            android:textSize="@dimen/register2_prompt"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/top_margin_more"
+            android:paddingLeft="@dimen/top_margin_less"
+            android:paddingRight="@dimen/top_margin_less"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:padding="@dimen/top_margin_less"
+                android:background="@drawable/register_input_shape"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/register_pic"
+                    android:layout_gravity="left"
+                    android:layout_height="@dimen/register_pic"
+                    app:srcCompat="@drawable/pwd" />
+                <View
+                    android:layout_width="@dimen/register_spaced_size"
+                    android:layout_height="@dimen/register_pic"
+                    android:layout_marginRight="@dimen/register_spaced"
+                    android:layout_marginLeft="@dimen/register_spaced"
+                    android:background="@color/login_hint_input_color">
+                </View>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:textColorHint="@color/hint_input_color"
+                    android:textColor="@color/black"
+                    android:hint="@string/register2_hint_pwd"
+                    />
+                <View
+                    android:layout_width="@dimen/register_spaced_size"
+                    android:layout_height="@dimen/register_pic"
+                    android:layout_marginRight="@dimen/register_spaced"
+                    android:layout_marginLeft="@dimen/register_spaced"
+                    android:background="@color/login_hint_input_color">
+                </View>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/register_pic"
+                    app:srcCompat="@drawable/no_look" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:padding="@dimen/top_margin_less"
+                android:background="@drawable/register_input_shape"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/register_pic"
+                    android:layout_gravity="left"
+                    android:layout_height="@dimen/register_pic"
+                    app:srcCompat="@drawable/invitation_code" />
+                <View
+                    android:layout_width="@dimen/register_spaced_size"
+                    android:layout_height="@dimen/register_pic"
+                    android:layout_marginRight="@dimen/register_spaced"
+                    android:layout_marginLeft="@dimen/register_spaced"
+                    android:background="@color/login_hint_input_color">
+                </View>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:textColorHint="@color/hint_input_color"
+                    android:textColor="@color/black"
+                    android:hint="@string/register2_Invitation_code"
+                    />
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/Sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:background="@color/hint_button"
+                android:textColor="@color/white"
+                android:textSize="@dimen/login_normal_font"
+                android:text="@string/register2_logon" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
