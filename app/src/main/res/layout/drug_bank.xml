@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/top_margin_less"
+        android:paddingBottom="@dimen/top_margin_less"
+        android:background="@color/green4"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="药品库" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="肝胆胰用药"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="心脑血管"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:padding="@dimen/left_margin"
+                android:text="维生素及营养类"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="儿科用药"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="妇科用药"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="感冒发烧"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="家庭常备"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="男科用药"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hint_button"
+                android:gravity="center"
+                android:padding="@dimen/left_margin"
+                android:text="呼吸系统类"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/interval_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/interval_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/interval_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:layout_width="@dimen/head_portrait_size"
+                        android:layout_height="@dimen/head_portrait_size"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/head_portrait"
+                        app:border_color="@color/green4"
+                        app:border_width="@dimen/head_portrait_border_width"
+                        app:type="circle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="平消片" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

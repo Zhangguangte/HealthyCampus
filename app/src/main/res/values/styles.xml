@@ -8,7 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
+    <style name="home" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 
     <style name="register_input" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/login_hint_input_color</item>

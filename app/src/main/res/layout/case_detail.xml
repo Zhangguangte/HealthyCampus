@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="8"
+        android:padding="@dimen/left_margin"
+        android:background="@color/green4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="取消" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:text="病历" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:text="保存" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/top_margin_less"
+            android:paddingBottom="@dimen/top_margin_less"
+            android:paddingLeft="@dimen/left_margin"
+            android:paddingRight="@dimen/left_margin"
+            android:background="@color/interval_background"
+            android:text="基本信息"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="姓名" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="小明" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="手机号" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="132XXXX0361" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="性别" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="男" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="出生日期" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="1997-09-14" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="身份证号" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="330333XXXXXXXXXXXX0327" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/top_margin_less"
+            android:paddingBottom="@dimen/top_margin_less"
+            android:paddingLeft="@dimen/left_margin"
+            android:paddingRight="@dimen/left_margin"
+            android:background="@color/interval_background"
+            android:text="就诊信息"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="就诊时间" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="2019-08-14" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="科室" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="普通外科" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/top_margin_less"
+            android:paddingBottom="@dimen/top_margin_less"
+            android:paddingLeft="@dimen/left_margin"
+            android:paddingRight="@dimen/left_margin"
+            android:background="@color/interval_background"
+            android:text="编号信息1"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="编号类型" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="病案号" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="科室" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="31545656847485613" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/top_margin_less"
+            android:paddingBottom="@dimen/top_margin_less"
+            android:paddingLeft="@dimen/left_margin"
+            android:paddingRight="@dimen/left_margin"
+            android:background="@color/interval_background"
+            android:text="编号信息2"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="编号类型" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="请选择编号类型" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/interval_background" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/left_margin"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="科室" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/left_margin"
+                android:textSize="16dp"
+                android:layout_weight="6"
+                android:textColor="@color/black"
+                android:text="请输入编号" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

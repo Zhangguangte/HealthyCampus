@@ -1,21 +1,20 @@
 package com.example.health;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.health.fragment.FindFragment;
+import com.example.health.fragment.HomePage.HomePageFragment;
 import com.example.health.fragment.MessageFragment;
-import com.example.health.fragment.HomePageFragment;
 import com.example.health.fragment.MineFragment;
 import com.example.health.fragment.NavigableAdapter;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.example.health.widget.XListViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +24,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private ViewPager viewPager;
     private BottomNavigationBar bottom_navigation_bar;
     private BadgeItem badgeItem; //添加角标
-    private List<Fragment> mList; //ViewPager的数据源
+    private List<BaseFragment> mList; //ViewPager的数据源
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       /* Intent intent = new Intent();
+        intent.setClass(this, XListViewActivity.class);
+        startActivity(intent);
+        finish();*/
         initViewPager();
         initBottomNavigationBar();
     }
@@ -39,6 +42,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private void initViewPager()
     {
         mList = new ArrayList<>();
+
+        /*  mList.add(new TabLayout.Tab(HomePageFragment.class));
+        mList.add(new TabLayout.Tab(MessageFragment.class));
+        mList.add(new TabLayout.Tab(FindFragment.class));
+        mList.add(new TabLayout.Tab(MineFragment.class));*/
+
+
+
         mList.add(new HomePageFragment());
         mList.add(new MessageFragment());
         mList.add(new FindFragment());
