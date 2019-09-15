@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+
+    <color name="blue">#4056AB</color>
+
+    <color name="text_level_1">#212121</color>
+    <color name="text_level_3">#757575</color>
+
     <!-- 主色调 -->
     <color name="green1">#43AB5F</color>
     <color name="green2">#34BE69</color>
@@ -11,35 +19,14 @@
     <color name="white">#FFFFFF</color>
     <color name="sun">#FFFFF4</color>
 
-    <!-- 公共 -->
-    <color name="hint_button">#B4EDCD</color>
-    <color name="hint_input_color">#B3B3BD</color>
-    <!-- 登录 -->
-    <color name="black">#000000</color>
-    <color name="login_input_backgroud">#F2F3F7</color>
-    <color name="login_hint_input_color">#B3B3BD</color>
+    <color name="transparent">#00000000</color>
+    <color name="icons_tint_normal">#BDBDBD</color>
+    <color name="md_selected">#19000000</color>
+
+    <color name="background_page">#EEEEEE</color>
 
 
-
-    <!-- 主界面 -->
-    <color name="dot_normal">#c8ffffff</color>
-    <color name="dot_focused">#c8fd8888</color>
-    <color name="navigation">#FBFBFB</color>
-    <color name="title_background">#33000000</color>
-    <color name="interval_background">#F2F2F2</color>
-
-    <!-- information_item -->
-    <color name="item_title_head_font">#181818</color>
-    <color name="item_title_content_font">#999999</color>
-
-    <color name="colorPrimary">#43AB5F</color>
+    <color name="colorPrimary">#53DC92</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="red">#E91E1E</color>
-    <color name="blue">#3F51B5</color>
-
-
-    <color name="background">#F7F4F0</color>
-    <color name="title_color">#333333</color>
-    <color name="transparent">#00000000</color>
 </resources>

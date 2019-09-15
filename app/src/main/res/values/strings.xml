@@ -1,55 +1,33 @@
 <resources>
-    <string name="app_name">Health</string>
-    <string name="logo_name">健康校园</string>
-    <string name="account_number">账号/手机号/邮箱</string>
-    <string name="password">输入密码</string>
+    <string name="app_name">校园健康</string>
+
+    <string name="app_description">多元化阅读，看见更大的世界</string>
+
+    /* 导航条 */
+    <string name="tab_homepage">首页</string>
+    <string name="tab_message">消息</string>
+    <string name="tab_find">发现</string>
+    <string name="tab_mine">我的</string>
+
+    /* 自定义Behavior路径 */
+    <string name="tab_behavior">com.example.HealthyCampus.common.widgets.tab.TabBehavior</string>
+
+    <string name="tab_about">关于</string>
+
+    <string name="health_item_today">今日最新</string>
+
+    <string name="tips_select_browser">请选择浏览器</string>
+    <string name="tips_share_success">分享成功</string>
+
+    <string name="loading_tips">正在加载中...</string>
+    <string name="main_exit_app">再按一次退出</string>
+
+    <string name="menu_browser">在浏览器打开</string>
+    <string name="menu_share">分享</string>
 
 
-    <string name="next">下一步</string>>
-
-    <!-- 注册 -->
-    <!-- 注册1 -->
-    <string name="register_phone_hint">用手机号码注册</string>
-    <string name="register_premise">注册即代表阅读并同意</string>
-    <string name="register_service">服务协议</string>
-    <string name="register_and">和</string>>
-    <string name="register_private">隐私政策</string>
-    <string name="register_phone">请输入电话号码</string>
-    <string name="register_pic_code">请输入图片验证码</string>
-    <string name="register_short_message">请输入短信验证码</string>
-    <string name="register_get_code">获取验证码</string>
-    <string name="chinese_area_code">+86</string>
-    <!-- 注册2 -->
-    <string name="register2_prompt">您的当前手机号为</string>
-    <string name="register2_phone">132 **** 0361</string>
-    <string name="register2_set_pwd">请设置密码</string>
-    <string name="register2_hint_pwd">密码由6-16位引文字母或数字组成</string>
-    <string name="register2_Invitation_code">请输入邀请码（非必填）</string>
-    <string name="register2_logon">注册</string>
-
-    <!-- 主界面 -->
-    <string name="dot">M12,12m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0</string>
-    <string name="doctor_name">友医生</string>
-    <string name="doctor_describe">专业认真  和蔼细心</string>
-    <string name="mTvPagerTitle_default">加载图片轮播失败</string>
-    <string name="clinic_name">学校医务室</string>
-    <string name="clinic_describe">追求健康从我做起</string>
-    <string name="diagnosis_name">自助诊断</string>
-    <string name="diagnosis_describe">自测就医 快速解决 </string>
-    <string name="health_information">健康资讯</string>
-
-    <!-- information_item -->
-    <string name="item_head_title">这种做法对人的心理健康会产生负面影响</string>
-    <string name="item_content">一连几个小时甚至几天，通过电视机、电脑或ＤＶＤ观看自己喜爱的某个电视剧，试图通过这种方式把负面情绪消化掉。</string>
-    <string name="item_time_date">2019-8-12</string>
 
 
-    <string name="header_hint_refresh_normal">Pull to refresh</string>
-    <string name="header_hint_refresh_ready">Release to refresh</string>
-    <string name="header_hint_refresh_loading">Refreshing&#8230;</string>
-    <string name="header_hint_refresh_time">Time：</string>
-    <string name="footer_hint_load_normal">Load more</string>
-    <string name="footer_hint_load_ready">Release to load more</string>
 
 
 </resources>

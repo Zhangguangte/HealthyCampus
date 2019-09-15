@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="toolbar" type="id"></item>
+    <item name="appBarLayout" type="id"></item>
+    <item name="mBottomTabLayout" type="id"></item>
+    <item name="swipeRefreshLayout" type="id"></item>
+    <item name="recyclerView" type="id"></item>
+    <item name="pullRecycler" type="id"></item>
+    <item name="collapsingToolbarLayout" type="id"></item>
+    <item name="webView" type="id"></item>
+    <item name="swipeLoadDataLayout" type="id"/>
+</resources>
