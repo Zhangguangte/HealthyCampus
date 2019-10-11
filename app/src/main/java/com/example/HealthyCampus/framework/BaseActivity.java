@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.avos.avoscloud.AVAnalytics;
+import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.utils.AppStatusTracker;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
+import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.module.MainActivity;
 import com.umeng.socialize.UMShareAPI;
 
@@ -43,17 +45,18 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             case ConstantValues.STATUS_ONLINE:
                 setUpContentView();
                 ButterKnife.bind(this); //添加View注解
+                initPresenter();
                 initView();
                 initData(savedInstanceState);
-                initPresenter();
+
 
                 StatusBarUtil.setRootViewFitsSystemWindows(this,false);
                 StatusBarUtil.setTranslucentStatus(this);
-//                if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
-//                    //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
-//                    //这样半透明+白=灰, 状态栏的文字能看得清
-//                    StatusBarUtil.setStatusBarColor(this,0x55000000);
-//                }
+                if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+                    //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+                    //这样半透明+白=灰, 状态栏的文字能看得清
+                    StatusBarUtil.setStatusBarColor(this,0x55000000);
+                }
                 break;
         }
     }
@@ -133,4 +136,10 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         super.finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+
+    public void noNetWork() {
+        ToastUtil.show(this, R.string.no_network);
+    }
+
+
 }

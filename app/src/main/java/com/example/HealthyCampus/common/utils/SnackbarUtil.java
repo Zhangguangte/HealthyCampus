@@ -15,8 +15,9 @@ public class SnackbarUtil {
     public static final int Alert = 4;
 
 
+    //ARGB
     public static int red = 0xfff44336;
-    public static int green = 0xff4caf50;
+    public static int green = 0xFF53DC92;
     public static int blue = 0xff2196f3;
     public static int orange = 0xffffc107;
 

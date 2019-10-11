@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <corners android:topLeftRadius="@dimen/register_input_radius"
+        android:topRightRadius="@dimen/register_input_radius"
+        android:bottomLeftRadius="@dimen/register_input_radius"
+        android:bottomRightRadius="@dimen/register_input_radius"
+        />
+    <stroke android:width="@dimen/view_width" android:color="@color/input_backgroud" />
+</shape>

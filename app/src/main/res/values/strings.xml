@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">校园健康</string>
+    <string name="app_description">校园健康--毕业设计</string>
 
-    <string name="app_description">多元化阅读，看见更大的世界</string>
-
-    /* 导航条 */
+    <!-- 导航条 -->
     <string name="tab_homepage">首页</string>
     <string name="tab_message">消息</string>
     <string name="tab_find">发现</string>
     <string name="tab_mine">我的</string>
 
-    /* 自定义Behavior路径 */
+    <!--自定义Behavior路径 -->
     <string name="tab_behavior">com.example.HealthyCampus.common.widgets.tab.TabBehavior</string>
 
     <string name="tab_about">关于</string>
@@ -26,8 +25,62 @@
     <string name="menu_share">分享</string>
 
 
+    <!--校验-->
 
+    <!--网络-->
+    <string name="network_request">网络请求中</string>
+    <string name="no_network">网络不可用，请检查您的网络</string>
+    <string name="netwotk_loginig">正在登录</string>
+    <string name="netwotk_registering">正在注册</string>
 
+    <!--登录-->
+    <!--界面-->
+    <string name="user_login">登录</string>
+    <string name="user_login_account_number">请输入账号或者手机号</string>
+    <string name="user_login_password">请输入密码</string>
+    <string name="user_login_forget_password">忘记密码</string>
+    <string name="user_login_registration">用户注册</string>
+    <string name="user_login_agreement1">登录即代表阅读并同意</string>
+    <string name="user_login_agreement2">服务协议</string>
+    <!--代码-->
+    <string name="user_login_success">登录成功</string>
+    <string name="user_login_fail">登录失败</string>
 
+    <!--注册1-->
+    <!--界面-->
+    <string name="register1_phone">请输入电话号码</string>
+    <string name="register1_picture_code">请输入图片验证码</string>
+    <string name="register1_short_message">请输入短信验证码</string>
+    <string name="register1_get_code">获取验证码</string>
+    <string name="register1_premise">注册即代表阅读并同意</string>
+    <string name="register1_service">服务协议</string>
+    <string name="register1_and">和</string>>
+    <string name="register1_private">隐私政策</string>
+    <string name="register1_next">下一步</string>>
+    <!--代码-->
+    <string name="register1_phone_not_empty">手机号码不能为空</string>>
+    <string name="register1_code_not_empty">验证码不能为空</string>>
+    <string name="register1_again_send">重新发送</string>>
+    <string name="register1_sms_verification_success">短信验证成功</string>>
+    <string name="register1_code_already_sent">验证码已经发送</string>>
+    <string name="register1_picture_code_error">图片验证码错误</string>>
+    <string name="register1_alread_register">该手机已注册</string>>
+
+    <!--注册2-->
+    <!--界面-->
+    <string name="register2_prompt">您的当前手机号为</string>
+    <string name="register2_phone">*** **** ****</string>
+    <string name="register2_set_pwd">请设置密码</string>
+    <string name="register2_input_pwd">请输入密码</string>
+    <string name="register2_hint_pwd">密码需含字母和数字的8-15位字符</string>
+    <string name="register2_recheck_hint_pwd">确认密码</string>
+    <string name="register2_Invitation_code">请输入邀请码（非必填）</string>
+    <string name="register2_logon">注册</string>
+    <!--代码-->
+    <string name="register2_password_not_in_Standard">密码不符合规范</string>
+    <string name="register2_password_not_in_matching">确认密码不一致</string>
+    <string name="register2_invalid_parameter">无效参数</string>
+    <string name="register2_try_again">服务器开了小差, 请稍后再试</string>
+    <string name="register2_register_success">恭喜您，注册成功!!!</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.module.loading;
+package com.example.HealthyCampus.module.Loading;
 
 /**
  * OK

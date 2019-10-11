@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.module.loading;
+package com.example.HealthyCampus.module.Loading;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.utils.AppStatusTracker;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.MainActivity;
+import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
+import com.example.HealthyCampus.module.Mine.Register.first.RegisterActivity1;
+import com.example.HealthyCampus.module.Mine.Register.second.RegisterActivity2;
 
 import butterknife.BindView;
 

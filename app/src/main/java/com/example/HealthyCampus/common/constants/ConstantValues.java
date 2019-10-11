@@ -12,7 +12,9 @@ public class ConstantValues {
     public static final String DIR_ROOT = "Campus_Health";
     public static final String DIR_PICTURE = DIR_ROOT + File.separator + "pictures";
 
+    //接口地址
     public static final String BASE_URL_ZHIHU = "http://news-at.zhihu.com/api/4/"; // HOST地址:知乎接口
+    public static final String BASE_URL_HEALTH = "http://192.168.43.136:8083/"; // HOST地址:后台接口
 
     public static final int ACTION_BACK_TO_HOME = 0;
     public static final int ACTION_RESTART_APP = 1;
@@ -22,12 +24,9 @@ public class ConstantValues {
     //Leancloud
     public static final String LEANCLOUD_ID = "WIpY3lbfr1v5TH1iotHksBDw-gzGzoHsz";
     public static final String LEANCLOUD_KEY = "80gt4yHgq9VrRcbRU9vak8ES";
-//    public static final String LEANCLOUD_ID = "lBIrjjfV0Q0xor6nzCOj7rAF-gzGzoHsz";
-//    public static final String LEANCLOUD_KEY = "0y6q2YwSQQxFex28L0u6pkhh";
 
     //Bugly
     public static final String BUGLY_ID = "1465e76353";
-//    public static final String BUGLY_ID = "ca044d3a78";
 
     //wechat
     public static final String WECHAT_ID = "wxefc902e8f8470d1e";
@@ -41,6 +40,10 @@ public class ConstantValues {
     //QQ Qzone
     public static final String TENCENT_ID = "1109884848";
     public static final String TENCENT_SECRET = "hOVIgFQL7vwpEHj1";
+
+    //MobSMSSDK
+    public static final String MOBSMSSDK_ID = "2c9b8ddbdb4b2";
+    public static final String MOBSMSSDK_SECRET = "71f3a0e022ec6007c72fbf16d2f6b56e";
 
     //http请求配置
     public static final boolean HTTP_CACHE_ENABLE = !BuildConfig.DEBUG; // 是否开启OkHTTP缓存
@@ -58,14 +61,23 @@ public class ConstantValues {
 
     //参数key
     public static final String KEY_HOME_ACTION = "key_home_action";
-
     public static final String KEY_HEALTH_ARTICLE_TITLE = "key_health_article_title";
     public static final String KEY_HEALTH_ARTICLE_ID = "key_health_article_id";
     public static final String KEY_HEALTH_ARTICLE_IMAGE = "key_health_article_image";
 
+    //VIEW
     public static final int VIEW_HEALTH_BANNER = 20;
     public static final int VIEW_HEALTH_SUMMARY = 21;
     public static final int VIEW_HEALTH_DATE = 22;
     public static final int VIEW_HEALTH_DOCOTOR_DISPLAY = 23;
+
+
+    //登录
+    public static int RESULT_CODE_USERNAME = 1101;
+    public static String KEY_USERNAME = "KEY_USERNAME";
+
+    public static final String REGISTER_ID = "REGISTER_ID";
+    public static final String COUNTRYCODE = "86";
+
 
 }

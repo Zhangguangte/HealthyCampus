@@ -32,9 +32,9 @@ public class ActivityUtils {
         }
     }
 
-/*    public static void startActivityByAnimation(@NonNull Activity activity, @NonNull BaseFragment fragment, @NonNull Bundle options) {
+/*    public static void startActivityByAnimation(@NonNull Activity activity, @NonNull BaseFragment Fragment, @NonNull Bundle options) {
         Intent intent = new Intent(activity, BaseContainerActivity.class);
-        BaseContainerActivity.setFragment(fragment);
+        BaseContainerActivity.setFragment(Fragment);
         ActivityCompat.startActivity(activity, intent, options);
     }*/
 

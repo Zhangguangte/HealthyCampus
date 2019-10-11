@@ -5,7 +5,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green4</item>
         <item name="colorPrimaryDark">@color/green4</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/green4</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
 

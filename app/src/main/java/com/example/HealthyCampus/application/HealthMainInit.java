@@ -8,9 +8,12 @@ import com.avos.avoscloud.AVOSCloud;
 import com.example.HealthyCampus.BuildConfig;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
-import com.example.HealthyCampus.common.data.source.HomePageRepository;
+import com.example.HealthyCampus.common.data.source.local.UserLocalDataSource;
+import com.example.HealthyCampus.common.data.source.remote.UserRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
 import com.example.HealthyCampus.common.data.source.local.HomePageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.remote.HomePageRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.repository.UserRepository;
 import com.example.HealthyCampus.common.utils.StorageManager;
 import com.example.HealthyCampus.framework.IAppInitialization;
 import com.example.HealthyCampus.module.MainActivity;
@@ -54,6 +57,9 @@ public class HealthMainInit implements IAppInitialization {
 
     private void initRepository() {
         HomePageRepository.initialize(HomePageRemoteDataSource.getInstance(), HomePageLocalDataSource.getInstance(appContext));
+        UserRepository.initialize(UserRemoteDataSource.getInstance(), UserLocalDataSource.getInstance(appContext));
+
+
 //        NewsRepository.initialize(NewsRemoteDataSource.getInstance(), NewsLocalDataSource.getInstance(appContext));
 //        WechatRepository.initialize(WechatRemoteDataSource.getInstance(), WechatLocalDataSource.getInstance(appContext));
 //        ZhihuRepository.initialize(ZhihuRemoteDataSource.getInstance(), ZhihuLocalDataSource.getInstance(appContext));
@@ -72,7 +78,7 @@ public class HealthMainInit implements IAppInitialization {
         Beta.showInterruptedStrategy = true;
         Beta.initDelay = 8 * 1000;
         Beta.canShowUpgradeActs.add(MainActivity.class);
-        Beta.smallIconId = R.drawable.logo1;
+        Beta.smallIconId = R.drawable.ic_app_round_logo;
         Bugly.init(appContext, ConstantValues.BUGLY_ID, BuildConfig.DEBUG);
         //CrashReport.testJavaCrash();
     }

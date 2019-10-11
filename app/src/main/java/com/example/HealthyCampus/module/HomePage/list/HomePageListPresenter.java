@@ -2,7 +2,7 @@ package com.example.HealthyCampus.module.HomePage.list;
 
 import com.example.HealthyCampus.common.data.model.BeforeNewsBean;
 import com.example.HealthyCampus.common.data.model.LatestNewsBean;
-import com.example.HealthyCampus.common.data.source.HomePageRepository;
+import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
 import com.example.HealthyCampus.common.data.source.callback.HomePageDataSource;
 
 /**

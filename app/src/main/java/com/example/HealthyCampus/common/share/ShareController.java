@@ -78,7 +78,7 @@ public class ShareController {
                     .setCallback(callBack)
                     .open(shareBoardConfig);
         } else {
-            UMImage image = new UMImage(activity, R.drawable.logo1);
+            UMImage image = new UMImage(activity, R.drawable.ic_app_round_logo);
             ShareAction shareAction = new ShareAction(activity);
             shareAction.setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA)
                     .withTargetUrl(url)
@@ -103,7 +103,7 @@ public class ShareController {
         if (activity == null) {
             return;
         }
-        UMImage image = new UMImage(activity, R.drawable.logo1);
+        UMImage image = new UMImage(activity, R.drawable.ic_app_round_logo);
         ShareAction shareAction = new ShareAction(activity);
         shareAction.setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA)
                 .withTargetUrl(ConstantValues.BUGLY_ID)

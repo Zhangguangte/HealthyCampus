@@ -2,12 +2,6 @@
 <resources>
 
 
-
-    <color name="blue">#4056AB</color>
-
-    <color name="text_level_1">#212121</color>
-    <color name="text_level_3">#757575</color>
-
     <!-- 主色调 -->
     <color name="green1">#43AB5F</color>
     <color name="green2">#34BE69</color>
@@ -15,18 +9,48 @@
     <color name="green4">#53DC92</color>
     <color name="green5">#74FF9E</color>
     <color name="green6">#6BEE97</color>
+
+    <!-- 公共 -->
+    <color name="hint_color">#B3B3BD</color>
+
+    <!--点击-->
+    <color name="clickable_color">#6BEE97</color>
+    <color name="not_clickable_color">#B4EDCD</color>
+
+    <!--文本颜色-->
+    <color name="text_level_1">#212121</color>
+    <color name="text_level_3">#757575</color>
+
+    <!--纯色-->
     <color name="lightblue">#BAFFEF</color>
     <color name="white">#FFFFFF</color>
     <color name="sun">#FFFFF4</color>
+    <color name="blue">#4056AB</color>
+
+
+
+
+    <!--tab-->
+    <color name="icons_tint_normal">#BDBDBD</color>
+
+
+
+
+
+    <!-- 输入框边框颜色 -->
+    <color name="input_backgroud">#B3B3BD</color>
+
+    <!--登录-->
+    <color name="login_input_backgroud">#F2F3F7</color>
+
+
+
 
     <color name="transparent">#00000000</color>
-    <color name="icons_tint_normal">#BDBDBD</color>
     <color name="md_selected">#19000000</color>
-
     <color name="background_page">#EEEEEE</color>
-
 
     <color name="colorPrimary">#53DC92</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#53DC92</color>  <!--D81B60-->
 </resources>

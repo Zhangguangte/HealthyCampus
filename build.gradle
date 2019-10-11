@@ -9,7 +9,9 @@ buildscript {
             url "http://mvn.leancloud.cn/nexus/content/repositories/public"
         }
         maven { url "https://maven.google.com" }
-
+        flatDir {
+            dirs 'libs'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
@@ -32,6 +34,9 @@ allprojects {
             url "https://jitpack.io"
         }
         maven { url "https://maven.google.com" }
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 

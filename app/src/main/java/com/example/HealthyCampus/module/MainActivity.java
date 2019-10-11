@@ -20,7 +20,7 @@ import com.example.HealthyCampus.module.Find.FindFragment;
 import com.example.HealthyCampus.module.HomePage.HomePageFragment;
 import com.example.HealthyCampus.module.Message.MessageFragment;
 import com.example.HealthyCampus.module.Mine.MineFragment;
-import com.example.HealthyCampus.module.loading.LoadingActivity;
+import com.example.HealthyCampus.module.Loading.LoadingActivity;
 
 import java.util.ArrayList;
 

@@ -10,15 +10,20 @@ import com.example.HealthyCampus.framework.BaseApplication;
 public class HealthApp extends BaseApplication {
 
     private static Context appContext;
-
+    private static HealthApp INSTANCE;
     @Override
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+        INSTANCE = this;
     }
 
     public static Context getAppContext() {
         return appContext;
+    }
+
+    public static HealthApp getInstance() {
+        return INSTANCE;
     }
 
     @Override

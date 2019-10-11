@@ -1,7 +1,7 @@
 package com.example.HealthyCampus.module.HomePage.article;
 
 import com.example.HealthyCampus.common.data.model.HomePageArticleBean;
-import com.example.HealthyCampus.common.data.source.HomePageRepository;
+import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
 import com.example.HealthyCampus.common.data.source.callback.HomePageDataSource;
 
 /**

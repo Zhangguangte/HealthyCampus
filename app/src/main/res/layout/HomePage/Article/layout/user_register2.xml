@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registerPage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green5"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/padding"
+        android:paddingBottom="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/returnBack2"
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_less"
+            app:srcCompat="@drawable/back_icon" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/words_logo_height"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/ic_app_words_logo" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/top_padding_more_less">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/register2_prompt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f0" />
+
+        <TextView
+            android:id="@+id/currentPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_less"
+            android:layout_marginBottom="@dimen/margin_less"
+            android:gravity="center"
+            android:text="@string/register2_phone"
+            android:textColor="@color/green1"
+            android:textSize="@dimen/text_f0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/register2_set_pwd"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f0" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_less"
+            android:gravity="center"
+            android:text="@string/register2_hint_pwd"
+            android:textColor="@color/green1"
+            android:textSize="@dimen/text_f2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin_more_less"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/left_padding_less"
+            android:paddingRight="@dimen/left_padding_less">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:background="@drawable/register_input_shape"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_less">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_gravity="left"
+                    app:srcCompat="@drawable/register_password" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginLeft="@dimen/margin_less"
+                    android:layout_marginRight="@dimen/margin_less"
+                    android:background="@color/hint_color" />
+
+                <EditText
+                    android:id="@+id/etPwd"
+                    android:layout_width="@dimen/no_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/register2_input_pwd"
+                    android:inputType="textPassword"
+                    android:maxLength="15"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="@dimen/text_f1" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginLeft="@dimen/margin_less"
+                    android:layout_marginRight="@dimen/margin_less"
+                    android:background="@color/hint_color" />
+
+                <ImageView
+                    android:id="@+id/showPassword1"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_gravity="right"
+                    app:srcCompat="@drawable/password_invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:background="@drawable/register_input_shape"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_less">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_gravity="left"
+                    app:srcCompat="@drawable/register_recheck_password" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginLeft="@dimen/margin_less"
+                    android:layout_marginRight="@dimen/margin_less"
+                    android:background="@color/hint_color" />
+
+                <EditText
+                    android:id="@+id/etRepeatPwd"
+                    android:layout_width="@dimen/no_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/register2_recheck_hint_pwd"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:maxLength="15"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="@dimen/text_f1" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginLeft="@dimen/margin_less"
+                    android:layout_marginRight="@dimen/margin_less"
+                    android:background="@color/hint_color" />
+
+                <ImageView
+                    android:id="@+id/showPassword2"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_gravity="right"
+                    app:srcCompat="@drawable/password_invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:background="@drawable/register_input_shape"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_less">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_gravity="left"
+                    app:srcCompat="@drawable/register_invitation_code" />
+
+                <View
+                    android:layout_width="@dimen/view_width"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginLeft="@dimen/margin_less"
+                    android:layout_marginRight="@dimen/margin_less"
+                    android:background="@color/hint_color" />
+
+                <EditText
+                    android:id="@+id/etInviteCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:hint="@string/register2_Invitation_code"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="@dimen/text_f1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/top_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register1_premise"
+                    android:textColorHint="@color/hint_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register1_service"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register1_and" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register1_private"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnSign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin"
+                android:background="@color/not_clickable_color"
+                android:enabled="false"
+                android:text="@string/register2_logon"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_f1" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

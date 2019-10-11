@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.common.data.source;
+package com.example.HealthyCampus.common.data.source.repository;
 
 import android.support.annotation.NonNull;
 
@@ -10,7 +10,6 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
  * OK
  */
 public class HomePageRepository implements HomePageDataSource {
-
     private final HomePageDataSource mHomePageRemoteDataSource;
     private final HomePageDataSource mHomePageLocalDataSource;
 

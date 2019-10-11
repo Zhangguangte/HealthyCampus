@@ -79,7 +79,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_banner, parent, false);
             return new HomePageListFragment.BannerHolder(itemView);
         } else if (viewType == ConstantValues.VIEW_HEALTH_DOCOTOR_DISPLAY) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_page_docotor_display, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_docotor_display, parent, false);
             return new HomePageListFragment.DisplayHolder(itemView);
         } else if (viewType == ConstantValues.VIEW_HEALTH_DATE) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_date, parent, false);
