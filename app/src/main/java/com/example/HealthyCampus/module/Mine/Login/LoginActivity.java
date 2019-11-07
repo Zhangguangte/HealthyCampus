@@ -20,21 +20,31 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.engine.MyTextWatcher;
+import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
+import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.MainActivity;
 import com.example.HealthyCampus.module.Mine.Register.first.RegisterActivity1;
+import com.example.HealthyCampus.service.UserService;
 
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 
+/**
+ * 2019.10.11
+ */
 
 public class LoginActivity extends BaseActivity<LoginContract.View, LoginContract.Presenter> implements LoginContract.View {
 
@@ -87,10 +97,11 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
 
     @OnClick(R.id.btnLogin)
     public void login(View view) {
-//        mPresenter.setAuthCode(etUsername.getText().toString(), etPassword.getText().toString());
+        showProgressView();
         LoginForm dataForm = mPresenter.encapsulationData(etUsername.getText().toString(), etPassword.getText().toString());
-        mPresenter.login(dataForm);
+        mPresenter.login(dataForm, etPassword.getText().toString());
     }
+
 
     @OnClick(R.id.btnRegister)
     public void Register(View view) {
@@ -168,17 +179,13 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
         Log.e("LoginActivity" + "123456", "Login error");
         if (throwable instanceof HttpException) {
             Response httpException = ((HttpException) throwable).response();
-            Log.e("LoginActivity" + "123456", "throwable.toString:" + throwable.toString());
-            Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
-            Log.e("LoginActivity" + "123456", "httpException.headers:" + httpException.headers());
-            Log.e("LoginActivity" + "123456", "httpException.message:" + httpException.message());
-            Log.e("LoginActivity" + "123456", "httpException.body:" + httpException.body());
-            Log.e("LoginActivity" + "123456", "httpException.errorBody:" + httpException.errorBody());
             try {
-                DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
+                String errorbody = httpException.errorBody().string();
+                DefaultResponseVo response = JsonUtil.format(errorbody, DefaultResponseVo.class);
+                Log.e("LoginActivity" + "123456", "errorbody:" + errorbody);
+                Log.e("LoginActivity" + "123456", "response.toString:" + response.toString());
                 if (response.code == 1001) {
-                    Log.e("LoginActivity" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(LoginActivity.this, "用户名密码错误");
+                    ToastUtil.show(LoginActivity.this, "账号或者密码错误");
                 } else {
                     ToastUtil.show(LoginActivity.this, "未知错误:" + throwable.getMessage());
                 }
@@ -186,6 +193,7 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
                 e.printStackTrace();
             }
         } else {
+            Log.e("LoginActivity" + "123456", "throwable.getMessage()" + throwable.getMessage());
             ToastUtil.show(LoginActivity.this, "未知错误:" + throwable.getMessage());
         }
         // Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
@@ -208,10 +216,15 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
 
     @Override
     public void initProgressView() {
-        MaterialDialog.Builder builder= DialogUtil.ProgressView(this);
+        MaterialDialog.Builder builder = DialogUtil.ProgressView(this);
         builder.title(R.string.network_request)// 标题
                 .content(R.string.netwotk_loginig);
         progressDialog = builder.build();// 创建对话框
+    }
+
+    @Override
+    public void showProgressDialog(String msg) {
+        super.showProgressDialog(msg);
     }
 
     @Override

@@ -300,3 +300,4 @@ public static final ** CREATOR;
 -keep class com.linkedin.** { *; }
 -keepattributes Signature
 -keepattributes EnclosingMethod
+

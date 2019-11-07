@@ -13,17 +13,17 @@ public class RegisterPresenter2 extends RegisterContract2.Presenter {
     }
 
     @Override
-    public void listenRegisterEditText() {
+    protected void listenRegisterEditText() {
         getView().listenRegisterEditTextStatus();
     }
 
     @Override
-    public void foucusRegisterEditText() {
+    protected void foucusRegisterEditText() {
         getView().focusRegisterEditTextStatus();
     }
 
     @Override
-    public void register(RegisterFrom registerFrom) {
+    protected void register(RegisterFrom registerFrom) {
         getView().showProgressView();
         UserRepository.getInstance().register(registerFrom, new UserDataSource.UserRegister() {
             @Override
@@ -41,7 +41,7 @@ public class RegisterPresenter2 extends RegisterContract2.Presenter {
     }
 
     @Override
-    public RegisterFrom encapsulationData(String phone, String _password) {
+    protected RegisterFrom encapsulationData(String phone, String _password) {
         RegisterFrom registerFrom = new RegisterFrom();
         registerFrom.setPassword(_password);
         registerFrom.setPhone(phone);

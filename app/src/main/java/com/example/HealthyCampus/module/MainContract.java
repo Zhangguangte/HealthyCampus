@@ -11,11 +11,12 @@ import com.example.HealthyCampus.framework.BaseView;
 interface MainContract {
     interface View extends BaseView {
         Context getContext();
+
         void showSnackBar(int resId);
         void finishView();
     }
 
-    abstract class Presenter extends BasePresenter<View>{
+    abstract class Presenter extends BasePresenter<View> {
         public abstract void exitApp();
     }
 

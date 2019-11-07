@@ -8,21 +8,42 @@ import com.avos.avoscloud.AVOSCloud;
 import com.example.HealthyCampus.BuildConfig;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.data.source.local.FriendLocalDataSource;
+import com.example.HealthyCampus.common.data.source.local.MessageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.UserLocalDataSource;
+import com.example.HealthyCampus.common.data.source.remote.FriendRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.remote.MessageRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.UserRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.repository.FriendRepository;
 import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
 import com.example.HealthyCampus.common.data.source.local.HomePageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.remote.HomePageRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.repository.MessageRepository;
 import com.example.HealthyCampus.common.data.source.repository.UserRepository;
+import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.utils.StorageManager;
 import com.example.HealthyCampus.framework.IAppInitialization;
+import com.example.HealthyCampus.framework.helper.MySQLiteOpenHelper;
+import com.example.HealthyCampus.greendao.DaoMaster;
 import com.example.HealthyCampus.module.MainActivity;
+import com.github.yuweiguocn.library.greendao.MigrationHelper;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+
+import static cn.jpush.im.android.api.JMessageClient.FLAG_NOTIFY_SILENCE;
+import static com.example.HealthyCampus.common.constants.ConstantValues.JAPP_KEY;
+import static com.example.HealthyCampus.common.helper.SPHelper.JPUSH_MUSIC;
+import static com.example.HealthyCampus.common.helper.SPHelper.JPUSH_ROAMING;
+import static com.example.HealthyCampus.common.helper.SPHelper.JPUSH_VIB;
 
 
 /**
@@ -31,18 +52,20 @@ import com.umeng.socialize.UMShareAPI;
 public class HealthMainInit implements IAppInitialization {
 
     private Context appContext;
-
+    public MySQLiteOpenHelper helper;
+    private DaoMaster master;
     @Override
     public void onAppCreate(Application application) {
 
         appContext = application.getApplicationContext();
-
         initLog();
         initStorage();
         initRepository();
         initLeanCloud();
         initBugly();
         initUmengShare();
+        initJPush();
+        setupDatabase(); //初始化数据库
     }
 
     private void initLog() {
@@ -58,7 +81,8 @@ public class HealthMainInit implements IAppInitialization {
     private void initRepository() {
         HomePageRepository.initialize(HomePageRemoteDataSource.getInstance(), HomePageLocalDataSource.getInstance(appContext));
         UserRepository.initialize(UserRemoteDataSource.getInstance(), UserLocalDataSource.getInstance(appContext));
-
+        MessageRepository.initialize(MessageRemoteDataSource.getInstance(), MessageLocalDataSource.getInstance(appContext));
+        FriendRepository.initialize(FriendRemoteDataSource.getInstance(), FriendLocalDataSource.getInstance(appContext));
 
 //        NewsRepository.initialize(NewsRemoteDataSource.getInstance(), NewsLocalDataSource.getInstance(appContext));
 //        WechatRepository.initialize(WechatRemoteDataSource.getInstance(), WechatLocalDataSource.getInstance(appContext));
@@ -93,4 +117,35 @@ public class HealthMainInit implements IAppInitialization {
         Config.isJumptoAppStore = true;
         UMShareAPI.get(appContext);
     }
+
+    private void initJPush() {
+        JPushInterface.setDebugMode(true);   //开启极光调试
+        JPushInterface.init(appContext);   //实例化极光推送
+        JMessageClient.init(appContext, true);     //实例化极光IM,并自动同步聊天记录
+        JMessageClient.setDebugMode(true);
+//        SMSSDK.getInstance().initSdk(mContext);    //初始化极光sms
+        JMessageClient.setNotificationFlag(FLAG_NOTIFY_SILENCE);  //通知管理,通知栏开启，其他关闭
+
+
+        //初始化utils
+//        Utils.init(this);
+
+//        //推送状态
+//        SPHelper.setBoolean(JPUSH_ROAMING, true);
+//        SPHelper.setBoolean(JPUSH_MUSIC, false);
+//        SPHelper.setBoolean(JPUSH_VIB, false); /*震动开启状态*/
+//        SPHelper.setString("JAPP_KEY", JAPP_KEY);
+    }
+
+    private void setupDatabase() {
+        //是否开启调试
+        MigrationHelper.DEBUG = true;
+        QueryBuilder.LOG_SQL = true;
+        QueryBuilder.LOG_VALUES = true;
+        //数据库升级
+        helper = new MySQLiteOpenHelper(appContext, "text");
+        master = new DaoMaster(helper.getWritableDb());
+
+    }
+
 }

@@ -19,22 +19,21 @@
 
     <!--文本颜色-->
     <color name="text_level_1">#212121</color>
+    <color name="text_level_2">#66000000</color>
     <color name="text_level_3">#757575</color>
 
     <!--纯色-->
-    <color name="lightblue">#BAFFEF</color>
+    <color name="lightblue">#39EBBD</color>
+    <color name="cyan">#F025E0A9</color>
+    <color name="zz">#F03CF1BA</color>
     <color name="white">#FFFFFF</color>
     <color name="sun">#FFFFF4</color>
     <color name="blue">#4056AB</color>
-
-
-
+    <color name="lightgreen">#6DFFCE</color>
+    <color name="lightgrey">#E9E9E9</color>
 
     <!--tab-->
     <color name="icons_tint_normal">#BDBDBD</color>
-
-
-
 
 
     <!-- 输入框边框颜色 -->
@@ -44,11 +43,29 @@
     <color name="login_input_backgroud">#F2F3F7</color>
 
 
+    //****************************************
+
+    <!-- information_item -->
+    <color name="item_title_head_font">#181818</color>
+    <color name="item_title_content_font">#999999</color>
+    <color name="interval_background">#F2F2F2</color>
+
+    //*****************************************
+
+
+
+    <!-- address_list -->
+    <color name="address_list_background">#f2f2f2</color>
+    <color name="address_list_titleBackground">#f8f8f8</color>
+
+    <!--user-->
+    <color name="user_information_send_bg">#68B9F8</color>
 
 
     <color name="transparent">#00000000</color>
     <color name="md_selected">#19000000</color>
     <color name="background_page">#EEEEEE</color>
+
 
     <color name="colorPrimary">#53DC92</color>
     <color name="colorPrimaryDark">#00574B</color>

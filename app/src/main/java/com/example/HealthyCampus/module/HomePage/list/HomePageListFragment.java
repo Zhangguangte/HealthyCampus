@@ -16,7 +16,6 @@ import com.example.HealthyCampus.common.data.model.TopStoriesBean;
 import com.example.HealthyCampus.common.utils.ActivityUtils;
 import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.GlideUtils;
-import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.common.widgets.pullrecycler.PullRecycler;
 import com.example.HealthyCampus.framework.BaseListFragment;
@@ -52,11 +51,22 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
                 pullRecycler.setRefreshing();
             }
         }, 200);
+
+    }
+
+    @Override
+    public void immersive() {
+//        StatusBarUtil.setRootViewFitsSystemWindows(mActivity, false);
+//        StatusBarUtil.setTranslucentStatus(mActivity);
+//        if (!StatusBarUtil.setStatusBarDarkTheme(mActivity, true)) {
+//            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+//            //这样半透明+白=灰, 状态栏的文字能看得清
+//            StatusBarUtil.setStatusBarColor(mActivity, 0x55000000);
+//        }
     }
 
     @Override
     protected int getItemType(int position) {
-
         if (mDataList.get(position).getType() == ConstantValues.VIEW_HEALTH_BANNER) {
             return ConstantValues.VIEW_HEALTH_BANNER;
         } else if (mDataList.get(position).getType() == ConstantValues.VIEW_HEALTH_DOCOTOR_DISPLAY) {
@@ -66,31 +76,26 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         } else {
             return ConstantValues.VIEW_HEALTH_SUMMARY;
         }
-
-
     }
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
 
 //        LogUtil.logE("HomePageListFragment" + "123456", "viewType" + viewType);
-
-        if (viewType == ConstantValues.VIEW_HEALTH_BANNER) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_banner, parent, false);
-            return new HomePageListFragment.BannerHolder(itemView);
-        } else if (viewType == ConstantValues.VIEW_HEALTH_DOCOTOR_DISPLAY) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_docotor_display, parent, false);
-            return new HomePageListFragment.DisplayHolder(itemView);
+        if (viewType == ConstantValues.VIEW_HEALTH_SUMMARY) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_summary, parent, false);
+            return new HomePageListFragment.SummaryHolder(itemView);
         } else if (viewType == ConstantValues.VIEW_HEALTH_DATE) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_date, parent, false);
             return new HomePageListFragment.DateHolder(itemView);
-        } else if (viewType == ConstantValues.VIEW_HEALTH_SUMMARY) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_summary, parent, false);
-            return new HomePageListFragment.SummaryHolder(itemView);
         }
-
-
-        return null;
+        else if (viewType == ConstantValues.VIEW_HEALTH_BANNER) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_banner, parent, false);
+            return new HomePageListFragment.BannerHolder(itemView);
+        } else{
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_docotor_display, parent, false);
+            return new HomePageListFragment.DisplayHolder(itemView);
+        }
     }
 
     @Override
@@ -100,7 +105,6 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
     @Override
     public void onRefresh(int action) {
-
         if (action == PullRecycler.ACTION_PULL_TO_REFRESH) {
             mPresenter.getLatestNews();
         } else {
@@ -259,12 +263,10 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
         @Override
         public void onItemClick(View view, int position) {
-
             try {
                 String title = mDataList.get(position).getTitle();
                 String url = mDataList.get(position).getImages().get(0);
                 int id = mDataList.get(position).getId();
-
                 ActivityUtils.startActivity(mActivity, HomePageArticleFragment.newInstance(title, id, url));
             } catch (Exception e) {
                 e.printStackTrace();

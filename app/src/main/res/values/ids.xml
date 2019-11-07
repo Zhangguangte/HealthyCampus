@@ -9,4 +9,19 @@
     <item name="collapsingToolbarLayout" type="id"></item>
     <item name="webView" type="id"></item>
     <item name="swipeLoadDataLayout" type="id"/>
+
+
+    <!--toolbar_custom_title-->
+    <item name="tvTitle" type="id"/>
+    <item name="tvFunction" type="id"/>
+    <item name="ivBack" type="id"/>
+    <item name="toolbar_title" type="id"/>
+
+    <!--immersion-->
+    <item name="immersion_status_bar_view" type="id" />
+    <item name="immersion_navigation_bar_view" type="id" />
+    <item name="immersion_fits_layout_overlap" type="id" />
+    <item name="action_bar_container" type="id" />
+
+
 </resources>

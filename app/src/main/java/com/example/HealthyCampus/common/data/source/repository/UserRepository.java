@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.data.form.RegisterFrom;
+import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.UserDataSource;
-import com.example.HealthyCampus.common.network.vo.UserVo;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
@@ -48,5 +48,19 @@ public class UserRepository implements UserDataSource {
         mUserRemoteDataSource.searchPhone(registerFrom,callback);
     }
 
+    @Override
+    public void getUserInformation(@NonNull String account, @NonNull UserInformation callback) {
+        mUserRemoteDataSource.getUserInformation(account,callback);
+    }
+
+    @Override
+    public void searchUser(@NonNull String searchWords, @NonNull UserInformation callback) {
+        mUserRemoteDataSource.searchUser(searchWords,callback);
+    }
+
+    @Override
+    public void searchUser(@NonNull RequestForm requestForm, @NonNull UserInformation callback) {
+        mUserRemoteDataSource.searchUser(requestForm,callback);
+    }
 
 }

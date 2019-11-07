@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/title_bar" />
+
+    <include
+        android:id="@+id/message_function"
+        layout="@layout/message_function"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title_bar"/>
+
+
+    <include
+        layout="@layout/message_no_chat"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_below="@+id/message_function"/>
+
+
+    <FrameLayout
+        android:id="@+id/mContainerLayout"
+        android:layout_below="@+id/message_function"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

@@ -1,38 +1,47 @@
 package com.example.HealthyCampus.framework;
 
-import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.WindowManager;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.immersionbar.ImmersionBar;
 import com.example.HealthyCampus.common.utils.AppStatusTracker;
+import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.module.MainActivity;
 import com.umeng.socialize.UMShareAPI;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
- *OK
+ * OK
+ *
  * @param <V>
  * @param <T>
  */
 public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
 
     protected T mPresenter;
-
+    private Unbinder unbinder;
+    //加载中
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //初始化沉浸式
+        initImmersionBar();
         switch (AppStatusTracker.getInstance().getAppStatus()) {
             case ConstantValues.STATUS_FORCE_KILLED:
                 protectApp();
@@ -44,23 +53,25 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             case ConstantValues.STATUS_OFFLINE:
             case ConstantValues.STATUS_ONLINE:
                 setUpContentView();
-                ButterKnife.bind(this); //添加View注解
+                unbinder = ButterKnife.bind(this);//添加View注解
+                ButterKnife.bind(this);
                 initPresenter();
                 initView();
                 initData(savedInstanceState);
-
-
-                StatusBarUtil.setRootViewFitsSystemWindows(this,false);
-                StatusBarUtil.setTranslucentStatus(this);
-                if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
-                    //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
-                    //这样半透明+白=灰, 状态栏的文字能看得清
-                    StatusBarUtil.setStatusBarColor(this,0x55000000);
-                }
                 break;
         }
     }
 
+    /**
+     * 初始化沉浸式
+     * Init immersion bar.
+     */
+    protected void initImmersionBar() {
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+        //白色字体
+        StatusBarUtil.setStatusBarDarkTheme(this, false);
+    }
 
     private void initPresenter() {
         mPresenter = createPresenter();
@@ -81,6 +92,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         intent.putExtra(ConstantValues.KEY_HOME_ACTION, ConstantValues.ACTION_KICK_OUT);
         startActivity(intent);
     }
+
     protected abstract void setUpContentView();
 
     protected abstract T createPresenter();
@@ -89,31 +101,37 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
     protected abstract void initData(Bundle savedInstanceState);
 
+
     @Override
     protected void onRestart() {
         super.onRestart();
+        LogUtil.logE("BaseActivity123456", toString() + ":onRestart");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        LogUtil.logE("BaseActivity123456", toString() + ":onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         AVAnalytics.onResume(this);
+        LogUtil.logE("BaseActivity123456", toString() + ":onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         AVAnalytics.onPause(this);
+        LogUtil.logE("BaseActivity123456", toString() + ":onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        LogUtil.logE("BaseActivity123456", toString() + ":onStop");
     }
 
     @Override
@@ -121,6 +139,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         super.onActivityResult(requestCode, resultCode, data);
         //UmengShare 回调相关配置
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        LogUtil.logE("BaseActivity123456", toString() + ":onActivityResult");
     }
 
     @Override
@@ -129,16 +148,48 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         if (mPresenter != null) {
             mPresenter.detachView();
         }
+        unbinder.unbind();
+        //销毁
+        JMessageClient.unRegisterEventReceiver(this);
+        LogUtil.logE("BaseActivity123456", toString() + ":onDestroy");
     }
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        LogUtil.logE("BaseActivity123456", toString() + ":finish");
     }
 
     public void noNetWork() {
         ToastUtil.show(this, R.string.no_network);
+    }
+
+    /*自定义消息的加载进度条*/
+    public void showProgressDialog(String msg) {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(msg);
+        progressDialog.setCancelable(true);
+        progressDialog.setCanceledOnTouchOutside(false);
+        try {
+            progressDialog.show();
+        } catch (WindowManager.BadTokenException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    /**
+     * 隐藏正在加载的进度条
+     *
+     */
+    public void dismissProgressDialog() {
+        if (null != progressDialog && progressDialog.isShowing() == true) {
+            progressDialog.dismiss();
+        }
     }
 
 

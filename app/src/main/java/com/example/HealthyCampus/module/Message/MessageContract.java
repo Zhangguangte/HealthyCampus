@@ -5,6 +5,7 @@ import com.example.HealthyCampus.framework.BaseView;
 
 interface MessageContract {
     interface View extends BaseView {
+        void noChatItemVisible(boolean visible);
     }
 
     abstract class Presenter extends BasePresenter<View> {

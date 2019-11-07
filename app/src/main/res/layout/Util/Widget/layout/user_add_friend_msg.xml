@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/left_padding_less"
+        android:paddingTop="@dimen/top_padding"
+        android:paddingBottom="@dimen/padding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="@dimen/icon_size_more_more1"
+                android:layout_height="@dimen/icon_size_more_more1"
+                android:src="@mipmap/head_default" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_margin1"
+                android:layout_marginTop="@dimen/margin_less"
+                android:layout_toRightOf="@+id/ivIcon"
+                android:paddingBottom="@dimen/padding_less2"
+                android:text="Pony"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_f2" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin0"
+            android:text="填写验证信息"
+            android:textSize="@dimen/text_f4" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height_one"
+        android:background="@color/text_level_2" />
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:ellipsize="end"
+        android:maxLength="200"
+        android:paddingLeft="@dimen/padding"
+        android:paddingTop="@dimen/padding_less2"
+        android:paddingBottom="@dimen/padding_less2"
+        android:textSize="@dimen/text_f2" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height_one"
+        android:background="@color/text_level_2" />
+
+
+</LinearLayout>

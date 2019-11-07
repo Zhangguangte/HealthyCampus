@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <!--<com.flyco.tablayout.SegmentTabLayout-->
+        <!--android:id="@+id/add_tab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="32dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--tl:tl_bar_color="#ffffff"-->
+        <!--tl:tl_indicator_color="@color/colorTheme"-->
+        <!--tl:tl_indicator_corner_radius="5dp"-->
+        <!--tl:tl_tab_width="80dp"/>-->
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/icon_search"
+        android:hint="@string/user_add_friend_search_people"
+        android:textSize="@dimen/text_f3"
+        android:singleLine="true"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/left_padding_less"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height_one"
+        android:background="@color/text_level_2"/>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btn_height1"
+        android:text="@string/user_add_friend_search"
+        android:textColor="@color/white"
+        android:clickable="true"
+        android:background="@drawable/shape_button_lines"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/top_margin0"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_less3"
+        android:layout_marginTop="@dimen/top_margin"
+        android:layout_marginLeft="@dimen/left_margin"
+        android:text="@string/user_add_friend_search_history"
+        android:textSize="@dimen/text_f4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height_one"
+        android:background="@color/text_level_2"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/clearHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btn_height1"
+        android:gravity="center"
+        android:paddingLeft="@dimen/padding_less2"
+        android:paddingRight="@dimen/padding_less2"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/text_f4"
+        android:text="@string/user_add_friend_clear_history"
+        android:layout_marginBottom="@dimen/margin_mo"/>
+</LinearLayout>

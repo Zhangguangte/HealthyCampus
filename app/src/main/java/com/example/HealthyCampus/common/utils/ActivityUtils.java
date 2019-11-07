@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.HealthyCampus.framework.BaseContainerActivity;
 import com.example.HealthyCampus.framework.BaseFragment;
+import com.example.HealthyCampus.module.Message.New_friend.NewFriendActivity;
 
 /**
  * OK

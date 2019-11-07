@@ -2,20 +2,34 @@ package com.example.HealthyCampus.common.network.vo;
 
 import com.example.HealthyCampus.dao.Friend;
 
-/**
- * OK
- */
-public class UserVo {
+import java.io.Serializable;
+import java.util.Date;
+
+
+public class UserVo implements Serializable {
+
     public String id;
-    public String username;
+    public String account;
     public String nickname;
     public String avatar;
     public String description;
-    public String location;
     public String sex;
+    public String location;
     public String phone;
+    public String createTime;
+    public String lastmodifyTime;
+    public String initials;
+    public boolean isfriends;
 
     public UserVo() {
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+
+    public void setInitials(String initials) {
+        this.initials = initials;
     }
 
     public String getPhone() {
@@ -34,13 +48,6 @@ public class UserVo {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getNickname() {
         return nickname;
@@ -82,38 +89,53 @@ public class UserVo {
         this.sex = sex;
     }
 
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getLastmodifyTime() {
+        return lastmodifyTime;
+    }
+
+    public void setLastmodifyTime(String lastmodifyTime) {
+        this.lastmodifyTime = lastmodifyTime;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public boolean isIsfriends() {
+        return isfriends;
+    }
+
+    public void setIsfriends(boolean isfriends) {
+        this.isfriends = isfriends;
+    }
+
     @Override
     public String toString() {
         return "UserVo{" +
                 "id='" + id + '\'' +
-                ", username='" + username + '\'' +
+                ", account='" + account + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 ", sex='" + sex + '\'' +
+                ", phone='" + phone + '\'' +
+                ", createTime=" + createTime +
+                ", lastmodifyTime=" + lastmodifyTime +
+                ", isfriends=" + isfriends +
                 '}';
-    }
-
-    public Friend generateFriend() {
-        Friend friend = new Friend();
-        friend.setUid(this.id);
-        friend.setUsername(this.username);
-        friend.setNickname(this.nickname);
-        friend.setAvatar(this.avatar);
-        friend.setDescription(this.description);
-        friend.setSex(this.sex);
-        friend.setLocation(this.location);
-        return friend;
-    }
-
-    public Friend fixFriend(Friend friend) {
-        friend.setUsername(this.username);
-        friend.setNickname(this.nickname);
-        friend.setAvatar(this.avatar);
-        friend.setDescription(this.description);
-        friend.setSex(this.sex);
-        friend.setLocation(this.location);
-        return friend;
     }
 }

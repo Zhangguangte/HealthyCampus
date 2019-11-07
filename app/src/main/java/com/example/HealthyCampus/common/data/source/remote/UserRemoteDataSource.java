@@ -1,24 +1,17 @@
 package com.example.HealthyCampus.common.data.source.remote;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.data.form.RegisterFrom;
-import com.example.HealthyCampus.common.data.model.HomePageArticleBean;
+import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.UserDataSource;
 import com.example.HealthyCampus.common.network.NetworkManager;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.LogUtil;
-import com.orhanobut.logger.Logger;
 
-import java.io.IOException;
-
-import retrofit2.Response;
-import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -42,7 +35,8 @@ public class UserRemoteDataSource implements UserDataSource {
 
     @Override
     public void login(@NonNull LoginForm dataForm, @NonNull final UserLogin callback) {
-        NetworkManager.getUserApi()
+
+        NetworkManager.getInstance().getUserApi()
                 .login(dataForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
@@ -57,7 +51,7 @@ public class UserRemoteDataSource implements UserDataSource {
                     public void call(UserVo userVo) {
 //                        LogUtil.logE("UserRemoteDa" + "123456", "9:" + userVo);
 //                        LogUtil.logE("UserRemoteDa" + "123456", "Login Success");
-                        callback.loginSuccess();
+                        callback.loginSuccess(userVo);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -69,7 +63,7 @@ public class UserRemoteDataSource implements UserDataSource {
 
     @Override
     public void register(@NonNull RegisterFrom registerFrom, @NonNull UserRegister callback) {
-        NetworkManager.getUserApi()
+        NetworkManager.getInstance().getUserApi()
                 .register(registerFrom)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
@@ -97,27 +91,108 @@ public class UserRemoteDataSource implements UserDataSource {
 
     @Override
     public void searchPhone(@NonNull RegisterFrom registerFrom, @NonNull UserSearchPhone callback) {
-        NetworkManager.getUserApi()
+        NetworkManager.getInstance().getUserApi()
                 .searchPhone(registerFrom)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        Log.e("UserRemoteDa" + "123456", "register:7");
+                        Log.e("UserRemoteDa" + "123456", "searchPhone:7");
                     }
                 })
                 .subscribe(new Action1<DefaultResponseVo>() {
                     @Override
                     public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("UserRemoteDa" + "123456", "register:8");
-                        Log.e("UserRemoteDa" + "123456", "register:defaultResponseVo"+defaultResponseVo.toString());
+                        Log.e("UserRemoteDa" + "123456", "searchPhone:8");
+                        Log.e("UserRemoteDa" + "123456", "searchPhone:defaultResponseVo"+defaultResponseVo.toString());
                         callback.onDataAvailable(defaultResponseVo.message);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("UserRemoteDa" + "123456", "register:9");
+                        Log.e("UserRemoteDa" + "123456", "searchPhone:9");
+                        callback.onDataNotAvailable(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getUserInformation(@NonNull String account, @NonNull UserInformation callback) {
+        NetworkManager.getInstance().getUserApi()
+                .getUserInformation(account)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        Log.e("UserRemoteDa" + "123456", "getUserInformation:7");
+                    }
+                })
+                .subscribe(new Action1<UserVo>() {
+                    @Override
+                    public void call(UserVo userVo) {
+                        Log.e("UserRemoteDa" + "123456", "getUserInformation:8");
+                        callback.onDataAvailable(userVo);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.e("UserRemoteDa" + "123456", "getUserInformation:9");
+                        callback.onDataNotAvailable(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void searchUser(@NonNull String searchWords, @NonNull UserInformation callback) {
+        NetworkManager.getInstance().getUserApi()
+                .searchUser(searchWords)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        Log.e("UserRemoteDa" + "123456", "searchUser:7");
+                    }
+                })
+                .subscribe(new Action1<UserVo>() {
+                    @Override
+                    public void call(UserVo userVo) {
+                        Log.e("UserRemoteDa" + "123456", "searchUser:8");
+                        callback.onDataAvailable(userVo);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.e("UserRemoteDa" + "123456", "searchUser:9");
+                        callback.onDataNotAvailable(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void searchUser(@NonNull RequestForm requestForm, @NonNull UserInformation callback) {
+        NetworkManager.getInstance().getUserApi()
+                .searchUser(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        Log.e("UserRemoteDa" + "123456", "searchUser:7");
+                    }
+                })
+                .subscribe(new Action1<UserVo>() {
+                    @Override
+                    public void call(UserVo userVo) {
+                        Log.e("UserRemoteDa" + "123456", "searchUser:8");
+                        callback.onDataAvailable(userVo);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.e("UserRemoteDa" + "123456", "searchUser:9");
                         callback.onDataNotAvailable(throwable);
                     }
                 });

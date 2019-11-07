@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_page">
-    <include layout="@layout/view_toolbar_main"/>
-
+    <include
+        layout="@layout/view_toolbar_main"/>
     <FrameLayout
         android:id="@+id/mFragmentContainerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_weight="1"/>
 
     <com.example.HealthyCampus.common.widgets.tab.TabLayout
         android:id="@id/mBottomTabLayout"

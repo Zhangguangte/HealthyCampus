@@ -13,17 +13,17 @@ public class RegisterPresenter1 extends RegisterContract1.Presenter {
     }
 
     @Override
-    public void listenRegisterEditText() {
+    protected void listenRegisterEditText() {
         getView().listenRegisterEditTextStatus();
     }
 
     @Override
-    public void foucusRegisterEditText() {
+    protected void foucusRegisterEditText() {
         getView().focusRegisterEditTextStatus();
     }
 
     @Override
-    public void searchPhone(RegisterFrom registerFrom) {
+    protected void searchPhone(RegisterFrom registerFrom) {
         getView().showProgressView();
         UserRepository.getInstance().searchPhone(registerFrom, new UserDataSource.UserSearchPhone() {
             @Override

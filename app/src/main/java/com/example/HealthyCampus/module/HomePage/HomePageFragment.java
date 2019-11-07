@@ -1,8 +1,5 @@
 package com.example.HealthyCampus.module.HomePage;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -25,7 +22,8 @@ public class HomePageFragment extends BaseFragment<HomePageContract.View, HomePa
 
     @Override
     public int setContentLayout() {
-        return R.layout.fragment_home_page;
+    //    immersive();
+        return R.layout.fragment_base_page;
     }
 
     @Override
@@ -35,10 +33,9 @@ public class HomePageFragment extends BaseFragment<HomePageContract.View, HomePa
             getChildFragmentManager().beginTransaction()
                     .add(R.id.mContainerLayout, fragment, HomePageListFragment.class.getSimpleName())
                     .commitAllowingStateLoss();
-
         }
-
     }
+
 
     @Override
     protected HomePageContract.Presenter setPresenter() {
@@ -46,5 +43,13 @@ public class HomePageFragment extends BaseFragment<HomePageContract.View, HomePa
     }
 
 
-
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+//        if(hidden)
+//        {
+//            StatusBarUtil.setTranslucentStatusShow(mActivity);
+//        }
+//        Log.i("MessageListFragm" + "123456", "onHiddenChanged:2");
+    }
 }

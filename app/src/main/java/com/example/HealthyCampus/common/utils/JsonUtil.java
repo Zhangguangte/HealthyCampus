@@ -11,7 +11,7 @@ public final class JsonUtil {
 
     private static Gson gson = new Gson();
 
-    public static <T> T format(String data, Class<T> cls) {
+    public static <T> T format(String data, Class<T> cls) throws IllegalStateException {
         if (StringUtil.isEmpty(data)) {
             throw new JsonSyntaxException("Invalid JSON string.");
         }

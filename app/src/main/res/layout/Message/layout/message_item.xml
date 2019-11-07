@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_less"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/padding_less">
+
+    <org.raphets.roundimageview.RoundImageView
+        android:id="@+id/headIcon"
+        android:layout_width="@dimen/icon_size_more_more"
+        android:layout_height="@dimen/icon_size_more_more"
+        android:src="@drawable/head_default"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/left_margin"
+        app:type="circle" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/left_margin"
+        android:layout_toRightOf="@id/headIcon"
+        android:gravity="left"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_item_username"
+            android:singleLine="true"
+            android:textColor="@color/item_title_head_font"
+            android:textSize="@dimen/text_f2"/>
+
+        <TextView
+            android:id="@+id/lastMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_level_2"
+            android:textSize="@dimen/text_f3"
+            android:singleLine="true"
+            android:layout_marginTop="@dimen/top_margin_less_less"
+            android:text="@string/message_item_last_message" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/right_margin"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lastTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_item_last_time"
+            android:singleLine="true"
+            android:textSize="@dimen/text_f3"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:id="@+id/newTips"
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_marginTop="@dimen/top_padding_less"
+            android:textColor="@color/white"
+            android:layout_gravity="right"
+            android:text="3"
+            android:gravity="center"
+            android:background="@drawable/message_view_dot"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

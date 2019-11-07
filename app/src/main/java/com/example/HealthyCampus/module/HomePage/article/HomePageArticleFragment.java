@@ -151,6 +151,7 @@ public class HomePageArticleFragment extends BaseFragment<HomePageArticleContrac
         return super.onOptionsItemSelected(item);
     }
 
+
     private void share() {
         if (articleBean != null) {
             if (!TextUtils.isEmpty(articleBean.getImage())) {

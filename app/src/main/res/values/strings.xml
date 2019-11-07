@@ -2,6 +2,12 @@
     <string name="app_name">校园健康</string>
     <string name="app_description">校园健康--毕业设计</string>
 
+    <!--公用-->
+    <string name="back">返回</string>
+    <string name="clear">清空</string>
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
+
     <!-- 导航条 -->
     <string name="tab_homepage">首页</string>
     <string name="tab_message">消息</string>
@@ -82,5 +88,76 @@
     <string name="register2_invalid_parameter">无效参数</string>
     <string name="register2_try_again">服务器开了小差, 请稍后再试</string>
     <string name="register2_register_success">恭喜您，注册成功!!!</string>
+
+    <!--消息-->
+    <!--界面-->
+    <string name="message_item_username">用户名</string>
+    <string name="message_item_last_message">最新消息</string>
+    <string name="message_item_last_time">**:**</string>
+    <string name="message_title">消息</string>
+    <string name="message_initiate_chat">发起聊天</string>
+    <string name="message_mail_list">通讯录</string>
+    <string name="message_new_friend">新朋友</string>
+    <string name="message_ground_chat">群聊</string>
+    <string name="message_notice">通知</string>
+    <string name="message_no_chat">暂时没有新消息</string>
+
+    <!--通讯录-->
+    <!--界面-->
+    <string name="message_address_list">通讯录</string>
+    <string name="message_address_list_catalog">A</string>
+    <string name="message_address_no_friend">你还没有任何好友</string>
+    <string name="message_address_add_friend">快去添加好友吧，和朋友一起分享精彩</string>
+
+
+    <!--医生展览-->
+    <!--界面-->
+    <string name="docotor_display_doctor_name">友医生</string>
+    <string name="docotor_display_doctor_comment">专业认真  和蔼细心</string>
+    <string name="docotor_display_school_clinic">学校医务室</string>
+    <string name="docotor_display_clinic_slogan">追求健康从我做起</string>
+    <string name="docotor_display_self_diagnosis">自助诊断</string>
+    <string name="docotor_display_diagnosis_slogan">自测就医 快速解决</string>
+
+    <!--用户信息-->
+    <!--代码-->
+    <string name="user_information_signature">签名:说点什么吧～</string>
+    <string name="user_information_add_friend">加好友</string>
+    <string name="user_information_send_message">发消息</string>
+
+    <!--新好友-->
+    <!--代码-->
+    <string name="user_new_friend_notice">好友通知</string>
+    <string name="user_new_friend_more">查看更多</string>
+    <string name="user_new_friend_recommend">好友推荐</string>
+    <string name="user_new_friend_add_more">添加更多朋友</string>
+    <string name="user_new_friend">新的好友</string>
+    <string name="user_new_friend_add">添加</string>
+    <string name="user_new_friend_refuse">拒绝了你的好友申请</string>
+
+    <!--添加好友-->
+    <!--界面-->
+    <string name="user_add_friend_search_people">搜联系人</string>
+    <string name="user_add_friend_search">搜索</string>
+    <string name="user_add_friend_search_history">搜索历史</string>
+    <string name="user_add_friend_clear_history">清空搜索记录</string>
+    <string name="user_add_friend_add_friend">加好友</string>
+    <string name="user_add_friend_no_result">没有查到相关结果</string>
+    <string name="user_add_friend_already_send">已发送验证消息</string>
+
+    <!--添加好友消息-->
+    <!--代码-->
+    <string name="user_add_friend_add_msg_add_friend">添加好友</string>
+    <string name="user_add_friend_add_msg_send_success">发送成功</string>
+    <string name="user_add_friend_add_msg_send_fail">发送失败</string>
+
+    <!--申请好友-->
+    <!--界面-->
+    <string name="user_new_friend_apply_additional_message">附加消息</string>
+    <string name="user_new_friend_apply">好友申请</string>
+    <string name="user_new_friend_apply_already_agree">已同意该申请</string>
+    <string name="user_new_friend_apply_already_refuse">已拒绝该申请</string>
+    <string name="user_new_friend_apply_alrea_refuse">已拒绝</string>
+    <string name="user_new_friend_apply_other_refuse">对方拒绝了你的好友申请</string>
 
 </resources>

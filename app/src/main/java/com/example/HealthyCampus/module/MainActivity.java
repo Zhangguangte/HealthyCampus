@@ -6,21 +6,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.widget.FrameLayout;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
-import com.example.HealthyCampus.common.utils.DensityUtil;
 import com.example.HealthyCampus.common.utils.SnackbarUtil;
 import com.example.HealthyCampus.common.widgets.tab.TabLayout;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.framework.ITabFragment;
 import com.example.HealthyCampus.module.Find.FindFragment;
 import com.example.HealthyCampus.module.HomePage.HomePageFragment;
+import com.example.HealthyCampus.module.Loading.LoadingActivity;
 import com.example.HealthyCampus.module.Message.MessageFragment;
 import com.example.HealthyCampus.module.Mine.MineFragment;
-import com.example.HealthyCampus.module.Loading.LoadingActivity;
 
 import java.util.ArrayList;
 
@@ -45,9 +47,8 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private ITabFragment currentFragment;
 
     @Override
-    protected void setUpContentView()  {
+    protected void setUpContentView() {
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
@@ -58,8 +59,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     @Override
     protected void initView() {
 
-        //toolbar设置
-       setSupportActionBar(toolbar);
+        // toolbar设置
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//        }
 
         //添加tab（因为tab里的Fragment的添加方式不是预先加入Layout容器内，无需开启Fragment的懒加载）
         ArrayList<TabLayout.Tab> tabs = new ArrayList<>();
@@ -69,6 +74,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         tabs.add(new TabLayout.Tab(R.drawable.ic_mine_white_24dp, R.string.tab_mine, MineFragment.class));
         mTabLayout.setUpData(tabs, this);
         mTabLayout.setCurrentTab(0);
+        //immersive();
     }
 
     @Override
@@ -98,8 +104,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         startActivity(new Intent(this, LoadingActivity.class));
         finish();
     }
-
-
 
 
     @Override
@@ -155,15 +159,16 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private void setElevation(int labelResId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             switch (labelResId) {
-                case R.string.tab_about:
-                    appBarLayout.setElevation((float) DensityUtil.getInstance(this).getDip2Px(5));
-                    break;
-                default:
-                    appBarLayout.setElevation(0);
-                    break;
+//                case R.string.tab_about:
+//                    appBarLayout.setElevation((float) DensityUtil.getInstance(this).getDip2Px(5));
+//                    break;
+//                default:
+//                    appBarLayout.setElevation(0);
+//                    break;
             }
         }
     }
+
     @Override
     public void onBackPressed() {
         mPresenter.exitApp();
@@ -176,7 +181,13 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     public void showSnackBar(int resId) {
+//        immersive();
         //Snackbar.make(mCoordinatorLayout,getString(resId), Snackbar.LENGTH_SHORT).show();
+//        SnackbarUtil.shortSnackbar(mCoordinatorLayout, getString(resId), SnackbarUtil.Info);
+        //    SnackbarUtil.shortSnackbar(getWindow().getDecorView(), getString(resId), SnackbarUtil.Info);
+        //  immersive();
+//        Log.e("showSnackBar" + "123456", "resId" + resId);
+
         SnackbarUtil.shortSnackbar(mCoordinatorLayout, getString(resId), SnackbarUtil.Info);
     }
 
@@ -184,4 +195,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     public void finishView() {
         finish();
     }
+
+
 }

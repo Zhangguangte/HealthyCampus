@@ -8,10 +8,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.IntDef;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.example.HealthyCampus.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -36,7 +39,6 @@ public class StatusBarUtil {
      * @param colorId 颜色
      */
     public static void setStatusBarColor(Activity activity, int colorId) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
             window.setStatusBarColor(colorId);
@@ -59,14 +61,25 @@ public class StatusBarUtil {
             Window window = activity.getWindow();
             View decorView = window.getDecorView();
             //两个 flag 要结合使用，表示让应用的主体内容占用系统状态栏的空间
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    |View.SYSTEM_UI_FLAG_IMMERSIVE;
+//               |View.SYSTEM_UI_FLAG_FULLSCREEN    Activity全屏显示，且状态栏被覆盖掉
             decorView.setSystemUiVisibility(option);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
+
+//            //透明状态栏
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+            window.setStatusBarColor(Color.TRANSPARENT);    //状态栏透明
             //导航栏颜色也可以正常设置
-            //window.setNavigationBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
             Window window = activity.getWindow();
             WindowManager.LayoutParams attributes = window.getAttributes();
             int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -77,9 +90,23 @@ public class StatusBarUtil {
         }
     }
 
+    /**
+     * 设置状态栏显示
+     */
+    public static void setTranslucentStatusShow(Activity activity) {
+        Window window = activity.getWindow();
+        View decorView = window.getDecorView();
+        int option = View.SYSTEM_UI_FLAG_VISIBLE;
+        decorView.setSystemUiVisibility(option);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);\
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(activity.getResources().getColor(R.color.green4));
+        }
+    }
+
 
     /**
-     *  代码实现android:fitsSystemWindows
+     * 代码实现android:fitsSystemWindows
      *
      * @param activity
      */
@@ -120,7 +147,7 @@ public class StatusBarUtil {
     /**
      * 设置 状态栏深色浅色切换
      */
-    public static boolean setStatusBarFontIconDark(Activity activity, @ViewType int type,boolean dark) {
+    public static boolean setStatusBarFontIconDark(Activity activity, @ViewType int type, boolean dark) {
         switch (type) {
             case TYPE_MIUI:
                 return setMiuiUI(activity, dark);
@@ -128,7 +155,7 @@ public class StatusBarUtil {
                 return setFlymeUI(activity, dark);
             case TYPE_M:
             default:
-                return setCommonUI(activity,dark);
+                return setCommonUI(activity, dark);
         }
     }
 
@@ -199,6 +226,7 @@ public class StatusBarUtil {
             return false;
         }
     }
+
     //获取状态栏高度
     public static int getStatusBarHeight(Context context) {
         int result = 0;
@@ -209,5 +237,7 @@ public class StatusBarUtil {
         }
         return result;
     }
+
+
 }
 

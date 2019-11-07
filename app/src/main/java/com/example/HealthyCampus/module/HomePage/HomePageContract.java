@@ -8,6 +8,8 @@ import com.example.HealthyCampus.framework.BaseView;
  */
 interface HomePageContract {
     interface View extends BaseView {
+
+
     }
 
     abstract class Presenter extends BasePresenter<View> {

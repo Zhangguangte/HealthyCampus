@@ -3,6 +3,7 @@ package com.example.HealthyCampus.common.widgets.tab;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -76,6 +77,10 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+
+
+
         if (selectView != v) {
             listener.onTabClick((Tab) v.getTag());
 

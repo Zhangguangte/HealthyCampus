@@ -2,18 +2,24 @@ package com.example.HealthyCampus.common.network;
 
 import com.example.HealthyCampus.application.HealthApp;
 import com.example.HealthyCampus.common.constants.ConstantValues;
-import com.example.HealthyCampus.common.network.ErrorHandler.DefaultErrorHandler;
+import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.Interceptor.AuthorizationRequestInterceptor;
 import com.example.HealthyCampus.common.network.Interceptor.HttpCacheInterceptor;
+import com.example.HealthyCampus.common.network.api.FriendApi;
 import com.example.HealthyCampus.common.network.api.HomePageApi;
+import com.example.HealthyCampus.common.network.api.MessageApi;
 import com.example.HealthyCampus.common.network.api.UserApi;
 import com.example.HealthyCampus.common.utils.LogUtil;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Authenticator;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit.RestAdapter;
 import retrofit2.Retrofit;
@@ -27,6 +33,8 @@ public class NetworkManager {
 
     private static HomePageApi homePageApi;
     private static UserApi userApi;
+    private static MessageApi messageApi;
+    private static FriendApi friendApi;
 
     private NetworkManager() {
     }
@@ -58,18 +66,20 @@ public class NetworkManager {
         }
         return homePageApi;
     }
-
-    public static UserApi getUserApi() {
-        if (userApi == null) {
+    public static NetworkManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new NetworkManager();
             Retrofit retrofit = new Retrofit.Builder()
                     .client(createOkHttp2(ConstantValues.HTTP_CACHE_ENABLE))
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl(ConstantValues.BASE_URL_HEALTH)
                     .build();
-            userApi = retrofit.create(UserApi.class);
+            INSTANCE.userApi = retrofit.create(UserApi.class);
+            INSTANCE.messageApi = retrofit.create(MessageApi.class);
+            INSTANCE.friendApi = retrofit.create(FriendApi.class);
         }
-        return userApi;
+        return INSTANCE;
     }
 
 
@@ -86,7 +96,7 @@ public class NetworkManager {
                     .cache(createCache()) //设置缓存
                     .addInterceptor(new HttpCacheInterceptor())//本地拦截缓存
                     .addInterceptor(createLogInterceptor()) //请求日志拦截
-                    .addNetworkInterceptor(new AuthorizationRequestInterceptor())
+                    .authenticator(new AuthorizationRequestInterceptor())
                     .retryOnConnectionFailure(true)
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .build();
@@ -94,6 +104,7 @@ public class NetworkManager {
             okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(createLogInterceptor()) //请求日志拦截
                     .retryOnConnectionFailure(true)
+                    .authenticator(new AuthorizationRequestInterceptor())
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .build();
         }
@@ -118,4 +129,17 @@ public class NetworkManager {
         return loggingInterceptor;
     }
 
+    /*----Getter----*/
+
+    public static UserApi getUserApi() {
+        return userApi;
+    }
+
+    public static MessageApi getMessageApi() {
+        return messageApi;
+    }
+
+    public static FriendApi getFriendApi() {
+        return friendApi;
+    }
 }

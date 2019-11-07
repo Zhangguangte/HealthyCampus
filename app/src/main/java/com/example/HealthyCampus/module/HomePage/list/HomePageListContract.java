@@ -14,7 +14,7 @@ public interface HomePageListContract {
         void refreshList(LatestNewsBean latestNewsBean);
 
         void addList(BeforeNewsBean beforeNewsBean);
-
+        void immersive();
         void loadComplete();
     }
 

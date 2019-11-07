@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/no_width"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin"
+            android:background="@null"
+            android:text="@string/back"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_f2" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/user_information_relatve_height"
+                    android:paddingBottom="@dimen/top_padding_less_less">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/user_information_bg"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/user_userinfo_bg" />
+
+                    <org.raphets.roundimageview.RoundImageView
+                        android:id="@+id/RvAvatar"
+                        android:layout_width="@dimen/user_information_head_portrait_size"
+                        android:layout_height="@dimen/user_information_head_portrait_size"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/head_default"
+                        app:border_color="@color/white"
+                        app:border_width="@dimen/user_information_border_width"
+                        app:type="circle" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvNikename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="@dimen/top_padding_less_less"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_f0" />
+
+                <TextView
+                    android:id="@+id/tvSignature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@mipmap/icon_right"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:paddingLeft="@dimen/padding3"
+                    android:paddingTop="@dimen/top_padding_less_less"
+                    android:paddingRight="@dimen/padding3"
+                    android:paddingBottom="@dimen/top_padding_less_less"
+                    android:text="                   "
+                    android:textSize="@dimen/text_f4" />
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_less"
+                    android:drawableLeft="@mipmap/user_account"
+                    android:drawablePadding="@dimen/left_padding"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/left_padding"
+                    android:paddingTop="@dimen/padding_less2"
+                    android:paddingBottom="@dimen/padding_less2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/user_icon_sex"
+                    android:drawablePadding="@dimen/left_padding"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/left_padding"
+                    android:paddingTop="@dimen/padding_less2"
+                    android:paddingBottom="@dimen/padding_less2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:id="@+id/tvBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/user_birthday"
+                    android:drawablePadding="@dimen/left_padding"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/left_padding"
+                    android:paddingTop="@dimen/padding_less2"
+                    android:paddingBottom="@dimen/padding_less2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:id="@+id/tvRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/user_address"
+                    android:drawablePadding="@dimen/left_padding"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/left_padding"
+                    android:paddingTop="@dimen/padding_less2"
+                    android:paddingBottom="@dimen/padding_less2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:id="@+id/tvMtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/user_modify_time"
+                    android:drawablePadding="@dimen/left_padding"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/left_padding"
+                    android:paddingTop="@dimen/padding_less2"
+                    android:paddingBottom="@dimen/padding_less2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <ImageView
+                    android:id="@+id/userinfo_fill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height_one"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/addFriend"
+            android:layout_width="@dimen/no_width"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/top_margin_less_less"
+            android:layout_weight="1"
+            android:background="@drawable/user_button_add_friend"
+            android:gravity="center"
+            android:paddingTop="@dimen/padding_less2"
+            android:paddingBottom="@dimen/padding_less2"
+            android:text="@string/user_information_add_friend"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f1" />
+
+        <TextView
+            android:id="@+id/sendMsg"
+            android:layout_width="@dimen/no_width"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/top_margin_less_less"
+            android:layout_weight="1"
+            android:background="@drawable/user_button_send_message"
+            android:gravity="center"
+            android:paddingTop="@dimen/padding_less2"
+            android:paddingBottom="@dimen/padding_less2"
+            android:text="@string/user_information_send_message"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_f1" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

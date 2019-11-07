@@ -5,12 +5,12 @@ package com.example.HealthyCampus.common.data.form;
  */
 public class LoginForm {
     public String device_id;
-    public String username;
+    public String account;
     public String password;
 
-    public LoginForm(String device_id, String username, String password) {
+    public LoginForm(String device_id, String account, String password) {
         this.device_id = device_id;
-        this.username = username;
+        this.account = account;
         this.password = password;
     }
 

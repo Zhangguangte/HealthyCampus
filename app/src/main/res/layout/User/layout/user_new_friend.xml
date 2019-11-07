@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/address_list_titleBackground"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/left_margin"
+        android:paddingTop="@dimen/padding_less3"
+        android:paddingBottom="@dimen/padding_less3"
+        android:text="@string/user_new_friend_notice"
+        android:textColor="@color/text_level_3"
+        android:textSize="@dimen/text_f3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/noticeMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="@dimen/padding_less3"
+            android:paddingTop="@dimen/padding_less3"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:drawableRight="@mipmap/icon_right"
+            android:gravity="center"
+            android:text="@string/user_new_friend_more"
+            android:textColor="@color/text_level_3"
+            android:textSize="@dimen/text_f3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/address_list_titleBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/left_margin"
+            android:paddingTop="@dimen/padding_less3"
+            android:paddingBottom="@dimen/padding_less3"
+            android:text="@string/user_new_friend_recommend"
+            android:textColor="@color/text_level_3"
+            android:textSize="@dimen/text_f3" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvRecommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:drawableRight="@mipmap/icon_right"
+            android:gravity="center"
+            android:text="@string/user_new_friend_add_more"
+            android:textColor="@color/text_level_3"
+            android:paddingBottom="@dimen/padding_less3"
+            android:paddingTop="@dimen/padding_less3"
+            android:textSize="@dimen/text_f3" />
+    </LinearLayout>
+</LinearLayout>

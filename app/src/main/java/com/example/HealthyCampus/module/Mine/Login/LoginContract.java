@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.HealthyCampus.common.data.form.LoginForm;
+import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.framework.BasePresenter;
 import com.example.HealthyCampus.framework.BaseView;
 
@@ -44,15 +45,15 @@ public interface LoginContract {
     //处理业务逻辑
     abstract class Presenter extends BasePresenter<LoginContract.View> {
 
-        public abstract void login(LoginForm loginForm);    //登录
+        protected abstract void login(LoginForm loginForm,String password);    //登录
 
-        public abstract void listenLoginEditText();         //监听输入框内容
+        protected abstract void listenLoginEditText();         //监听输入框内容
 
-        public abstract LoginForm encapsulationData(String username, String _password);     //封装数据
+        protected abstract LoginForm encapsulationData(String username, String _password);     //封装数据
 
-        public abstract void foucusLoginEditText();         //焦点输入框
+        protected abstract void foucusLoginEditText();         //焦点输入框
 
-        public abstract void setAuthCode(String username,String password);         //设置授权码
+        protected abstract void initUserInformation(UserVo userVo, String password);         //保存用户信息
 
 
     }

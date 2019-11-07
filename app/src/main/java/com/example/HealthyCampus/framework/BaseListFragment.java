@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.HealthyCampus.R;
-import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseListAdapter;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.common.widgets.pullrecycler.ItemDecoration.DividerItemDecoration;

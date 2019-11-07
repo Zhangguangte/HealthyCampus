@@ -51,13 +51,13 @@ public interface RegisterContract2 {
 
     //处理业务逻辑
     abstract class Presenter extends BasePresenter<RegisterContract2.View> {
-        public abstract void listenRegisterEditText();         //监听按钮
+        protected abstract void listenRegisterEditText();         //监听按钮
 
-        public abstract void foucusRegisterEditText();         //焦点输入框
+        protected abstract void foucusRegisterEditText();         //焦点输入框
 
-        public abstract void register(RegisterFrom registerFrom);        //注册用户信息
+        protected abstract void register(RegisterFrom registerFrom);        //注册用户信息
 
-        public abstract RegisterFrom encapsulationData(String phone, String _password);     //封装数据
+        protected abstract RegisterFrom encapsulationData(String phone, String _password);     //封装数据
 
     }
 
