@@ -7,6 +7,7 @@
     <string name="clear">清空</string>
     <string name="agree">同意</string>
     <string name="refuse">拒绝</string>
+    <string name="send">发送</string>
 
     <!-- 导航条 -->
     <string name="tab_homepage">首页</string>
@@ -159,5 +160,14 @@
     <string name="user_new_friend_apply_already_refuse">已拒绝该申请</string>
     <string name="user_new_friend_apply_alrea_refuse">已拒绝</string>
     <string name="user_new_friend_apply_other_refuse">对方拒绝了你的好友申请</string>
+
+    <!--聊天-->
+    <!--界面-->
+    <string name="message_chatting_press_send_voice">按住发送语音</string>
+    <string name="message_chatting_recommended_friend">推荐好友</string>
+
+    <!--名片-->
+    <!--代码-->
+    <string name="chatting_select_people">选择联系人</string>
 
 </resources>

@@ -16,6 +16,7 @@ import com.example.HealthyCampus.common.utils.AppStatusTracker;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.MainActivity;
+import com.example.HealthyCampus.module.Message.Chat.Map.MapActivity;
 import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
 
 import butterknife.BindView;

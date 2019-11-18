@@ -2,6 +2,7 @@ package com.example.HealthyCampus.common.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,14 @@ public class AddressListAdapter extends BaseAdapter implements SectionIndexer {
     private List<AddressListVo> list = null;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
+    private String activityname;
 
-    public AddressListAdapter(Context mContext, List<AddressListVo> list) {
+    public AddressListAdapter(Context mContext, List<AddressListVo> list,OnItemClickListener onItemClickListener ) {
         this.mContext = mContext;
         this.list = list;
+        this.onItemClickListener = onItemClickListener;
     }
+
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -42,10 +46,8 @@ public class AddressListAdapter extends BaseAdapter implements SectionIndexer {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-
+        void onItemClick(String account);
     }
-
 
     public int getCount() {
         return this.list.size();
@@ -62,20 +64,19 @@ public class AddressListAdapter extends BaseAdapter implements SectionIndexer {
     public View getView(final int position, View view, ViewGroup arg2) {
         /**得到通讯录联系人信息**/
         ViewHolder viewHolder;
-        AddressListVo mContent=list.get(position);
+        AddressListVo mContent = list.get(position);
         if (view == null) {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.message_address_list_item, null);
 //            viewHolder.headPortrait =  view.findViewById(R.id.headPortrait);
-            viewHolder.nickName =  view.findViewById(R.id.nickName);
+            viewHolder.nickName = view.findViewById(R.id.nickName);
             viewHolder.catalogTitle = view.findViewById(R.id.catalogTitle);
             view.setTag(viewHolder);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, UserInformationActivity.class);
-                    intent.putExtra("ACCOUNT", list.get(position).getAccount());
-                    mContext.startActivity(intent);
+//
+                    onItemClickListener.onItemClick(list.get(position).getAccount());
                 }
             });
         } else {

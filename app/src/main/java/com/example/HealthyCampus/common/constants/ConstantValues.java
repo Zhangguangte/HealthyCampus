@@ -1,5 +1,7 @@
 package com.example.HealthyCampus.common.constants;
 
+import android.os.Environment;
+
 import com.example.HealthyCampus.BuildConfig;
 
 import java.io.File;
@@ -14,7 +16,8 @@ public class ConstantValues {
 
     //接口地址
     public static final String BASE_URL_ZHIHU = "http://news-at.zhihu.com/api/4/"; // HOST地址:知乎接口
-    public static final String BASE_URL_HEALTH = "http://192.168.0.104:8083/"; // HOST地址:后台接口
+    public static final String BASE_URL_HEALTH = "http://192.168.0.105:8083/"; // HOST地址:后台接口
+    public static final String BASE_URL_GETE = "http://192.168.0.105:8097/GETE/"; // HOST地址:后台接口
 
     public static final int ACTION_BACK_TO_HOME = 0;
     public static final int ACTION_RESTART_APP = 1;
@@ -82,8 +85,21 @@ public class ConstantValues {
     //登录
     public static int RESULT_CODE_USERNAME = 1101;
     public static String KEY_USERNAME = "KEY_USERNAME";
-
     public static final String COUNTRYCODE = "86";
 
+    //聊天
+    public final static int TAKE_PHOTO = 1;
+    public final static int PICK_PHOTO = 2;
+    public final static int MAP_LOCATION = 3;
+    public final static int USER_CARD = 4;
+
+    //图片
+    public final static String PICTURE_PATH = Environment.getExternalStorageDirectory() + "/health/photo";      //存入SDK内
+    public final static String PICTURE_SHOW_PATH = "file:///storage/emulated/0/health/photo/";                  //显示图片
+    public final static String PICTURE_SDK_PATH = "/storage/emulated/0/health/photo/";                          //判断是否有文件
+
+    //    聊天
+//    public static final int VIEW_CHAT_DIR_LEFT = 1;
+//    public static final int VIEW_CHAT_DIR_RIGHT = 2;
 
 }

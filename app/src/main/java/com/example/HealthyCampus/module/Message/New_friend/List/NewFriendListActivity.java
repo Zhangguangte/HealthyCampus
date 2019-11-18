@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.MessageRecyclerAdapter;
 import com.example.HealthyCampus.common.data.form.RequestForm;
+import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.RequestFriendVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
@@ -25,6 +26,8 @@ import com.example.HealthyCampus.module.Mine.User.UserInformationActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -164,9 +167,13 @@ public class NewFriendListActivity extends BaseActivity<NewFriendListContract.Vi
         }
     }
 
+
     @Override
-    public void onItemButtonClick(String userid, int position) {
-        RequestForm requestForm = new RequestForm(userid);
+    public void onItemButtonClick(String userid, int position, String fNickname) {
+        Map<String, String> map = new HashMap();
+        map.put("s_nickname", SPHelper.getString(SPHelper.NICKNAME));
+        map.put("f_nickname", fNickname);
+        RequestForm requestForm = new RequestForm(userid, "", map);
         mPresenter.saveRequestFriend(requestForm, position);
     }
 

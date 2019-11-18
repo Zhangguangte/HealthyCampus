@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.module.Message.Address_list;
+package com.example.HealthyCampus.common.comparator;
 
 import com.example.HealthyCampus.common.network.vo.AddressListVo;
 

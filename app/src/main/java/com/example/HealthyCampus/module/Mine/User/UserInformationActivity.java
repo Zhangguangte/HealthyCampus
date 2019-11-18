@@ -18,6 +18,8 @@ import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
+import com.example.HealthyCampus.module.Message.Address_list.AddressListActivity;
+import com.example.HealthyCampus.module.Message.Chat.ChatActivity;
 import com.example.HealthyCampus.module.Message.New_friend.Add_Friend.Add_Friend_Msg.AddFriendMsgActivity;
 import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
 
@@ -54,9 +56,9 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
     @BindView(R.id.RvAvatar)
     RoundImageView RvAvatar;
 
-    private String Account = "";
     private boolean change = false;
     private UserVo userVo;
+    private String uid;
 
     @Override
     protected void setUpContentView() {
@@ -70,20 +72,17 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
 
     @Override
     protected void initView() {
-        Log.e("UserInformat" + "123456", "TextUtils.isEmpty(getIntent().getStringExtra(\"ACCOUNT\")" + TextUtils.isEmpty(getIntent().getStringExtra("ACCOUNT")));
-        Log.e("UserInformat" + "123456", "getIntent().getStringExtra(\"ACCOUNT\"))" + getIntent().getStringExtra("ACCOUNT"));
-        Log.e("UserInformat" + "123456", "getIntent().getStringExtra(\"userid\"))" + getIntent().getStringExtra("userid"));
         if (null != getIntent().getExtras())
             userVo = (UserVo) getIntent().getExtras().getSerializable("uservo");
         if (null != userVo) initUserInfo(userVo);
         else if (getIntent().getBooleanExtra("self", false))
             initUserInfo();
-        else if (!TextUtils.isEmpty(getIntent().getStringExtra("ACCOUNT"))) {
+        else if (!TextUtils.isEmpty(getIntent().getStringExtra("ACCOUNT"))) {       //聊天名片
             mPresenter.getUserInformation(getIntent().getStringExtra("ACCOUNT"));
         } else if (!TextUtils.isEmpty(getIntent().getStringExtra("userid"))) {
             RequestForm requestForm = new RequestForm(getIntent().getStringExtra("userid"), "");
             mPresenter.searchUser(requestForm);
-        } else {
+        } else {            //用户自身
             initUserInfo();
         }
     }
@@ -138,6 +137,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
 
     @Override
     public void initUserInfo(UserVo userVo) {
+        showProgressDialog("正在加载中");
         if (null != userVo) {
             if (!userVo.isfriends) {
                 addFriend.setVisibility(View.VISIBLE);
@@ -147,7 +147,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
                 sendMsg.setVisibility(View.VISIBLE);
             }
             Log.e("UserInformat" + "123456", "userVo.toString:" + userVo.toString());
-            showProgressDialog("正在加载中");
+            uid = userVo.getId();
             tvUsername.setText(userVo.getNickname() + "(" + userVo.getAccount() + ")");
             tvGender.setText(userVo.getSex());
             tvBirthday.setText(userVo.getCreateTime().substring(5, 10));
@@ -156,9 +156,10 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
             tvSignature.setText(TextUtils.isEmpty(userVo.getDescription()) ? getResources().getString(R.string.user_information_signature) : userVo.getDescription());
             tvNikename.setText(userVo.getNickname());
             //        RvAvatar.setBackgroundResource(R.drawable.head_default);
-            dismissProgressDialog();
+
             this.userVo = userVo;
         }
+        dismissProgressDialog();
     }
 
     public void initUserInfo() {
@@ -197,7 +198,17 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
         return super.onKeyDown(keyCode, event);
     }
 
+    @OnClick(R.id.sendMsg)
+    public void sendMsg(View view) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("uid", uid);
+        bundle.putString("anotherName", tvNikename.getText().toString().trim());
+        intent.putExtras(bundle);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
+    }
 
 
 }

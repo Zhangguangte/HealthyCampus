@@ -2,12 +2,29 @@ package com.example.HealthyCampus.common.network.vo;
 
 
 public class MessageListVo {
-	private int room_id;
+	private String room_id;
 	private int unread;
 	private String type;
 	private String content;
 	private String create_time;
 	private String another_name;
+	private String belongId;
+	private String file_path;
+	public String getFile_path() {
+		return file_path;
+	}
+
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
+	}
+
+	public String getBelongId() {
+		return belongId;
+	}
+
+	public void setBelongId(String belongId) {
+		this.belongId = belongId;
+	}
 
 	public int getUnread() {
 		return unread;
@@ -41,11 +58,11 @@ public class MessageListVo {
 		this.create_time = create_time;
 	}
 
-	public int getRoom_id() {
+	public String getRoom_id() {
 		return room_id;
 	}
 
-	public void setRoom_id(int room_id) {
+	public void setRoom_id(String room_id) {
 		this.room_id = room_id;
 	}
 

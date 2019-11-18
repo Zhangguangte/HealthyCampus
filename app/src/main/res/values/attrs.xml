@@ -9,4 +9,9 @@
         <!--<attr name="behavior_targetHeight" format="dimension"/>-->
         <!--<attr name="behavior_targetAlpha" format="float"/>-->
     <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="ChatStroke">-->
+        <!--<attr name="cs_colorBackground" format="color"/>-->
+        <!--<attr name="cs_direction" format="integer"/>-->
+    <!--</declare-styleable>-->
 </resources>

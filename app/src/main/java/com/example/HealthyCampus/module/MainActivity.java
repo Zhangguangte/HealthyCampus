@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
         //添加tab（因为tab里的Fragment的添加方式不是预先加入Layout容器内，无需开启Fragment的懒加载）
         ArrayList<TabLayout.Tab> tabs = new ArrayList<>();
-        tabs.add(new TabLayout.Tab(R.drawable.ic_home_white_24dp, R.string.tab_homepage, HomePageFragment.class));
+//        tabs.add(new TabLayout.Tab(R.drawable.ic_home_white_24dp, R.string.tab_homepage, HomePageFragment.class));
         tabs.add(new TabLayout.Tab(R.drawable.ic_message_white_24dp, R.string.tab_message, MessageFragment.class));
         tabs.add(new TabLayout.Tab(R.drawable.ic_find_white_24dp, R.string.tab_find, FindFragment.class));
         tabs.add(new TabLayout.Tab(R.drawable.ic_mine_white_24dp, R.string.tab_mine, MineFragment.class));

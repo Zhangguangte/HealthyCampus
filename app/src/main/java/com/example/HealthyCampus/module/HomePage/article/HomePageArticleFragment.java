@@ -25,7 +25,7 @@ import com.example.HealthyCampus.common.data.model.HomePageArticleBean;
 import com.example.HealthyCampus.common.share.ShareController;
 import com.example.HealthyCampus.common.utils.GlideUtils;
 import com.example.HealthyCampus.common.utils.SnackbarUtil;
-import com.example.HealthyCampus.common.utils.SystemHelper;
+import com.example.HealthyCampus.common.helper.SystemHelper;
 import com.example.HealthyCampus.framework.BaseFragment;
 import com.ganxin.library.SwipeLoadDataLayout;
 import com.umeng.socialize.UMShareListener;

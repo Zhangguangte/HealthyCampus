@@ -10,7 +10,6 @@ import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.StringUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
-import com.example.HealthyCampus.greendao.model.User;
 import com.example.HealthyCampus.service.UserService;
 
 public class LoginPresenter extends LoginContract.Presenter {

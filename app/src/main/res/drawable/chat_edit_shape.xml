@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 实心 -->
+    <solid android:color="@android:color/white" />
+    <!-- 边框 -->
+    <stroke
+        android:width="@dimen/view_height_one"
+        android:color="@color/border_color" />
+    <!--圆角 -->
+    <corners android:radius="5dp" />
+
+    <!--&lt;!&ndash;&lt;!&ndash; 边距 &ndash;&gt;&ndash;&gt;-->
+    <padding
+        android:bottom="@dimen/padding_less2"
+        android:left="@dimen/padding_less2"
+        android:right="@dimen/padding_less2"
+        android:top="@dimen/padding_less2" />
+</shape>

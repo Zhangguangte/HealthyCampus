@@ -17,6 +17,7 @@
     <dimen name="padding_less">10dp</dimen>
     <dimen name="padding_less2">8dp</dimen>
     <dimen name="padding_less3">6dp</dimen>
+    <dimen name="padding_less4">4dp</dimen>
 
     <dimen name="left_padding">20dp</dimen>
     <dimen name="left_padding_less">15dp</dimen>
@@ -63,6 +64,9 @@
     <dimen name="icon_size">30dp</dimen>
     <dimen name="icon_size_le">25dp</dimen>
     <dimen name="icon_size_less">20dp</dimen>
+    <dimen name="icon_size_more_hundred">100dp</dimen>
+    <dimen name="icon_size_more_hundred2">150dp</dimen>
+    <dimen name="icon_size_more_hundred3">200dp</dimen>
 
     <!--View-->
     <dimen name="view_width">1px</dimen>

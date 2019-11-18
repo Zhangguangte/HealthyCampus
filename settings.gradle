@@ -1,1 +1,1 @@
-include ':app', ':immersionbar'
+include ':app',  ':library'

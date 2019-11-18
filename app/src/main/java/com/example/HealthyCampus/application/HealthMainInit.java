@@ -2,6 +2,8 @@ package com.example.HealthyCampus.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
+import android.preference.PreferenceManager;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
@@ -9,24 +11,31 @@ import com.example.HealthyCampus.BuildConfig;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.data.source.local.FriendLocalDataSource;
+import com.example.HealthyCampus.common.data.source.local.HomePageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.MessageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.UserLocalDataSource;
 import com.example.HealthyCampus.common.data.source.remote.FriendRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.remote.HomePageRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.MessageRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.UserRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.repository.FriendRepository;
 import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
-import com.example.HealthyCampus.common.data.source.local.HomePageLocalDataSource;
-import com.example.HealthyCampus.common.data.source.remote.HomePageRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.repository.MessageRepository;
 import com.example.HealthyCampus.common.data.source.repository.UserRepository;
-import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.utils.StorageManager;
+
+
 import com.example.HealthyCampus.framework.IAppInitialization;
 import com.example.HealthyCampus.framework.helper.MySQLiteOpenHelper;
 import com.example.HealthyCampus.greendao.DaoMaster;
 import com.example.HealthyCampus.module.MainActivity;
 import com.github.yuweiguocn.library.greendao.MigrationHelper;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
@@ -40,10 +49,6 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 
 import static cn.jpush.im.android.api.JMessageClient.FLAG_NOTIFY_SILENCE;
-import static com.example.HealthyCampus.common.constants.ConstantValues.JAPP_KEY;
-import static com.example.HealthyCampus.common.helper.SPHelper.JPUSH_MUSIC;
-import static com.example.HealthyCampus.common.helper.SPHelper.JPUSH_ROAMING;
-import static com.example.HealthyCampus.common.helper.SPHelper.JPUSH_VIB;
 
 
 /**
@@ -54,6 +59,7 @@ public class HealthMainInit implements IAppInitialization {
     private Context appContext;
     public MySQLiteOpenHelper helper;
     private DaoMaster master;
+
     @Override
     public void onAppCreate(Application application) {
 
@@ -66,6 +72,8 @@ public class HealthMainInit implements IAppInitialization {
         initUmengShare();
         initJPush();
         setupDatabase(); //初始化数据库
+        initCamera();
+        initImageLoader();
     }
 
     private void initLog() {
@@ -145,7 +153,34 @@ public class HealthMainInit implements IAppInitialization {
         //数据库升级
         helper = new MySQLiteOpenHelper(appContext, "text");
         master = new DaoMaster(helper.getWritableDb());
-
     }
+
+    private void initCamera() {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+    }
+
+    private void initImageLoader() {
+        //创建默认的ImageLoader配置参数
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(appContext);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(appContext)
+                .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
+                .threadPriority(Thread.MAX_PRIORITY) // default
+                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new LruMemoryCache(10 * 1024 * 1024))
+                .memoryCacheSize(10 * 1024 * 1024)
+                .memoryCacheSizePercentage(13) // default
+                .diskCacheSize(100 * 1024 * 1024) //100m
+                .diskCacheFileCount(100)
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator()) // default
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+                .writeDebugLogs()
+                .build();
+        //Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+    }
+
 
 }

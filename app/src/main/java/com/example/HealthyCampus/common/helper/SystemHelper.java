@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.common.utils;
+package com.example.HealthyCampus.common.helper;
 
 import android.content.Context;
 import android.content.Intent;

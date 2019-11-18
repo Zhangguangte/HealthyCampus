@@ -161,9 +161,6 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         LogUtil.logE("BaseActivity123456", toString() + ":finish");
     }
 
-    public void noNetWork() {
-        ToastUtil.show(this, R.string.no_network);
-    }
 
     /*自定义消息的加载进度条*/
     public void showProgressDialog(String msg) {

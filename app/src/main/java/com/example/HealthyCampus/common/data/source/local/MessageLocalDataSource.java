@@ -3,8 +3,10 @@ package com.example.HealthyCampus.common.data.source.local;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.example.HealthyCampus.common.data.form.ChatForm;
 import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.data.form.RegisterFrom;
+import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.MessageDataSource;
 import com.example.HealthyCampus.common.data.source.callback.UserDataSource;
 import com.example.HealthyCampus.common.network.vo.MessageListVo;
@@ -35,4 +37,36 @@ public class MessageLocalDataSource implements MessageDataSource {
     public void lastMessage(@NonNull MessageSearchMessage callback) {
 
     }
+
+    @Override
+    public void allChatByRoomId(@NonNull RequestForm requestForm, @NonNull MessageAllChat callback) {
+
+    }
+
+    @Override
+    public void allChatByUid(@NonNull RequestForm requestForm, @NonNull MessageAllChat callback) {
+
+    }
+
+    @Override
+    public void searchRoomid(@NonNull RequestForm requestForm, @NonNull MessageSearchRoomid callback) {
+
+    }
+
+    @Override
+    public void insertContent(@NonNull ChatForm chatForm, @NonNull MessageAddContent callback) {
+
+    }
+
+    @Override
+    public void insertCard(@NonNull ChatForm chatForm, @NonNull MessageAddCard callback) {
+
+    }
+
+    @Override
+    public void upPicture(@NonNull String bitmapStr, @NonNull MessageUpPicture callback) {
+
+    }
+
+
 }

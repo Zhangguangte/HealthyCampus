@@ -21,6 +21,7 @@
     <color name="text_level_1">#212121</color>
     <color name="text_level_2">#66000000</color>
     <color name="text_level_3">#757575</color>
+    <color name="red_text">#e75858</color>
 
     <!--纯色-->
     <color name="lightblue">#39EBBD</color>
@@ -29,8 +30,11 @@
     <color name="white">#FFFFFF</color>
     <color name="sun">#FFFFF4</color>
     <color name="blue">#4056AB</color>
-    <color name="lightgreen">#6DFFCE</color>
+    <color name="lightgreen">#C7FFF3</color>
     <color name="lightgrey">#E9E9E9</color>
+    <color name="lightyellow">#FFFCEE</color>
+    <color name="lightgolden">#FCE699</color>
+    <color name="golden">#FFD306</color>
 
     <!--tab-->
     <color name="icons_tint_normal">#BDBDBD</color>
@@ -61,10 +65,14 @@
     <!--user-->
     <color name="user_information_send_bg">#68B9F8</color>
 
+    <!--chat-->
+    <color name="chatting_background1">#AAAAAA</color>
 
     <color name="transparent">#00000000</color>
     <color name="md_selected">#19000000</color>
     <color name="background_page">#EEEEEE</color>
+
+    <color name="border_color">#aaaaaa</color>
 
 
     <color name="colorPrimary">#53DC92</color>

@@ -100,7 +100,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     public interface onItemClick {
-        void onItemButtonClick(String userid, int position);
+        void onItemButtonClick(String userid, int position,String fNickname);
 
         void onItemViewClick(String userid, String nickname, String content, String status, int position);
     }
@@ -163,11 +163,10 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
                 btnOperation.setTextColor(context.getResources().getColor(R.color.white));
                 btnOperation.setEnabled(true);
             }
-            Log.e("MessageRecy" + "123456", "onItemClick" + onItemClick);
             btnOperation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClick.onItemButtonClick(data.get(position).getUser_id(), position);
+                    onItemClick.onItemButtonClick(data.get(position).getUser_id(), position,data.get(position).getNickname());
                 }
             });
 //            Picasso.with(context)

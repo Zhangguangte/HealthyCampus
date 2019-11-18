@@ -42,6 +42,7 @@
             android:textColor="@color/text_level_2"
             android:textSize="@dimen/text_f3"
             android:singleLine="true"
+            android:layout_marginRight="@dimen/margin_more"
             android:layout_marginTop="@dimen/top_margin_less_less"
             android:text="@string/message_item_last_message" />
     </LinearLayout>
@@ -71,6 +72,7 @@
             android:textColor="@color/white"
             android:layout_gravity="right"
             android:text="3"
+            android:visibility="gone"
             android:gravity="center"
             android:background="@drawable/message_view_dot"/>
 

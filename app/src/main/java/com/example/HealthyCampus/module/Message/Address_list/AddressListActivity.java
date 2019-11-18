@@ -1,9 +1,9 @@
 package com.example.HealthyCampus.module.Message.Address_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +16,14 @@ import android.widget.Toast;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.AddressListAdapter;
-import com.example.HealthyCampus.common.helper.SPHelper;
+import com.example.HealthyCampus.common.comparator.AddressPinyinComparator;
 import com.example.HealthyCampus.common.network.vo.AddressListVo;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.SideBar;
 import com.example.HealthyCampus.framework.BaseActivity;
+import com.example.HealthyCampus.module.Mine.User.UserInformationActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 
 
-public class AddressListActivity extends BaseActivity<AddressListContract.View, AddressListContract.Presenter> implements AddressListContract.View {
+public class AddressListActivity extends BaseActivity<AddressListContract.View, AddressListContract.Presenter> implements AddressListContract.View, AddressListAdapter.OnItemClickListener {
 
     @BindView(R.id.sideBar)
     SideBar sideBar;
@@ -75,7 +76,6 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
         setCustomActionBar();
     }
 
-
     private void setCustomActionBar() {
         tvTitle.setText(R.string.message_address_list);
         ivBack.setVisibility(View.VISIBLE);
@@ -86,6 +86,7 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
         finish();
     }
 
+    //    返回数据：失败
     @Override
     public void showError(Throwable throwable) {
         if (throwable instanceof HttpException) {
@@ -100,8 +101,7 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }catch(IllegalStateException e)
-            {
+            } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
         } else {
@@ -109,11 +109,12 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
         }
     }
 
+    //返回数据：成功：显示好友
     @Override
     public void showFriends(ArrayList<AddressListVo> addressLists) {
         if (addressLists.size() > 0) {
             Collections.sort(addressLists, pinyinComparator);   //排序
-            listAdapter = new AddressListAdapter(this, addressLists);
+            listAdapter = new AddressListAdapter(this, addressLists, this);
             sortListView.setAdapter(listAdapter);
         }
     }
@@ -140,7 +141,6 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String nickname = addressLists.get(position).getNickname();
                 Toast.makeText(getContext(), "nickname:" + nickname, Toast.LENGTH_SHORT).show();
-                Log.e("AddressListVo" + "123456", "country:" + nickname);
             }
         });
     }
@@ -170,5 +170,29 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
         return this;
     }
 
+    @Override
+    public void showProgressDialog(String msg) {
+        super.showProgressDialog(msg);
+    }
 
+    @Override
+    public void dismissProgressDialog() {
+        super.dismissProgressDialog();
+    }
+
+    @Override
+    public void onItemClick(String account) {
+        if (getIntent().getBooleanExtra("chat", false)) {       //聊天界面跳至，用于名片使用
+            Intent intent = getIntent();
+            Bundle bundle = new Bundle();
+            bundle.putString("ACCOUNT", account);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, UserInformationActivity.class);    //联系人界面，用于用户信息
+            intent.putExtra("ACCOUNT", account);
+            startActivity(intent);
+        }
+    }
 }

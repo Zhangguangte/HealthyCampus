@@ -57,7 +57,7 @@ public class AddSearchAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LogUtil.logE("MessageRecyclerAdapter" + "1234567", "viewType" + viewType);
+        LogUtil.logE("ChatRecyclerAdapter" + "1234567", "viewType" + viewType);
         View view = LayoutInflater.from(context).inflate(R.layout.user_add_frend_history, parent, false);
         return new ItemViewHolder(view);
 

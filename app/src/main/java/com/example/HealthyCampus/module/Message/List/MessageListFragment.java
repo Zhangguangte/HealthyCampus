@@ -1,5 +1,7 @@
 package com.example.HealthyCampus.module.Message.List;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,15 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.network.vo.MessageListVo;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
+import com.example.HealthyCampus.common.utils.ActivityUtils;
 import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.GlideUtils;
 import com.example.HealthyCampus.common.utils.JsonUtil;
+import com.example.HealthyCampus.common.utils.SpanStringUtils;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.framework.BaseListFragment;
+import com.example.HealthyCampus.module.Message.Chat.ChatActivity;
 import com.example.HealthyCampus.module.Message.MessageFragment;
 
 import java.io.IOException;
@@ -52,13 +57,6 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-//        if (viewType == ConstantValues.VIEW_MESSAGE_ITEM) {
-//            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item, parent, false);
-//            return new MessageListFragment.MessageItemHolder(itemView);
-//        } else {
-//            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_no_chat, parent, false);
-//            return new MessageListFragment.MessageNoChatHolder(itemView);
-//        }
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item, parent, false);
         return new MessageListFragment.MessageItemHolder(itemView);
     }
@@ -168,12 +166,40 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
             if (mDataList.get(position) != null) {
 //                headIcon.setBackground(getResources().getDrawable(R.drawable.message_item_default_icon));
                 tvUsername.setText(mDataList.get(position).getAnother_name());
-                lastMessage.setText(mDataList.get(position).getContent().length() > 20 ? mDataList.get(position).getContent().substring(0, 20) + "..." : mDataList.get(position).getContent());
+                switch (mDataList.get(position).getType()) {
+                    case "WORDS":
+                        lastMessage.setText(SpanStringUtils.getEmojiContent(1, getContext(), (int) (lastMessage.getTextSize() * 15 / 10), mDataList.get(position).getContent()));
+                        break;
+                    case "VOICE":
+                        lastMessage.setText("[语音]");
+                        break;
+                    case "PICTURE":
+                        lastMessage.setText("[图片]");
+                        break;
+                    case "FILE":
+                        lastMessage.setText("[文件]");
+                        break;
+                    case "MAP":
+                        lastMessage.setText("[定位]");
+                        break;
+                    case "CARD":
+                        lastMessage.setText("[推荐好友]");
+                        break;
+                    default:
+                        lastMessage.setText("你们已经成功加为好友");
+                }
                 if (mDataList.get(position).getUnread() > 0) {
                     newTips.setText(mDataList.get(position).getUnread() + "");
                     newTips.setVisibility(View.VISIBLE);
+                } else {
+                    newTips.setVisibility(View.GONE);
                 }
-
+                newTips.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.show(getContext(), mDataList.get(position).toString());
+                    }
+                });
                 lastTime.setText(DateUtils.getTimeString(DateUtils.string2Date(mDataList.get(position).getCreate_time()).getTime()));
                 GlideUtils.display(headIcon, null);
             }
@@ -181,19 +207,19 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
 
         @Override
         public void onItemClick(View view, int position) {
-            ToastUtil.show(mActivity, "" + mDataList.get(position).getContent());
-
-//            try {
-//                String title = mDataList.get(position).getTitle();
-//                String url = mDataList.get(position).getImages().get(0);
-//                int id = mDataList.get(position).getId();
-//
-//                ActivityUtils.startActivity(mActivity, HomePageArticleFragment.newInstance(title, id, url));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            Intent intent = new Intent(getContext(), ChatActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("roomid", mDataList.get(position).getRoom_id());
+            bundle.putString("anotherName", mDataList.get(position).getAnother_name());
+            intent.putExtras(bundle);
+            startActivity(intent);
+            mActivity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.lastMessage();
+    }
 }

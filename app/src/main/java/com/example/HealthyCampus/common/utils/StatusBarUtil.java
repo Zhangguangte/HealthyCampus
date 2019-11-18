@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.support.annotation.IntDef;
 import android.util.Log;
 import android.view.View;
@@ -41,13 +43,30 @@ public class StatusBarUtil {
     public static void setStatusBarColor(Activity activity, int colorId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            window.setStatusBarColor(colorId);
+            window.setStatusBarColor(activity.getResources().getColor(colorId));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
             setTranslucentStatus(activity);
             SystemBarTintManager systemBarTintManager = new SystemBarTintManager(activity);
             systemBarTintManager.setStatusBarTintEnabled(true);//显示状态栏
-            systemBarTintManager.setStatusBarTintColor(colorId);//设置状态栏颜色
+            systemBarTintManager.setStatusBarTintColor(activity.getResources().getColor(colorId));//设置状态栏颜色
+        }
+    }
+
+    /**
+     * 修改状态栏颜色，支持4.4以上版本
+     * 青色
+     */
+    public static void setStatusBarColor(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            window.setStatusBarColor(activity.getResources().getColor(R.color.cyan));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //使用SystemBarTintManager,需要先将状态栏设置为透明
+            setTranslucentStatus(activity);
+            SystemBarTintManager systemBarTintManager = new SystemBarTintManager(activity);
+            systemBarTintManager.setStatusBarTintEnabled(true);//显示状态栏
+            systemBarTintManager.setStatusBarTintColor(activity.getResources().getColor(R.color.cyan));//设置状态栏颜色
         }
     }
 
@@ -89,6 +108,8 @@ public class StatusBarUtil {
             window.setAttributes(attributes);
         }
     }
+
+
 
     /**
      * 设置状态栏显示

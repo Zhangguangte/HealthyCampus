@@ -23,6 +23,7 @@ interface AddressListContract {
         void sidebarShow();        //字母排序显示
 
         void showViewByDataStatus(boolean value);        //空视图显示根据是否有数据
+
     }
 
     abstract class Presenter extends BasePresenter<View> {
