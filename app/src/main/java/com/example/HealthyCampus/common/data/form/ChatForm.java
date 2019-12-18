@@ -7,10 +7,20 @@ public class ChatForm {
     public String content;
     public String file_path;
     public String room_id;
+    public String sentStatus;
+
+    public String getSentStatus() {
+        return sentStatus;
+    }
+
+    public void setSentStatus(String sentStatus) {
+        this.sentStatus = sentStatus;
+    }
 
     public String getFile_path() {
         return file_path;
     }
+
     public void setFile_path(String file_path) {
         this.file_path = file_path;
     }

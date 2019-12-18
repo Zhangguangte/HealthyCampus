@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="medicine">
+        <item>药品名</item>
+        <item>处方药</item>
+        <item>非方药</item>
+        <item>批准文号</item>
+        <item>厂家</item>
+        <item>主治</item>
+    </string-array>
+
+    
+</resources>

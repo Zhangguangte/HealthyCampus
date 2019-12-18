@@ -11,8 +11,6 @@ import com.orhanobut.logger.Logger;
 
 import java.util.Set;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 public class UserService {
 
@@ -34,16 +32,16 @@ public class UserService {
     }
 
     public static void registerJPush(Context content, String userId) {
-        JPushInterface.setAlias(content, userId, new TagAliasCallback() {
-            @Override
-            public void gotResult(int i, String s, Set<String> strings) {
-                if (i == 0) {
-                    Logger.d("JPush Alias Register Success");
-                } else {
-                    Logger.e("JPush Alias Register Fail:" + s);
-                }
-            }
-        });
+//        JPushInterface.setAlias(content, userId, new TagAliasCallback() {
+//            @Override
+//            public void gotResult(int i, String s, Set<String> strings) {
+//                if (i == 0) {
+//                    Logger.d("JPush Alias Register Success");
+//                } else {
+//                    Logger.e("JPush Alias Register Fail:" + s);
+//                }
+//            }
+//        });
     }
 
 

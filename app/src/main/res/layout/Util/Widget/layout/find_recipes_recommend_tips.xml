@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tipsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/icon_size_more_hundred"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/left_margin1"
+    android:layout_marginRight="@dimen/left_margin1"
+    android:layout_marginBottom="@dimen/padding_less2"
+    android:layout_marginTop="@dimen/padding_less2"
+    app:cardCornerRadius="@dimen/radius_card5"
+    android:elevation="@dimen/no_width"
+    tools:ignore="UnusedAttribute">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/find_food_default" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:padding="@dimen/top_margin_less_less"
+            android:background="@color/ghostwhite"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/top_margin_less_less"
+                android:textSize="@dimen/text_f4"
+                android:maxLines="4"
+                android:textColor="@color/black"
+                android:ellipsize="end"
+                android:layout_marginLeft="@dimen/top_margin_less_less"
+                android:layout_marginRight="@dimen/top_margin_less_less"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

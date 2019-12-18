@@ -10,17 +10,26 @@ import com.avos.avoscloud.AVOSCloud;
 import com.example.HealthyCampus.BuildConfig;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.data.source.local.DiseaseLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.FriendLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.HomePageLocalDataSource;
+import com.example.HealthyCampus.common.data.source.local.MedicineLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.MessageLocalDataSource;
+import com.example.HealthyCampus.common.data.source.local.RecipesLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.UserLocalDataSource;
+import com.example.HealthyCampus.common.data.source.remote.DiseaseRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.FriendRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.HomePageRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.remote.MedicineRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.MessageRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.remote.RecipesRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.UserRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.repository.DiseaseRepository;
 import com.example.HealthyCampus.common.data.source.repository.FriendRepository;
 import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
+import com.example.HealthyCampus.common.data.source.repository.MedicineRepository;
 import com.example.HealthyCampus.common.data.source.repository.MessageRepository;
+import com.example.HealthyCampus.common.data.source.repository.RecipesRepository;
 import com.example.HealthyCampus.common.data.source.repository.UserRepository;
 import com.example.HealthyCampus.common.utils.StorageManager;
 
@@ -45,11 +54,6 @@ import com.umeng.socialize.UMShareAPI;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.im.android.api.JMessageClient;
-
-import static cn.jpush.im.android.api.JMessageClient.FLAG_NOTIFY_SILENCE;
-
 
 /**
  * OK
@@ -70,7 +74,7 @@ public class HealthMainInit implements IAppInitialization {
         initLeanCloud();
         initBugly();
         initUmengShare();
-        initJPush();
+//        initJPush();
         setupDatabase(); //初始化数据库
         initCamera();
         initImageLoader();
@@ -91,6 +95,9 @@ public class HealthMainInit implements IAppInitialization {
         UserRepository.initialize(UserRemoteDataSource.getInstance(), UserLocalDataSource.getInstance(appContext));
         MessageRepository.initialize(MessageRemoteDataSource.getInstance(), MessageLocalDataSource.getInstance(appContext));
         FriendRepository.initialize(FriendRemoteDataSource.getInstance(), FriendLocalDataSource.getInstance(appContext));
+        MedicineRepository.initialize(MedicineRemoteDataSource.getInstance(), MedicineLocalDataSource.getInstance(appContext));
+        RecipesRepository.initialize(RecipesRemoteDataSource.getInstance(), RecipesLocalDataSource.getInstance(appContext));
+        DiseaseRepository.initialize(DiseaseRemoteDataSource.getInstance(), DiseaseLocalDataSource.getInstance(appContext));
 
 //        NewsRepository.initialize(NewsRemoteDataSource.getInstance(), NewsLocalDataSource.getInstance(appContext));
 //        WechatRepository.initialize(WechatRemoteDataSource.getInstance(), WechatLocalDataSource.getInstance(appContext));
@@ -126,24 +133,24 @@ public class HealthMainInit implements IAppInitialization {
         UMShareAPI.get(appContext);
     }
 
-    private void initJPush() {
-        JPushInterface.setDebugMode(true);   //开启极光调试
-        JPushInterface.init(appContext);   //实例化极光推送
-        JMessageClient.init(appContext, true);     //实例化极光IM,并自动同步聊天记录
-        JMessageClient.setDebugMode(true);
-//        SMSSDK.getInstance().initSdk(mContext);    //初始化极光sms
-        JMessageClient.setNotificationFlag(FLAG_NOTIFY_SILENCE);  //通知管理,通知栏开启，其他关闭
-
-
-        //初始化utils
-//        Utils.init(this);
-
-//        //推送状态
-//        SPHelper.setBoolean(JPUSH_ROAMING, true);
-//        SPHelper.setBoolean(JPUSH_MUSIC, false);
-//        SPHelper.setBoolean(JPUSH_VIB, false); /*震动开启状态*/
-//        SPHelper.setString("JAPP_KEY", JAPP_KEY);
-    }
+//    private void initJPush() {
+//        JPushInterface.setDebugMode(true);   //开启极光调试
+//        JPushInterface.init(appContext);   //实例化极光推送
+//        JMessageClient.init(appContext, true);     //实例化极光IM,并自动同步聊天记录
+//        JMessageClient.setDebugMode(true);
+////        SMSSDK.getInstance().initSdk(mContext);    //初始化极光sms
+//        JMessageClient.setNotificationFlag(FLAG_NOTIFY_SILENCE);  //通知管理,通知栏开启，其他关闭
+//
+//
+//        //初始化utils
+////        Utils.init(this);
+//
+////        //推送状态
+////        SPHelper.setBoolean(JPUSH_ROAMING, true);
+////        SPHelper.setBoolean(JPUSH_MUSIC, false);
+////        SPHelper.setBoolean(JPUSH_VIB, false); /*震动开启状态*/
+////        SPHelper.setString("JAPP_KEY", JAPP_KEY);
+//    }
 
     private void setupDatabase() {
         //是否开启调试

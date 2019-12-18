@@ -8,7 +8,22 @@
     <string name="agree">同意</string>
     <string name="refuse">拒绝</string>
     <string name="send">发送</string>
+    <string name="notice">通知</string>
+    <string name="empty_data">空数据</string>
+    <string name="cancel">取消</string>
+    <string name="search_no_result">查询无结果</string>
+    <string name="introduction">简介</string>
+    <string name="detailed">[详细]</string>
+    <string name="data_lose">数据丢失</string>
+    <string name="input_key_word">请输入关键字</string>
+    <string name="input_no_empty">输入不为空</string>
+    <string name="data_finish">数据到底</string>
 
+    <!--视频-->
+    <string name="play">播放</string>
+    <string name="pause">暂停</string>
+    <string name="replay">继续</string>
+    <string name="vedio_lose">视频资源丢失</string>
     <!-- 导航条 -->
     <string name="tab_homepage">首页</string>
     <string name="tab_message">消息</string>
@@ -22,20 +37,26 @@
 
     <string name="health_item_today">今日最新</string>
 
-    <string name="tips_select_browser">请选择浏览器</string>
-    <string name="tips_share_success">分享成功</string>
-
-    <string name="loading_tips">正在加载中...</string>
     <string name="main_exit_app">再按一次退出</string>
 
+    <!--分享-->
     <string name="menu_browser">在浏览器打开</string>
     <string name="menu_share">分享</string>
+    <string name="tips_select_browser">请选择浏览器</string>
+    <string name="tips_share_success">分享成功</string>
+    <!--消息加载-->
+    <string name="loading_footer_tips">正在加载中...</string>
+    <string name="loading_header_tips">查看更多消息</string>
+    <string name="loading_success">加载成功</string>
+    <string name="loading_finish">这是底部《^ --- ^》</string>
 
 
     <!--校验-->
 
     <!--网络-->
     <string name="network_request">网络请求中</string>
+    <string name="network_try_again">网络异常，点击重试</string>
+    <string name="network_load_try_again">加载异常，点击重试</string>
     <string name="no_network">网络不可用，请检查您的网络</string>
     <string name="netwotk_loginig">正在登录</string>
     <string name="netwotk_registering">正在注册</string>
@@ -169,5 +190,115 @@
     <!--名片-->
     <!--代码-->
     <string name="chatting_select_people">选择联系人</string>
+
+    <!--名片-->
+    <!--界面-->
+    <string name="message_notice_no_data">暂无通知</string>
+
+    <!--发现-->
+    <!--界面-->
+    <string name="find_health_information">健康资讯</string>
+    <string name="find_drug_bank">药品库</string>
+    <string name="find_disease_bank">疾病库</string>
+    <string name="find_health_recipes">健康食谱</string>
+    <string name="find_nearby_hospital_or_pharmacy">附近(医院/药店)</string>
+    <string name="find_self_help_diagnosis">自助诊断</string>
+
+    <!--发现-->
+    <!--界面-->
+    <string name="mine_coupon">我的优惠券</string>
+    <string name="mine_wallet">我的钱包</string>
+    <string name="mine_integral">我的积分</string>
+    <string name="mine_service">我的服务</string>
+    <string name="mine_case">电子病历</string>
+    <string name="mine_history">自测历史</string>
+    <string name="mine_order">药品订单</string>
+    <string name="mine_collectionpng">我的收藏</string>
+    <string name="mine_opinion">反馈意见</string>
+
+    <!--药品库-->
+    <!--界面-->
+    <string name="mine_drug_bank_classify_list">药品分类</string>
+    <string name="mine_drug_bank_type">药品类型</string>
+    <string name="mine_drug_bank_medicine">药品</string>
+    <string name="mine_drug_bank_price_unknown">参考价格:未知</string>
+    <string name="mine_drug_bank_price">参考售价:¥</string>
+
+    <!--药品详细-->
+    <!--界面-->
+    <string name="mine_drug_bank_medicine_detail">药品详细</string>
+
+    <!--健康食谱-->
+    <!--界面-->
+    <string name="find_health_recipes_week_customization">一周定制</string>
+    <string name="find_health_recipes_customization_unit">(大卡/100克)</string>
+    <string name="find_health_recipes_customization_next">换一批</string>
+    <string name="find_health_recipes_detail_way">原料与做法</string>
+    <string name="find_health_recipes_detail_component">营养成分</string>
+    <string name="find_health_recipes_detail_unit">单位：每100克</string>
+    <string name="find_health_recipes_detail_protein">蛋白质</string>
+    <string name="find_health_recipes_detail_fat">脂肪</string>
+    <string name="find_health_recipes_detail_carbohydrate">碳水化合物</string>
+    <string name="find_health_recipes_detail_main_material">主要材料</string>
+    <string name="find_health_recipes_detail_detail_ways">详细步骤</string>
+
+    <!--疾病详细-->
+    <!--界面-->
+    <string name="find_self_diagnosis_detail_base_info">基本信息</string>
+    <string name="find_self_diagnosis_detail_disease_info">疾病知识</string>
+    <string name="find_self_diagnosis_detail_cure_info">治疗知识</string>
+    <string name="find_self_diagnosis_detail_name">名称</string>
+    <string name="find_self_diagnosis_detail_alias">别名:</string>
+    <string name="find_self_diagnosis_detail_intro">简介:</string>
+    <string name="find_self_diagnosis_detail_contagious">传染性:</string>
+    <string name="find_self_diagnosis_detail_multiple_people">多发人群:</string>
+    <string name="find_self_diagnosis_detail_symptom_early">早期症状:</string>
+    <string name="find_self_diagnosis_detail_symptom_late">晚期症状:</string>
+    <string name="find_self_diagnosis_detail_symptom_related">相关症状:</string>
+    <string name="find_self_diagnosis_detail_symptom_intro">相关症状介绍:</string>
+    <string name="find_self_diagnosis_detail_complication">并发症:</string>
+    <string name="find_self_diagnosis_detail_complication_intro">并发症介绍:</string>
+    <string name="find_self_diagnosis_detail_visit_department">就诊科室:</string>
+    <string name="find_self_diagnosis_detail_cure_rate">治愈率: </string>
+    <string name="find_self_diagnosis_detail_cure_cost">治疗费用: </string>
+    <string name="find_self_diagnosis_detail_cure_way">治疗方法: </string>
+    <string name="find_self_diagnosis_detail_cure_recommend_drug">推荐药物: </string>
+    <string name="find_self_diagnosis_detail_disease_part">部位:</string>
+    <string name="find_self_diagnosis_detail_medical_insurance">有无医保:</string>
+    <string name="find_self_diagnosis_detail_cure_time">治疗时间: </string>
+    <string name="find_self_diagnosis_detail_disease_complication">并发症:</string>
+    <string name="find_self_diagnosis_detail_disease_population">人群:</string>
+    <string name="find_self_diagnosis_detail_disease_typical_symptoms">典型症状: </string>
+    <string name="find_self_diagnosis_detail_disease_prevention">预防:</string>
+    <string name="find_self_diagnosis_detail_disease_case">病因:</string>
+    <string name="find_self_diagnosis_detail_disease_check">临床检查:</string>
+    <string name="find_self_diagnosis_detail_no">暂无</string>
+
+
+    <!--附近医院/药店-->
+    <!--界面-->
+    <string name="find_nearby_hospital">附近医院</string>
+    <string name="find_nearby_pharmacy">附近药店</string>
+    <string name="find_nearby_detail">查看路线</string>
+    <string name="find_nearby_road">路线</string>
+    <string name="find_nearby_call_gould">高德导航</string>
+    <string name="find_nearby_recommend_way">推荐方案:</string>
+    <string name="find_nearby_cost_time">耗时约:</string>
+    <string name="find_nearby_pass_road">经过路口:</string>
+    <string name="find_nearby_current_position">当前位置:</string>
+    <string name="find_nearby_move_position">目标位置:</string>
+    <string name="find_nearby_exit_road">再次点击返回键，退出路线</string>
+    <string name="find_nearby_show_map">显示地图</string>
+    <string name="find_nearby_switch_hospital">切换医院</string>
+    <string name="find_nearby_switch_pharmacy">切换药店</string>
+    <string name="find_nearby_switch_success">切换成功</string>
+    <string name="find_nearby_go_here">到这去</string>
+    <string name="find_nearby_map">地图</string>
+    <string name="find_nearby_list">列表</string>
+    <string name="find_nearby_list_next_page">下一页</string>
+    <string name="find_nearby_list_last_page">上一页</string>
+    <string name="find_nearby_walk">步行</string>
+    <string name="find_nearby_car">汽车</string>
+
 
 </resources>

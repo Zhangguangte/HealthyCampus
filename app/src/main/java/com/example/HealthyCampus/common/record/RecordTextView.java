@@ -4,14 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 
 @SuppressLint("AppCompatCustomView")
-public class RecordTextView extends TextView {
+public class RecordTextView extends AppCompatTextView {
     private RecordManager mRecordManager;
     private boolean isReadToRecord = false;
     private DialogManager mDialogManager;
@@ -41,6 +43,7 @@ public class RecordTextView extends TextView {
             @Override
             public void wellPrepared() {
                 mHandler.sendEmptyMessage(MSG_AUDIO_PREPARED);
+                Log.e("RecordTextView" + "123456", "789456123" );
             }
         });
 
@@ -57,7 +60,7 @@ public class RecordTextView extends TextView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
+        Log.e("RecordTextView" + "123456", "event.getAction():" + event.getAction());
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;
@@ -84,12 +87,12 @@ public class RecordTextView extends TextView {
                     mHandler.sendEmptyMessageDelayed(MSG_DIALOG_DIMISS, 1000);
                 } else {
                     mDialogManager.dismiss();
-                    if(isToCancle(event.getX(), event.getY())) {
+                    if (isToCancle(event.getX(), event.getY())) {
                         mRecordManager.cancel();
                     } else {
                         mRecordManager.release();
                         if (null != mListener) {
-                            mListener.onFinish((int) ((curTime - mTime)/1000), mRecordManager.getCurrentFilePath());
+                            mListener.onFinish((int) ((curTime - mTime) / 1000), mRecordManager.getCurrentFilePath());
                         }
                     }
                 }
@@ -136,10 +139,12 @@ public class RecordTextView extends TextView {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
+            Log.e("RecordTextView" + "123456", "msg.what:" + msg.what);
             switch (msg.what) {
                 case MSG_AUDIO_PREPARED:
                     // 显示對話框在开始录音以后
@@ -170,7 +175,7 @@ public class RecordTextView extends TextView {
         mListener = listener;
     }
 
-    public interface OnFinishRecordListener{
+    public interface OnFinishRecordListener {
         void onFinish(int time, String filePath);
     }
 

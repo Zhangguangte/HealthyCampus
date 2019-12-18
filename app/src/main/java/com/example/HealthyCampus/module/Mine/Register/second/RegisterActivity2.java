@@ -93,8 +93,12 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        try {
         mPresenter.foucusRegisterEditText();
-        mPresenter.listenRegisterEditText();
+            mPresenter.listenRegisterEditText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -350,7 +354,11 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
         } else {
 //            ToastUtil.show(this, "注册成功");
             RegisterFrom registerFrom = mPresenter.encapsulationData(phoneNo, pwd);
-            mPresenter.register(registerFrom);
+            try {
+                mPresenter.register(registerFrom);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

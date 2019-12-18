@@ -15,6 +15,10 @@ import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.utils.AppStatusTracker;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
+import com.example.HealthyCampus.module.Find.Diagnosis.DiagnosisActivity;
+import com.example.HealthyCampus.module.Find.Diagnosis.List.DiseaseSort.Detail.DiseaseDetailActivity;
+import com.example.HealthyCampus.module.Find.Nearby.NearbyActivity;
+import com.example.HealthyCampus.module.Find.Recipes.RecipesActivity;
 import com.example.HealthyCampus.module.MainActivity;
 import com.example.HealthyCampus.module.Message.Chat.Map.MapActivity;
 import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
@@ -53,8 +57,9 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
 
     @Override
     protected void initView() {
-        logoIv.startAnimation(createLogoAnimation());
-        backgroundIv.startAnimation(createBackgroundAnimation());
+        initHandle();
+//        logoIv.startAnimation(createLogoAnimation());
+//        backgroundIv.startAnimation(createBackgroundAnimation());
     }
 
 
@@ -109,11 +114,12 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (0 < i++) initHandle();
-                else {
-                    logoIv.startAnimation(createLogoAnimation());
-                    backgroundIv.startAnimation(createBackgroundAnimation());
-                }
+//                if (0 < i++) initHandle();
+//                else {
+//                    logoIv.startAnimation(createLogoAnimation());
+//                    backgroundIv.startAnimation(createBackgroundAnimation());
+//                }
+                initHandle();
             }
 
             @Override

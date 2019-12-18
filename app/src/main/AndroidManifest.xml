@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <!--******************定位*****************-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>    <!--用于进行网络定位-->
@@ -104,6 +107,7 @@
         <activity
             android:name=".module.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -180,10 +184,10 @@
         <!--聊天-->
         <activity
             android:name=".module.Message.Chat.ChatActivity"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateHidden" />
 
         <!--照片选择-->
         <activity
@@ -206,12 +210,92 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <!--名片-->
+        <!--视频播放-->
         <activity
-            android:name=".module.Message.Chat.Card.CardActivity"
+            android:name=".module.Message.Chat.Vedio.VedioActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <!--通知界面-->
+        <activity
+            android:name=".module.Message.Notice.NoticeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--药品库-->
+        <activity
+            android:name=".module.Find.Drug_Bank.DrugBankActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" />
+
+        <!--药品详细-->
+        <activity
+            android:name=".module.Find.Drug_Bank.Medicine_Detail.MedicineDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+
+        <!--健康食谱-->
+        <activity
+            android:name=".module.Find.Recipes.RecipesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--一周定制-->
+        <activity
+            android:name=".module.Find.Recipes.Customization.activity.CustomizationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+
+        <!--菜肴详细-->
+        <activity
+            android:name=".module.Find.Recipes.Customization.activity.Detail.RecipesDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--自助诊断-->
+        <activity
+            android:name=".module.Find.Diagnosis.DiagnosisActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--疾病百科-->
+        <activity
+            android:name=".module.Find.Diagnosis.List.DiseaseSort.DiseaseSortActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--疾病详情-->
+        <activity
+            android:name=".module.Find.Diagnosis.List.DiseaseSort.Detail.DiseaseDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+
+        <!--附近药店-->
+        <activity
+            android:name=".module.Find.Nearby.NearbyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+
 
         <!-- UmengShare START -->
         <activity

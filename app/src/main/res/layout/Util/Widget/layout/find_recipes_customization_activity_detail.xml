@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_recipes1" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="20dp"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bright_green">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:text="@string/find_health_recipes_detail_component"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_f2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="@dimen/right_margin"
+                        android:text="@string/find_health_recipes_detail_unit"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_f5" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bright_green"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/padding"
+                    android:paddingBottom="@dimen/top_padding_more_less">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="@dimen/icon_size_more_hundred_2"
+                            android:layout_height="@dimen/icon_size_more_hundre_9"
+                            app:cardCornerRadius="@dimen/radius_card5">
+
+                            <ImageView
+                                android:id="@+id/ivIcon"
+                                android:layout_width="120dp"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY" />
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <include
+                        layout="@layout/find_recipes_customization_activity_detail_proportion"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:weightSum="3" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/padding_less2"
+                android:paddingBottom="@dimen/padding_less2">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginEnd="@dimen/top_margin_less_less"
+                    android:src="@drawable/find_detail_fortune_cookie" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/top_margin_less_less"
+                    android:text="@string/find_health_recipes_detail_way"
+                    android:textColor="@color/text_level_4"
+                    android:textSize="@dimen/text_f3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height_one"
+                android:background="@color/text_level_4" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:columnCount="3"
+                android:paddingTop="@dimen/top_margin_less_less"
+                android:paddingBottom="@dimen/top_margin_less_less">
+
+                <LinearLayout
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/dot" />
+
+                    <TextView
+                        android:id="@+id/tvFlavor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/padding_less3"
+                        android:textColor="@color/black"
+                        tools:targetApi="lollipop" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/dot" />
+
+                    <TextView
+                        android:id="@+id/tvProductionTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/padding_less3"
+                        android:textColor="@color/black"
+                        tools:targetApi="lollipop" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/dot" />
+
+                    <TextView
+                        android:id="@+id/tvMainProcess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/padding_less3"
+                        android:textColor="@color/black"
+                        tools:targetApi="lollipop" />
+                </LinearLayout>
+            </GridLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green6"
+                    android:paddingLeft="@dimen/padding_less"
+                    android:paddingTop="@dimen/padding_less4"
+                    android:paddingBottom="@dimen/padding_less4"
+                    android:text="@string/find_health_recipes_detail_main_material"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/material_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green6"
+                    android:paddingLeft="@dimen/padding_less"
+                    android:paddingTop="@dimen/padding_less4"
+                    android:paddingBottom="@dimen/padding_less4"
+                    android:text="@string/find_health_recipes_detail_detail_ways"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/detail_way_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

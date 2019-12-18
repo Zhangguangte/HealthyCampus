@@ -12,13 +12,13 @@ public class ImageLoaderManager {
     public static DisplayImageOptions getImageOptions() {
         if (null == mOptions) {
             mOptions = new DisplayImageOptions.Builder()
-                    .showImageOnLoading(R.mipmap.near_gray)
+                    .showImageOnLoading(R.mipmap.picture_loading)
                     .showImageForEmptyUri(R.mipmap.chatting_picture)
                     .showImageOnFail(R.mipmap.chatting_picture)
                     .cacheInMemory(true)
                     .cacheOnDisk(true)
                     .considerExifParams(true)
-                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .bitmapConfig(Bitmap.Config.ARGB_8888)
                     .build();
 
         }

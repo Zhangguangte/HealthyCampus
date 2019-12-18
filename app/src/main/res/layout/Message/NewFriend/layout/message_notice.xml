@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/title_bar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNotice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="afterDescendants"
+        android:background="@color/background_page" />
+
+    <RelativeLayout
+        android:id="@+id/noNoticeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivNoNotice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/notice_no_data"
+            android:layout_marginBottom="@dimen/margin"
+            android:paddingBottom="@dimen/margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ivNoNotice"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_more"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f_2"
+            android:text="@string/message_notice_no_data"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

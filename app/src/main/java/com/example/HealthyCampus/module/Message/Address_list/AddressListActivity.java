@@ -159,9 +159,13 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mPresenter.getFriendsInformation();
-        mPresenter.listenTouch();
-        mPresenter.listenItem();
+        try {
+            mPresenter.getFriendsInformation();
+            mPresenter.listenTouch();
+            mPresenter.listenItem();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

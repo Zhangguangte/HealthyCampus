@@ -9,7 +9,7 @@ public class ToastUtil {
 
     public static void show(Context context, String str) {
         if (toast == null) {
-            toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
+            toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
         }
         toast.setText(str);
         toast.show();
@@ -21,7 +21,7 @@ public class ToastUtil {
             @Override
             public void run() {
                 if (toast == null) {
-                    toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
+                    toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
                 }
                 String string = context.getResources().getString(id);
                 toast.setText(string);

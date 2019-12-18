@@ -32,7 +32,10 @@ public class SPHelper {
     public static final String JPUSH_ROAMING = "JPUSH_ROAMING";
 
 
+    public static final String SOFT_INPUT_HEIGHT = "SOFT_INPUT_HEIGHT";
+    public static final String IS_EXCEED_SCEEN = "IS_EXCEED_SCEEN";
 
+    public static final String NOTICE_DATE = "NOTICE_DATE";
     public static String getString(String key) {
         return getString(key, "");
     }
@@ -43,6 +46,14 @@ public class SPHelper {
 
     public static boolean setString(String key, String value) {
         return getPreferences().edit().putString(key, value).commit();
+    }
+
+    public static boolean setInt(String key, int value) {
+        return getPreferences().edit().putInt(key, value).commit();
+    }
+
+    public static int getInt(String key, int defaultValue) {
+        return getPreferences().getInt(key, defaultValue);
     }
 
     public static boolean setBoolean(String key, boolean defaultValue) {

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.HealthyCampus.R;
@@ -100,7 +102,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     public interface onItemClick {
-        void onItemButtonClick(String userid, int position,String fNickname);
+        void onItemButtonClick(String userid, int position, String fNickname);
 
         void onItemViewClick(String userid, String nickname, String content, String status, int position);
     }
@@ -114,8 +116,10 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
         TextView tvContent;
         @BindView(R.id.btnOperation)
         Button btnOperation;
-        @BindView(R.id.rivHead)
-        RoundImageView rivHead;
+        @BindView(R.id.ivHead)
+        ImageView ivHead;
+        @BindView(R.id.ItemLayout)
+        LinearLayout ItemLayout;
         private boolean val = false;
 
         public ItemViewHolder(View view) {
@@ -166,9 +170,17 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
             btnOperation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClick.onItemButtonClick(data.get(position).getUser_id(), position,data.get(position).getNickname());
+                    onItemClick.onItemButtonClick(data.get(position).getUser_id(), position, data.get(position).getNickname());
                 }
             });
+
+            ItemLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClick.onItemViewClick(data.get(position).getRequest_user_id(), data.get(position).getNickname(), data.get(position).getContent(), data.get(position).getStatus(), position);
+                }
+            });
+
 //            Picasso.with(context)
 //                    .load(data.get(position).getHeadImg())
 //                    .placeholder(R.mipmap.head_default)
@@ -179,12 +191,6 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
         @Override
         public void onItemClick(View view, int position) {
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.onItemViewClick(data.get(position).getRequest_user_id(), data.get(position).getNickname(), data.get(position).getContent(), data.get(position).getStatus(), position);
-                }
-            });
         }
     }
 }

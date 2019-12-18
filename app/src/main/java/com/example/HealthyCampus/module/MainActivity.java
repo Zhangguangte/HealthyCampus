@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.utils.DensityUtil;
 import com.example.HealthyCampus.common.utils.SnackbarUtil;
 import com.example.HealthyCampus.common.widgets.tab.TabLayout;
 import com.example.HealthyCampus.framework.BaseActivity;
@@ -59,19 +60,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     @Override
     protected void initView() {
 
-        // toolbar设置
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
-
         //添加tab（因为tab里的Fragment的添加方式不是预先加入Layout容器内，无需开启Fragment的懒加载）
         ArrayList<TabLayout.Tab> tabs = new ArrayList<>();
-//        tabs.add(new TabLayout.Tab(R.drawable.ic_home_white_24dp, R.string.tab_homepage, HomePageFragment.class));
-        tabs.add(new TabLayout.Tab(R.drawable.ic_message_white_24dp, R.string.tab_message, MessageFragment.class));
-        tabs.add(new TabLayout.Tab(R.drawable.ic_find_white_24dp, R.string.tab_find, FindFragment.class));
-        tabs.add(new TabLayout.Tab(R.drawable.ic_mine_white_24dp, R.string.tab_mine, MineFragment.class));
+        tabs.add(new TabLayout.Tab(R.drawable.ic_home_white, R.string.tab_homepage, HomePageFragment.class));
+        tabs.add(new TabLayout.Tab(R.drawable.ic_message_white, R.string.tab_message, MessageFragment.class));
+        tabs.add(new TabLayout.Tab(R.drawable.ic_find_white, R.string.tab_find, FindFragment.class));
+        tabs.add(new TabLayout.Tab(R.drawable.ic_mine_white, R.string.tab_mine, MineFragment.class));
         mTabLayout.setUpData(tabs, this);
         mTabLayout.setCurrentTab(0);
         //immersive();
@@ -111,28 +105,22 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         try {
             setTitle(tab.labelResId);
             setElevation(tab.labelResId);
-
             ITabFragment tmpFragment = (ITabFragment) getSupportFragmentManager().findFragmentByTag(tab.targetFragmentClz.getSimpleName());
-
-            if (currentFragment == null) {
-
+            if (currentFragment == null) {      //当前Fragment为空
                 if (tmpFragment == null) {
                     tmpFragment = tab.targetFragmentClz.newInstance();
                     getSupportFragmentManager().beginTransaction()
                             .add(R.id.mFragmentContainerLayout, tmpFragment.getFragment(), tab.targetFragmentClz.getSimpleName())
                             .commitNowAllowingStateLoss();
-
                     currentFragment = tmpFragment;
                 } else {
 
                     ITabFragment newTmpFragment = tab.targetFragmentClz.newInstance();
                     getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, newTmpFragment.getFragment(), tab.targetFragmentClz.getSimpleName())
                             .commitNowAllowingStateLoss();
-
                     currentFragment = newTmpFragment;
                 }
             } else {
-
                 if (tmpFragment == null) {
                     tmpFragment = tab.targetFragmentClz.newInstance();
 
@@ -148,7 +136,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
                 }
                 currentFragment = tmpFragment;
             }
-
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -159,12 +146,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     private void setElevation(int labelResId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             switch (labelResId) {
-//                case R.string.tab_about:
-//                    appBarLayout.setElevation((float) DensityUtil.getInstance(this).getDip2Px(5));
-//                    break;
-//                default:
-//                    appBarLayout.setElevation(0);
-//                    break;
+                case R.string.tab_about:
+                    appBarLayout.setElevation((float) DensityUtil.getInstance(this).getDip2Px(5));
+                    break;
+                default:
+                    appBarLayout.setElevation(0);
+                    break;
             }
         }
     }
@@ -172,7 +159,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     @Override
     public void onBackPressed() {
         mPresenter.exitApp();
-    }
+    }   //退出
 
     @Override
     public Context getContext() {
@@ -180,21 +167,14 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
     @Override
-    public void showSnackBar(int resId) {
-//        immersive();
-        //Snackbar.make(mCoordinatorLayout,getString(resId), Snackbar.LENGTH_SHORT).show();
-//        SnackbarUtil.shortSnackbar(mCoordinatorLayout, getString(resId), SnackbarUtil.Info);
-        //    SnackbarUtil.shortSnackbar(getWindow().getDecorView(), getString(resId), SnackbarUtil.Info);
-        //  immersive();
-//        Log.e("showSnackBar" + "123456", "resId" + resId);
-
+    public void showSnackBar(int resId) {       //显示退出提示框
         SnackbarUtil.shortSnackbar(mCoordinatorLayout, getString(resId), SnackbarUtil.Info);
     }
 
     @Override
     public void finishView() {
         finish();
-    }
+    }       //结束
 
 
 }

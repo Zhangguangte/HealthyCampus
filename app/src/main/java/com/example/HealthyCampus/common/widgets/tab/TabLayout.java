@@ -77,22 +77,16 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-
-
-
-        if (selectView != v) {
-            listener.onTabClick((Tab) v.getTag());
-
+        if (selectView != v) {      //判断是否为当前Fragment
+            listener.onTabClick((Tab) v.getTag());  //切换界面
             int childCount = getChildCount();
-
             for (int i = 0; i < childCount; i++) {
                 View child = getChildAt(i);
                 if (child == v) {
                     v.setSelected(true);
-                    setTintColor(child, R.color.colorPrimary);
+                    setTintColor(child, R.color.colorPrimary, true);
                 } else {
-                    setTintColor(child, R.color.icons_tint_normal);
+                    setTintColor(child, R.color.icons_tint_normal, false);
                 }
             }
 
@@ -103,7 +97,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    private void setTintColor(View view, int colorId) {
+    private void setTintColor(View view, int colorId, boolean val) {
         ImageView img = view.findViewById(R.id.mTabImg);
         if (img != null) {
             Drawable originalDrawable = img.getDrawable();
@@ -114,6 +108,10 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
         TextView txt = view.findViewById(R.id.mTabTxt);
         if (txt != null) {
             txt.setTextColor(ColorStateList.valueOf(getResources().getColor(colorId)));
+            if (val)
+                txt.setTextSize(12.0f);
+            else
+                txt.setTextSize(10.f);
         }
     }
 

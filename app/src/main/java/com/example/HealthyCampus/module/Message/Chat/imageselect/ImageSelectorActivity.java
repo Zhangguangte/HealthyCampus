@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.Message.Chat.imageselect;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -123,6 +124,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override

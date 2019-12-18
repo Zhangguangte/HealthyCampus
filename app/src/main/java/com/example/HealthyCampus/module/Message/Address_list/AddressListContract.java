@@ -27,10 +27,10 @@ interface AddressListContract {
     }
 
     abstract class Presenter extends BasePresenter<View> {
-        protected abstract void getFriendsInformation();    //获得好友头像和昵称信息
+        protected abstract void getFriendsInformation() throws Exception;    //获得好友头像和昵称信息
 
-        protected abstract void listenTouch();       //触碰监听
+        protected abstract void listenTouch() throws Exception;       //触碰监听
 
-        protected abstract void  listenItem();        //单项监听
+        protected abstract void  listenItem() throws Exception;        //单项监听
     }
 }

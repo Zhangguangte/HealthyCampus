@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_less"
+    android:background="@drawable/shape_button_lines6"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_less">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_less3">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="@dimen/icon_size_more_hundre_9"
+            android:layout_height="@dimen/icon_size_more_more1"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:layout_marginEnd="@dimen/right_margin" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_toEndOf="@+id/ivIcon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f2" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_toEndOf="@+id/ivIcon"
+            android:textColor="@color/text_level_3"
+            android:textSize="@dimen/text_f3" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height_three"
+        android:layout_marginTop="@dimen/margin_less"
+        android:layout_marginBottom="@dimen/margin_less"
+        android:background="@color/interval_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_less3"
+            android:paddingBottom="@dimen/padding_less3"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/top_margin_less_less"
+                android:layout_marginEnd="@dimen/top_margin_less_less"
+                android:drawableStart="@drawable/map_list_telephone"
+                android:drawablePadding="@dimen/top_margin_less_less"
+                android:gravity="center"
+                android:text="@string/docotor_display_doctor_name"
+                android:textColor="@color/text_level_4"
+                android:textSize="@dimen/text_f3" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/view_height_three"
+            android:layout_height="match_parent"
+            android:background="@color/interval_background" />
+
+        <LinearLayout
+            android:id="@+id/hereLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/padding_less3"
+            android:paddingBottom="@dimen/padding_less3"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_less"
+                android:drawableStart="@drawable/map_list_here"
+                android:drawablePadding="@dimen/top_margin_less_less"
+                android:gravity="center"
+                android:text="@string/find_nearby_go_here"
+                android:textColor="@color/text_level_4"
+                android:textSize="@dimen/text_f3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"></LinearLayout>-->
+
+</LinearLayout>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_mine_drug" />
+
+    <include layout="@layout/item_medicine_search" />
+
+    <include layout="@layout/layout_empty"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pageBackground"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_medicine_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/lightskyblue"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/type_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="@dimen/padding_less3"
+                android:paddingBottom="@dimen/padding_less3"
+                android:text="@string/mine_drug_bank_type"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="@dimen/view_width_five"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/classify_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:paddingTop="@dimen/padding_less3"
+                android:paddingBottom="@dimen/padding_less3"
+                android:text="@string/mine_drug_bank_classify_list"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_type_list"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <View
+                android:id="@+id/intervalView"
+                android:layout_width="@dimen/view_width_five"
+                android:layout_height="match_parent"
+                android:background="@color/black" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_classify_list"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refreshSearchLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:visibility="gone">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_medicine_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadeScrollbars="false"
+                    android:scrollbars="vertical" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <RelativeLayout
+                android:id="@+id/medicineEmptyLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingBottom="@dimen/margin_more"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivMedicineLoading"
+                    android:layout_width="@dimen/icon_size_more_hundred3"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/data_loading" />
+
+                <LinearLayout
+                    android:id="@+id/mEmptyLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ivMedicineEmpty"
+                        android:layout_width="@dimen/icon_size_more_hundred"
+                        android:layout_height="@dimen/icon_size_more_hundred"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/medicine_no_data" />
+
+                    <TextView
+                        android:id="@+id/tvMedicineEmpty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity=""
+                        android:layout_marginTop="@dimen/margin_less"
+                        android:text="@string/network_try_again"
+                        android:textColor="@color/text_level_2"
+                        android:textSize="@dimen/text_f2" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

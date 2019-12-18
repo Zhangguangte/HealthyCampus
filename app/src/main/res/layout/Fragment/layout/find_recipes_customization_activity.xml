@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_recipes1" />
+
+    <include
+        layout="@layout/layout_empty" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvContent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/no_width"
+        android:layout_weight="1"
+        android:background="@color/ghostwhite" />
+
+    <RelativeLayout
+        android:id="@+id/change_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/beige"
+        android:paddingTop="@dimen/padding"
+        android:paddingBottom="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/ivNext"
+            android:layout_width="@dimen/icon_size_less1"
+            android:layout_height="@dimen/icon_size_less1"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/margin_top"
+            android:layout_toLeftOf="@+id/tvNext"
+            android:src="@drawable/find_recipes_exchange_customization" />
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/find_health_recipes_customization_next"
+            android:textColor="@color/text_level_4"
+            android:textSize="@dimen/text_f3" />
+    </RelativeLayout>
+</LinearLayout>

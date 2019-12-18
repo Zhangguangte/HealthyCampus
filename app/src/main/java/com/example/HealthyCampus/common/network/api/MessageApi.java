@@ -5,6 +5,7 @@ import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.model.LatestNewsBean;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.MessageListVo;
+import com.example.HealthyCampus.common.network.vo.NoticeVo;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 
 import java.util.List;
@@ -39,6 +40,20 @@ public interface MessageApi {
 
     @POST("/messages/insertCard/")
     Observable<UserVo> insertCard(@Body ChatForm chatForm);
+
+    @POST("/messages/getAllNotice/")
+    Observable<List<NoticeVo>> getAllNotice(@Body RequestForm requestForm);
+
+
+    @POST("/messages/clearNotice/")
+    Observable<DefaultResponseVo> clearNotice();
+
+
+    @POST("/messages/deleteNotice/")
+    Observable<DefaultResponseVo> deleteNotice(@Body RequestForm requestForm);
+
+    @POST("/messages/lookNotice/")
+    Observable<DefaultResponseVo> lookNotice(@Body RequestForm requestForm);
 
 //    @Headers("Content-Type:application/json;charset=UTF-8")
 //    @Multipart

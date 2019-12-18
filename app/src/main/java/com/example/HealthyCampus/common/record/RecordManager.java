@@ -6,6 +6,7 @@ import android.os.Environment;
 import com.example.HealthyCampus.common.utils.LogUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class RecordManager {
@@ -47,7 +48,7 @@ public class RecordManager {
 
     // 去准备
     public void prepareAudio() {
-        try {
+//        try {
             String dirStr = Environment.getExternalStorageDirectory() + "/health/record";
             isPrepare = false;
             File dir = new File(dirStr);
@@ -64,18 +65,18 @@ public class RecordManager {
             LogUtil.logE("RecordManager123456", "getAbsolutePath：" + file.getAbsolutePath());
 
             mMediaRecorder = new MediaRecorder();
-            // 设置输出文件
-            mMediaRecorder.setOutputFile(mCurrentFilePath);
-            // 设置MediaRecorder的音频源为麦克风
-            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            // 设置音频格式
-            mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
-            // 设置音频编码
-            mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mMediaRecorder.setOutputFile(mCurrentFilePath);   // 设置输出文件
+            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);     // 设置MediaRecorder的音频源为麦克风
+            mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);  // 设置音频格式
+            mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);      // 设置音频编码
 
             // 准备录音
+        try {
             mMediaRecorder.prepare();
-            // 开始
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 开始
             mMediaRecorder.start();
             // 准备结束
             isPrepare = true;
@@ -83,9 +84,10 @@ public class RecordManager {
                 mAudioStateListener.wellPrepared();
             }
             LogUtil.logE("RecordManager123456", "调用789");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        } catch (Exception e) {
+//            LogUtil.logE("RecordManager123456", "11223");
+//            e.printStackTrace();
+//        }
 
     }
 

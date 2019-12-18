@@ -5,20 +5,23 @@ import com.example.HealthyCampus.common.widgets.chat.ChatStroke;
 
 public class ChatItemBean {
 
+    private boolean isSelf;  //发送者
     private String time;    // 时间
     private int direction;  //方向
     private String nickname;    //昵称
     private String type;
     private String content;
     private String belongId;
-
     private String file_path;
     private String picture;
+    private String sentstatus;
+
     private String avatar;
 
-
     public ChatItemBean() {
-        direction = ChatStroke.DIR_LEFT;
+        direction = ChatStroke.DIR_RIGHT;
+        isSelf = true;
+        sentstatus = "SENDING";
     }
 
     @Override
@@ -35,14 +38,33 @@ public class ChatItemBean {
                 '}';
     }
 
-    public ChatItemBean(MessageListVo messageListVo,String userid) {
+
+    public ChatItemBean(MessageListVo messageListVo, String userid) {
         type = messageListVo.getType();
         content = messageListVo.getContent();
         time = messageListVo.getCreate_time();
         nickname = messageListVo.getAnother_name();
         file_path = messageListVo.getFile_path();
         belongId = messageListVo.getBelongId();
-        direction = !userid.equals(messageListVo.getBelongId()) ? ChatStroke.DIR_LEFT : ChatStroke.DIR_RIGHT;
+//        direction = !userid.equals(messageListVo.getBelongId()) ? ChatStroke.DIR_LEFT : ChatStroke.DIR_RIGHT;
+        isSelf = userid.equals(messageListVo.getBelongId());
+        sentstatus = messageListVo.getSentStatus();
+    }
+
+    public String getSentstatus() {
+        return sentstatus;
+    }
+
+    public void setSentstatus(String sentstatus) {
+        this.sentstatus = sentstatus;
+    }
+
+    public boolean isSelf() {
+        return isSelf;
+    }
+
+    public void setSelf(boolean self) {
+        isSelf = self;
     }
 
     public String getBelongId() {

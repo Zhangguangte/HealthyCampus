@@ -49,6 +49,7 @@ public class MessageRepository implements MessageDataSource {
     public void allChatByUid(RequestForm requestForm, @NonNull MessageAllChat callback) {
         mMessageRemoteDataSource.allChatByUid(requestForm, callback);
     }
+
     @Override
     public void searchRoomid(RequestForm requestForm, @NonNull MessageSearchRoomid callback) {
         mMessageRemoteDataSource.searchRoomid(requestForm, callback);
@@ -58,6 +59,7 @@ public class MessageRepository implements MessageDataSource {
     public void insertContent(ChatForm chatForm, @NonNull MessageAddContent callback) {
         mMessageRemoteDataSource.insertContent(chatForm, callback);
     }
+
     @Override
     public void insertCard(ChatForm chatForm, @NonNull MessageAddCard callback) {
         mMessageRemoteDataSource.insertCard(chatForm, callback);
@@ -66,5 +68,25 @@ public class MessageRepository implements MessageDataSource {
     @Override
     public void upPicture(String bitmapStr, @NonNull MessageUpPicture callback) {
         mMessageRemoteDataSource.upPicture(bitmapStr, callback);
+    }
+
+    @Override
+    public void getAllNotice(@NonNull RequestForm requestForm,@NonNull MessageAllNotice callback) {
+        mMessageRemoteDataSource.getAllNotice(requestForm,callback);
+    }
+
+    @Override
+    public void clearNotice(@NonNull MessagClearNotice callback) {
+        mMessageRemoteDataSource.clearNotice(callback);
+    }
+
+    @Override
+    public void deleteNotice(@NonNull RequestForm requestForm, @NonNull MessageDeleteNotice callback) {
+        mMessageRemoteDataSource.deleteNotice(requestForm, callback);
+    }
+
+    @Override
+    public void lookNotice(@NonNull RequestForm requestForm, @NonNull MessageLookNotice callback) {
+        mMessageRemoteDataSource.lookNotice(requestForm, callback);
     }
 }

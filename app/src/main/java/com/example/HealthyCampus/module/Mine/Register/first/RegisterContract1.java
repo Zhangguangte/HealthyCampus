@@ -46,11 +46,11 @@ public interface RegisterContract1 {
     //处理业务逻辑
     abstract class Presenter extends BasePresenter<RegisterContract1.View> {
 
-        protected abstract void listenRegisterEditText();         //监听按钮
+        protected abstract void listenRegisterEditText() throws Exception;         //监听按钮
 
-        protected abstract void foucusRegisterEditText();         //焦点输入框
+        protected abstract void foucusRegisterEditText() throws Exception;         //焦点输入框
 
-        protected abstract void searchPhone(RegisterFrom registerFrom);         //查询手机号码
+        protected abstract void searchPhone(RegisterFrom registerFrom) throws Exception;         //查询手机号码
 
     }
 

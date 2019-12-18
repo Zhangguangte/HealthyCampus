@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/noticeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/press_clear">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:background="@drawable/shape_button_lines6"
+        android:layout_margin="@dimen/top_padding"
+        android:padding="@dimen/padding_less">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019-11-25"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/margin_less"
+            android:textSize="@dimen/text_f3" />
+
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTime"
+            android:ellipsize="middle"
+            android:maxLines="3"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f2" />
+
+        <TextView
+            android:id="@+id/sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvContent"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/text_f3" />
+
+        <View
+            android:id="@+id/interal1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height_one"
+            android:layout_below="@+id/sender"
+            android:layout_margin="@dimen/padding_less2"
+            android:background="@color/text_level_2" />
+
+        <ImageView
+            android:id="@+id/ivLook"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/interal1"
+            android:layout_centerHorizontal="true"
+            android:rotation="-90"
+            android:src="@mipmap/back_icon" />
+
+        <TextView
+            android:id="@+id/tvRead"
+            android:layout_width="@dimen/icon_size_less2"
+            android:layout_height="@dimen/icon_size_less2"
+            android:layout_marginTop="@dimen/top_padding_less"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:background="@drawable/message_view_dot"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

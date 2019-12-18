@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
@@ -17,9 +18,11 @@ import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.ILayo
 public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    public static final int ACTION_PULL_TO_REFRESH = 1;
-    public static final int ACTION_LOAD_MORE_REFRESH = 2;
-    public static final int ACTION_IDLE = 0;
+    //三种状态
+    public static final int ACTION_PULL_TO_REFRESH = 1;         //刷新
+    public static final int ACTION_LOAD_MORE_REFRESH = 2;       //加载更多
+    public static final int ACTION_IDLE = 0;                    //空闲
+
     private OnRecyclerRefreshListener listener;
     private OnRecyclerScrollListener scrollListener;
     private int mCurrentState = ACTION_IDLE;
@@ -73,6 +76,7 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
                     mCurrentState = ACTION_LOAD_MORE_REFRESH;
                     adapter.onLoadMoreStateChanged(true);
                     mSwipeRefreshLayout.setEnabled(false);
+                    listener.onRefresh(ACTION_LOAD_MORE_REFRESH);       //加载更多
                 }
 
                 if (scrollListener != null) {
@@ -141,11 +145,11 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
     @Override
     public void onRefresh() {
         mCurrentState = ACTION_PULL_TO_REFRESH;
-        listener.onRefresh(ACTION_PULL_TO_REFRESH);
+        listener.onRefresh(ACTION_PULL_TO_REFRESH);     //加载最新
     }
 
     public void onRefreshCompleted() {
-        switch (mCurrentState) {
+        switch (mCurrentState) {                    //当前状态
             case ACTION_PULL_TO_REFRESH:
                 mSwipeRefreshLayout.setRefreshing(false);
                 break;
@@ -164,11 +168,11 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
     }
 
     public interface OnRecyclerRefreshListener {
-        void onRefresh(int action);
+        void onRefresh(int action);             //刷新
     }
 
     public interface OnRecyclerScrollListener{
-        void onScrollStateChanged(RecyclerView recyclerView, int newState);
-        void onScrolled(RecyclerView recyclerView, int dx, int dy);
+        void onScrollStateChanged(RecyclerView recyclerView, int newState);     //滑动状态改变
+        void onScrolled(RecyclerView recyclerView, int dx, int dy);              //滚动
     }
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_medicine_layout"
+    android:background="@drawable/press_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_less">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="@dimen/icon_size_more_more4"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/margin_less"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f2" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_goods_name"
+            android:singleLine="true"
+            android:paddingBottom="@dimen/padding_less4"
+            android:paddingTop="@dimen/padding_less4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/text_level_3"
+            android:textSize="@dimen/text_f4" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/text_level_3"
+            android:textSize="@dimen/text_f4" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@+id/tv_type"
+            android:layout_below="@+id/tv_description"
+            android:textSize="@dimen/text_f4"
+            android:textColor="@color/text_level_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+</LinearLayout>

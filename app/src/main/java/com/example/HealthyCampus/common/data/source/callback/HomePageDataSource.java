@@ -12,24 +12,24 @@ import com.example.HealthyCampus.common.data.model.LatestNewsBean;
 public interface HomePageDataSource {
 
     interface GetLatestNewsCallback {
-        void onLatestNewsLoaded(LatestNewsBean latestNewsBean);
+        void onLatestNewsLoaded(LatestNewsBean latestNewsBean) throws Exception;
 
-        void onDataNotAvailable();
+        void onDataNotAvailable() throws Exception;
 
     }
 
     interface GetBeforeNewsCallback {
 
-        void onBeforeNewsLoaded(BeforeNewsBean bean);
+        void onBeforeNewsLoaded(BeforeNewsBean bean) throws Exception;
 
-        void onDataNotAvailable();
+        void onDataNotAvailable() throws Exception;
     }
 
     interface GetArticleCallback {
 
-        void onLatestNewsLoaded(HomePageArticleBean homePageArticleBean);
+        void onLatestNewsLoaded(HomePageArticleBean homePageArticleBean) throws Exception;
 
-        void onDataNotAvailable();
+        void onDataNotAvailable() throws Exception;
     }
 
     void getLatestNews(@NonNull GetLatestNewsCallback callback);

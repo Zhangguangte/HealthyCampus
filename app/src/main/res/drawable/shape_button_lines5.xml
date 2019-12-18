@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/lightPrimary"/>
+    <stroke
+        android:width="@dimen/view_height_three"
+        android:color="@color/interval_background"/><!-- 描边，边框宽度、颜色 -->
+    <corners android:radius="@dimen/login_input_radius" /><!-- 边角圆弧的半径 -->
+
+</shape>

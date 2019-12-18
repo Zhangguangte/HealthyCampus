@@ -20,12 +20,12 @@ public class NewFriendListPresenter extends NewFriendListContract.Presenter {
     public void clearRequestFriends() {
         FriendRepository.getInstance().clearRequestFriends(new FriendDataSource.ClearRequestFriends(){
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(DefaultResponseVo defaultResponseVo) {
+            public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
                   getView().clearList();
             }
         });
@@ -35,12 +35,12 @@ public class NewFriendListPresenter extends NewFriendListContract.Presenter {
     public void saveRequestFriend(RequestForm requestForm,int position) {
         FriendRepository.getInstance().saveRequestFriend(requestForm,new FriendDataSource.SaveRequestFriend() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(DefaultResponseVo defaultResponseVo) {
+            public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
                 getView().showSuccess(defaultResponseVo,position);
             }
         });
@@ -50,12 +50,12 @@ public class NewFriendListPresenter extends NewFriendListContract.Presenter {
     public void requestFriends() {
         FriendRepository.getInstance().requestFriends(new FriendDataSource.GetRequestFriend() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(ArrayList<RequestFriendVo> requestFriendVos) {
+            public void onDataAvailable(ArrayList<RequestFriendVo> requestFriendVos) throws Exception {
                 getView().showRequestFriends(requestFriendVos);
             }
 

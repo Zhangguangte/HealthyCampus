@@ -16,8 +16,11 @@ public class ConstantValues {
 
     //接口地址
     public static final String BASE_URL_ZHIHU = "http://news-at.zhihu.com/api/4/"; // HOST地址:知乎接口
-    public static final String BASE_URL_HEALTH = "http://192.168.0.105:8083/"; // HOST地址:后台接口
-    public static final String BASE_URL_GETE = "http://192.168.0.105:8097/GETE/"; // HOST地址:后台接口
+    public static final String BASE_URL_HEALTH = "http://192.168.0.107:8087/"; // HOST地址:后台接口
+    public static final String BASE_URL_GETE = "http://192.168.0.107:8097/GETE/"; // HOST地址:后台接口
+    public static final String BASE_URL_MEDICINE = " http://api.avatardata.cn/Drug/"; // HOST地址:药品接口
+    //医药
+    public static final String BASE_URL_IMG = "http://tnfs.tngou.net/image";
 
     public static final int ACTION_BACK_TO_HOME = 0;
     public static final int ACTION_RESTART_APP = 1;
@@ -80,7 +83,6 @@ public class ConstantValues {
 
     //Message
     public static final int VIEW_MESSAGE_ITEM = 24;
-    public static final int VIEW_MESSAGE_NO = 25;
 
     //登录
     public static int RESULT_CODE_USERNAME = 1101;
@@ -92,14 +94,38 @@ public class ConstantValues {
     public final static int PICK_PHOTO = 2;
     public final static int MAP_LOCATION = 3;
     public final static int USER_CARD = 4;
+    public final static int PICK_FILE = 5;
+    public final static int PICK_VEDIO = 6;
+
+    //一周食谱
+    public final static int RECIPES_TITLE = -1;
+    public final static int RECIPES_CONTENT = -2;
+
+    //食谱推荐
+    public static final int RECIPES_RECOMMEDN = 0;
+    public static final int RECIPES_TIPS = 1;
 
     //图片
     public final static String PICTURE_PATH = Environment.getExternalStorageDirectory() + "/health/photo";      //存入SDK内
     public final static String PICTURE_SHOW_PATH = "file:///storage/emulated/0/health/photo/";                  //显示图片
     public final static String PICTURE_SDK_PATH = "/storage/emulated/0/health/photo/";                          //判断是否有文件
 
+    //视频
+    public final static String VEDIO_PATH = Environment.getExternalStorageDirectory() + "/health/vedio";        //存入SDK内
+    public final static String VEDIO_SDK_PATH = "/storage/emulated/0/health/vedio/";      //判断是否有文件
+
+    //视频之缩略图
+    public final static String VEDIO_THUMBNAIL_PATH = Environment.getExternalStorageDirectory() + "/health/vedio/thumbnail";    //存入SDK内
+    public final static String VEDIO_SHOW_THUMBNAIL_PATH = "file:///storage/emulated/0/health/vedio/thumbnail/";        //显示图片
+    public final static String VEDIO_SDK_THUMBNAIL_PATH = "/storage/emulated/0/health/vedio/thumbnail/";       //判断是否有文件
+
+
+    public final static String FILE_PATH = Environment.getExternalStorageDirectory() + "/health/file";        //存入SDK内
+    public final static String FILE_SDK_PATH = "/storage/emulated/0/health/file/";               //判断是否有文件
     //    聊天
 //    public static final int VIEW_CHAT_DIR_LEFT = 1;
 //    public static final int VIEW_CHAT_DIR_RIGHT = 2;
-
+    //底部刷新
+    public static final int FOOTER_REFRESH = 0;
+    public static final int CONTENT_REFRESH = 1;
 }

@@ -21,12 +21,12 @@ public class NewFriendPresenter extends NewFriendContract.Presenter {
     public void requestFriends() {
         FriendRepository.getInstance().requestFriends(new FriendDataSource.GetRequestFriend() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(ArrayList<RequestFriendVo> requestFriendVos) {
+            public void onDataAvailable(ArrayList<RequestFriendVo> requestFriendVos) throws Exception {
                 getView().showRequestFriends(requestFriendVos);
             }
 
@@ -40,12 +40,12 @@ public class NewFriendPresenter extends NewFriendContract.Presenter {
     public void saveRequestFriend(RequestForm requestForm,int position) {
         FriendRepository.getInstance().saveRequestFriend(requestForm,new FriendDataSource.SaveRequestFriend() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(DefaultResponseVo defaultResponseVo) {
+            public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
                 getView().showSuccess(defaultResponseVo,position);
             }
         });

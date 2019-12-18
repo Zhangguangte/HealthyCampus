@@ -14,7 +14,7 @@ public class HomePageArticlePresenter extends HomePageArticleContract.Presenter 
     protected void getArticle(String articleId) {
         HomePageRepository.getInstance().getArticle(articleId, new HomePageDataSource.GetArticleCallback() {
             @Override
-            public void onLatestNewsLoaded(HomePageArticleBean articleBean) {
+            public void onLatestNewsLoaded(HomePageArticleBean articleBean) throws Exception {
                 getView().loadComplete();
                 if (articleBean != null) {
                     getView().setArticle(articleBean);
@@ -22,7 +22,7 @@ public class HomePageArticlePresenter extends HomePageArticleContract.Presenter 
             }
 
             @Override
-            public void onDataNotAvailable() {
+            public void onDataNotAvailable() throws Exception {
                 getView().loadError();
             }
         });

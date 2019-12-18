@@ -18,7 +18,7 @@ public class MainPresenter extends MainContract.Presenter {
     }
 
     @Override
-    public void exitApp() {
+    public void exitApp()   {
         if (System.currentTimeMillis() - currentTime < 2 * 1000) {
             getView().finishView();
         } else {

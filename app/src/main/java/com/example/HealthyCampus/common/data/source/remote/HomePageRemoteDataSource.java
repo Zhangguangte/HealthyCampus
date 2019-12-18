@@ -35,12 +35,20 @@ public class HomePageRemoteDataSource implements HomePageDataSource {
                 .subscribe(new Action1<LatestNewsBean>() {
                     @Override
                     public void call(LatestNewsBean LatestNewsBean) {
-                        callback.onLatestNewsLoaded(LatestNewsBean);
+                        try {
+                            callback.onLatestNewsLoaded(LatestNewsBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        callback.onDataNotAvailable();
+                        try {
+                            callback.onDataNotAvailable();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -52,12 +60,20 @@ public class HomePageRemoteDataSource implements HomePageDataSource {
                 .subscribe(new Action1<BeforeNewsBean>() {
                     @Override
                     public void call(BeforeNewsBean bean) {
-                        callback.onBeforeNewsLoaded(bean);
+                        try {
+                            callback.onBeforeNewsLoaded(bean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        callback.onDataNotAvailable();
+                        try {
+                            callback.onDataNotAvailable();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -69,12 +85,20 @@ public class HomePageRemoteDataSource implements HomePageDataSource {
                 .subscribe(new Action1<HomePageArticleBean>() {
                     @Override
                     public void call(HomePageArticleBean articleBean) {
-                        callback.onLatestNewsLoaded(articleBean);
+                        try {
+                            callback.onLatestNewsLoaded(articleBean);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        callback.onDataNotAvailable();
+                        try {
+                            callback.onDataNotAvailable();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

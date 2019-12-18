@@ -14,11 +14,11 @@ public interface FriendDataSource {
 
     interface GetAllFriend {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(ArrayList<AddressListVo> addressLists);
+        void onDataAvailable(ArrayList<AddressListVo> addressLists) throws Exception;
 
-        void finish();
+        void finish() throws Exception;
     }
 
 
@@ -28,9 +28,9 @@ public interface FriendDataSource {
 
     interface GetRequestFriend {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(ArrayList<RequestFriendVo> requestFriendVos);
+        void onDataAvailable(ArrayList<RequestFriendVo> requestFriendVos) throws Exception;
 
         void finish();
     }
@@ -41,9 +41,9 @@ public interface FriendDataSource {
 
     interface ClearRequestFriends {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(DefaultResponseVo defaultResponseVo);
+        void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception;
     }
 
     void clearRequestFriends( @NonNull ClearRequestFriends callback);
@@ -59,18 +59,18 @@ public interface FriendDataSource {
 
     interface SaveRequestFriend {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(DefaultResponseVo defaultResponseVo);
+        void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception;
     }
 
     void saveRequestFriend(@NonNull RequestForm requestForm, @NonNull SaveRequestFriend callback);
 
     interface RefuseRequestFriend {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(DefaultResponseVo defaultResponseVo);
+        void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception;
     }
 
     void refuseRequestFriend(@NonNull RequestForm requestForm, @NonNull RefuseRequestFriend callback);

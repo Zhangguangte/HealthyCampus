@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.example.HealthyCampus.R;
+import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.widgets.ViewHolder.FooterFinishViewHolder;
+import com.example.HealthyCampus.common.widgets.ViewHolder.FooterViewHolder;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 
 import java.util.ArrayList;
@@ -23,9 +26,19 @@ import butterknife.ButterKnife;
 
 public class AmapListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Context context;
-    private ArrayList<PoiItem> pois;
+    private List<PoiItem> pois;
     private onItemClick onItemClick;
     private StringBuilder stringBuilder = new StringBuilder();
+    private boolean isLoad = true;
+
+
+    public boolean isLoad() {
+        return isLoad;
+    }
+
+    public void setLoad(boolean load) {
+        isLoad = load;
+    }
 
     public void clearAddAll(List<PoiItem> poiItemList) {
         pois.clear();
@@ -53,9 +66,23 @@ public class AmapListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.chats_map_address_item, parent, false);
-        return new ViewHolder(view);
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (ConstantValues.CONTENT_REFRESH == viewType) {
+            view = LayoutInflater.from(context).inflate(R.layout.chats_map_address_item, parent, false);
+            return new ViewHolder(view);
+        } else if (isLoad()) {
+            view = LayoutInflater.from(context).inflate(R.layout.widget_pull_to_refresh_footer, parent, false);
+            return new FooterViewHolder(view);
+        } else {
+            view = LayoutInflater.from(context).inflate(R.layout.widget_pull_to_footer_finish, parent, false);
+            return new FooterFinishViewHolder(view);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position != pois.size() ? ConstantValues.CONTENT_REFRESH : ConstantValues.FOOTER_REFRESH;
     }
 
     @Override
@@ -70,7 +97,7 @@ public class AmapListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemCount() {
         if (null != pois && pois.size() > 0) {
-            return pois.size();
+            return pois.size() + 1;
         }
         return 0;
     }
@@ -106,7 +133,7 @@ public class AmapListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Log.e("MapActivity123456:", "pois.get(position).toString()" + pois.get(position).toString());
-                    Log.e("MapActivity123456:", "pois.get(position).toString()" + pois.get(position).toString());
+
                     stringBuilder.setLength(0);
                     stringBuilder.append(pois.get(position).getProvinceName());
                     stringBuilder.append(pois.get(position).getCityName());

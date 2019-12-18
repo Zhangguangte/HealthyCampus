@@ -5,7 +5,7 @@ import android.util.TypedValue;
 
 public class DensityUtil {
     private static DensityUtil instance;
-    private Context context;
+    private static Context context;
 
     public static final DensityUtil getInstance(Context context) {
         if (instance == null) {
@@ -24,7 +24,14 @@ public class DensityUtil {
      * @param size
      * @return
      */
-    public int getDip2Px(int size) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,size,context.getResources().getDisplayMetrics());
+    public static int getDip2Px(int size) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, context.getResources().getDisplayMetrics());
     }
+
+    public static int dip2Px(int dip,Context context) {
+        float density = context.getApplicationContext().getResources().getDisplayMetrics().density;
+        int px = (int) (dip * density + 0.5f);
+        return px;
+    }
+
 }

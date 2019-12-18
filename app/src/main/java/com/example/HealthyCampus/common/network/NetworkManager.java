@@ -2,29 +2,23 @@ package com.example.HealthyCampus.common.network;
 
 import com.example.HealthyCampus.application.HealthApp;
 import com.example.HealthyCampus.common.constants.ConstantValues;
-import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.Interceptor.AuthorizationRequestInterceptor;
 import com.example.HealthyCampus.common.network.Interceptor.HttpCacheInterceptor;
+import com.example.HealthyCampus.common.network.api.DiseaseApi;
 import com.example.HealthyCampus.common.network.api.FriendApi;
 import com.example.HealthyCampus.common.network.api.HomePageApi;
+import com.example.HealthyCampus.common.network.api.MedicineApi;
 import com.example.HealthyCampus.common.network.api.MessageApi;
+import com.example.HealthyCampus.common.network.api.RecipesApi;
 import com.example.HealthyCampus.common.network.api.UploadApi;
 import com.example.HealthyCampus.common.network.api.UserApi;
 import com.example.HealthyCampus.common.utils.LogUtil;
-import com.example.HealthyCampus.common.utils.PictureUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Authenticator;
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit.RestAdapter;
 import retrofit2.Retrofit;
@@ -38,10 +32,14 @@ public class NetworkManager {
     private RestAdapter easyImRestAdapter;
 
     private static HomePageApi homePageApi;
+    private static MedicineApi medicinePageApi;
     private static UserApi userApi;
     private static MessageApi messageApi;
     private static FriendApi friendApi;
     private static UploadApi uploadApi;
+    private static RecipesApi recipesApi;
+    private static DiseaseApi diseaseApi;
+
     private NetworkManager() {
     }
 
@@ -59,6 +57,22 @@ public class NetworkManager {
         }
         return homePageApi;
     }
+
+//    public static MedicineApi getMedicineApi() {
+//        if (medicinePageApi == null) {
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .client(createOkHttp2(ConstantValues.HTTP_CACHE_ENABLE))
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                    .baseUrl(ConstantValues.BASE_URL_MEDICINE)
+//                    .build();
+//
+//            medicinePageApi = retrofit.create(MedicineApi.class);
+//        }
+//        return medicinePageApi;
+//    }
+
+
     public static NetworkManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new NetworkManager();
@@ -68,9 +82,12 @@ public class NetworkManager {
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl(ConstantValues.BASE_URL_HEALTH)
                     .build();
-            INSTANCE.userApi = retrofit.create(UserApi.class);
-            INSTANCE.messageApi = retrofit.create(MessageApi.class);
-            INSTANCE.friendApi = retrofit.create(FriendApi.class);
+            userApi = retrofit.create(UserApi.class);
+            messageApi = retrofit.create(MessageApi.class);
+            friendApi = retrofit.create(FriendApi.class);
+            medicinePageApi = retrofit.create(MedicineApi.class);
+            recipesApi = retrofit.create(RecipesApi.class);
+            diseaseApi = retrofit.create(DiseaseApi.class);
         }
         return INSTANCE;
     }
@@ -131,8 +148,6 @@ public class NetworkManager {
 //    }
 
 
-
-
     /**
      * 创建okhttp,无加密
      *
@@ -167,7 +182,7 @@ public class NetworkManager {
         return cache;
     }
 
-    public  static HttpLoggingInterceptor createLogInterceptor() {
+    public static HttpLoggingInterceptor createLogInterceptor() {
         HttpLoggingInterceptor.Logger logger = new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -191,6 +206,18 @@ public class NetworkManager {
 
     public static FriendApi getFriendApi() {
         return friendApi;
+    }
+
+    public static MedicineApi getMedicineApi() {
+        return medicinePageApi;
+    }
+
+    public static RecipesApi getRecipesApi() {
+        return recipesApi;
+    }
+
+    public static DiseaseApi getDiseaseApi() {
+        return diseaseApi;
     }
 
 }

@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/titleLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/user_title"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/margin_mo"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/tvSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_f3"
+            android:text="@string/find_nearby_switch_pharmacy"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/margin" />
+
+        <TextView
+            android:id="@id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_f0" />
+
+        <TextView
+            android:id="@id/tvFunction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_f2" />
+
+        <ImageView
+            android:id="@id/ivFunction"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin"
+            android:src="@drawable/map_out"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/ivList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:drawablePadding="@dimen/padding_less3"
+            android:gravity="center"
+            android:textSize="@dimen/text_f4"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/find_nearby_list"
+            android:drawableStart="@drawable/map_switch_list" />
+
+
+        <TextView
+            android:id="@+id/ivMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:drawablePadding="@dimen/padding_less3"
+            android:textSize="@dimen/text_f4"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/find_nearby_map"
+            android:drawableStart="@drawable/map_switch_map" />
+
+    </RelativeLayout>
+
+</LinearLayout>

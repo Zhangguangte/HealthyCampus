@@ -36,7 +36,7 @@ public class DialogManager {
 
     public void show() {
         builder = new AlertDialog.Builder(mContext, R.style.NobackDialog);
-        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.chats_dialog_record, null);
+        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.chats_dialog_record, null);    //录音框
         ButterKnife.bind(this, mDialogView);
         builder.setView(mDialogView);
         mDialog = builder.create();

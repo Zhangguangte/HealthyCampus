@@ -42,14 +42,11 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     private boolean isLazyLoadEnabled;
 
     protected Activity mActivity;
-    AppCompatActivity mAppCompatActivity;
-
-
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogUtil.logI("BaseFragment123456", toString() + ":onAttach");
+        LogUtil.logE("BaseFragment123456", toString() + ":onAttach");
         this.mActivity = (Activity) context;
     }
 
@@ -58,30 +55,17 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
         super.onCreate(savedInstanceState);
         //初始化沉浸式
         initImmersionBar();
-        LogUtil.logI("BaseFragment123456", toString() + ":onCreate");
+        LogUtil.logE("BaseFragment123456", toString() + ":onCreate");
     }
-
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.logI("BaseFragment123456", toString() + ":onCreateView");
+        LogUtil.logE("BaseFragment123456", toString() + ":onCreateView");
 
         View mRootView = inflater.inflate(setContentLayout(), container, false);
         unbinder = ButterKnife.bind(this, mRootView);
-
-//        if (mView == null) {
-//            mView = (ViewGroup) inflater.inflate(setContentLayout(), container, false);
-//        }
-//        ViewGroup parent = (ViewGroup) mView.getParent();
-//        if (parent != null) {
-//            parent.removeView(mView);
-//        }
-//       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        }*/
-//        ButterKnife.bind(this, mView);
         return mRootView;
     }
 
@@ -108,40 +92,40 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LogUtil.logI("BaseFragment123456", toString() + ":onActivityCreated");
+        LogUtil.logE("BaseFragment123456", toString() + ":onActivityCreated");
 
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        LogUtil.logI("BaseFragment123456", toString() + ":onViewStateRestored");
+        LogUtil.logE("BaseFragment123456", toString() + ":onViewStateRestored");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        LogUtil.logI("BaseFragment123456", toString() + ":onStart");
+        LogUtil.logE("BaseFragment123456", toString() + ":onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.logI("BaseFragment123456", toString() + ":onResume");
+        LogUtil.logE("BaseFragment123456", toString() + ":onResume");
         AVAnalytics.onFragmentStart(toString());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.logI("BaseFragment123456", toString() + ":onPause");
+        LogUtil.logE("BaseFragment123456", toString() + ":onPause");
         AVAnalytics.onFragmentEnd(toString());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        LogUtil.logI("BaseFragment123456", toString() + ":onStop");
+        LogUtil.logE("BaseFragment123456", toString() + ":onStop");
     }
 
     @Override
@@ -151,20 +135,21 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
         if (mPresenter != null) {
             mPresenter.detachView();
         }
-        LogUtil.logI("BaseFragment123456", toString() + ":onDestroyView");
+        LogUtil.logE("BaseFragment123456", toString() + ":onDestroyView");
     }
 
     @Override
     public void onDestroy() {
+        if (null != unbinder)
+            unbinder.unbind();
         super.onDestroy();
-        unbinder.unbind();
-        LogUtil.logI("BaseFragment123456", toString() + ":onDestroy");
+        LogUtil.logE("BaseFragment123456", toString() + ":onDestroy");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        LogUtil.logI("BaseFragment123456", toString() + ":onDetach");
+        LogUtil.logE("BaseFragment123456", toString() + ":onDetach");
     }
 
     @Override
@@ -209,7 +194,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        LogUtil.logI("BaseFragment123456", toString() + ":setUserVisibleHint:" + isVisibleToUser);
+        LogUtil.logE("BaseFragment123456", toString() + ":setUserVisibleHint:" + isVisibleToUser);
         checkIfLoadData();
     }
 
@@ -219,7 +204,9 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
             mPresenter = setPresenter();
             mPresenter.attatchView((V) this);
         }
+        initData();
     }
+
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         isDataInitialized = true;
@@ -239,24 +226,27 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        LogUtil.logI("BaseFragment123456", toString() + ":onSaveInstanceState");
+        LogUtil.logE("BaseFragment123456", toString() + ":onSaveInstanceState");
     }
 
 
     @Override
     public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
-        LogUtil.logI("BaseFragment123456", toString() + ":onInflate");
+        LogUtil.logE("BaseFragment123456", toString() + ":onInflate");
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtil.logI("BaseFragment123456", toString() + ":onHiddenChanged:" + hidden);
+        LogUtil.logE("BaseFragment123456", toString() + ":onHiddenChanged:" + hidden);
     }
 
     protected void onKeyDown(int keyCode, KeyEvent event) {
 
+    }
+
+    protected void initData() {
     }
 
     /**
@@ -269,5 +259,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
         //白色字体
         StatusBarUtil.setStatusBarDarkTheme(mActivity, false);
     }
+
+
 
 }

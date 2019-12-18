@@ -22,7 +22,7 @@ public class AuthorizationRequestInterceptor implements Authenticator {
                 .addHeader("User-Agent", "HealthyCampus-Android");
 
         String authCode = SPHelper.getString(SPHelper.AUTH_CODE);
-        Log.e("AuthorizationReq"+"123456","authCode"+authCode);
+//        Log.e("AuthorizationReq"+"123456","authCode"+authCode);
         if (!TextUtils.isEmpty(authCode)) {
             request.addHeader("Authorization", authCode);
         }

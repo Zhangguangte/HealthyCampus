@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_text_send"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_less3">
+
+    <TextView
+        android:id="@+id/item_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_f4"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_more"
+        android:layout_marginTop="@dimen/margin_less"
+        android:layout_marginRight="@dimen/right_margin">
+
+        <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+            android:id="@+id/chat_icon"
+            android:layout_width="@dimen/icon_size_more"
+            android:layout_height="@dimen/icon_size_more"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_head_default_right" />
+
+        <com.example.HealthyCampus.common.widgets.chat.ChatStroke
+            android:id="@+id/csChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_less2"
+            android:layout_toLeftOf="@id/chat_icon"
+            android:padding="@dimen/padding_less2"
+            app:cs_colorBackground="@color/lightPrimary"
+            app:cs_direction="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/rc_msg_iv_file_type_image"
+                    android:layout_width="@dimen/icon_size_more_more"
+                    android:layout_height="@dimen/icon_size_more_more"
+                    android:layout_marginRight="@dimen/margin_less"
+                    android:src="@mipmap/rc_file_icon_file" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/msg_tv_file_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_gravity="top"
+                        android:ellipsize="middle"
+                        android:gravity="top"
+                        android:singleLine="true"
+                        android:textColor="@color/text_level_3"
+                        android:textSize="@dimen/text_f2" />
+
+                    <TextView
+                        android:id="@+id/msg_tv_file_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom"
+                        android:gravity="bottom"
+                        android:text="149kb"
+                        android:textColor="@color/text_level_3"
+                        android:textSize="@dimen/text_f4" />
+
+                    <TextView
+                        android:id="@+id/rc_msg_canceled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/margin_less"
+                        android:text="已取消"
+                        android:visibility="gone"
+                        android:textColor="@color/text_level_3"
+                        android:textSize="@dimen/text_f4" />
+                </RelativeLayout>
+            </LinearLayout>
+        </com.example.HealthyCampus.common.widgets.chat.ChatStroke>
+
+
+        <ImageView
+            android:id="@+id/chat_item_fail"
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_less"
+            android:layout_toLeftOf="@+id/csChat"
+            android:focusable="false"
+            android:src="@drawable/msg_state_fail_resend"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/chat_item_progress"
+            style="@android:style/Widget.ProgressBar.Small.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_less"
+            android:layout_toLeftOf="@+id/csChat"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

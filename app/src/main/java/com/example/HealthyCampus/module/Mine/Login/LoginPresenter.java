@@ -24,13 +24,13 @@ public class LoginPresenter extends LoginContract.Presenter {
     public void login(LoginForm dataForm, String password) {
         UserRepository.getInstance().login(dataForm, new UserDataSource.UserLogin() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().dismissProgressView();
                 getView().showLoginError(throwable);
             }
 
             @Override
-            public void loginSuccess(UserVo user) {
+            public void loginSuccess(UserVo user) throws Exception {
                 getView().dismissProgressView();
                 initUserInformation(user, password);
                 ToastUtil.show(getView().getContext(), R.string.user_login_success);
@@ -41,7 +41,7 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
-    public void listenLoginEditText() {
+    public void listenLoginEditText() throws Exception {
         getView().listenLoginEditTextStatus();
     }
 
@@ -53,14 +53,14 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
-    public void foucusLoginEditText() {
+    public void foucusLoginEditText() throws Exception {
         getView().focusLoginEditTextStatus();
     }
 
 
 
     @Override
-    public void initUserInformation(UserVo userVo, String password) {
+    public void initUserInformation(UserVo userVo, String password) throws Exception {
         UserService.registerJPush(getView().getContext(), userVo.id);
         UserService.persistenceUser(userVo, password);
     }

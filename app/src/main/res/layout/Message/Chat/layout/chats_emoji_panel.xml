@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mEmojiLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpEmoji"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/white" />
+
+    <com.example.HealthyCampus.common.widgets.custom_linearlayout.IndicatorView
+        android:id="@+id/ind_emoji"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_size_more_more1"
+        android:layout_gravity="bottom"
+        app:gravity="0"
+        android:background="@color/white"
+        app:indicatorColor="#668b8989"
+        app:indicatorColorSelected="@color/lightgolden"
+        app:indicatorWidth="6"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_width"
+        android:background="@color/interval_background" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="35dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="@dimen/padding_less2"
+            android:text="默认表情"
+            android:textSize="@dimen/text_f2" />
+
+        <TextView
+            android:id="@+id/tvSend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingTop="@dimen/padding_less2"
+            android:paddingBottom="@dimen/padding_less2"
+            android:paddingLeft="@dimen/padding_less"
+            android:paddingRight="@dimen/padding_less"
+            android:text="发送"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_f2" />
+    </RelativeLayout>
+
+</LinearLayout>

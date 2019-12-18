@@ -1,11 +1,9 @@
 package com.example.HealthyCampus.module.Message.Chat.Map;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +30,7 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
@@ -43,11 +42,11 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.AmapListAdapter;
 import com.example.HealthyCampus.common.data.form.MapForm;
 import com.example.HealthyCampus.common.utils.ToastUtil;
+import com.example.HealthyCampus.common.widgets.RecycleOnscrollListener;
 import com.example.HealthyCampus.common.widgets.custom_dialog.MapDialog;
 import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.MyLinearLayoutManager;
 import com.example.HealthyCampus.framework.BaseActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +54,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static android.view.View.VISIBLE;
-import static cn.jpush.im.android.api.model.UserInfo.Field.address;
 
 
 public class MapActivity extends BaseActivity<MapContract.View, MapContract.Presenter> implements MapContract.View, AMapLocationListener, LocationSource, PoiSearch.OnPoiSearchListener, AmapListAdapter.onItemClick {
@@ -99,7 +97,6 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     private OnLocationChangedListener mListener;
     private AmapListAdapter amapListAdapter;
     private AMap aMap;
-    private Marker locMarker;
     private PoiSearch.Query query;
     private BitmapDescriptor nowDescripter, movingDescriptor;
     private List<PoiItem> pois = new ArrayList<>();
@@ -108,6 +105,12 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     private InputMethodManager mImm;
     private StringBuilder stringBuilder = new StringBuilder();
     private LatLng nowlatLng, moveLatLng;
+    private MarkerOptions centerMarkerOption;
+
+    private boolean isFirst = true;     //第一次加载
+
+    private int row = 1;
+    private LatLngBounds.Builder newbounds;
 
     @Override
     protected void setUpContentView() {
@@ -143,26 +146,33 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
         rvResult.setAdapter(amapListAdapter);
         rvResult.setLayoutManager(new MyLinearLayoutManager(getContext()));
         rvResult.setHasFixedSize(true);
+        rvResult.addOnScrollListener(new RecycleOnscrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (amapListAdapter.isLoad()) {
+                    ++row;
+                    poiSearch();
+                }
+            }
+        });
     }
 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        showProgressDialog(getString(R.string.loading_footer_tips));
+
+        mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); //软键盘
+
         mMapView.onCreate(savedInstanceState);
         initLocation();
-        mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         aMap = mMapView.getMap();
-        aMap.setLocationSource(this);// 设置定位监听
+        aMap.setLocationSource(this);       // 设置定位监听
+        aMap.setMyLocationEnabled(true);   //激活activate
+
         initLocationMark();
 
-
-        if (locMarker == null) {
-            locMarker = aMap.addMarker(new MarkerOptions());
-        }
-//        else {
-//            locMarker.remove();
-//        }
-//        locMarker.setIcon(movingDescriptor);
 
         //ChatActivity跳转传来目标定位数据的处理
         Intent intent = getIntent();
@@ -174,13 +184,13 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
                 Log.e("MapActivity123456:", "loca[" + i + "]:" + loca[i]);
             }
             Log.e("MapActivity123456:", " mapForm.location:" + mapForm.location);
-            moveLatLng = new LatLng(Double.valueOf(loca[0]), Double.valueOf(loca[1]));
+            moveLatLng = new LatLng(Float.parseFloat(loca[0]), Float.parseFloat(loca[1]));
 
             aMap.clear(true);
             etSearch.setText("");
             //图标
-            MarkerOptions centerMarkerOption = new MarkerOptions().position(moveLatLng).icon(movingDescriptor);
-            locMarker = aMap.addMarker(centerMarkerOption);
+            centerMarkerOption = new MarkerOptions().position(moveLatLng).icon(movingDescriptor);
+            aMap.addMarker(centerMarkerOption);
             aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveLatLng, 15));
             //视图
             showMapHidden(false);
@@ -196,8 +206,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
         }
     }
 
-    private void initLocationMark()
-    {
+    private void initLocationMark() {
         //定位图标
         UiSettings uiSettings = aMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
@@ -220,7 +229,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
         Log.e("MapActivity123456:", etSearch.getText().toString().trim());
         query = new PoiSearch.Query(etSearch.getText().toString().trim(), "", cityCode);
         query.setPageSize(15);// 设置每页最多返回多少条poiitem
-        query.setPageNum(0);//设置查询页码
+        query.setPageNum(row);//设置查询页码
         poiSearch.setQuery(query);
         poiSearch.searchPOIAsyn();
     }
@@ -251,7 +260,6 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
 
     //初始化图标
     private void initMap() {
-        // initLocation();//初始化定位参数
         nowDescripter = BitmapDescriptorFactory.fromResource(R.drawable.now_location);
         movingDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.map_location);
         poiSearch = new PoiSearch(getContext(), query);
@@ -263,31 +271,25 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation != null
                 && aMapLocation.getErrorCode() == 0) {
-            double longitude = aMapLocation.getLongitude();
-            double latitude = aMapLocation.getLatitude();
-//            LatLonPoint latLonPoint = new LatLonPoint(latitude, longitude);
-            LatLng location = new LatLng(latitude, longitude);
-            changeLocation(location);
-//            poiSearch();
-            nowlatLng = location;
-            cityCode = aMapLocation.getCityCode();
-            currentAddress.setText(aMapLocation.getAddress());
-            mListener.onLocationChanged(aMapLocation);      //为定位图标设置相应的处理，aMapLocation为点击图标的位置
+
+            if (isFirst) {
+                nowlatLng = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());        //当前经纬度
+                cityCode = aMapLocation.getCityCode();      //城市编码
+                aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nowlatLng, 15));       //移动地图
+                currentAddress.setText(aMapLocation.getAddress());
+                mListener.onLocationChanged(aMapLocation);      //为定位图标设置相应的处理，aMapLocation为点击图标的位置
+
+                isFirst = false;
+            }
         } else {
             String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
             stringBuilder.setLength(0);
             currentAddress.setText(stringBuilder.toString());
-            Log.e("AmapActivity123456", errText);
+            ToastUtil.show(getContext(),errText);
+            Log.e("MapActivity123456:", errText);
         }
-        aMap.clear(true);
-        Log.e("AmapActivity123456", "***********************************");
-    }
-
-    //改变图片的Mark
-    private void changeLocation(LatLng location) {
-        MarkerOptions centerMarkerOption = new MarkerOptions().position(location).icon(nowDescripter);
-        locMarker = aMap.addMarker(centerMarkerOption);
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));       //移动地图
+        dismissProgressDialog();
+        Log.e("MapActivity123456:", "***********************************");
     }
 
 
@@ -300,9 +302,12 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                row = 1;
+                amapListAdapter.setLoad(true);
                 ivClear.setVisibility(s.toString().length() > 0 ? View.VISIBLE : View.GONE);
                 btnCanel.setVisibility(s.toString().length() > 0 ? View.GONE : View.VISIBLE);
                 btnSearch.setVisibility(s.toString().length() > 0 ? View.VISIBLE : View.GONE);
+                poiSearch();
             }
 
             @Override
@@ -316,7 +321,6 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
             public void onFocusChange(View v, boolean hasFocus) {
                 showMapHidden(hasFocus);
                 showSearchHidden(etSearch.getText().toString().trim().length() <= 0);
-
             }
         });
 
@@ -346,32 +350,47 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
 
     @Override
     public void onBackPressed() {
+        if (rvResult.isShown()) {
+            showOrExitList();
+        } else {
+            finish();
+        }
+
     }
 
 
     @OnClick(R.id.btnCanel)
     public void btnCanel() {
+        showOrExitList();
+    }
+
+
+    private void showOrExitList() {
         showMapHidden(false);
         ivClear.setVisibility(View.GONE);
         btnSearch.setVisibility(View.GONE);
         btnCanel.setVisibility(View.GONE);
         softInputHide();
+
     }
+
 
     @OnClick(R.id.ivNow)
     public void ivNow() {
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nowlatLng, 15)); tvTitle.setText("当前定位");
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nowlatLng, 15));
+        tvTitle.setText("当前定位");
     }
 
     @OnClick(R.id.ivMove)
     public void ivMove() {
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveLatLng, 15)); tvTitle.setText("目标定位");
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moveLatLng, 15));
+        tvTitle.setText("目标定位");
     }
 
 
     @OnClick(R.id.tvFunction)
     public void tvFunction() {
-        if (null == moveLatLng) {
+        if (null == moveLatLng) {           //如果没有目标位置
             MapForm mapForm = new MapForm(currentAddress.getText().toString().trim(), nowlatLng);
             Intent intent = getIntent();
             Bundle bundle = new Bundle();
@@ -380,7 +399,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
             setResult(RESULT_OK, intent);
             finish();
         } else {
-            showDialog();
+            showDialog();                   //显示选择框
         }
     }
 
@@ -423,8 +442,8 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     public void activate(OnLocationChangedListener onLocationChangedListener) {
         if (null == mListener) {
             mListener = onLocationChangedListener;      //定位所需的监听
-            initLocation();
         }
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 
@@ -450,11 +469,14 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
                 if (pois == null) {
                     pois = poiResult.getPois();
                 } else {
-                    pois.clear();
+                    if (row == 1)
+                        pois.clear();
                     pois.addAll(poiResult.getPois());
                 }
                 if (pois != null && pois.size() > 0) {
                     rvResult.setVisibility(VISIBLE);
+                    if (poiResult.getPois().size() < 15)
+                        amapListAdapter.setLoad(false);
                     if (amapListAdapter == null) {
                         amapListAdapter = new AmapListAdapter(this, pois, this);
                         rvResult.setAdapter(amapListAdapter);
@@ -465,7 +487,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
                 } else if (pois != null && pois.size() == 0) {
                     rvResult.setVisibility(View.GONE);
                     ToastUtil.show(this, "没有找到您想要的结果");
-                    Log.e("MapActivity" + "123456", "-------------------------------------------");
+                    Log.e("MapActivity123456:", "-------------------------------------------");
                 }
 
             }
@@ -503,7 +525,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     //目标定位和当前定位的选择框
     public void showDialog() {
         View view = getLayoutInflater().inflate(R.layout.dialog_map, null);
-        MapDialog mapDialog = new MapDialog(this,view, R.style.DialogMap);
+        MapDialog mapDialog = new MapDialog(this, view, R.style.DialogMap);
         mapDialog.getWindow().findViewById(R.id.ivNow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -520,7 +542,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
         mapDialog.getWindow().findViewById(R.id.ivMove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapForm   mapForm = new MapForm(stringBuilder.toString().trim(), moveLatLng);
+                MapForm mapForm = new MapForm(stringBuilder.toString().trim(), moveLatLng);
                 Intent intent = getIntent();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("map", mapForm);
@@ -539,9 +561,14 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
         aMap.clear(true);
         etSearch.setText("");
         //图标
-        MarkerOptions centerMarkerOption = new MarkerOptions().position(latLng).icon(movingDescriptor);
-        locMarker = aMap.addMarker(centerMarkerOption);
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        centerMarkerOption = new MarkerOptions().position(latLng).icon(movingDescriptor);
+        aMap.addMarker(centerMarkerOption);
+
+        newbounds = new LatLngBounds.Builder();
+
+        newbounds.include(latLng).include(nowlatLng);//通过for循环将所有的轨迹点添加进去.
+
+        aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(newbounds.build(), 200));
         //视图
         showMapHidden(false);
         amapListAdapter.clearAll();

@@ -68,5 +68,25 @@ public class MessageLocalDataSource implements MessageDataSource {
 
     }
 
+    @Override
+    public void getAllNotice(@NonNull RequestForm requestForm, @NonNull MessageAllNotice callback) {
+
+    }
+
+    @Override
+    public void clearNotice(@NonNull MessagClearNotice callback) {
+
+    }
+
+    @Override
+    public void deleteNotice(@NonNull RequestForm requestForm, @NonNull MessageDeleteNotice callback) {
+
+    }
+
+    @Override
+    public void lookNotice(@NonNull RequestForm requestForm, @NonNull MessageLookNotice callback) {
+
+    }
+
 
 }

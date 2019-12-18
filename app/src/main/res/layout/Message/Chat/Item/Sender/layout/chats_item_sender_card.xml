@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_text_send"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_less3">
+
+    <TextView
+        android:id="@+id/item_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_f4"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_more"
+        android:layout_marginTop="@dimen/margin_less"
+        android:layout_marginRight="@dimen/right_margin">
+
+        <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+            android:id="@+id/chat_icon"
+            android:layout_width="@dimen/icon_size_more"
+            android:layout_height="@dimen/icon_size_more"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_head_default_right" />
+
+        <LinearLayout
+            android:id="@+id/cardLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_less2"
+            android:layout_toLeftOf="@id/chat_icon"
+            android:background="@drawable/shape_button_lines5"
+            android:minWidth="220dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding"
+                android:paddingLeft="@dimen/padding"
+                android:text="@string/message_chatting_recommended_friend"
+                android:textColor="@color/text_level_3"
+                android:layout_marginBottom="@dimen/margin_less"
+                android:textSize="@dimen/text_f3" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/padding"
+                android:paddingTop="@dimen/padding_less2"
+                android:orientation="horizontal">
+
+                <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+                    android:id="@+id/recommendIcon"
+                    android:layout_width="@dimen/icon_size_more_more"
+                    android:layout_height="@dimen/icon_size_more_more"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_head_default_right" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_less"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/recommendName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="bottom|left"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="bottom|left"
+                        android:singleLine="true"
+                        android:text="@string/message_chatting_recommended_friend"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f2" />
+
+                    <TextView
+                        android:id="@+id/recommendAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top|left"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="top|left"
+                        android:paddingTop="@dimen/padding_less3"
+                        android:singleLine="true"
+                        android:text="XXXXXX"
+                        android:textSize="@dimen/text_f3" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/chat_item_fail"
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_less"
+            android:layout_toLeftOf="@+id/csChat"
+            android:focusable="false"
+            android:src="@drawable/msg_state_fail_resend"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/chat_item_progress"
+            style="@android:style/Widget.ProgressBar.Small.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_less"
+            android:layout_toLeftOf="@+id/csChat"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

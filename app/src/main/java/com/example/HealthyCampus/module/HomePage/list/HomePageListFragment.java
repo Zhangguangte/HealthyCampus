@@ -1,10 +1,13 @@
 package com.example.HealthyCampus.module.HomePage.list;
 
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.HealthyCampus.R;
@@ -19,6 +22,7 @@ import com.example.HealthyCampus.common.utils.GlideUtils;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.common.widgets.pullrecycler.PullRecycler;
 import com.example.HealthyCampus.framework.BaseListFragment;
+import com.example.HealthyCampus.module.Find.Diagnosis.DiagnosisActivity;
 import com.example.HealthyCampus.module.HomePage.article.HomePageArticleFragment;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -43,6 +47,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         return fragment;
     }
 
+    //刷新
     @Override
     protected void setUpData() {
         new android.os.Handler().postDelayed(new Runnable() {
@@ -54,16 +59,6 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
     }
 
-    @Override
-    public void immersive() {
-//        StatusBarUtil.setRootViewFitsSystemWindows(mActivity, false);
-//        StatusBarUtil.setTranslucentStatus(mActivity);
-//        if (!StatusBarUtil.setStatusBarDarkTheme(mActivity, true)) {
-//            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
-//            //这样半透明+白=灰, 状态栏的文字能看得清
-//            StatusBarUtil.setStatusBarColor(mActivity, 0x55000000);
-//        }
-    }
 
     @Override
     protected int getItemType(int position) {
@@ -81,18 +76,16 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
 
-//        LogUtil.logE("HomePageListFragment" + "123456", "viewType" + viewType);
         if (viewType == ConstantValues.VIEW_HEALTH_SUMMARY) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_summary, parent, false);
             return new HomePageListFragment.SummaryHolder(itemView);
         } else if (viewType == ConstantValues.VIEW_HEALTH_DATE) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_date, parent, false);
             return new HomePageListFragment.DateHolder(itemView);
-        }
-        else if (viewType == ConstantValues.VIEW_HEALTH_BANNER) {
+        } else if (viewType == ConstantValues.VIEW_HEALTH_BANNER) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_banner, parent, false);
             return new HomePageListFragment.BannerHolder(itemView);
-        } else{
+        } else {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_docotor_display, parent, false);
             return new HomePageListFragment.DisplayHolder(itemView);
         }
@@ -103,6 +96,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         return new HomePageListPresenter();
     }
 
+    //刷新
     @Override
     public void onRefresh(int action) {
         if (action == PullRecycler.ACTION_PULL_TO_REFRESH) {
@@ -112,6 +106,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         }
     }
 
+    //刷新成功
     @Override
     public void refreshList(LatestNewsBean newsBean) {
 
@@ -139,6 +134,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         adapter.notifyDataSetChanged();
     }
 
+    //添加数据
     @Override
     public void addList(BeforeNewsBean beforeNewsBean) {
 
@@ -153,6 +149,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         adapter.notifyDataSetChanged();
     }
 
+    //刷新完成
     @Override
     public void loadComplete() {
         pullRecycler.onRefreshCompleted();
@@ -170,7 +167,6 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
         @Override
         public void onBindViewHolder(int position) {
-//            LogUtil.logE("HomePageListFragment" + "123456", "1");
             List<String> images = new ArrayList<>();
             List<String> titles = new ArrayList<>();
 
@@ -252,11 +248,6 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
             StoriesBean bean = mDataList.get(position);
             if (bean != null) {
                 mItemTitle.setText(bean.getTitle());
-//                LogUtil.logE("HomePageListFragment"+"123456","mItemImg:"+mItemImg);
-//                LogUtil.logE("HomePageListFragment"+"123456","position:"+position);
-//                LogUtil.logE("HomePageListFragment"+"123456","bean:"+bean);
-//                LogUtil.logE("HomePageListFragment"+"123456"," bean.getImages():"+ bean.getImages());
-//                LogUtil.logE("HomePageListFragment"+"123456"," bean.getImages().get(0:"+ bean.getImages().get(0));
                 GlideUtils.display(mItemImg, bean.getImages().get(0));
             }
         }
@@ -274,10 +265,10 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         }
     }
 
-
-    //******************************************************************************************//
-
     class DisplayHolder extends BaseViewHolder {
+
+        @BindView(R.id.DiagnosisLayout)
+        LinearLayout DiagnosisLayout;
 
         public DisplayHolder(View itemView) {
             super(itemView);
@@ -286,7 +277,13 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
         @Override
         public void onBindViewHolder(int position) {
-//            LogUtil.logE("HomePageListFragment" + "123456", "4");
+            DiagnosisLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(mActivity, DiagnosisActivity.class));
+                    mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                }
+            });
         }
 
         @Override

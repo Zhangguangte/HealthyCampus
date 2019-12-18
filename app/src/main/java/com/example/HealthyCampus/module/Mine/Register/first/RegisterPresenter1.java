@@ -13,27 +13,27 @@ public class RegisterPresenter1 extends RegisterContract1.Presenter {
     }
 
     @Override
-    protected void listenRegisterEditText() {
+    protected void listenRegisterEditText() throws Exception {
         getView().listenRegisterEditTextStatus();
     }
 
     @Override
-    protected void foucusRegisterEditText() {
+    protected void foucusRegisterEditText() throws Exception {
         getView().focusRegisterEditTextStatus();
     }
 
     @Override
-    protected void searchPhone(RegisterFrom registerFrom) {
+    protected void searchPhone(RegisterFrom registerFrom) throws Exception {
         getView().showProgressView();
         UserRepository.getInstance().searchPhone(registerFrom, new UserDataSource.UserSearchPhone() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().dismissProgressView();
                 getView().phoneExist();
             }
 
             @Override
-            public void onDataAvailable(String username) {
+            public void onDataAvailable(String username) throws Exception {
                 getView().dismissProgressView();
                 getView().phoneNotExist();
             }

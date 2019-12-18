@@ -72,6 +72,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
 
     @Override
     protected void initView() {
+        showProgressDialog("正在加载中");
         if (null != getIntent().getExtras())
             userVo = (UserVo) getIntent().getExtras().getSerializable("uservo");
         if (null != userVo) initUserInfo(userVo);
@@ -130,6 +131,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
         } else {
             ToastUtil.show(this, "未知错误3:" + throwable.getMessage());
         }
+        dismissProgressDialog();
         Log.e("LoginActivity" + "123456", "throwable.toString:" + throwable.toString());
         Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
     }
@@ -137,7 +139,6 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
 
     @Override
     public void initUserInfo(UserVo userVo) {
-        showProgressDialog("正在加载中");
         if (null != userVo) {
             if (!userVo.isfriends) {
                 addFriend.setVisibility(View.VISIBLE);
@@ -163,7 +164,6 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
     }
 
     public void initUserInfo() {
-        showProgressDialog("正在加载中");
         addFriend.setVisibility(View.GONE);
         tvUsername.setText(SPHelper.getString(SPHelper.NICKNAME) + "(" + SPHelper.getString(SPHelper.ACCOUNT) + ")");
         tvGender.setText(SPHelper.getString(SPHelper.USER_SEX));

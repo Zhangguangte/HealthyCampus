@@ -6,6 +6,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * OK
+ *
  * @param <T>
  */
 public abstract class BasePresenter<T> {

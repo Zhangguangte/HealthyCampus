@@ -101,7 +101,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/Notice"
+                android:id="@+id/ivNotice"
                 android:layout_width="@dimen/icon_size_more"
                 android:layout_height="@dimen/icon_size_more"
                 android:layout_alignParentLeft="true"

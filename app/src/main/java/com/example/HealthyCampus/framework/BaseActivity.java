@@ -21,7 +21,6 @@ import com.umeng.socialize.UMShareAPI;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * OK
@@ -67,10 +66,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
      * Init immersion bar.
      */
     protected void initImmersionBar() {
-        //设置状态栏透明
-        StatusBarUtil.setTranslucentStatus(this);
-        //白色字体
-        StatusBarUtil.setStatusBarDarkTheme(this, false);
+        StatusBarUtil.setTranslucentStatus(this);   //设置状态栏透明
+        StatusBarUtil.setStatusBarDarkTheme(this, false);     //白色字体
     }
 
     private void initPresenter() {
@@ -149,8 +146,6 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
             mPresenter.detachView();
         }
         unbinder.unbind();
-        //销毁
-        JMessageClient.unRegisterEventReceiver(this);
         LogUtil.logE("BaseActivity123456", toString() + ":onDestroy");
     }
 
@@ -181,10 +176,9 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 
     /**
      * 隐藏正在加载的进度条
-     *
      */
     public void dismissProgressDialog() {
-        if (null != progressDialog && progressDialog.isShowing() == true) {
+        if (null != progressDialog && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }

@@ -80,8 +80,12 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
     @Override
     protected void initData(Bundle savedInstanceState) {
         initSMS();
-        mPresenter.listenRegisterEditText();
+        try {
+            mPresenter.listenRegisterEditText();
         mPresenter.foucusRegisterEditText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -150,7 +154,11 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
         String phoneNum = etPhone.getText().toString().trim();
         RegisterFrom registerFrom = new RegisterFrom();
         registerFrom.setPhone(phoneNum);
-        mPresenter.searchPhone(registerFrom);
+        try {
+            mPresenter.searchPhone(registerFrom);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

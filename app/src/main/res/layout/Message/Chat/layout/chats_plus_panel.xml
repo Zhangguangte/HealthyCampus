@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:columnCount="3"
+    android:rowCount="2">
+
+
+    <LinearLayout
+        android:id="@+id/CameraLayout"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_less2"
+        android:paddingBottom="@dimen/padding_less2"
+        android:layout_gravity="center"
+        tools:targetApi="lollipop">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_gravity="center"
+            android:background="@drawable/chat_icon_background"
+            android:scaleType="centerInside"
+            android:src="@mipmap/chatting_camera" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_less4"
+            android:text="拍照"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/AlbumLayout"
+        android:orientation="vertical"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:paddingTop="@dimen/padding_less2"
+        android:layout_gravity="center"
+        android:paddingBottom="@dimen/padding_less2">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_gravity="center"
+            android:background="@drawable/chat_icon_background"
+            android:scaleType="centerInside"
+            android:src="@mipmap/chatting_picture" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_less4"
+            android:text="相册"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/PositionLayout"
+        android:orientation="vertical"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:paddingTop="@dimen/padding_less2"
+        android:layout_gravity="center"
+        android:paddingBottom="@dimen/padding_less2">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_gravity="center"
+            android:background="@drawable/chat_icon_background"
+            android:scaleType="centerInside"
+            android:src="@mipmap/chatting_position" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_less4"
+            android:text="位置"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/FileLayout"
+        android:orientation="vertical"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/padding_less2"
+        android:paddingBottom="@dimen/padding_less2">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_gravity="center"
+            android:background="@drawable/chat_icon_background"
+            android:scaleType="centerInside"
+            android:src="@mipmap/chatting_file" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_less4"
+            android:text="文件"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/VedioLayout"
+        android:orientation="vertical"
+        android:layout_columnWeight="1"
+        android:layout_gravity="center"
+        android:layout_rowWeight="1"
+        android:paddingTop="@dimen/padding_less2"
+        android:paddingBottom="@dimen/padding_less2">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_gravity="center"
+            android:background="@drawable/chat_icon_background"
+            android:scaleType="centerInside"
+            android:src="@mipmap/chatting_vedio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_less4"
+            android:text="视频"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/CardLayout"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:paddingTop="@dimen/padding_less2"
+        android:paddingBottom="@dimen/padding_less2">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_gravity="center"
+            android:background="@drawable/chat_icon_background"
+            android:scaleType="centerInside"
+            android:src="@mipmap/chatting_card" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_less4"
+            android:text="名片"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f4" />
+    </LinearLayout>
+
+</GridLayout>

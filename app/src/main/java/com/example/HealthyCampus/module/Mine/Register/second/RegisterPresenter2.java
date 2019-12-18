@@ -13,26 +13,26 @@ public class RegisterPresenter2 extends RegisterContract2.Presenter {
     }
 
     @Override
-    protected void listenRegisterEditText() {
+    protected void listenRegisterEditText() throws Exception {
         getView().listenRegisterEditTextStatus();
     }
 
     @Override
-    protected void foucusRegisterEditText() {
+    protected void foucusRegisterEditText() throws Exception {
         getView().focusRegisterEditTextStatus();
     }
 
     @Override
-    protected void register(RegisterFrom registerFrom) {
+    protected void register(RegisterFrom registerFrom) throws Exception {
         getView().showProgressView();
         UserRepository.getInstance().register(registerFrom, new UserDataSource.UserRegister() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().dismissProgressView();
                 getView().showRegisterError(throwable);
             }
             @Override
-            public void registerSuccess(String username) {
+            public void registerSuccess(String username) throws Exception {
 //                getView().setPageEnable();
                 getView().dismissProgressView();
                 getView().showTipsView(username);

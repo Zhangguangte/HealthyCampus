@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/top_margin_less_less"
+    android:layout_marginRight="@dimen/margin_more"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_less2">
+
+    <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+        android:id="@+id/chat_icon"
+        android:layout_width="@dimen/icon_size_more"
+        android:layout_height="@dimen/icon_size_more"
+        android:scaleType="centerCrop"
+        android:src="@drawable/head_default" />
+
+
+    <LinearLayout
+        android:id="@+id/cardLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_less2"
+        android:layout_toLeftOf="@id/chat_icon"
+        android:background="@drawable/shape_button_lines7"
+        android:minWidth="220dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding"
+            android:paddingLeft="@dimen/padding"
+            android:text="@string/message_chatting_recommended_friend"
+            android:textColor="@color/text_level_3"
+            android:layout_marginBottom="@dimen/margin_less"
+            android:textSize="@dimen/text_f3" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/padding"
+            android:paddingTop="@dimen/padding_less2"
+            android:orientation="horizontal">
+
+            <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+                android:id="@+id/recommendIcon"
+                android:layout_width="@dimen/icon_size_more_more"
+                android:layout_height="@dimen/icon_size_more_more"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_head_default_right" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_less"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/recommendName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="bottom|left"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="bottom|left"
+                    android:singleLine="true"
+                    android:text="@string/message_chatting_recommended_friend"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <TextView
+                    android:id="@+id/recommendAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="top|left"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="top|left"
+                    android:paddingTop="@dimen/padding_less3"
+                    android:singleLine="true"
+                    android:text="XXXXXX"
+                    android:textSize="@dimen/text_f3" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

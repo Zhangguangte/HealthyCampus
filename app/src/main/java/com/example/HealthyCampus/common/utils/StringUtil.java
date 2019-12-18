@@ -2,12 +2,17 @@ package com.example.HealthyCampus.common.utils;
 
 import android.text.TextUtils;
 
+import com.example.HealthyCampus.common.data.Bean.CookDetailBean;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class StringUtil {
 
@@ -77,7 +82,7 @@ public final class StringUtil {
         }
     }
 
-    public static boolean isPassword(String password){
+    public static boolean isPassword(String password) {
         String regex = "(?=.*?[a-zA-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,15}$";
         if (TextUtils.isEmpty(password)) {
             return false;
@@ -86,7 +91,37 @@ public final class StringUtil {
         }
     }
 
+    public static String dealHtmlText(String data) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(data
+                .replace("</td><td>", " : ")
+                .replace("<td>", "")
+                .replace("</td>", "")
+                .replace("</tr>", "\n\n")
+                .replace("<tr>", "")
+        );
+
+        return stringBuffer.toString();
+    }
 
 
+    public static List<String> getStepArray(String whole) {
+        String[] array = whole.split(",");
+        return java.util.Arrays.asList(array);
+    }
+
+    public static List<CookDetailBean> getIngredientsArray(String whole) {
+        String ingredient[];
+        List<CookDetailBean> list = new LinkedList<CookDetailBean>();
+        String[] array = whole.split(",");
+        for (int i = 0; i < array.length; i++) {
+            ingredient = array[i].split(":");
+            CookDetailBean cookDetailBean = new CookDetailBean();
+            cookDetailBean.setMaterial(ingredient[0]);
+            cookDetailBean.setQuantity(ingredient[1]);
+            list.add(cookDetailBean);
+        }
+        return list;
+    }
 
 }

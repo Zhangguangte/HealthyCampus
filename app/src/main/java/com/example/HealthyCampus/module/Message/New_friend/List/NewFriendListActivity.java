@@ -3,6 +3,7 @@ package com.example.HealthyCampus.module.Message.New_friend.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.MessageRecyclerAdapter;
 import com.example.HealthyCampus.common.data.form.RequestForm;
@@ -149,7 +152,24 @@ public class NewFriendListActivity extends BaseActivity<NewFriendListContract.Vi
 
     @OnClick(R.id.tvFunction)
     public void tvClear(View view) {
-        mPresenter.clearRequestFriends();
+        MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(this);
+        materialDialog.title("点击确定删除所有好友通知")
+                .negativeText("取消")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .positiveText("确定")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mPresenter.clearRequestFriends();
+                    }
+                });
+        MaterialDialog materialDialog1 = materialDialog.build();
+        materialDialog1.show();
     }
 
 

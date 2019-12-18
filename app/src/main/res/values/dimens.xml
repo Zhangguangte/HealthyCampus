@@ -5,19 +5,24 @@
     <dimen name="no_width">0dp</dimen>
 
     <!--Text-->
+    <dimen name="text_f_2">24sp</dimen>
     <dimen name="text_f0">20sp</dimen>
     <dimen name="text_f1">18sp</dimen>
     <dimen name="text_f2">16sp</dimen>
     <dimen name="text_f3">14sp</dimen>
     <dimen name="text_f4">12sp</dimen>
+    <dimen name="text_f5">10sp</dimen>
+    <dimen name="text_f6">8sp</dimen>
 
     <!--Padding-->
     <dimen name="padding">15dp</dimen>
+    <dimen name="padding1">20dp</dimen>
     <dimen name="padding3">30dp</dimen>
     <dimen name="padding_less">10dp</dimen>
     <dimen name="padding_less2">8dp</dimen>
     <dimen name="padding_less3">6dp</dimen>
     <dimen name="padding_less4">4dp</dimen>
+    <dimen name="padding_less5">2dp</dimen>
 
     <dimen name="left_padding">20dp</dimen>
     <dimen name="left_padding_less">15dp</dimen>
@@ -35,6 +40,7 @@
     <dimen name="margin_more">40dp</dimen>
 
     <dimen name="left_margin">10dp</dimen>
+    <dimen name="left_margin_3">13dp</dimen>
     <dimen name="left_margin1">15dp</dimen>
 
     <dimen name="top_margin0">15dp</dimen>
@@ -47,6 +53,11 @@
 
     <!--Radius-->
     <dimen name="radius_button">5dp</dimen>
+    <dimen name="radius_button3">15dp</dimen>
+    <dimen name="radius_card">30dp</dimen>
+    <dimen name="radius_card4">15dp</dimen>
+    <dimen name="radius_card5">10dp</dimen>
+    <dimen name="radius_card6">5dp</dimen>
 
     <dimen name="login_input_radius">20dp</dimen>
     <dimen name="register_input_radius">15dp</dimen>
@@ -57,19 +68,27 @@
     <dimen name="words_logo_height">30dp</dimen>
 
     <!--Icon-->
+    <dimen name="icon_size_more_more4">75dp</dimen>
+    <dimen name="icon_size_more_more3">70dp</dimen>
     <dimen name="icon_size_more_more1">60dp</dimen>
     <dimen name="icon_size_more_more0">55dp</dimen>
     <dimen name="icon_size_more_more">50dp</dimen>
     <dimen name="icon_size_more">40dp</dimen>
+    <dimen name="icon_size_mo">35dp</dimen>
     <dimen name="icon_size">30dp</dimen>
     <dimen name="icon_size_le">25dp</dimen>
     <dimen name="icon_size_less">20dp</dimen>
+    <dimen name="icon_size_less1">15dp</dimen>
+    <dimen name="icon_size_less2">10dp</dimen>
+    <dimen name="icon_size_more_hundre_9">90dp</dimen>
     <dimen name="icon_size_more_hundred">100dp</dimen>
+    <dimen name="icon_size_more_hundred_2">120dp</dimen>
     <dimen name="icon_size_more_hundred2">150dp</dimen>
     <dimen name="icon_size_more_hundred3">200dp</dimen>
 
     <!--View-->
     <dimen name="view_width">1px</dimen>
+    <dimen name="view_width_five">5px</dimen>
     <dimen name="view_height_one">1px</dimen>
     <dimen name="view_height_three">3px</dimen>
     <dimen name="view_height">10dp</dimen>

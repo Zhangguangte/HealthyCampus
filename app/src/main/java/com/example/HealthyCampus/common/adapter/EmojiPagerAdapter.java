@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.PagerAdapter;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,14 +62,14 @@ public class EmojiPagerAdapter extends PagerAdapter {
         WindowManager manager = ((Activity) mContext).getWindowManager();
         DisplayMetrics outMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(outMetrics);
-        // 获取屏幕宽度
-        int screenWidth = outMetrics.widthPixels;
-        // item的间距
-        int spacing = (int) (outMetrics.density * 12);
-        // 动态计算item的宽度和高度
-        int itemWidth = (screenWidth - spacing * 8) / 8;
-        //动态计算gridview的总高度
-        int gvHeight = itemWidth * 3 + spacing * 6;
+        int screenWidth = outMetrics.widthPixels;                       // 获取屏幕宽度
+        int spacing = (int) (outMetrics.density * 15);                  // item的间距
+        int itemWidth = (screenWidth - spacing * 8) / 8;                // 动态计算item的宽度和高度
+        int gvHeight = itemWidth * 3 + spacing * 3;                                   //动态计算gridview的总高度
+//        Log.e("EmojiPagerAdapter" + "123456", "screenWidth: " + screenWidth);
+//        Log.e("EmojiPagerAdapter" + "123456", "spacing: " + spacing);
+//        Log.e("EmojiPagerAdapter" + "123456", "itemWidth: " + itemWidth);
+//        Log.e("EmojiPagerAdapter" + "123456", "gvHeight: " + gvHeight);
 
         List<View> list = new ArrayList<View>();
         ArrayMap<String, Integer> emojis = EmojiUtils.getEmojis(mEmojiType);
@@ -96,8 +98,7 @@ public class EmojiPagerAdapter extends PagerAdapter {
         sb.insert(curPosition, text);
         // 特殊文字处理,将表情等转换一下
         mEditText.setText(SpanStringUtils.getEmojiContent(emojiType,
-                mContext, (int) mEditText.getTextSize(), sb.toString()));
-
+                mContext, (int) mEditText.getTextSize() * 12 / 10, sb.toString()));
         // 将光标设置到新增完表情的右侧
         mEditText.setSelection(curPosition + text.length());
     }
@@ -117,9 +118,10 @@ public class EmojiPagerAdapter extends PagerAdapter {
         gv.setSelector(android.R.color.transparent);
         //设置7列
         gv.setNumColumns(8);
+        gv.setGravity(Gravity.CENTER_HORIZONTAL);
         gv.setPadding(padding, padding, padding, padding);
         gv.setHorizontalSpacing(padding);
-        gv.setVerticalSpacing(padding * 2);
+        gv.setVerticalSpacing(padding);
         //设置GridView的宽高
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(gvWidth, gvHeight);
         gv.setLayoutParams(params);
@@ -128,7 +130,6 @@ public class EmojiPagerAdapter extends PagerAdapter {
         EmojiGridAdapter.OnClickEmojiListener listener = new EmojiGridAdapter.OnClickEmojiListener() {
             @Override
             public void onClick(CharSequence text) {
-//                Toast.makeText(MainActivity.this, "emoji click", Toast.LENGTH_SHORT).show();
                 setText(mEmojiType, text);
             }
 

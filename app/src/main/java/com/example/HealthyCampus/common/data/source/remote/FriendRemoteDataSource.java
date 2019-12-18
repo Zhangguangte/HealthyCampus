@@ -49,15 +49,23 @@ public class FriendRemoteDataSource implements FriendDataSource {
                     @Override
                     public void call(ArrayList<AddressListVo> addressLists) {
                         Log.e("allFriend" + "123456", "allFriend success");
-                        callback.onDataAvailable(addressLists);
-                        callback.finish();
+                        try {
+                            callback.onDataAvailable(addressLists);
+                            callback.finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         Log.e("allFriend" + "123456", "register:9");
-                        callback.onDataNotAvailable(throwable);
-                        callback.finish();
+                        try {
+                            callback.onDataNotAvailable(throwable);
+                            callback.finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -78,15 +86,23 @@ public class FriendRemoteDataSource implements FriendDataSource {
                     @Override
                     public void call(ArrayList<RequestFriendVo> requestFriendVos) {
                         Log.e("requestFriends" + "123456", "requestFriends success");
-                        callback.onDataAvailable(requestFriendVos);
-                        callback.finish();
+                        try {
+                            callback.onDataAvailable(requestFriendVos);
+                            callback.finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         Log.e("requestFriends" + "123456", "register:9");
-                        callback.onDataNotAvailable(throwable);
-                        callback.finish();
+                        try {
+                            callback.onDataNotAvailable(throwable);
+                            callback.finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -106,14 +122,22 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .subscribe(new Action1<DefaultResponseVo>() {
                     @Override
                     public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("clearRequestFri" + "123456", "requestFriends success");
-                        callback.onDataAvailable(defaultResponseVo);
+                        try {
+                            Log.e("clearRequestFri" + "123456", "requestFriends success");
+                            callback.onDataAvailable(defaultResponseVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("clearRequestFri" + "123456", "register:9");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("clearRequestFri" + "123456", "register:9");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -160,14 +184,22 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .subscribe(new Action1<DefaultResponseVo>() {
                     @Override
                     public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("FriendRemoteDat" + "123456", "saveRequestFriend success");
-                        callback.onDataAvailable(defaultResponseVo);
+                        try {
+                            Log.e("FriendRemoteDat" + "123456", "saveRequestFriend success");
+                            callback.onDataAvailable(defaultResponseVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("FriendRemoteDat" + "123456", "saveRequestFriend error");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("FriendRemoteDat" + "123456", "saveRequestFriend error");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -187,14 +219,22 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .subscribe(new Action1<DefaultResponseVo>() {
                     @Override
                     public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend success");
-                        callback.onDataAvailable(defaultResponseVo);
+                        try {
+                            Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend success");
+                            callback.onDataAvailable(defaultResponseVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend error");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend error");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

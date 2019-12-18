@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/top_margin_less_less"
+    android:layout_marginRight="@dimen/margin_more"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_less2">
+
+    <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+        android:id="@+id/chat_icon"
+        android:layout_width="@dimen/icon_size_more"
+        android:layout_height="@dimen/icon_size_more"
+        android:scaleType="centerCrop"
+        android:src="@drawable/head_default" />
+
+
+    <com.example.HealthyCampus.common.widgets.chat.ChatStroke
+        android:id="@+id/csChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_less2"
+        android:padding="@dimen/padding_less2"
+        app:cs_colorBackground="@color/golden1"
+        app:cs_direction="0">
+
+        <TextView
+            android:id="@+id/chat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.1"
+            android:text="哈哈哈"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_f2" />
+    </com.example.HealthyCampus.common.widgets.chat.ChatStroke>
+</LinearLayout>

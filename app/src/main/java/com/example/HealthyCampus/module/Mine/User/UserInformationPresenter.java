@@ -17,12 +17,12 @@ public class UserInformationPresenter extends UserInformationContract.Presenter 
     protected void getUserInformation(String account) {
         UserRepository.getInstance().getUserInformation(account, new UserDataSource.UserInformation() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(UserVo userVo) {
+            public void onDataAvailable(UserVo userVo) throws Exception {
                 userVo.isfriends = true;
                 getView().initUserInfo(userVo);
             }
@@ -34,12 +34,12 @@ public class UserInformationPresenter extends UserInformationContract.Presenter 
     protected void searchUser(RequestForm requestForm) {
         UserRepository.getInstance().searchUser(requestForm, new UserDataSource.UserInformation() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(UserVo userVo) {
+            public void onDataAvailable(UserVo userVo) throws Exception {
                 userVo.isfriends = false;
                 getView().initUserInfo(userVo);
             }

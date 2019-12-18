@@ -21,7 +21,17 @@
     <color name="text_level_1">#212121</color>
     <color name="text_level_2">#66000000</color>
     <color name="text_level_3">#757575</color>
+    <color name="text_level_4">#363534</color>
     <color name="red_text">#e75858</color>
+
+    <!--渐变-->
+    <color name="green_gradual1">#39EBBD</color>
+    <color name="green_gradual2">#F025E0A9</color>
+    <color name="green_gradual3">#F03CF1BA</color>
+
+    <color name="green_gradual4">#52ec2f</color>
+    <color name="green_gradual5">#52ec2f</color>
+    <color name="green_gradual6">#25d43c</color>
 
     <!--纯色-->
     <color name="lightblue">#39EBBD</color>
@@ -31,10 +41,24 @@
     <color name="sun">#FFFFF4</color>
     <color name="blue">#4056AB</color>
     <color name="lightgreen">#C7FFF3</color>
+    <color name="bright_green">#25d43c</color>
     <color name="lightgrey">#E9E9E9</color>
     <color name="lightyellow">#FFFCEE</color>
+
     <color name="lightgolden">#FCE699</color>
+    <color name="lightPrimary">#93F1BF</color>
+
     <color name="golden">#FFD306</color>
+    <color name="golden1">#EEDB8F</color>
+    <color name="whitesmoke">#f5f5f5</color> <!-- 烟白色 -->
+    <color name="ghostwhite">#f8f8ff</color> <!-- 幽灵白 -->
+    <color name="beige">#f5f5dc</color> <!-- 米色 -->
+    <color name="linen">#faf0e6</color> <!-- 亚麻色 -->
+    <color name="lightskyblue">#87cefa</color> <!-- 亮天蓝色 -->
+    <color name="cornflowerblue">#6495ed</color> <!-- 菊兰色 -->
+    <color name="azure">#F0FFFF</color><!--天蓝色 -->
+    <color name="burlywood">#DEB887</color><!--实木色 -->
+
 
     <!--tab-->
     <color name="icons_tint_normal">#BDBDBD</color>
@@ -53,9 +77,9 @@
     <color name="item_title_head_font">#181818</color>
     <color name="item_title_content_font">#999999</color>
     <color name="interval_background">#F2F2F2</color>
+    <color name="interval_background1">#ff888888</color>
 
     //*****************************************
-
 
 
     <!-- address_list -->
@@ -72,10 +96,13 @@
     <color name="md_selected">#19000000</color>
     <color name="background_page">#EEEEEE</color>
 
+    <color name="clear_press">#2AAAAAAA</color>
+    <color name="clear_release">#EEEEEE</color>
+
     <color name="border_color">#aaaaaa</color>
 
 
     <color name="colorPrimary">#53DC92</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#53DC92</color>
     <color name="colorAccent">#53DC92</color>  <!--D81B60-->
 </resources>

@@ -51,12 +51,20 @@ public class UserRemoteDataSource implements UserDataSource {
                     public void call(UserVo userVo) {
 //                        LogUtil.logE("UserRemoteDa" + "123456", "9:" + userVo);
 //                        LogUtil.logE("UserRemoteDa" + "123456", "Login Success");
-                        callback.loginSuccess(userVo);
+                        try {
+                            callback.loginSuccess(userVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -76,15 +84,23 @@ public class UserRemoteDataSource implements UserDataSource {
                 .subscribe(new Action1<DefaultResponseVo>() {
                     @Override
                     public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("UserRemoteDa" + "123456", "register:8");
-                        Log.e("UserRemoteDa" + "123456", "register:defaultResponseVo"+defaultResponseVo.toString());
-                        callback.registerSuccess(defaultResponseVo.message);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "register:8");
+                            Log.e("UserRemoteDa" + "123456", "register:defaultResponseVo" + defaultResponseVo.toString());
+                            callback.registerSuccess(defaultResponseVo.message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("UserRemoteDa" + "123456", "register:9");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "register:9");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -104,15 +120,23 @@ public class UserRemoteDataSource implements UserDataSource {
                 .subscribe(new Action1<DefaultResponseVo>() {
                     @Override
                     public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("UserRemoteDa" + "123456", "searchPhone:8");
-                        Log.e("UserRemoteDa" + "123456", "searchPhone:defaultResponseVo"+defaultResponseVo.toString());
-                        callback.onDataAvailable(defaultResponseVo.message);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "searchPhone:8");
+                            Log.e("UserRemoteDa" + "123456", "searchPhone:defaultResponseVo" + defaultResponseVo.toString());
+                            callback.onDataAvailable(defaultResponseVo.message);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("UserRemoteDa" + "123456", "searchPhone:9");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "searchPhone:9");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -132,14 +156,22 @@ public class UserRemoteDataSource implements UserDataSource {
                 .subscribe(new Action1<UserVo>() {
                     @Override
                     public void call(UserVo userVo) {
-                        Log.e("UserRemoteDa" + "123456", "getUserInformation:8");
-                        callback.onDataAvailable(userVo);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "getUserInformation:8");
+                            callback.onDataAvailable(userVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("UserRemoteDa" + "123456", "getUserInformation:9");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "getUserInformation:9");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -159,14 +191,22 @@ public class UserRemoteDataSource implements UserDataSource {
                 .subscribe(new Action1<UserVo>() {
                     @Override
                     public void call(UserVo userVo) {
-                        Log.e("UserRemoteDa" + "123456", "searchUser:8");
-                        callback.onDataAvailable(userVo);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "searchUser:8");
+                            callback.onDataAvailable(userVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("UserRemoteDa" + "123456", "searchUser:9");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "searchUser:9");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -186,14 +226,22 @@ public class UserRemoteDataSource implements UserDataSource {
                 .subscribe(new Action1<UserVo>() {
                     @Override
                     public void call(UserVo userVo) {
-                        Log.e("UserRemoteDa" + "123456", "searchUser:8");
-                        callback.onDataAvailable(userVo);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "searchUser:8");
+                            callback.onDataAvailable(userVo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e("UserRemoteDa" + "123456", "searchUser:9");
-                        callback.onDataNotAvailable(throwable);
+                        try {
+                            Log.e("UserRemoteDa" + "123456", "searchUser:9");
+                            callback.onDataNotAvailable(throwable);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

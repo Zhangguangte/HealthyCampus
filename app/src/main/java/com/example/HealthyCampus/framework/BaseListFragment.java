@@ -28,7 +28,7 @@ public abstract class BaseListFragment<V extends BaseView,T extends BasePresente
     protected PullRecycler pullRecycler;
 
     protected BaseListAdapter adapter;
-    protected ArrayList<D> mDataList = new ArrayList<>();
+    protected ArrayList<D> mDataList=new ArrayList<>();
 
     @Override
     public int setContentLayout() {
@@ -40,8 +40,6 @@ public abstract class BaseListFragment<V extends BaseView,T extends BasePresente
     @Override
     public void setUpView(View view) {
         setUpAdapter();
-//        LogUtil.logE("BaseListFragment"+"123456","this:"+this);
-//        LogUtil.logE("BaseListFragment"+"123456","getContext():"+getContext());
         pullRecycler.setOnRefreshListener(this);
         pullRecycler.enablePullToRefresh(true);
         pullRecycler.enableLoadMore(true);

@@ -24,10 +24,6 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jiguang.imui.utils.DisplayUtil;
-import cn.jpush.im.android.api.ContactManager;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.api.BasicCallback;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 

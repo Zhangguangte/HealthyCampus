@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_less3">
+
+    <!-- 显示时间 -->
+
+    <TextView
+        android:id="@+id/item_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#999999"
+        android:textSize="@dimen/text_f4"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_more"
+        android:layout_marginTop="@dimen/margin_less"
+        android:layout_marginRight="@dimen/right_margin">
+
+        <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
+            android:id="@+id/chat_icon"
+            android:layout_width="@dimen/icon_size_more"
+            android:layout_height="@dimen/icon_size_more"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_head_default_right" />
+
+
+        <LinearLayout
+            android:id="@+id/chat_item_layout_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_less2"
+            android:layout_toLeftOf="@id/chat_icon"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_less3"
+                android:text="6''" />
+
+            <com.example.HealthyCampus.common.widgets.chat.ChatStroke
+                android:id="@+id/csChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/chat_icon"
+                android:padding="@dimen/padding_less2"
+                app:cs_colorBackground="@color/lightPrimary"
+                app:cs_direction="1">
+
+                <ImageView
+                    android:id="@+id/ivAudio"
+                    android:layout_width="@dimen/icon_size_less"
+                    android:layout_height="@dimen/icon_size_le"
+                    android:layout_marginLeft="30dp"
+                    android:src="@drawable/sound_all" />
+            </com.example.HealthyCampus.common.widgets.chat.ChatStroke>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/chat_item_fail"
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_less"
+            android:layout_toLeftOf="@+id/chat_item_layout_content"
+            android:focusable="false"
+            android:src="@drawable/msg_state_fail_resend"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/chat_item_progress"
+            style="@android:style/Widget.ProgressBar.Small.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_less"
+            android:layout_toLeftOf="@+id/chat_item_layout_content"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

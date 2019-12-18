@@ -8,14 +8,14 @@ import java.util.Map;
 public class RequestForm {
     public String quest_id;
     public String content;
-    public Integer row;
+    public int row;
     public Map<String, String> map;
 
     public RequestForm(String quest_id) {
         this.quest_id = quest_id;
     }
 
-    public RequestForm(String quest_id, Integer row) {
+    public RequestForm(String quest_id, int row) {
         this.quest_id = quest_id;
         this.row = row;
     }
@@ -23,6 +23,12 @@ public class RequestForm {
     public RequestForm(String quest_id, String content) {
         this.quest_id = quest_id;
         this.content = content;
+    }
+
+    public RequestForm(String quest_id, String content,int row) {
+        this.quest_id = quest_id;
+        this.content = content;
+        this.row = row;
     }
 
 

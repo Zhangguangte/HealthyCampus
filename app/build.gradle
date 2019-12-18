@@ -8,10 +8,12 @@ def releaseTime() {
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.HealthyCampus"
         minSdkVersion 19
         targetSdkVersion 28
+        maxSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -48,6 +50,9 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
 
+        packagingOptions {
+            exclude 'META-INF/rxjava.properties'
+        }
 
     }
     buildTypes {
@@ -147,15 +152,19 @@ android {
 
                             'src/main/res/layout/Message',
                             'src/main/res/layout/Message/Chat',
+                            'src/main/res/layout/Message/Chat/Function',
                             'src/main/res/layout/Message/Chat/Item',
+                            'src/main/res/layout/Message/Chat/Item/Receiver',
+                            'src/main/res/layout/Message/Chat/Item/Sender',
 
+                            'src/main/res/layout/Message/NewFriend',
+
+                            'src/main/res/layout/User',
 
                             'src/main/res/layout/Util',
                             'src/main/res/layout/Util/Umeng',
                             'src/main/res/layout/Util/Widget',
-
-                            'src/main/res/layout/User',
-
+                            
                             'src/main/res/layout',
                             'src/main/res'
                     ]
@@ -174,7 +183,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:cardview-v7:28.3.1'
+    implementation 'com.android.support:cardview-v7:28.0.0'
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -187,7 +196,9 @@ dependencies {
     // https://github.com/opacapp/multiline-collapsingtoolbar
     implementation 'net.opacapp:multiline-collapsingtoolbar:1.4.0'
     // glide
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
     // RxJava
     implementation 'io.reactivex:rxandroid:1.2.1'
     // RxAndroid
@@ -234,22 +245,28 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
-    //极光
-    implementation 'cn.jiguang.sdk:jpush:3.0.3'
-    implementation 'cn.jiguang.sdk:jcore:1.1.3'
-    implementation 'cn.jiguang.sdk:jmessage:2.2.0'
-    //极光消息列表
-    implementation 'cn.jiguang.imui:messagelist:0.4.3'
-    //极光对话输入
-    implementation 'cn.jiguang.imui:chatinput:0.5.7'
+//    //极光
+//    implementation 'cn.jiguang.sdk:jpush:3.0.3'
+//    implementation 'cn.jiguang.sdk:jcore:1.1.3'
+//    implementation 'cn.jiguang.sdk:jmessage:2.2.0'
+//    //极光消息列表
+//    implementation 'cn.jiguang.imui:messagelist:0.4.3'
+//    //极光对话输入
+//    implementation 'cn.jiguang.imui:chatinput:0.5.7'
     //表情
     implementation 'com.github.w446108264:AndroidEmoji:1.3'
-    implementation project(path: ':library')
-
     //高德
     implementation 'com.amap.api:location:latest.integration'     //定位相关
     implementation 'com.amap.api:3dmap:latest.integration'    //3D地图显示
     implementation 'com.amap.api:search:latest.integration'    //搜索
-
-
+    //图片加载
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    //文件夹
+    implementation 'com.nbsp:library:1.8'
+    //视频
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    //油表盘
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    //头像+文字
+    implementation 'com.github.thinkcool:circletextimageview:1.0.20151218'
 }

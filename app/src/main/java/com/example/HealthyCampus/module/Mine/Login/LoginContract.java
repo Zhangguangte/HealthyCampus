@@ -47,13 +47,13 @@ public interface LoginContract {
 
         protected abstract void login(LoginForm loginForm,String password);    //登录
 
-        protected abstract void listenLoginEditText();         //监听输入框内容
+        protected abstract void listenLoginEditText() throws Exception;         //监听输入框内容
 
         protected abstract LoginForm encapsulationData(String username, String _password);     //封装数据
 
-        protected abstract void foucusLoginEditText();         //焦点输入框
+        protected abstract void foucusLoginEditText() throws Exception;         //焦点输入框
 
-        protected abstract void initUserInformation(UserVo userVo, String password);         //保存用户信息
+        protected abstract void initUserInformation(UserVo userVo, String password) throws Exception;         //保存用户信息
 
 
     }

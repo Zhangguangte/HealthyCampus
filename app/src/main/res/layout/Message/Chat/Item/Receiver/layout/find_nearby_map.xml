@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_nearby" />
+
+
+    <!--附近列表-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/pageBackground"
+        android:visibility="gone" />
+
+
+    <!--详细标题-->
+    <LinearLayout
+        android:id="@+id/DetailTitleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/top_padding_more_less"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--路径信息-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/left_margin"
+                android:text="@string/find_nearby_recommend_way"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f0"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivTitleWay"
+                android:layout_width="@dimen/icon_size_le"
+                android:layout_height="@dimen/icon_size_le"
+                android:layout_marginStart="@dimen/margin_less"
+                android:src="@drawable/map_road_walk" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvDetailCostTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f1" />
+
+
+        <TextView
+            android:id="@+id/tvDetailDistant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height_three"
+            android:layout_marginTop="@dimen/margin_less"
+            android:background="@color/interval_background1" />
+    </LinearLayout>
+
+    <!--路线详细-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDetail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <!--位置信息-->
+    <LinearLayout
+        android:id="@+id/PositionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_less3"
+        android:visibility="gone">
+        <!--当前位置-->
+        <LinearLayout
+            android:id="@+id/StartLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/icon_size_less"
+                android:layout_height="@dimen/icon_size_less"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/padding_less3"
+                android:src="@drawable/map_start_position_20_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingEnd="@dimen/padding_less3"
+                android:text="@string/find_nearby_current_position"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f2" />
+
+            <TextView
+                android:id="@+id/currentPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3" />
+        </LinearLayout>
+        <!--目标位置-->
+        <LinearLayout
+            android:id="@+id/EndLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/top_margin_less_less"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivEnd"
+                android:layout_width="@dimen/icon_size_less"
+                android:layout_height="@dimen/icon_size_less"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/padding_less3"
+                android:src="@drawable/map_hospital_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/padding_less3"
+                android:text="@string/find_nearby_move_position"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f2" />
+
+            <TextView
+                android:id="@+id/movePosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height_three"
+            android:layout_marginLeft="@dimen/left_margin"
+            android:layout_marginTop="@dimen/margin_less"
+            android:layout_marginRight="@dimen/left_margin"
+            android:layout_marginBottom="@dimen/top_margin_less_less"
+            android:background="@color/interval_background1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnWalk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:padding="@dimen/padding_less3"
+                android:text="@string/find_nearby_walk"
+                android:textColor="@color/text_level_3"
+                android:textSize="@dimen/text_f3" />
+
+            <Button
+                android:id="@+id/btnCar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_weight="1"
+                android:padding="@dimen/padding_less3"
+                android:text="@string/find_nearby_car"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--地图-->
+    <com.amap.api.maps.MapView
+        android:id="@+id/mvMap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!--底部布局-->
+    <LinearLayout
+        android:id="@+id/roadLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_button_lines10"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_less"
+        android:visibility="gone">
+
+        <!--位置信息-->
+        <LinearLayout
+            android:id="@+id/PositionInfLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--大概信息-->
+            <RelativeLayout
+                android:id="@+id/movePositionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/top_margin_less_less"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f1" />
+
+                <TextView
+                    android:id="@+id/tvDistant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:id="@+id/tvSnippet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:layout_toEndOf="@+id/tvDistant"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+            </RelativeLayout>
+
+            <!--路径信息-->
+            <TextView
+                android:id="@+id/tvCostTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_less"
+                android:text="@string/find_nearby_recommend_way"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f2"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+
+            <LinearLayout
+                android:id="@+id/CostLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivWay"
+                    android:layout_width="@dimen/icon_size_le"
+                    android:layout_height="@dimen/icon_size_le"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:src="@drawable/map_road_walk" />
+
+
+                <TextView
+                    android:id="@+id/tvCostTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <View
+                    android:layout_width="@dimen/view_height_three"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/left_margin"
+                    android:layout_marginRight="@dimen/left_margin"
+                    android:background="@color/interval_background1" />
+
+                <TextView
+                    android:id="@+id/tvRoadCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <!--分隔符-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_height_three"
+            android:layout_marginTop="@dimen/top_margin_less_less"
+            android:layout_marginBottom="@dimen/top_margin_less_less"
+            android:background="@color/interval_background1" />
+
+        <!--底部按钮-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_less3">
+            <!--查看路径-->
+            <LinearLayout
+                android:id="@+id/detailButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_le"
+                    android:layout_height="@dimen/icon_size_le"
+                    android:layout_gravity="center"
+                    android:src="@drawable/menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:text="@string/find_nearby_detail"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+            </LinearLayout>
+
+            <!--显示地图-->
+            <LinearLayout
+                android:id="@+id/showMapButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_le"
+                    android:layout_height="@dimen/icon_size_le"
+                    android:layout_gravity="center"
+                    android:src="@drawable/map_show_map" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:text="@string/find_nearby_show_map"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+            </LinearLayout>
+
+            <!--填充空白-->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <!--调用高得-->
+            <LinearLayout
+                android:id="@+id/callButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/right_margin"
+                android:background="@drawable/shape_button_lines"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_less4"
+                tools:ignore="RtlHardcoded">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_le"
+                    android:layout_height="@dimen/icon_size_le"
+                    android:layout_gravity="center"
+                    android:src="@drawable/road_avigation" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/padding_less3"
+                    android:layout_marginRight="@dimen/padding_less3"
+                    android:gravity="center"
+                    android:text="@string/find_nearby_call_gould"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_f2" />
+            </LinearLayout>
+
+            <!--路径按钮-->
+            <LinearLayout
+                android:id="@+id/roadButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_lines"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_less4">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_le"
+                    android:layout_height="@dimen/icon_size_le"
+                    android:layout_gravity="center"
+                    android:src="@drawable/road" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/padding_less3"
+                    android:layout_marginRight="@dimen/padding_less3"
+                    android:gravity="center"
+                    android:text="@string/find_nearby_road"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_f2" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

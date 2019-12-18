@@ -35,10 +35,6 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.callback.GetUserInfoCallback;
-import cn.jpush.im.android.api.model.UserInfo;
-import cn.jpush.im.api.BasicCallback;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -86,8 +82,12 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mPresenter.listenLoginEditText();
-        mPresenter.foucusLoginEditText();
+        try {
+            mPresenter.listenLoginEditText();
+            mPresenter.foucusLoginEditText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

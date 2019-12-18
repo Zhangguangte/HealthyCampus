@@ -16,24 +16,24 @@ public class AddressListPresenter extends AddressListContract.Presenter {
     }
 
     @Override
-    protected void getFriendsInformation() {
+    protected void getFriendsInformation() throws Exception {
       DialogUtil.showProgressDialog(getView().getContext(),"正在加载中");
         FriendRepository.getInstance().allFriend(new FriendDataSource.GetAllFriend(){
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showViewByDataStatus(false);
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(ArrayList<AddressListVo> addressLists) {
+            public void onDataAvailable(ArrayList<AddressListVo> addressLists) throws Exception {
                 getView().showViewByDataStatus(addressLists.size()>0);
                 getView().showFriends(addressLists);
                 getView().listenItemStatus();
             }
 
             @Override
-            public void finish() {
+            public void finish() throws Exception {
                 getView().sidebarShow();
                 DialogUtil.dismissProgressDialog();
             }
@@ -42,12 +42,12 @@ public class AddressListPresenter extends AddressListContract.Presenter {
     }
 
     @Override
-    protected void listenTouch() {
+    protected void listenTouch() throws Exception {
         getView().listenTouchStatus();
     }
 
     @Override
-    protected void listenItem() {
+    protected void listenItem() throws Exception {
         getView().listenItemStatus();
     }
 }

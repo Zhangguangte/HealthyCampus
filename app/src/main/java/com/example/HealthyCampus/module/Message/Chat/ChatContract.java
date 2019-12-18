@@ -34,6 +34,11 @@ interface ChatContract {
         void loadPictureFail(ImageView sivPicture);
 
         void addCardItem(UserVo userVo);
+
+        void saveFail(int position);
+
+        void saveSuccess(int position);
+
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -45,13 +50,7 @@ interface ChatContract {
 
         protected abstract List<ChatItemBean> changeItemBean(List<MessageListVo> messageListVos);
 
-        protected abstract void insertText(String content, String roomId);
-
-        protected abstract void insertRecord(String content, String roomId, String filePath);
-
-        protected abstract void insertPicture(String content, String roomId, String filePath);
-
-        protected abstract void insertMap(String content, String roomId, String filePath);
+        protected abstract void insertContent(String content, String roomId, String filePath, String type, int position);
 
         protected abstract void insertCard(String account, String roomId);
 

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/md_selector_transparent"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="@dimen/padding_less">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,18 +20,19 @@
                 android:id="@+id/summary_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/margin_less"
                 android:ellipsize="end"
                 android:text="title"
                 android:textColor="@color/text_level_1"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_f1"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/summary_item_img"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_width="@dimen/icon_size_more_more4"
+            android:layout_height="@dimen/icon_size_more_more4"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/left_margin1" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

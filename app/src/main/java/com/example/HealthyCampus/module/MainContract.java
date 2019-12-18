@@ -13,6 +13,7 @@ interface MainContract {
         Context getContext();
 
         void showSnackBar(int resId);
+
         void finishView();
     }
 

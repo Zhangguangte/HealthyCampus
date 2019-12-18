@@ -13,6 +13,7 @@ import com.example.HealthyCampus.framework.ITabFragment;
 import com.example.HealthyCampus.module.Message.Address_list.AddressListActivity;
 import com.example.HealthyCampus.module.Message.New_friend.NewFriendActivity;
 import com.example.HealthyCampus.module.Message.List.MessageListFragment;
+import com.example.HealthyCampus.module.Message.Notice.NoticeActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,12 +26,13 @@ public class MessageFragment extends BaseFragment<MessageContract.View, MessageC
     ImageView mailList;
     @BindView(R.id.newFriend)
     ImageView newFriend;
+    @BindView(R.id.ivNotice)
+    ImageView ivNotice;
 
     @BindView(R.id.tvTitle)
-     TextView tvTitle;
-
+    TextView tvTitle;
     @BindView(R.id.tvFunction)
-     TextView tvInitiateChat;
+    TextView tvInitiateChat;
 
     @Override
     public Fragment getFragment() {
@@ -53,8 +55,7 @@ public class MessageFragment extends BaseFragment<MessageContract.View, MessageC
         setCustomActionBar();
     }
 
-    private void setCustomActionBar()
-    {
+    private void setCustomActionBar() {
         tvTitle.setText(R.string.tab_message);
         tvInitiateChat.setVisibility(View.VISIBLE);
         tvInitiateChat.setText(R.string.message_initiate_chat);
@@ -82,6 +83,13 @@ public class MessageFragment extends BaseFragment<MessageContract.View, MessageC
     @OnClick(R.id.newFriend)
     public void newFriend(View view) {
         Intent intent = new Intent(mActivity, NewFriendActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @OnClick(R.id.ivNotice)
+    public void ivNotice(View view) {
+        Intent intent = new Intent(mActivity, NoticeActivity.class);
         startActivity(intent);
         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }

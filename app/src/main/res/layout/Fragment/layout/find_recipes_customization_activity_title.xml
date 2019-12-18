@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/green6"
+    android:paddingTop="@dimen/padding_less"
+    android:paddingBottom="@dimen/padding_less">
+
+    <TextView
+        android:id="@+id/tvTitleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/left_margin1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f1" />
+
+    <TextView
+        android:id="@+id/energy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/unit_text"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_f3" />
+
+
+    <TextView
+        android:id="@+id/unit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:text="@string/find_health_recipes_customization_unit"
+        android:textSize="@dimen/text_f6" />
+
+</RelativeLayout>

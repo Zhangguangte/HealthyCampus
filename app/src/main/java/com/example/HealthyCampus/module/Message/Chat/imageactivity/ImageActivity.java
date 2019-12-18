@@ -106,7 +106,8 @@ public class ImageActivity extends AppCompatActivity {
                     String message = null;
                     switch (failReason.getType()) {
                         case IO_ERROR:
-                            message = "Input/Output error";
+//                            message = "Input/Output error";
+                            message = "资源丢失";
                             break;
                         case DECODING_ERROR:
                             message = "Image can't be decoded";

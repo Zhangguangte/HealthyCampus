@@ -24,12 +24,12 @@ public class ApplyFriendPresenter extends ApplyFriendContract.Presenter {
     public void saveRequestFriend(RequestForm requestForm) {
         FriendRepository.getInstance().saveRequestFriend(requestForm,new FriendDataSource.SaveRequestFriend() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(DefaultResponseVo defaultResponseVo) {
+            public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
                 getView().showSuccess(defaultResponseVo,0);
             }
         });
@@ -39,12 +39,12 @@ public class ApplyFriendPresenter extends ApplyFriendContract.Presenter {
     public void refuseRequestFriend(RequestForm requestForm) {
         FriendRepository.getInstance().refuseRequestFriend(requestForm,new FriendDataSource.RefuseRequestFriend() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(DefaultResponseVo defaultResponseVo) {
+            public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
                 getView().showSuccess(defaultResponseVo,1);
             }
         });
@@ -54,12 +54,12 @@ public class ApplyFriendPresenter extends ApplyFriendContract.Presenter {
     protected void searchUser(RequestForm requestForm) {
         UserRepository.getInstance().searchUser(requestForm, new UserDataSource.UserInformation() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(UserVo userVo) {
+            public void onDataAvailable(UserVo userVo) throws Exception {
                 getView().jumpToUserInformation(userVo);
             }
 

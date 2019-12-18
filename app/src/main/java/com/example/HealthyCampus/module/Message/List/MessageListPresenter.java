@@ -18,14 +18,14 @@ public class MessageListPresenter extends MessageListContract.Presenter {
     protected void lastMessage() {
         MessageRepository.getInstance().lastMessage( new MessageDataSource.MessageSearchMessage() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().noChatItem(true);
                 getView().MessageError(throwable);
                 getView().loadComplete();
             }
 
             @Override
-            public void onDataAvailable(List<MessageListVo> messageListVos) {
+            public void onDataAvailable(List<MessageListVo> messageListVos) throws Exception {
                 getView().noChatItem(false);
                 getView().refreshList(messageListVos);
                 getView().loadComplete();

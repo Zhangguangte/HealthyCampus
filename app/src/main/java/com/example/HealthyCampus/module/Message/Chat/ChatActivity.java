@@ -1,31 +1,42 @@
 package com.example.HealthyCampus.module.Message.Chat;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.HealthyCampus.R;
+import com.example.HealthyCampus.application.HealthApp;
 import com.example.HealthyCampus.common.adapter.ChatRecyclerAdapter;
 import com.example.HealthyCampus.common.adapter.EmojiPagerAdapter;
 import com.example.HealthyCampus.common.data.Bean.ChatItemBean;
@@ -36,23 +47,29 @@ import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.record.MediaManager;
 import com.example.HealthyCampus.common.record.RecordTextView;
+import com.example.HealthyCampus.common.utils.DensityUtil;
+import com.example.HealthyCampus.common.utils.FileUtils;
+import com.example.HealthyCampus.common.utils.FunctionUtils;
 import com.example.HealthyCampus.common.utils.JsonUtil;
-import com.example.HealthyCampus.common.utils.PackageManagerUtil;
 import com.example.HealthyCampus.common.utils.PictureUtil;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.chat.ChatStroke;
-import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.MyLinearLayoutManager;
+import com.example.HealthyCampus.common.widgets.custom_linearlayout.IndicatorView;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.Message.Address_list.AddressListActivity;
 import com.example.HealthyCampus.module.Message.Chat.Map.MapActivity;
 import com.example.HealthyCampus.module.Message.Chat.imageselect.ImageSelectorActivity;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -60,64 +77,88 @@ import butterknife.OnClick;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 
+import static com.example.HealthyCampus.common.constants.ConstantValues.FILE_SDK_PATH;
 import static com.example.HealthyCampus.common.constants.ConstantValues.MAP_LOCATION;
+import static com.example.HealthyCampus.common.constants.ConstantValues.PICK_FILE;
 import static com.example.HealthyCampus.common.constants.ConstantValues.PICK_PHOTO;
+import static com.example.HealthyCampus.common.constants.ConstantValues.PICK_VEDIO;
 import static com.example.HealthyCampus.common.constants.ConstantValues.PICTURE_PATH;
 import static com.example.HealthyCampus.common.constants.ConstantValues.TAKE_PHOTO;
 import static com.example.HealthyCampus.common.constants.ConstantValues.USER_CARD;
+import static com.example.HealthyCampus.common.helper.SPHelper.IS_EXCEED_SCEEN;
+import static com.example.HealthyCampus.common.helper.SPHelper.SOFT_INPUT_HEIGHT;
 
 
-public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.Presenter> implements ChatContract.View, ChatRecyclerAdapter.onItemClick {
+public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.Presenter> implements ChatContract.View, ChatRecyclerAdapter.onItemClick, SwipeRefreshLayout.OnRefreshListener {
 
-
+    //自定义标题栏
     @BindView(R.id.tvTitle)
     TextView tvTitle;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    //发送
     @BindView(R.id.btnSend)
     Button btnSend;
     @BindView(R.id.tvSend)
     TextView tvSend;
+    //编辑框
     @BindView(R.id.etChat)
     EditText etChat;
+
+    @BindView(R.id.contentLayout)
+    LinearLayout mContentLayout;
+
+    //聊天视图
+    @BindView(R.id.swipe_chat)
+    SwipeRefreshLayout mSwipeRefresh;//下拉刷新
     @BindView(R.id.rvChatting)
     RecyclerView rvChatting;
-
+    //底部视图
+    @BindView(R.id.BottomLayout)
+    RelativeLayout mBottomLayout;
     @BindView(R.id.mEmojiLayout)
-    LinearLayout mEmojiLayout;
+    LinearLayout mEmojiLayout;              //表情面板
     @BindView(R.id.mPlusLayout)
-    LinearLayout mPlusLayout;
+    GridLayout mPlusLayout;              //更多面板
     @BindView(R.id.mRecordText)
-    RecordTextView mRecordText;
-    @BindView(R.id.vpChat)
-    ViewPager vpChat;
+    RecordTextView mRecordText;           //录音按键
+    //表情视图
+    @BindView(R.id.vpEmoji)
+    ViewPager vpEmoji;
+    @BindView(R.id.ind_emoji)
+    IndicatorView indEmoji;
+    //底部图标
     @BindView(R.id.ivEmoji)
     ImageView ivEmoji;
     @BindView(R.id.ivRecord)
     ImageView ivRecord;
     @BindView(R.id.ivPlus)
     ImageView ivPlus;
+    //更多面板内功能
     @BindView(R.id.CameraLayout)
-    LinearLayout CameraLayout;
+    LinearLayout CameraLayout;              //相机
     @BindView(R.id.AlbumLayout)
-    LinearLayout AlbumLayout;
-    @BindView(R.id.chatLayout)
-    LinearLayout chatLayout;
+    LinearLayout AlbumLayout;               //相册
     @BindView(R.id.PositionLayout)
-    LinearLayout PositionLayout;
+    LinearLayout PositionLayout;            //定位
     @BindView(R.id.CardLayout)
-    LinearLayout CardLayout;
-
-    private InputMethodManager mImm;
-    private boolean first = true;
+    LinearLayout CardLayout;                //名片
+    @BindView(R.id.FileLayout)
+    LinearLayout FileLayout;                //文件
+    @BindView(R.id.VedioLayout)
+    LinearLayout VedioLayout;                //视频
+    private InputMethodManager mImm;        //软键盘
+    private boolean isMoreLoad = true;      //头部加载更多
     private String roomId;
     private StringBuilder stringBuilder = new StringBuilder();
     private Uri imageUri;
+    private Animation mHiddenAction;
+    //聊天数据、适配器
     private List<ChatItemBean> chatItemBeanList = new ArrayList<>();
     private ChatRecyclerAdapter mAdapter;
-    private Animation mHiddenAction;
-    private MediaManager mediaManager;
-    private Integer row = 0;
+    private MediaManager mediaManager;      //用于activity结束时
+    private Integer row = 0;                //加载数量
+    private LinearLayoutManager manager;
 
     @Override
     protected void setUpContentView() {
@@ -131,12 +172,12 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
 
     @Override
     protected void initView() {
-        setCustomActionBar();
+        setCustomActionBar();    //标题
         initRecyclerView();     //初始化聊天项
         initEdit();             //编辑
         initEmoji();            //表情面板
         initRecord();           //录音
-        initPlus();             //更多,未来添加文件传输
+        initPlus();             //更多面板
     }
 
     //状态栏为青色
@@ -146,13 +187,18 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
         StatusBarUtil.setStatusBarColor(this);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initRecyclerView() {
         //音频
         mediaManager = new MediaManager();
-        mAdapter = new ChatRecyclerAdapter(this, mediaManager, this);
-        rvChatting.setLayoutManager(new MyLinearLayoutManager(getContext()));
+        mSwipeRefresh.setOnRefreshListener(this);
+        mAdapter = new ChatRecyclerAdapter(chatItemBeanList, HealthApp.getAppContext(), mediaManager, this);
+        manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+//        manager.setStackFromEnd(true);
+        rvChatting.setLayoutManager(manager);
         rvChatting.setHasFixedSize(true);
         rvChatting.setItemViewCacheSize(15);
+        ((SimpleItemAnimator) rvChatting.getItemAnimator()).setSupportsChangeAnimations(false);
         rvChatting.setAdapter(mAdapter);
         roomId = getIntent().getExtras().getString("roomid");
         if (TextUtils.isEmpty(roomId)) {
@@ -160,9 +206,31 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             RequestForm requestForm = new RequestForm(String.valueOf(uid), row++);
             mPresenter.searchRoomid(requestForm);
         } else {
-            RequestForm requestForm = new RequestForm(String.valueOf(roomId), row++);
-            mPresenter.allChatByRoomId(requestForm);
+            loadMoreMessage();
         }
+        //聊天RecycleView布局变化的监听，数据项移动到底部，解决底部布局的遮盖
+        rvChatting.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+                if (oldBottom != -1 && oldBottom > bottom) {
+                    rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+                }
+            }
+        });
+
+        //点击空白区域关闭键盘
+        rvChatting.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hideBottomLayout(false);
+                hideSoftInput();
+                etChat.clearFocus();
+                ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -201,28 +269,9 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     @Override
     protected void initData(Bundle savedInstanceState) {
         mHiddenAction = AnimationUtils.loadAnimation(this, R.anim.push_up_out);
-        //软键盘
-        mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  //软键盘
     }
 
-    //editView获得聚焦，防止软键盘和底部控件所造成的布局变化冲突
-    private void setEditFocus() {
-        etChat.setFocusable(true);
-        etChat.setFocusableInTouchMode(true);
-        etChat.requestFocus();
-    }
-
-    //隐藏软键盘
-    private void softInputHide() {
-        setEditFocus();
-        mImm.hideSoftInputFromWindow(etChat.getWindowToken(), 0);
-    }
-
-    //显示软键盘
-    private void softInputShow() {
-        setEditFocus();
-        mImm.showSoftInput(etChat, InputMethodManager.SHOW_FORCED);
-    }
 
     @Override
     public Context getContext() {
@@ -237,8 +286,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
                 if (response.code == 1006) {
-                    Log.e("ChatActivity" + "123456", "response.toString:" + response.toString());
-                    Log.e("ChatActivity" + "123456", "response.code" + response.code);
+                    mSwipeRefresh.setEnabled(false);
                     ToastUtil.show(this, "无数据");
                 } else {
                     ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
@@ -251,18 +299,27 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
         } else {
             ToastUtil.show(this, "未知错误2:" + throwable.getMessage());
         }
-        Log.e("ChatActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
-        Log.e("ChatActivity" + "123456", "throwable.toString:" + throwable.toString());
-        Log.e("ChatActivity" + "123456", "throwable.getCause:" + throwable.getCause());
+        mSwipeRefresh.setRefreshing(false);
     }
+
 
     @Override
     public void showRecyclerView(List<ChatItemBean> messageListVos) {
-        chatItemBeanList = messageListVos;
-        mAdapter.addList(messageListVos);
-        rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+        chatItemBeanList.addAll(0, messageListVos);
+        mAdapter.notifyItemRangeInserted(0, messageListVos.size());
+        if (isMoreLoad) {
+            if (SPHelper.getBoolean(IS_EXCEED_SCEEN, false)) {
+                manager.setStackFromEnd(true);
+            }
+            rvChatting.setLayoutManager(manager);
+            isMoreLoad = false;
+        } else
+            ToastUtil.show(getContext(), R.string.loading_success);
+        mSwipeRefresh.setRefreshing(false);
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
     private void initEdit() {
         //内容变化
         etChat.addTextChangedListener(new TextWatcher() {
@@ -281,54 +338,47 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             }
         });
 
-        //点击事件
-        etChat.setOnClickListener(new View.OnClickListener() {
+        etChat.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                hideAll();
-                etChat.setVisibility(View.VISIBLE);
-                softInputShow();
-                rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
-
-            }
-        });
-
-        //点击RecycleView，隐藏软键盘和底部布局
-//        rvChatting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                hideAll();
-//            }
-//        });
-
-//        chatLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//            @Override
-//            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                if (oldBottom != -1 && oldBottom > bottom) {
-//                    rvChatting.requestLayout();
-//                    rvChatting.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Log.e("ChatActivity" + "123456", "bottom" + bottom);
-//                            Log.e("ChatActivity" + "123456", "oldBottom" + oldBottom);
-//                            rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
-//                        }
-//                    });
-//                }
-//            }
-//        });
-        //聊天RecycleView布局变化的监听，数据项移动到底部，解决底部布局的遮盖
-        rvChatting.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (oldBottom != -1 && oldBottom > bottom) {
-                    rvChatting.requestLayout();
-                    rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP && mBottomLayout.isShown()) {
+                    lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                    hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                    ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
+                    etChat.postDelayed(new Runnable() {      //软件盘显示后，释放内容高度
+                        @Override
+                        public void run() {
+                            unlockContentHeightDelayed();
+                        }
+                    }, 200L);
                 }
+                return false;
             }
         });
+        etChat.setFocusable(true);
+        etChat.setFocusableInTouchMode(true);
+        etChat.requestFocus();
+    }
 
-        setEditFocus();
+    /**
+     * 锁定内容高度，防止跳闪
+     */
+    private void lockContentHeight() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mContentLayout.getLayoutParams();
+        params.height = mContentLayout.getHeight();
+        params.weight = 0.0F;
+    }
+
+    /**
+     * 释放被锁定的内容高度
+     */
+    public void unlockContentHeightDelayed() {
+        etChat.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ((LinearLayout.LayoutParams) mContentLayout.getLayoutParams()).weight = 1.0F;
+            }
+        }, 200L);
     }
 
     //更多和发送显隐
@@ -341,15 +391,6 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             btnSend.setAnimation(mHiddenAction);
             btnSend.setVisibility(View.GONE);
         }
-    }
-
-    //隐藏所有底部数据
-    public void hideAll() {
-//        softInputHide();
-        mEmojiLayout.setVisibility(View.GONE);
-        mRecordText.setVisibility(View.GONE);
-        etChat.setVisibility(View.GONE);
-        mPlusLayout.setVisibility(View.GONE);
     }
 
     private void setCustomActionBar() {
@@ -371,44 +412,143 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     public void addRecordItem(String text, String filePath) {
         ChatItemBean chatItem = new ChatItemBean();
         chatItem.setContent(text);
-        chatItem.setDirection(ChatStroke.DIR_RIGHT);
-        chatItem.setType("WORDS");
+        chatItem.setType("TEXT");
         if (null != filePath) {
-            chatItem.setType("VOICE");
+            chatItem.setType("RECORD");
             chatItem.setFile_path(filePath);
         }
-        if (first) {
-            chatItem.setTime("刚刚");
-            first = false;
-        }
-        mAdapter.add(chatItem);
         chatItemBeanList.add(chatItem);
+        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
         rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
     }
 
     private void initEmoji() {
-        vpChat.setAdapter(new EmojiPagerAdapter(this, etChat));
+        vpEmoji.setAdapter(new EmojiPagerAdapter(this, etChat));
         ivEmoji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mEmojiLayout.getVisibility() == View.GONE) {
-                    hideAll();
-                    etChat.setVisibility(View.VISIBLE);
-                    mEmojiLayout.setVisibility(View.VISIBLE);
-                    softInputHide();
-                } else {
-                    hideAll();
-                    etChat.setVisibility(View.VISIBLE);
-                    mEmojiLayout.setVisibility(View.GONE);
+                if (!mEmojiLayout.isShown()) {      //判断表情布局是否已经显示
+                    if (mPlusLayout.isShown()) {
+                        showEmotionLayout();
+                        hideMoreLayout();
+                        hideAudioButton();
+                        return;
+                    }
+                } else if (mEmojiLayout.isShown() && !mPlusLayout.isShown()) {
+                    ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
+                    if (mBottomLayout.isShown()) {
+                        lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                        hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                        unlockContentHeightDelayed();//软件盘显示后，释放内容高度
+                    } else {
+                        if (isSoftInputShown()) {//同上
+                            lockContentHeight();
+                            showBottomLayout();
+                            unlockContentHeightDelayed();
+                        } else {
+                            showBottomLayout();//两者都没显示，直接显示表情布局
+                        }
+                    }
+                    return;
                 }
-                etChat.setVisibility(View.VISIBLE);
-                rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+                showEmotionLayout();
+                hideMoreLayout();
+                hideAudioButton();
+//                Log.e("ChatActivity" + "123456", "mBottomLayout.isShown():" + mBottomLayout.isShown());
+                if (mBottomLayout.isShown()) {
+                    lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                    hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                    unlockContentHeightDelayed();//软件盘显示后，释放内容高度
+                } else {
+                    if (isSoftInputShown()) {//同上
+                        lockContentHeight();
+                        showBottomLayout();
+                        unlockContentHeightDelayed();
+                    } else {
+                        showBottomLayout();//两者都没显示，直接显示表情布局
+                    }
+                }
+            }
+        });
+        indEmoji.setIndicatorCount(vpEmoji.getAdapter().getCount());
+        indEmoji.setCurrentIndicator(vpEmoji.getCurrentItem());
+        vpEmoji.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                indEmoji.setCurrentIndicator(position);
             }
         });
     }
 
+    public boolean isSoftInputShown() {
+        return getSupportSoftInputHeight() != 0;
+    }
+
+    private void showBottomLayout() {
+        int softInputHeight = getSupportSoftInputHeight();
+//        Log.e("ChatActivity" + "123456", "softInputHeight1:" + softInputHeight);
+        if (softInputHeight == 0) {
+            softInputHeight = SPHelper.getInt(SOFT_INPUT_HEIGHT, DensityUtil.dip2Px(200, getContext()));
+        }
+        hideSoftInput();
+//        Log.e("ChatActivity" + "123456", "softInputHeight2:" + softInputHeight);
+        mBottomLayout.getLayoutParams().height = softInputHeight;
+        mBottomLayout.setVisibility(View.VISIBLE);
+    }
+
+
+    /**
+     * 获取软件盘的高度
+     *
+     * @return
+     */
+    private int getSupportSoftInputHeight() {
+        Rect r = new Rect();
+        getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
+        int screenHeight = getWindow().getDecorView().getRootView().getHeight();          //获取屏幕的高度
+        int softInputHeight = screenHeight - r.bottom;              //计算软件盘的高度
+        /**
+         * 某些Android版本下，没有显示软键盘时减出来的高度总是144，而不是零，
+         * 这是因为高度是包括了虚拟按键栏的(例如华为系列)，所以在API Level高于20时，
+         * 我们需要减去底部虚拟按键栏的高度（如果有的话）
+         */
+        if (Build.VERSION.SDK_INT >= 20) {
+            softInputHeight = softInputHeight - getSoftButtonsBarHeight();
+        }
+        if (softInputHeight < 0) {
+        }
+        //存一份到本地
+        if (softInputHeight > 0) {
+            SPHelper.setInt(SOFT_INPUT_HEIGHT, softInputHeight);
+        }
+//        Log.e("ChatActivity" + "123456", "screenHeight:" + screenHeight);
+//        Log.e("ChatActivity" + "123456", "r.bottom:" + r.bottom);
+
+        return softInputHeight;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private int getSoftButtonsBarHeight() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int usableHeight = metrics.heightPixels;
+        getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+        int realHeight = metrics.heightPixels;
+        if (realHeight > usableHeight) {
+            return realHeight - usableHeight;
+        } else {
+            return 0;
+        }
+    }
+
+
+    private void showEmotionLayout() {
+        mEmojiLayout.setVisibility(View.VISIBLE);
+        ivEmoji.setImageResource(R.mipmap.chatting_softkeyboard);
+    }
+
     //发送消息
-    @OnClick({R.id.btnSend, R.id.tvSend})
+    @OnClick(R.id.btnSend)
     public void sendMessage(View view) {
         String str = etChat.getText().toString().trim();
         if (str == null || "".equals(str)) {
@@ -416,7 +556,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             return;
         }
         addChatItem(str);
-        mPresenter.insertText(str, roomId);
+        mPresenter.insertContent(str, roomId, "", "TEXT", chatItemBeanList.size() - 1);
         etChat.setText("");
     }
 
@@ -425,55 +565,101 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
         mRecordText.setOnFinishRecordListener(new RecordTextView.OnFinishRecordListener() {
             @Override
             public void onFinish(int time, String filePath) {
-                addRecordItem(time + "s", filePath);
-                mPresenter.insertRecord(time + "s", roomId, filePath);
+                addRecordItem(time + "\"", filePath);
+                mPresenter.insertContent(time + "\"", roomId, filePath, "RECORD", chatItemBeanList.size() - 1);
             }
         });
+
         ivRecord.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (mRecordText.getVisibility() == View.GONE) {
-                    hideAll();                                                  //隐藏所有底部视图
-                    ivRecord.setImageResource(R.mipmap.chatting_softkeyboard);
-                    mRecordText.setVisibility(View.VISIBLE);
-                    btnSend.setVisibility(View.GONE);
-                    ivPlus.setVisibility(View.VISIBLE);
-                    softInputHide();                                            //隐藏软键盘
+            public void onClick(View view) {
+                //如果录音按钮显示
+                if (mRecordText.isShown()) {
+                    hideAudioButton();
+                    etChat.requestFocus();
+                    showSoftInput();
                 } else {
-                    hideAll();
-                    etChat.setVisibility(View.VISIBLE);
-                    ivRecord.setImageResource(R.mipmap.chatting_vodie);
-                    etChat.setVisibility(View.VISIBLE);
-                    btnSend.setVisibility(etChat.getText().toString().trim().length() > 0 ? View.VISIBLE : View.GONE);
-                    ivPlus.setVisibility(etChat.getText().toString().trim().length() > 0 ? View.GONE : View.VISIBLE);
+                    etChat.clearFocus();
+                    showAudioButton();
+                    hideEmotionLayout();
+                    hideMoreLayout();
                 }
+            }
+        });
+
+    }
+
+    private void hideAudioButton() {
+        mRecordText.setVisibility(View.GONE);
+        etChat.setVisibility(View.VISIBLE);
+        ivRecord.setImageResource(R.mipmap.chatting_voice);
+    }
+
+    private void showAudioButton() {
+        mRecordText.setVisibility(View.VISIBLE);
+        etChat.setVisibility(View.GONE);
+        ivRecord.setImageResource(R.mipmap.chatting_softkeyboard);
+//        Log.e("ChatActivity" + "123456", "mBottomLayout.isShown33():" + mBottomLayout.isShown());
+        if (mBottomLayout.isShown()) {
+            hideBottomLayout(false);
+        } else {
+            hideSoftInput();
+        }
+    }
+
+    private void hideEmotionLayout() {
+        mEmojiLayout.setVisibility(View.GONE);
+        ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
+    }
+
+    private void hideMoreLayout() {
+        mPlusLayout.setVisibility(View.GONE);
+    }
+
+
+    public void hideSoftInput() {
+        mImm.hideSoftInputFromWindow(etChat.getWindowToken(), 0);
+    }
+
+
+    public void showSoftInput() {
+        etChat.requestFocus();
+        etChat.post(new Runnable() {
+            @Override
+            public void run() {
+                mImm.showSoftInput(etChat, 0);
             }
         });
     }
 
-
     private void initPlus() {
-        //更多点击事件
-        ivPlus.setOnClickListener(new View.OnClickListener() {
+        ivPlus.setOnClickListener(new View.OnClickListener() {      //更多图标点击
             @Override
             public void onClick(View v) {
-                //注意：
-                // 不要取出来放前面或后面。
-//                hideAll();                  隐藏了判断语句
-//                etChat.setVisibility(View.VISIBLE);       //对于软键盘，会把editView的焦距去除，导致之后软键盘和底部视图一起出现
-
-                if (mPlusLayout.getVisibility() == View.GONE) {
-                    hideAll();
-                    etChat.setVisibility(View.VISIBLE);
-                    mPlusLayout.setVisibility(View.VISIBLE);
-                    softInputHide();
-//                    showPlusLayout();
+                etChat.clearFocus();
+                hideAudioButton();
+                if (mBottomLayout.isShown()) {          //底部布局，是否显示
+                    if (mPlusLayout.isShown()) {        //底部布局的更多布局，是否显示
+                        lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                        hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                        unlockContentHeightDelayed();//软件盘显示后，释放内容高度
+                    } else {                              //底部布局的表情布局，是否显示
+                        showMoreLayout();
+                        hideEmotionLayout();
+                    }
                 } else {
-                    hideAll();
-                    etChat.setVisibility(View.VISIBLE);
-                    mPlusLayout.setVisibility(View.GONE);
+                    if (isSoftInputShown()) {//同上
+                        hideEmotionLayout();
+                        showMoreLayout();
+                        lockContentHeight();
+                        showBottomLayout();
+                        unlockContentHeightDelayed();
+                    } else {
+                        showMoreLayout();
+                        hideEmotionLayout();
+                        showBottomLayout();//两者都没显示，直接显示表情布局
+                    }
                 }
-                rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
             }
         });
         //照相机
@@ -510,6 +696,34 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
+        //文件
+        FileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FunctionUtils.openFile(ChatActivity.this, PICK_FILE);
+            }
+        });
+        //视频
+        VedioLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FunctionUtils.openGalleryAudio(ChatActivity.this, PICK_VEDIO);
+            }
+        });
+    }
+
+    private void showMoreLayout() {
+        mPlusLayout.setVisibility(View.VISIBLE);
+    }
+
+    //隐藏底部布局
+    public void hideBottomLayout(boolean showSoftInput) {
+        if (mBottomLayout.isShown()) {
+            mBottomLayout.setVisibility(View.GONE);
+            if (showSoftInput) {
+                showSoftInput();
+            }
+        }
     }
 
     //拍照
@@ -528,7 +742,6 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        Log.e("ChatActivity123456", "imageUri:" + imageUri + "\n|outputImage:" + outputImage + "\n|getFileName():" + getFileName() + "\n|dirStr:" + dirStr);
         imageUri = Uri.fromFile(outputImage);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -539,6 +752,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     public String getFileName() {
         return UUID.randomUUID().toString().substring(5) + ".jpg";
     }
+
 
     //跳转：挑选相册
     public void pickPhoto(View view) {
@@ -554,7 +768,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                 if (RESULT_OK == resultCode) {
                     addPictureItem(imageUri.toString());
                     String[] filename = imageUri.toString().split("/");
-                    mPresenter.insertPicture("", roomId, filename[filename.length - 1]);
+                    mPresenter.insertContent("", roomId, filename[filename.length - 1], "PICTURE", chatItemBeanList.size() - 1);
                     mPresenter.upPicture(imageUri.toString(), filename[filename.length - 1], SPHelper.getString(SPHelper.USER_ID));
                 }
                 break;
@@ -569,7 +783,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                         names = uri.split("/");
                         content += "_" + names[names.length - 1];
                         PictureUtil.saveBmpToSd(PictureUtil.fileTobitmap(uri), content, 80, true);
-                        mPresenter.insertPicture("", roomId, content);
+                        mPresenter.insertContent("", roomId, content, "PICTURE", chatItemBeanList.size() - 1);
                         mPresenter.upPicture(uri, content, SPHelper.getString(SPHelper.USER_ID));
                     }
                 }
@@ -577,48 +791,135 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             case MAP_LOCATION:      //定位回调
                 if (RESULT_OK == resultCode) {
                     MapForm mapForm = (MapForm) data.getParcelableExtra("map");
-                    Log.e("ChatActivity" + "123456", "mapForm.toString " + mapForm.toString());
-                    addMapItem(mapForm);
                     stringBuilder.setLength(0);
-                    mPresenter.insertMap(mapForm.address, roomId, stringBuilder.append(mapForm.latLng.latitude + "," + mapForm.latLng.longitude).toString());
+                    addMapItem(mapForm);
+                    mPresenter.insertContent(mapForm.address, roomId, stringBuilder.append(mapForm.latLng.latitude + "," + mapForm.latLng.longitude).toString(), "MAP", chatItemBeanList.size() - 1);
                 }
                 break;
             case USER_CARD:      //名片回调
                 if (RESULT_OK == resultCode) {
                     String account = data.getStringExtra("ACCOUNT");
-                    Log.e("ChatActivity" + "123456", "account" + account);
+//                    Log.e("ChatActivity" + "123456", "account" + account);
                     mPresenter.insertCard(account, roomId);
+                }
+                break;
+            case PICK_FILE:     //文件
+                if (RESULT_OK == resultCode) {
+                    String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);     //路径
+                    String fileName = FileUtils.getFileName(filePath);                              //文件名
+                    String fileSize = FileUtils.getFileLength(FileUtils.getFileLength(filePath));   //文件大小
+//                LogUtil.logE("ChatActivity" + "123456", "获取到的文件路径:" + filePath);
+                    addFileItem(fileName, fileSize);
+                    FunctionUtils.saveFileToSDK(filePath, fileName);
+                    mPresenter.insertContent(fileName + "," + fileSize, roomId, fileName, "FILE", chatItemBeanList.size() - 1);
+                }
+                break;
+            case PICK_VEDIO:   //视频
+                // 视频选择结果回调
+                List<LocalMedia> selectListVideo = PictureSelector.obtainMultipleResult(data);
+                StringBuffer urlpath = new StringBuffer();
+                StringBuffer vedioName = new StringBuffer();
+                for (LocalMedia media : selectListVideo) {
+//                    LogUtil.logE("ChatActivity" + "123456", "获取视频路径成功:" + media.getPath());
+                    //数据重置
+                    urlpath.setLength(0);
+                    vedioName.setLength(0);
+                    //文件名、缩略图名称
+                    urlpath.append(getFileName());
+                    vedioName.append(FileUtils.getFileName(media.getPath()));
+                    //保存操作
+                    FunctionUtils.createThumbnail(media.getPath(), urlpath.toString());   //添加缩略图
+                    addVedioItem(vedioName.toString(), urlpath.toString());                 //添加视频项
+                    FunctionUtils.saveVideoToSDK(media.getPath(), vedioName.toString());     //存储视频于本地
+                    mPresenter.insertContent(urlpath.toString(), roomId, vedioName.toString(), "VEDIO", chatItemBeanList.size() - 1);        //添加视频信息于数据库
                 }
                 break;
             default:
                 Log.e("ChatActivity" + "123456", "requestCode = " + requestCode);
                 break;
         }
-        mPlusLayout.setVisibility(View.GONE);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     //添加：图片项
-    public void addPictureItem(String imageUri) {
+    private void addPictureItem(String imageUri) {
         ChatItemBean chatItem = new ChatItemBean();
-        chatItem.setDirection(ChatStroke.DIR_RIGHT);
         chatItem.setFile_path(imageUri);
         chatItem.setType("PICTURE");
-        mAdapter.add(chatItem);
         chatItemBeanList.add(chatItem);
+        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
         rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
     }
 
-    //添加：图片项
+    //添加：名片项
     @Override
     public void addCardItem(UserVo userVo) {
         ChatItemBean chatItem = new ChatItemBean();
-        chatItem.setDirection(ChatStroke.DIR_RIGHT);
         chatItem.setType("CARD");
+        chatItem.setSentstatus("SENT");
         chatItem.setContent(userVo.avatar + "," + userVo.nickname + "," + userVo.account);
-        mAdapter.add(chatItem);
         chatItemBeanList.add(chatItem);
+        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
         rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+    }
+
+    //数据库添加失败
+    @Override
+    public void saveFail(int position) {
+        chatItemBeanList.get(position).setSentstatus("FAILED");
+        mAdapter.notifyItemChanged(position);
+    }
+
+    //数据库添加成功
+    @Override
+    public void saveSuccess(int position) {
+        chatItemBeanList.get(position).setSentstatus("SENT");
+        mAdapter.notifyItemChanged(position);
+    }
+
+    //添加：文件项
+    private void addFileItem(String filePath, String fileSize) {
+        ChatItemBean chatItem = new ChatItemBean();
+        chatItem.setType("FILE");
+        chatItem.setFile_path(filePath);
+        chatItem.setContent(FileUtils.getFileName(filePath) + "," + fileSize);
+        chatItemBeanList.add(chatItem);
+        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
+        rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+    }
+
+    //添加：视频项
+    private void addVedioItem(String filePath, String imagePath) {
+        ChatItemBean chatItem = new ChatItemBean();
+        chatItem.setType("VEDIO");
+        chatItem.setFile_path(filePath);
+        chatItem.setContent(imagePath);
+        chatItemBeanList.add(chatItem);
+        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
+        rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+    }
+
+
+    //加载更多消息
+    @Override
+    public void loadMoreMessage() {
+        RequestForm requestForm = new RequestForm(String.valueOf(roomId), row++);
+        mPresenter.allChatByRoomId(requestForm);
+    }
+
+    @Override
+    public void showToast(String message) {
+        ToastUtil.show(getContext(), message);
+    }
+
+    @Override
+    public void openFile(String path) {
+        File file = new File(FILE_SDK_PATH + path);
+        if (file.exists()) {
+            FunctionUtils.openFile(getContext(), path, file);
+        } else {
+            ToastUtil.show(getContext(), "文件不存在");
+        }
     }
 
     //添加：地图项
@@ -629,8 +930,8 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
         stringBuilder.setLength(0);
         chatItem.setFile_path(stringBuilder.append(mapForm.latLng.latitude + "," + mapForm.latLng.longitude).toString());
         chatItem.setType("MAP");
-        mAdapter.add(chatItem);
         chatItemBeanList.add(chatItem);
+        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
         rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
     }
 
@@ -664,7 +965,6 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     public void btnDetail(String address, String location) {
         Intent intent = new Intent(this, MapActivity.class);
         MapForm mapForm = new MapForm(address, location);
-        Log.e("ChatActivity" + "123456", "mapForm" + mapForm.toString());
         Bundle bundle = new Bundle();
         bundle.putParcelable("map", mapForm);
         intent.putExtras(bundle);
@@ -676,37 +976,12 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     @Override
     public void btnMap(String address, String location) {
         String loca[] = location.split(",");
-//        Log.e("ChatActivity" + "123456", "loca[0]" + loca[0]);
-//        Log.e("ChatActivity" + "123456", "loca[1]" + loca[1]);
-//        Log.e("ChatActivity" + "123456", "location" + location);
-        float j, w;
-        j = Float.valueOf(loca[0]);
-        w = Float.valueOf(loca[1]);
-        try {
-            // 高德地图 先维度——后经度
-            Intent intent = Intent
-                    .getIntent("androidamap://viewMap?sourceApplication=校园健康"
-                            + "&poiname="
-                            + address
-                            + "&lat="
-                            + j
-                            + "&lon="
-                            + w
-                            + "&dev=0");
-            if (PackageManagerUtil.haveGaodeMap()) {
-                startActivity(intent);
-                ToastUtil.show(getContext(), "高德地图正在启动");
-            } else {
-                ToastUtil.show(getContext(), "高德地图没有安装");
-                Intent i = new Intent();
-                i.setData(Uri.parse("http://daohang.amap.com/index.php?id=201&CustomID=C021100013023"));
-                i.setAction(Intent.ACTION_VIEW);
-                this.startActivity(i); //启动浏览器
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        FunctionUtils.callGaudMap(getContext(), address, loca[0], loca[1]);
     }
 
 
+    @Override
+    public void onRefresh() {
+        loadMoreMessage();
+    }
 }

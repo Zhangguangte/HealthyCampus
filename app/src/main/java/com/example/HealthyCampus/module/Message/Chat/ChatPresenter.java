@@ -41,34 +41,36 @@ public class ChatPresenter extends ChatContract.Presenter {
 
     }
 
+    //根据房间号查询信息，用于-》消息界面
     @Override
     protected void allChatByRoomId(RequestForm requestForm) {
         MessageRepository.getInstance().allChatByRoomId(requestForm, new MessageDataSource.MessageAllChat() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(List<MessageListVo> messageListVos) {
+            public void onDataAvailable(List<MessageListVo> messageListVos) throws Exception {
                 List<ChatItemBean> chatItemBeans = changeItemBean(messageListVos);
                 getView().showRecyclerView(chatItemBeans);
             }
         });
     }
 
+    //根据用户ID查询房间号，再查询消息，用于-》联系人界面
     @Override
     protected void allChatByUid(RequestForm requestForm) {
         MessageRepository.getInstance().allChatByUid(requestForm, new MessageDataSource.MessageAllChat() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<MessageListVo> messageListVos) {
-                List<ChatItemBean> chatItemBeans = changeItemBean(messageListVos);
                 try {
+                    List<ChatItemBean> chatItemBeans = changeItemBean(messageListVos);
                     getView().showRecyclerView(chatItemBeans);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -77,11 +79,12 @@ public class ChatPresenter extends ChatContract.Presenter {
         });
     }
 
+    // 查询房间号,用于-》联系人界面
     @Override
     protected void searchRoomid(RequestForm requestForm) {
         MessageRepository.getInstance().searchRoomid(requestForm, new MessageDataSource.MessageSearchRoomid() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().finish();
             }
 
@@ -97,53 +100,49 @@ public class ChatPresenter extends ChatContract.Presenter {
         });
     }
 
-
+    //封装数据，转化为聊天Item
     @Override
     protected List<ChatItemBean> changeItemBean(List<MessageListVo> messageListVos) {
-        Collections.reverse(messageListVos);
+        String userid = SPHelper.getString(SPHelper.USER_ID);
+
+        Collections.reverse(messageListVos);        //倒叙查询数据
         List<ChatItemBean> chatItemBeans = new ArrayList<ChatItemBean>();
         ChatItemBean chatItemBean = null;
-        String userid = SPHelper.getString(SPHelper.USER_ID);
+        int itemSize = 8 - messageListVos.size();            /*用于判断是否数据超过屏幕。不合理，因为目前手机为魅族MX6，适合8个文本Item，不同手机大小不一。
+                                                                预方案：测量手机高度，计算item总高度，进行比对
+                                                                目的：用于优化聊天显示
+                                                                测试点：1.数据超过一屏幕，消息显示为底部
+                                                                测试点：2.数据不一屏幕，消息显示位于顶部
+                                                             */
         for (MessageListVo messageListVo : messageListVos) {
             chatItemBean = new ChatItemBean(messageListVo, userid);
             chatItemBeans.add(chatItemBean);
+            if (messageListVo.getType().equals("PICTURE"))  /*图片Item差不多有两个文本Item大小
+                                                              缺陷：图片我还没有设置为自适应大小
+                                                            */
+                itemSize--;
         }
+        SPHelper.setBoolean(SPHelper.IS_EXCEED_SCEEN, !(itemSize > 0));
         return chatItemBeans;
     }
 
-    @Override
-    protected void insertText(String content, String roomId) {
-        ChatForm chatForm = encapsulation(content, roomId, "WORDS");
-        saveContent(chatForm);
-    }
 
+    //添加内容:文本、录音、图片、地图、文件
     @Override
-    protected void insertRecord(String content, String roomId, String filePath) {
-        ChatForm chatForm = encapsulation(content, roomId, "VOICE");
+    protected void insertContent(String content, String roomId, String filePath, String type,int position) {
+        ChatForm chatForm = encapsulation(content, roomId, filePath, type);
         chatForm.setFile_path(filePath);
-        saveContent(chatForm);
+        saveContent(chatForm,position);
     }
 
-    @Override
-    protected void insertPicture(String content, String roomId, String filePath) {
-        ChatForm chatForm = encapsulation(content, roomId, "PICTURE");
-        chatForm.setFile_path(filePath);
-        saveContent(chatForm);
-    }
-
-    @Override
-    protected void insertMap(String content, String roomId, String filePath) {
-        ChatForm chatForm = encapsulation(content, roomId, "MAP");
-        chatForm.setFile_path(filePath);
-        saveContent(chatForm);
-    }
-
+    //添加卡片
     @Override
     protected void insertCard(String account, String roomId) {
-        ChatForm chatForm = encapsulation("", roomId, "CARD");
+        ChatForm chatForm = encapsulation("", roomId, "", "CARD");
         chatForm.setUser_id(account);       //用户账号
         saveCard(chatForm);
     }
+
 
     @Override
     protected void upPicture(String path, String name, String account) {
@@ -222,24 +221,28 @@ public class ChatPresenter extends ChatContract.Presenter {
 //        });
 //    }
 
-    private ChatForm encapsulation(String content, String roomId, String type) {
+    private ChatForm encapsulation(String content, String roomId, String filePath, String type) {
         ChatForm chatForm = new ChatForm();
         chatForm.setCreate_time(DateUtils.getStringDate());
         chatForm.setRoom_id(roomId);
         chatForm.setType(type);
         chatForm.setContent(content);
+        chatForm.setFile_path(filePath);
+        chatForm.setSentStatus("SENDING");
         return chatForm;
     }
 
-    private void saveContent(ChatForm chatForm) {
+    private void saveContent(ChatForm chatForm,int position) {
         MessageRepository.getInstance().insertContent(chatForm, new MessageDataSource.MessageAddContent() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
+                getView().saveFail(position);
             }
 
             @Override
             public void onDataAvailable() {
+                getView().saveSuccess(position);
             }
         });
     }
@@ -247,12 +250,12 @@ public class ChatPresenter extends ChatContract.Presenter {
     private void saveCard(ChatForm chatForm) {
         MessageRepository.getInstance().insertCard(chatForm, new MessageDataSource.MessageAddCard() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) {
+            public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(UserVo userVo) {
+            public void onDataAvailable(UserVo userVo) throws Exception {
                 getView().addCardItem(userVo);
             }
         });

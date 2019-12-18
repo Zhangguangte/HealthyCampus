@@ -19,6 +19,7 @@ import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.GlideUtils;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.SpanStringUtils;
+import com.example.HealthyCampus.common.utils.TimestampUtils;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.framework.BaseListFragment;
@@ -26,6 +27,7 @@ import com.example.HealthyCampus.module.Message.Chat.ChatActivity;
 import com.example.HealthyCampus.module.Message.MessageFragment;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -167,10 +169,10 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
 //                headIcon.setBackground(getResources().getDrawable(R.drawable.message_item_default_icon));
                 tvUsername.setText(mDataList.get(position).getAnother_name());
                 switch (mDataList.get(position).getType()) {
-                    case "WORDS":
-                        lastMessage.setText(SpanStringUtils.getEmojiContent(1, getContext(), (int) (lastMessage.getTextSize() * 15 / 10), mDataList.get(position).getContent()));
+                    case "TEXT":
+                        lastMessage.setText(SpanStringUtils.getEmojiContent(1, getContext(), (int) (lastMessage.getTextSize() * 12 / 10), mDataList.get(position).getContent()));
                         break;
-                    case "VOICE":
+                    case "RECORD":
                         lastMessage.setText("[语音]");
                         break;
                     case "PICTURE":
@@ -184,6 +186,9 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
                         break;
                     case "CARD":
                         lastMessage.setText("[推荐好友]");
+                        break;
+                    case "VEDIO":
+                        lastMessage.setText("[视频]");
                         break;
                     default:
                         lastMessage.setText("你们已经成功加为好友");
@@ -200,7 +205,11 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
                         ToastUtil.show(getContext(), mDataList.get(position).toString());
                     }
                 });
-                lastTime.setText(DateUtils.getTimeString(DateUtils.string2Date(mDataList.get(position).getCreate_time()).getTime()));
+                try {
+                    lastTime.setText(TimestampUtils.getTimeStringAutoShort2(mDataList.get(position).getCreate_time(), false));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 GlideUtils.display(headIcon, null);
             }
         }
@@ -217,9 +226,4 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.lastMessage();
-    }
 }

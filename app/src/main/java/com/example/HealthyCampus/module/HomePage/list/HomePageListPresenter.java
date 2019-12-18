@@ -13,7 +13,7 @@ public class HomePageListPresenter extends HomePageListContract.Presenter {
     protected void getLatestNews() {
         HomePageRepository.getInstance().getLatestNews(new HomePageDataSource.GetLatestNewsCallback() {
             @Override
-            public void onLatestNewsLoaded(LatestNewsBean latestNewsBean) {
+            public void onLatestNewsLoaded(LatestNewsBean latestNewsBean) throws Exception {
                 if (latestNewsBean != null) {
                     getView().refreshList(latestNewsBean);
                 }
@@ -21,7 +21,7 @@ public class HomePageListPresenter extends HomePageListContract.Presenter {
             }
 
             @Override
-            public void onDataNotAvailable() {
+            public void onDataNotAvailable() throws Exception {
                 getView().loadComplete();
             }
         });
@@ -31,7 +31,7 @@ public class HomePageListPresenter extends HomePageListContract.Presenter {
     protected void getBeforeNews(String date) {
         HomePageRepository.getInstance().getBeforeNews(date, new HomePageDataSource.GetBeforeNewsCallback() {
             @Override
-            public void onBeforeNewsLoaded(BeforeNewsBean bean) {
+            public void onBeforeNewsLoaded(BeforeNewsBean bean) throws Exception {
                 if (bean != null) {
                     getView().addList(bean);
                 }
@@ -39,7 +39,7 @@ public class HomePageListPresenter extends HomePageListContract.Presenter {
             }
 
             @Override
-            public void onDataNotAvailable() {
+            public void onDataNotAvailable() throws Exception {
                 getView().loadComplete();
             }
         });

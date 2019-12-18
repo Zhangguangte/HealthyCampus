@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:elevation="0dp"
-    android:background="@drawable/user_title"
+    android:background="@color/bright_green"
     app:theme="@style/AppTheme.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
         android:id="@id/toolbar"
         android:layout_width="match_parent"
-        android:paddingTop="20dp"
-        android:layout_height="73dp"
+        android:layout_height="?attr/actionBarSize"
         android:gravity="center"
+        app:contentInsetStart="0dp"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 

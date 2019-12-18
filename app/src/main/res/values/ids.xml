@@ -12,10 +12,13 @@
 
 
     <!--toolbar_custom_title-->
+    <item name="etSearch" type="id"/>
     <item name="tvTitle" type="id"/>
     <item name="tvFunction" type="id"/>
+    <item name="ivFunction" type="id"/>
     <item name="ivBack" type="id"/>
     <item name="toolbar_title" type="id"/>
+    <item name="ivSearch" type="id"/>
 
     <!--immersion-->
     <item name="immersion_status_bar_view" type="id" />

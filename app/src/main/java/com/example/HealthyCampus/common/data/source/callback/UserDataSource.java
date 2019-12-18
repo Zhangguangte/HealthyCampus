@@ -11,33 +11,33 @@ public interface UserDataSource {
 
 
     interface UserLogin {
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void loginSuccess(UserVo user);
+        void loginSuccess(UserVo user) throws Exception;
 
     }
 
     interface UserRegister {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void registerSuccess(String username);
+        void registerSuccess(String username) throws Exception;
 
     }
 
     interface UserSearchPhone {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(String username);
+        void onDataAvailable(String username) throws Exception;
 
     }
 
     interface UserInformation {
 
-        void onDataNotAvailable(Throwable throwable);
+        void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(UserVo userVo);
+        void onDataAvailable(UserVo userVo) throws Exception;
 
     }
 
