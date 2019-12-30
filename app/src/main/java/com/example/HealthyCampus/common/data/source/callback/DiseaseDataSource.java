@@ -6,6 +6,7 @@ import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.network.vo.DiseaseDetailVo;
 import com.example.HealthyCampus.common.network.vo.DiseaseSortListVo;
 import com.example.HealthyCampus.common.network.vo.DiseaseSortVo;
+import com.example.HealthyCampus.common.network.vo.DishVo;
 
 import java.util.List;
 
@@ -35,10 +36,14 @@ public interface DiseaseDataSource {
 
     interface DiseaseGetDetail {
         void onDataNotAvailable(Throwable throwable) throws Exception;
+
         void onDataAvailable(DiseaseDetailVo diseaseDetailVo) throws Exception;
     }
 
     void getDiseaseDetail(@NonNull RequestForm requestForm, @NonNull DiseaseGetDetail callback);
+
+
+
 
 
 }

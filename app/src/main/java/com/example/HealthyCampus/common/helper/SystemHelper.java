@@ -13,9 +13,6 @@ public class SystemHelper {
 
     /**
      * 调用系统浏览器
-     *
-     * @param context
-     * @param url
      */
     public static void SystemBrowser(Context context, String url) {
 

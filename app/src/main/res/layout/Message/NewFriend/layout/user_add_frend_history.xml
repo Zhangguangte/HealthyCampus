@@ -3,6 +3,6 @@
     android:id="@+id/tvHistory"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/left_padding_less"
+    android:paddingStart="@dimen/left_padding_less"
     android:paddingTop="@dimen/padding_less2"
     android:paddingBottom="@dimen/padding_less2" />

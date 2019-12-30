@@ -8,7 +8,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,8 +51,6 @@ public class NewFriendListActivity extends BaseActivity<NewFriendListContract.Vi
     RecyclerView rvMore;
 
     private MessageRecyclerAdapter moreAdapter;
-    private ArrayList<RequestFriendVo> requestFriendVos;
-    private boolean clear = false;
 
     @Override
     protected void setUpContentView() {
@@ -84,7 +82,6 @@ public class NewFriendListActivity extends BaseActivity<NewFriendListContract.Vi
 
     @Override
     public void clearList() {
-        clear = true;
         ToastUtil.show(getContext(), "清空成功");
         moreAdapter.clear();
         rvMore.setVisibility(View.GONE);
@@ -130,7 +127,7 @@ public class NewFriendListActivity extends BaseActivity<NewFriendListContract.Vi
         rvMore.setLayoutManager(layoutManager);
         //分割线
         rvMore.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        requestFriendVos = (ArrayList<RequestFriendVo>) getIntent().getExtras().getSerializable("list");
+        ArrayList<RequestFriendVo> requestFriendVos = (ArrayList<RequestFriendVo>) Objects.requireNonNull(getIntent().getExtras()).getSerializable("list");
         if (null == requestFriendVos || requestFriendVos.size() == 0) {
             rvMore.setVisibility(View.GONE);
             tvClear.setClickable(false);
@@ -155,19 +152,8 @@ public class NewFriendListActivity extends BaseActivity<NewFriendListContract.Vi
         MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(this);
         materialDialog.title("点击确定删除所有好友通知")
                 .negativeText("取消")
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                    }
-                })
                 .positiveText("确定")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mPresenter.clearRequestFriends();
-                    }
-                });
+                .onPositive((dialog, which) -> mPresenter.clearRequestFriends());
         MaterialDialog materialDialog1 = materialDialog.build();
         materialDialog1.show();
     }

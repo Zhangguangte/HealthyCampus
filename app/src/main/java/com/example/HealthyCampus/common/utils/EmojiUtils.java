@@ -20,10 +20,10 @@ public class EmojiUtils {
      * key-表情文字;
      * value-表情图片资源
      */
-    public static ArrayMap<String, Integer> EMOTION_CLASSIC_MAP;
+    private static ArrayMap<String, Integer> EMOTION_CLASSIC_MAP;
     
     static {
-        EMOTION_CLASSIC_MAP = new ArrayMap<String, Integer>();
+        EMOTION_CLASSIC_MAP = new ArrayMap<>();
         EMOTION_CLASSIC_MAP.put("[e1f600]", R.drawable.e1f600);
         EMOTION_CLASSIC_MAP.put("[e1f601]", R.drawable.e1f601);
         EMOTION_CLASSIC_MAP.put("[e1f602]", R.drawable.e1f602);
@@ -75,9 +75,8 @@ public class EmojiUtils {
      * 根据名称获取当前表情图标R值
      * @param EmotionType 表情类型标志符
      * @param name 索引
-     * @return
      */
-    public static int getImgByName(int EmotionType, String name) {
+    static int getImgByName(int EmotionType, String name) {
         
         Integer integer=null;
         switch (EmotionType){
@@ -93,7 +92,6 @@ public class EmojiUtils {
     /**
      * 根据类型获取表情数据
      * @param EmotionType
-     * @return
      */
     public static ArrayMap<String ,Integer> getEmojis(int EmotionType){
         ArrayMap<String ,Integer> Emojimap=null;

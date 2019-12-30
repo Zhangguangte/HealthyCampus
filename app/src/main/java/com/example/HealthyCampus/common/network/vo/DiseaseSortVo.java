@@ -1,12 +1,10 @@
 package com.example.HealthyCampus.common.network.vo;
 
-import java.util.List;
-
 public class DiseaseSortVo {
-    public String id;
-    public String title;
-    public String introduction;
-    public String url;
+    private String id;
+    private String title;
+    private String introduction;
+    private String url;
 
     public String getId() {
         return id;

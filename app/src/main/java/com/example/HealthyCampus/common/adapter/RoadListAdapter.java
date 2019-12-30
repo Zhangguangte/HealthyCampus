@@ -36,7 +36,7 @@ public class RoadListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private onItemClick onItemClick;
     private Context context;
-    private List<PoiItem> mData = new LinkedList<>();
+    private List<PoiItem> mData;
     private int row;
     private boolean isLoad = true;
 
@@ -48,8 +48,6 @@ public class RoadListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void setRow(int row) {
         this.row = row;
     }
-
-    private StringBuffer stringBuffer = new StringBuffer();
 
     public void clear() {
         mData.clear();
@@ -80,8 +78,9 @@ public class RoadListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (ConstantValues.CONTENT_REFRESH == viewType) {
             view = LayoutInflater.from(context).inflate(R.layout.find_nearby_map_list_item, parent, false);
@@ -128,16 +127,11 @@ public class RoadListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             if (null == mData.get(position).getPhotos() || mData.get(position).getPhotos().size() == 0)
                 GlideUtils.displayMapImage(ivIcon, R.mipmap.picture_lose);
             else
-                GlideUtils.display(ivIcon, mData.get(position).getPhotos().get(0).getUrl(),false);
+                GlideUtils.displayMedicineImage(ivIcon, mData.get(position).getPhotos().get(0).getUrl());
             tvTitle.setText(((row - 1) * 15 + position + 1) + "." + mData.get(position).getTitle());
             tvAddress.setText(mData.get(position).getAdName() + mData.get(position).getSnippet());
             tvPhone.setText(TextUtils.isEmpty(mData.get(position).getTel()) ? "未知" : mData.get(position).getTel().replace(";", "\n"));
-            hereLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.showDetailRoadCall(mData.get(position));
-                }
-            });
+            hereLayout.setOnClickListener(v -> onItemClick.showDetailRoadCall(mData.get(position)));
         }
 
 
@@ -155,7 +149,7 @@ public class RoadListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @BindView(R.id.btnLast)
         Button btnLast;
 
-        public PageViewHolder(View view) {
+        PageViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -181,12 +175,12 @@ public class RoadListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @OnClick(R.id.btnNext)
-        public void btnNext(View view) {
+        void btnNext(View view) {
             onItemClick.nextPage(++row);
         }
 
         @OnClick(R.id.btnLast)
-        public void btnLast(View view) {
+        void btnLast(View view) {
             onItemClick.lastPage(--row);
         }
 

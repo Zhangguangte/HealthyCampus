@@ -2,7 +2,6 @@ package com.example.HealthyCampus.module.HomePage.list;
 
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,10 @@ import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.common.widgets.pullrecycler.PullRecycler;
 import com.example.HealthyCampus.framework.BaseListFragment;
 import com.example.HealthyCampus.module.Find.Diagnosis.DiagnosisActivity;
+import com.example.HealthyCampus.module.HomePage.Consultation.ConsultationActivity;
 import com.example.HealthyCampus.module.HomePage.article.HomePageArticleFragment;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,19 +42,13 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
     private String currentDate;
 
     public static HomePageListFragment newInstance() {
-        HomePageListFragment fragment = new HomePageListFragment();
-        return fragment;
+        return new HomePageListFragment();
     }
 
     //刷新
     @Override
     protected void setUpData() {
-        new android.os.Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullRecycler.setRefreshing();
-            }
-        }, 200);
+        new android.os.Handler().postDelayed(() -> pullRecycler.setRefreshing(), 200);
 
     }
 
@@ -78,16 +71,16 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
         if (viewType == ConstantValues.VIEW_HEALTH_SUMMARY) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_summary, parent, false);
-            return new HomePageListFragment.SummaryHolder(itemView);
+            return new SummaryHolder(itemView);
         } else if (viewType == ConstantValues.VIEW_HEALTH_DATE) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_date, parent, false);
-            return new HomePageListFragment.DateHolder(itemView);
+            return new DateHolder(itemView);
         } else if (viewType == ConstantValues.VIEW_HEALTH_BANNER) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_health_banner, parent, false);
-            return new HomePageListFragment.BannerHolder(itemView);
+            return new BannerHolder(itemView);
         } else {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_docotor_display, parent, false);
-            return new HomePageListFragment.DisplayHolder(itemView);
+            return new DisplayHolder(itemView);
         }
     }
 
@@ -160,7 +153,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         @BindView(R.id.bannerView)
         Banner banner;
 
-        public BannerHolder(View itemView) {
+        BannerHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -180,19 +173,16 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
             banner.setImageLoader(new GlideImageLoader());
             banner.setImages(images);
             banner.setBannerTitles(titles);
-            banner.setOnBannerListener(new OnBannerListener() {
-                @Override
-                public void OnBannerClick(int position) {
+            banner.setOnBannerListener(position1 -> {
 
-                    try {
-                        String title = topStories.get(position).getTitle();
-                        String url = topStories.get(position).getImage();
-                        int id = topStories.get(position).getId();
+                try {
+                    String title = topStories.get(position1).getTitle();
+                    String url = topStories.get(position1).getImage();
+                    int id = topStories.get(position1).getId();
 
-                        ActivityUtils.startActivity(mActivity, HomePageArticleFragment.newInstance(title, id, url));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    ActivityUtils.startActivity(mActivity, HomePageArticleFragment.newInstance(title, id, url));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
             banner.start();
@@ -209,7 +199,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         @BindView(R.id.summary_date_tv)
         TextView mItemDate;
 
-        public DateHolder(View itemView) {
+        DateHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -237,7 +227,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
         @BindView(R.id.summary_item_img)
         ImageView mItemImg;
 
-        public SummaryHolder(View itemView) {
+        SummaryHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -269,20 +259,24 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
 
         @BindView(R.id.DiagnosisLayout)
         LinearLayout DiagnosisLayout;
+        @BindView(R.id.ConsultationLayout)
+        LinearLayout ConsultationLayout;
 
-        public DisplayHolder(View itemView) {
+        DisplayHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         @Override
         public void onBindViewHolder(int position) {
-            DiagnosisLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(mActivity, DiagnosisActivity.class));
-                    mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-                }
+            DiagnosisLayout.setOnClickListener(v -> {
+                startActivity(new Intent(mActivity, DiagnosisActivity.class));
+                mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+            });
+
+            ConsultationLayout.setOnClickListener(v -> {
+                startActivity(new Intent(mActivity, ConsultationActivity.class));
+                mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
             });
         }
 

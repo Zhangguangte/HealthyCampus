@@ -6,24 +6,14 @@ import android.util.Log;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.FriendDataSource;
 import com.example.HealthyCampus.common.network.NetworkManager;
-import com.example.HealthyCampus.common.network.vo.AddressListVo;
-import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.example.HealthyCampus.common.network.vo.RequestFriendVo;
-
-import java.util.ArrayList;
 
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class FriendRemoteDataSource implements FriendDataSource {
 
     private static FriendRemoteDataSource INSTANCE = null;
 
-
-    public FriendRemoteDataSource() {
-    }
 
     public static FriendRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -39,33 +29,22 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .allFriend()
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("allFriend" + "123456", "register:7");
+                .doOnSubscribe(() -> Log.e("allFriend" + "123456", "register:7"))
+                .subscribe(addressLists -> {
+                    Log.e("allFriend" + "123456", "allFriend success");
+                    try {
+                        callback.onDataAvailable(addressLists);
+                        callback.finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<ArrayList<AddressListVo>>() {
-                    @Override
-                    public void call(ArrayList<AddressListVo> addressLists) {
-                        Log.e("allFriend" + "123456", "allFriend success");
-                        try {
-                            callback.onDataAvailable(addressLists);
-                            callback.finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("allFriend" + "123456", "register:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                            callback.finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    Log.e("allFriend" + "123456", "register:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                        callback.finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -76,33 +55,22 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .requestFriends()
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("requestFriends" + "123456", "register:7");
+                .doOnSubscribe(() -> Log.e("requestFriends" + "123456", "register:7"))
+                .subscribe(requestFriendVos -> {
+                    Log.e("requestFriends" + "123456", "requestFriends success");
+                    try {
+                        callback.onDataAvailable(requestFriendVos);
+                        callback.finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<ArrayList<RequestFriendVo>>() {
-                    @Override
-                    public void call(ArrayList<RequestFriendVo> requestFriendVos) {
-                        Log.e("requestFriends" + "123456", "requestFriends success");
-                        try {
-                            callback.onDataAvailable(requestFriendVos);
-                            callback.finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("requestFriends" + "123456", "register:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                            callback.finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    Log.e("requestFriends" + "123456", "register:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                        callback.finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -113,31 +81,20 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .clearRequestFriends()
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("clearRequestFri" + "123456", "register:7");
+                .doOnSubscribe(() -> Log.e("clearRequestFri" + "123456", "register:7"))
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        Log.e("clearRequestFri" + "123456", "requestFriends success");
+                        callback.onDataAvailable(defaultResponseVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        try {
-                            Log.e("clearRequestFri" + "123456", "requestFriends success");
-                            callback.onDataAvailable(defaultResponseVo);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("clearRequestFri" + "123456", "register:9");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        Log.e("clearRequestFri" + "123456", "register:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -149,22 +106,15 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .sendRequestFriend(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("FriendRemoteDat" + "123456", "sendRequestFriend:7");
-                    }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("FriendRemoteDat" + "123456", "sendRequestFriend success");
-                        callback.onDataAvailable(defaultResponseVo);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
+                .doOnSubscribe(() -> Log.e("FriendRemoteDat" + "123456", "sendRequestFriend:7"))
+                .subscribe(defaultResponseVo -> {
+                    Log.e("FriendRemoteDat" + "123456", "sendRequestFriend success");
+                    callback.onDataAvailable(defaultResponseVo);
+                }, throwable -> {
+                    try {
                         callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -175,31 +125,19 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .saveRequestFriend(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("FriendRemoteDat" + "123456", "saveRequestFriend:7");
+                .doOnSubscribe(() -> Log.e("FriendRemoteDat" + "123456", "saveRequestFriend:7"))
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        Log.e("FriendRemoteDat" + "123456", "saveRequestFriend success");
+                        callback.onDataAvailable(defaultResponseVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        try {
-                            Log.e("FriendRemoteDat" + "123456", "saveRequestFriend success");
-                            callback.onDataAvailable(defaultResponseVo);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("FriendRemoteDat" + "123456", "saveRequestFriend error");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -210,31 +148,20 @@ public class FriendRemoteDataSource implements FriendDataSource {
                 .refuseRequestFriend(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend:7");
+                .doOnSubscribe(() -> Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend:7"))
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend success");
+                        callback.onDataAvailable(defaultResponseVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        try {
-                            Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend success");
-                            callback.onDataAvailable(defaultResponseVo);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend error");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        Log.e("FriendRemoteDat" + "123456", "refuseRequestFriend error");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }

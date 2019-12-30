@@ -7,18 +7,19 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ServiceLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_less"
-        android:background="@color/white"
+        android:background="@drawable/press_item"
         android:orientation="horizontal"
         android:padding="@dimen/padding_less2">
 
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/margin_less"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/right_margin"
             android:layout_gravity="center"
             app:srcCompat="@drawable/mine_service" />
 
@@ -43,8 +44,8 @@
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/margin_less"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/right_margin"
             app:srcCompat="@drawable/mine_case" />
 
         <TextView
@@ -66,8 +67,8 @@
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/margin_less"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/right_margin"
             android:layout_gravity="center"
             app:srcCompat="@drawable/mine_history" />
 
@@ -91,8 +92,8 @@
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/margin_less"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/right_margin"
             app:srcCompat="@drawable/mine_order" />
 
         <TextView
@@ -115,8 +116,8 @@
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/margin_less"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/right_margin"
             app:srcCompat="@drawable/mine_collection" />
 
         <TextView
@@ -139,8 +140,8 @@
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginLeft="@dimen/margin_less"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/right_margin"
             app:srcCompat="@drawable/mine_opinion" />
 
         <TextView

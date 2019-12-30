@@ -1,13 +1,13 @@
 package com.example.HealthyCampus.common.data.form;
 
 public class ChatForm {
-    public String user_id;
-    public String type;
-    public String create_time;
-    public String content;
-    public String file_path;
-    public String room_id;
-    public String sentStatus;
+    private String user_id;
+    private String type;
+    private String create_time;
+    private String content;
+    private String file_path;
+    private String room_id;
+    private String sentStatus;
 
     public String getSentStatus() {
         return sentStatus;

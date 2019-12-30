@@ -22,30 +22,23 @@
             android:layout_width="@dimen/icon_size_more"
             android:layout_height="@dimen/icon_size_more"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/top_margin0"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/find_food_default" />
+            android:layout_marginStart="@dimen/top_margin0"
+            android:scaleType="centerCrop" />
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:maxEms="12"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/left_margin1"
-            android:layout_toRightOf="@id/ivIcon"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/food_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:maxEms="12"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textSize="@dimen/text_f3" />
-
-        </LinearLayout>
+            android:layout_marginStart="@dimen/left_margin1"
+            android:layout_marginEnd="@dimen/left_margin1"
+            android:layout_toEndOf="@id/ivIcon"
+            android:layout_toStartOf="@+id/food_energy"
+            android:textSize="@dimen/text_f3" />
 
 
         <ImageView
@@ -62,13 +55,12 @@
             android:id="@+id/food_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/top_margin_less_less"
-            android:layout_toLeftOf="@id/arch"
+            android:layout_marginEnd="@dimen/top_margin_less_less"
+            android:layout_toStartOf="@id/arch"
             android:gravity="center_vertical"
             android:textSize="@dimen/text_f4"
             android:textColor="@color/text_level_3"
-            android:layout_centerVertical="true"
-            tools:text="365千卡" />
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 

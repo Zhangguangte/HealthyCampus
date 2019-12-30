@@ -54,9 +54,7 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
 
     private MessageRecyclerAdapter noticeAdapter;
     private Bundle bundle = new Bundle();
-    private boolean val = false;
-    private List<RequestFriendVo> requestFriendVos = new ArrayList<RequestFriendVo>();
-    private int position = -1;
+    private List<RequestFriendVo> requestFriendVos = new ArrayList<>();
 
     @Override
     protected void setUpContentView() {
@@ -143,8 +141,6 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
             rvNotice.setVisibility(View.VISIBLE);
         }
         bundle.putSerializable("list", requestFriendVos);
-        if (requestFriendVos != null && requestFriendVos.size() > 3)
-            val = true;
         noticeAdapter.addList(requestFriendVos);
     }
 
@@ -194,7 +190,6 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
             Bundle bundle = new Bundle();
             bundle.putString("userid", userid);
             intent.putExtras(bundle);
-            position = pos;
             startActivityForResult(intent, 3);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } else {
@@ -205,7 +200,6 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
             bundle.putString("content", content);
             bundle.putString("status", status);
             intent.putExtras(bundle);
-            position = pos;
             startActivityForResult(intent, 3);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }

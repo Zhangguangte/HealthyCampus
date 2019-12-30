@@ -59,6 +59,11 @@
     <color name="azure">#F0FFFF</color><!--天蓝色 -->
     <color name="burlywood">#DEB887</color><!--实木色 -->
 
+    <color name="greenPage">#54be82</color>
+
+    <color name="weaher_dark1">#A1181818</color>
+    <color name="weaher_dark2">#7E181818</color>
+
 
     <!--tab-->
     <color name="icons_tint_normal">#BDBDBD</color>
@@ -100,6 +105,24 @@
     <color name="clear_release">#EEEEEE</color>
 
     <color name="border_color">#aaaaaa</color>
+
+    <!--press-->
+    <color name="press_item_radius_border_color">#BFBFBF</color>
+    <color name="press_item_radius_color">#F6F6F6</color>
+
+
+    <!--library-->
+    <color name="library_level_press">#ff145f8f</color>
+    <color name="library_level1">#f2f2f2</color>
+    <color name="library_level1_border">#cacaca</color>
+    <color name="library_level2">#f2f6e9</color>
+    <color name="library_level2_border">#b8ce8e</color>
+    <color name="library_level3">#e8f6f6</color>
+    <color name="library_level3_border">#92dbde</color>
+    <color name="library_level4">#f9eaeb</color>
+    <color name="library_level4_border">#fba1a8</color>
+    <color name="library_level5">#f8f2ec</color>
+    <color name="library_level5_border">#f9c189</color>
 
 
     <color name="colorPrimary">#53DC92</color>

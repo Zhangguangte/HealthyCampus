@@ -23,7 +23,6 @@ public class CustomizationFragment extends BaseFragment<CustomizationContract.Vi
     @BindView(R.id.card_recycler_view)
     RecyclerView rvCard;
 
-    private CardAdapter cardAdapter;
     private List<DailyCard> mDataList = new LinkedList<>();
 
     private final static int[] picList = new int[]{
@@ -70,9 +69,9 @@ public class CustomizationFragment extends BaseFragment<CustomizationContract.Vi
     }
 
     private void initCardRecyclerView() {
-        CardConfig.initConfig(getContext());
+        CardConfig.initConfig(mActivity);
         rvCard.setLayoutManager(new SwipeCardLayoutManager());
-        cardAdapter = new CardAdapter(mActivity, mDataList);
+        CardAdapter cardAdapter = new CardAdapter(mActivity, mDataList);
         rvCard.setHasFixedSize(true);
         rvCard.setItemViewCacheSize(4);
         rvCard.setAdapter(cardAdapter);

@@ -18,10 +18,7 @@ public final class StringUtil {
 
 
     public static boolean isEmpty(String str) {
-        if (str != null && str.length() > 0) {
-            return false;
-        }
-        return true;
+        return str == null || str.length() <= 0;
     }
 
 
@@ -57,11 +54,11 @@ public final class StringUtil {
         }
     }
 
-    public static String toHex(byte[] buf) {
+    private static String toHex(byte[] buf) {
         if (buf == null) return "";
         StringBuffer result = new StringBuffer(2 * buf.length);
-        for (int i = 0; i < buf.length; i++) {
-            appendHex(result, buf[i]);
+        for (byte aBuf : buf) {
+            appendHex(result, aBuf);
         }
         return result.toString();
     }
@@ -92,16 +89,12 @@ public final class StringUtil {
     }
 
     public static String dealHtmlText(String data) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(data
+        return data
                 .replace("</td><td>", " : ")
                 .replace("<td>", "")
                 .replace("</td>", "")
                 .replace("</tr>", "\n\n")
-                .replace("<tr>", "")
-        );
-
-        return stringBuffer.toString();
+                .replace("<tr>", "");
     }
 
 
@@ -112,10 +105,10 @@ public final class StringUtil {
 
     public static List<CookDetailBean> getIngredientsArray(String whole) {
         String ingredient[];
-        List<CookDetailBean> list = new LinkedList<CookDetailBean>();
+        List<CookDetailBean> list = new LinkedList<>();
         String[] array = whole.split(",");
-        for (int i = 0; i < array.length; i++) {
-            ingredient = array[i].split(":");
+        for (String anArray : array) {
+            ingredient = anArray.split(":");
             CookDetailBean cookDetailBean = new CookDetailBean();
             cookDetailBean.setMaterial(ingredient[0]);
             cookDetailBean.setQuantity(ingredient[1]);

@@ -1,15 +1,10 @@
 package com.example.HealthyCampus.common.network.api;
 
-import com.example.HealthyCampus.common.data.Bean.MedicineClassify;
 import com.example.HealthyCampus.common.data.form.RequestForm;
-import com.example.HealthyCampus.common.network.vo.AddressListVo;
-import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.MedicineDetailVo;
 import com.example.HealthyCampus.common.network.vo.MedicineListVo;
 import com.example.HealthyCampus.common.network.vo.MedicineVo;
-import com.example.HealthyCampus.common.network.vo.RequestFriendVo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.http.Body;

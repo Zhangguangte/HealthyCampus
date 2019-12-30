@@ -1,6 +1,7 @@
 package com.example.HealthyCampus.module.Find.Drug_Bank;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,6 +33,7 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.ClassifyAdapter;
 import com.example.HealthyCampus.common.adapter.MedicineAdapter;
 import com.example.HealthyCampus.common.adapter.TypeAdapter;
+import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.MedicineListVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
@@ -40,6 +42,8 @@ import com.example.HealthyCampus.common.widgets.RecycleOnscrollListener;
 import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.MyLinearLayoutManager;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.Find.Drug_Bank.Medicine_Detail.MedicineDetailActivity;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,6 +72,8 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
     TextView tvCancel;
     @BindView(R.id.ivEmpty)
     ImageView ivEmpty;
+    @BindView(R.id.ivFunction)
+    ImageView ivFunction;
 
 
     @BindView(R.id.rv_classify_list)
@@ -251,7 +257,6 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
     public void onBackPressed() {
         if (rvSearchMedicine.isShown()) {
             showSearchMedicineViewStatus(true);
-
         } else finish();
     }
 
@@ -289,7 +294,8 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
             return;
         } else {
             //加载数据
-            showSearchMedicineStatus(true);
+            emptyLayout.setVisibility(VISIBLE);
+            srlSearchMedicine.setVisibility(View.GONE);
             loadingData(true);
 
             row = 0;
@@ -420,21 +426,27 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
 
     private void showSearchMedicineViewStatus(boolean val) {
         hideSoftInput();
-        emptyLayout.setVisibility(View.GONE);
         if (val) {
             etSearch.setText("");
             tvCancel.setVisibility(View.GONE);
+            ivFunction.setVisibility(View.VISIBLE);
             srlSearchMedicine.setVisibility(View.GONE);
-            contentLayout.setVisibility(View.VISIBLE);
-
+            if (typeList.size() > 0) {
+                emptyLayout.setVisibility(View.GONE);
+                contentLayout.setVisibility(View.VISIBLE);
+            } else {
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
             //清空数据
             row = 0;
             searchMedicineLists.clear();
             searchMedicineAdapter.notifyDataSetChanged();
         } else {
+            emptyLayout.setVisibility(View.GONE);
             tvCancel.setVisibility(VISIBLE);
             contentLayout.setVisibility(View.GONE);
             srlSearchMedicine.setVisibility(View.VISIBLE);
+            ivFunction.setVisibility(View.GONE);
         }
     }
 
@@ -547,9 +559,40 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
         }
     }
 
-    private void showSearchMedicineStatus(boolean val) {
-        emptyLayout.setVisibility(VISIBLE);
-        srlSearchMedicine.setVisibility(View.GONE);
+
+    @OnClick(R.id.ivFunction)
+    public void ivFunction() {
+        Intent intent = new Intent(getContext(), CaptureActivity.class);
+        startActivityForResult(intent, ConstantValues.REQUEST_CODE);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ConstantValues.REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+//                    ToastUtil.show(getContext(), "解析结果:" + result);
+//
+//                    Log.e("DrugBankActivity" + "123456", "result:" + result);
+//                    tvZZZ.setText(tvZZZ.getText().toString().trim() + "\n" + result);
+                    Intent intent = new Intent(this, MedicineDetailActivity.class);
+                    intent.putExtra("CODE", result);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.zoomout, R.anim.zoomin);
+
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    ToastUtil.show(getContext(), "解析二维码失败");
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/padding">
+
+    <include layout="@layout/title_bar_consult" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/icon_size_more_hundred2"
+                android:layout_marginBottom="@dimen/top_margin0"
+                android:background="@drawable/shape_button_lines9"
+                android:paddingStart="@dimen/padding_less"
+                android:paddingTop="@dimen/padding"
+                android:paddingEnd="@dimen/padding_less"
+                android:paddingBottom="@dimen/padding">
+
+                <EditText
+                    android:id="@+id/etWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/tvHint"
+                    android:background="@null"
+                    android:gravity="top|start"
+                    android:hint="@string/health_consult_picture_hint_describe"
+                    android:maxLength="500"
+                    android:maxLines="6"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+                <TextView
+                    android:id="@+id/tvHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+                    android:layout_toStartOf="@+id/tvWordNumber"
+                    android:text="@string/health_consult_picture_prescription"
+                    android:textColor="@color/text_level_3"
+                    android:textSize="@dimen/text_f3"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tvWordNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+                    android:textColor="@color/text_level_3"
+                    android:textSize="@dimen/text_f3" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/tvPictureHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_mo"
+                    android:text="@string/health_consult_picture_private"
+                    android:textColor="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height_three"
+                android:layout_marginTop="@dimen/top_margin0"
+                android:layout_marginBottom="@dimen/top_margin0"
+                android:background="@color/interval_background" />
+
+
+            <LinearLayout
+                android:id="@+id/addLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:src="@drawable/health_consult_picture_add_patient" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin_mo"
+                    android:text="@string/health_consult_picture_add_infor"
+                    android:textColor="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPatient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height_three"
+                android:layout_marginTop="@dimen/top_margin0"
+                android:background="@color/interval_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_margin0"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbPrescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/health_consult_picture_apply_prescription"
+                    android:textSize="@dimen/text_f2" />
+
+                <CheckBox
+                    android:id="@+id/cbHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/health_consult_picture_history"
+                    android:textSize="@dimen/text_f2" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@color/not_clickable_color"
+                android:enabled="false"
+                android:text="@string/submit"
+                android:textSize="@dimen/text_f2" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

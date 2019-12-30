@@ -10,10 +10,8 @@ public class MapForm implements Parcelable {
     public String location;
     public LatLng latLng;
 
-    public MapForm() {
-    }
 
-    protected MapForm(Parcel in) {
+    private MapForm(Parcel in) {
         address = in.readString();
         location = in.readString();
         latLng = in.readParcelable(LatLng.class.getClassLoader());
@@ -77,12 +75,4 @@ public class MapForm implements Parcelable {
         dest.writeParcelable(latLng, flags);
     }
 
-    @Override
-    public String toString() {
-        return "MapForm{" +
-                "address='" + address + '\'' +
-                ", location='" + location + '\'' +
-                ", latLng=" + latLng +
-                '}';
-    }
 }

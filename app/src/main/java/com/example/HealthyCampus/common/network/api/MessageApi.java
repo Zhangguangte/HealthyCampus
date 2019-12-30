@@ -26,6 +26,15 @@ public interface MessageApi {
     @POST("/messages/lastMessage/")
     Observable<List<MessageListVo>> lastMessage();
 
+    @POST("/messages/getDoctorRoom/")
+    Observable<List<MessageListVo>> getDoctorRoom();
+
+    @POST("/messages/createRoom/")
+    Observable<MessageListVo> createRoom(@Body RequestForm requestForm);
+
+    @POST("/messages/deleteRoomId/")
+    Observable<DefaultResponseVo> deleteRoomId(@Body RequestForm requestForm);
+
     @POST("/messages/allChatByRoomId/")
     Observable<List<MessageListVo>> allChatByRoomId(@Body RequestForm requestForm);
 

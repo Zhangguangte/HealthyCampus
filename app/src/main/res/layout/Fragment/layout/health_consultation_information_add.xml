@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/padding">
+
+    <include layout="@layout/title_bar_consult" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_less"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_marginTop="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:hint="@string/health_consult_picture_information_hint_name"
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_id"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <EditText
+                    android:id="@+id/etID"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:hint="@string/health_consult_picture_information_hint_id"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_sex"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <RadioGroup
+                    android:id="@+id/rgSex"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbMan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:text="@string/health_consult_picture_information_hint_man"
+                        android:textSize="@dimen/text_f2" />
+
+
+                    <RadioButton
+                        android:id="@+id/rbWoman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_less"
+                        android:text="@string/health_consult_picture_information_hint_woman"
+                        android:textSize="@dimen/text_f2" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_birthday"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <TextView
+                    android:id="@+id/tvBrithday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:hint="@string/health_consult_picture_information_hint_birthday"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_weight"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <EditText
+                    android:id="@+id/etWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:hint="@string/health_consult_picture_information_hint_weight"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_allergy"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <RadioGroup
+                    android:id="@+id/rgAllergy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbAllergyHasnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:text="@string/hasnt"
+                        android:textSize="@dimen/text_f2" />
+
+                    <RadioButton
+                        android:id="@+id/rbAllergyHas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_less"
+                        android:text="@string/has"
+                        android:textSize="@dimen/text_f2" />
+
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/AllergyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/icon_size_more_more3"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/etAllergy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="top|start"
+                    android:hint="@string/health_consult_picture_information_hint_allergy"
+                    android:maxLength="30"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+                <TextView
+                    android:id="@+id/tvAllergyNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/text_level_3"
+                    android:textSize="@dimen/text_f3" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_medical_history"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <RadioGroup
+                    android:id="@+id/rgHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbHistoryHasnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:text="@string/hasnt"
+                        android:textSize="@dimen/text_f2" />
+
+                    <RadioButton
+                        android:id="@+id/rbHistoryHas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_less"
+                        android:text="@string/has"
+
+                        android:textSize="@dimen/text_f2" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/HistoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/icon_size_more_more3"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/etHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="top|start"
+                    android:hint="@string/health_consult_picture_information_hint_history"
+                    android:maxLength="50"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/text_level_3"
+                    android:textSize="@dimen/text_f2" />
+
+                <TextView
+                    android:id="@+id/tvHistoryNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/text_level_3"
+                    android:textSize="@dimen/text_f3" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_liver"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <RadioGroup
+                    android:id="@+id/rgLiver"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbLiverHasnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:text="@string/normal"
+                        android:textSize="@dimen/text_f2" />
+
+
+                    <RadioButton
+                        android:id="@+id/rbLiverHas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_less"
+                        android:text="@string/abnormal"
+                        android:textSize="@dimen/text_f2" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_less"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@string/health_consult_picture_information_renal"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f2" />
+
+                <RadioGroup
+                    android:id="@+id/rgRenal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_less"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbRenalHasnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:text="@string/normal"
+                        android:textSize="@dimen/text_f2" />
+
+
+                    <RadioButton
+                        android:id="@+id/rbRenalHas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_less"
+                        android:text="@string/abnormal"
+                        android:textSize="@dimen/text_f2" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

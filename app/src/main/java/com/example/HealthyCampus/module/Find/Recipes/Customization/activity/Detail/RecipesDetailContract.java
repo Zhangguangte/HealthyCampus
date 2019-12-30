@@ -17,13 +17,13 @@ interface RecipesDetailContract {
 
         void showTitle(String title);
 
-        void showMaterialSuccess( List<CookDetailBean> cookDetailBeans);
+        void showMaterialSuccess(List<CookDetailBean> cookDetailBeans);
 
-        void showDetailSuccess( List<String> detailList);
+        void showDetailSuccess(List<String> detailList);
 
         void showIconSuccess(String url);
 
-        void showGeneralSuccess(String flavor,String productionTime,String mainProcess);
+        void showGeneralSuccess(String flavor, String productionTime, String mainProcess);
 
         void showElementSuccess(String components);
 
@@ -31,7 +31,7 @@ interface RecipesDetailContract {
     }
 
     abstract class Presenter extends BasePresenter<View> {
-        protected abstract void getRecipeDetail(String id);
+        protected abstract void getRecipeDetail(int type, String id);
 
 
     }

@@ -9,13 +9,13 @@ import java.io.InputStreamReader;
 
 public class OSUtils {
 
-    public static final String ROM_MIUI = "MIUI";
-    public static final String ROM_EMUI = "EMUI";
-    public static final String ROM_FLYME = "FLYME";
-    public static final String ROM_OPPO = "OPPO";
-    public static final String ROM_SMARTISAN = "SMARTISAN";
-    public static final String ROM_VIVO = "VIVO";
-    public static final String ROM_QIKU = "QIKU";
+    private static final String ROM_MIUI = "MIUI";
+    private static final String ROM_EMUI = "EMUI";
+    private static final String ROM_FLYME = "FLYME";
+    private static final String ROM_OPPO = "OPPO";
+    private static final String ROM_SMARTISAN = "SMARTISAN";
+    private static final String ROM_VIVO = "VIVO";
+    private static final String ROM_QIKU = "QIKU";
 
     private static final String KEY_VERSION_MIUI = "ro.miui.ui.version.name";
     private static final String KEY_VERSION_EMUI = "ro.build.version.emui";
@@ -30,7 +30,7 @@ public class OSUtils {
         return check(ROM_EMUI);
     }
 
-    public static boolean isMiui() {
+    static boolean isMiui() {
         return check(ROM_MIUI);
     }
 
@@ -42,7 +42,7 @@ public class OSUtils {
         return check(ROM_OPPO);
     }
 
-    public static boolean isFlyme() {
+    static boolean isFlyme() {
         return check(ROM_FLYME);
     }
 
@@ -68,7 +68,7 @@ public class OSUtils {
         return sVersion;
     }
 
-    public static boolean check(String rom) {
+    private static boolean check(String rom) {
         if (sName != null) {
             return sName.equals(rom);
         }
@@ -95,8 +95,8 @@ public class OSUtils {
         return sName.equals(rom);
     }
 
-    public static String getProp(String name) {
-        String line = null;
+    private static String getProp(String name) {
+        String line;
         BufferedReader input = null;
         try {
             Process p = Runtime.getRuntime().exec("getprop " + name);

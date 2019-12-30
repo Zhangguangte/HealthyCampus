@@ -57,19 +57,14 @@ public class ImageSelectView extends RelativeLayout {
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mSelectImage.setLayoutParams(layoutParams);
         mSelectImage.setImageResource(mResDef);
-        mSelectImage.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickSelect(v);
-            }
-        });
+        mSelectImage.setOnClickListener(this::onClickSelect);
         addView(mSelectImage);
 
         mMainImage = new ImageView(context);
         layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mMainImage.setLayoutParams(layoutParams);
         mMainImage.setImageResource(mResMain);
-        mMainImage.setBackgroundColor(Color.BLACK);
+        mMainImage.setBackgroundColor(Color.WHITE);
         mMainImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         addView(mMainImage);
 

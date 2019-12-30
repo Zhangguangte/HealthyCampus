@@ -25,27 +25,26 @@ public class MedicineDetailPresenter extends MedicineDetailContract.Presenter {
 
     @Override
     protected void getMedicineDetailById(String id) {           //获得药品的详细信息根据ID
-        RequestForm requestForm = new RequestForm("ID",id);
-        MedicineRepository.getInstance().getMedicineDetail(requestForm, new MedicineDataSource.MedicineGetMedicineDetail() {
-            @Override
-            public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
-            }
-            @Override
-            public void onDataAvailable(MedicineDetailVo medicineVo) throws Exception {
-                getView().showMedicineDetail(medicineVo);
-            }
-        });
+        getMedicineDetail(new RequestForm("ID", id));
     }
 
     @Override
     protected void getMedicineDetailByName(String id) {           //获得药品的详细信息根据名称
-        RequestForm requestForm = new RequestForm("NAME",id);
+        getMedicineDetail(new RequestForm("NAME", id));
+    }
+
+    @Override
+    protected void getMedicineDetailByCode(String code) {           //获得药品的详细信息根据条形码
+        getMedicineDetail(new RequestForm("CODE", code));
+    }
+
+    private void getMedicineDetail(RequestForm requestForm) {
         MedicineRepository.getInstance().getMedicineDetail(requestForm, new MedicineDataSource.MedicineGetMedicineDetail() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
                 getView().showError(throwable);
             }
+
             @Override
             public void onDataAvailable(MedicineDetailVo medicineVo) throws Exception {
                 getView().showMedicineDetail(medicineVo);

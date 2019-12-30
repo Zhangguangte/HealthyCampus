@@ -11,12 +11,7 @@ import android.view.View;
  * OK
  */
 public class ImageBehavior extends CoordinatorLayout.Behavior<TabLayout> {
-    public ImageBehavior(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-
-
+    
     @Override
     public boolean layoutDependsOn(@NonNull CoordinatorLayout parent, @NonNull TabLayout child, @NonNull View dependency) {
         return dependency instanceof AppBarLayout;

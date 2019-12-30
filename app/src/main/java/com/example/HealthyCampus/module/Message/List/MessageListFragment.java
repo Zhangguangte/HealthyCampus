@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.Message.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -162,6 +163,7 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
             ButterKnife.bind(this, itemView);
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(int position) {
 //            LogUtil.logE("HomePageListFragment" + "123456", "2");

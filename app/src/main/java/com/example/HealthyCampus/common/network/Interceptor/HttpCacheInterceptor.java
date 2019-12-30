@@ -1,6 +1,8 @@
 package com.example.HealthyCampus.common.network.Interceptor;
 
 
+import android.support.annotation.NonNull;
+
 import com.example.HealthyCampus.application.HealthApp;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.utils.NetworkUtil;
@@ -18,7 +20,7 @@ import okhttp3.Response;
  */
 public class HttpCacheInterceptor implements Interceptor {
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
 
         //无网络状态下,手动拦截请求，使其使用本地缓存

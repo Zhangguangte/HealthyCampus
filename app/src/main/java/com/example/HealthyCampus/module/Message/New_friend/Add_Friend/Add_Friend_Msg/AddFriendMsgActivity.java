@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.Message.New_friend.Add_Friend.Add_Friend_Msg;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -62,6 +62,7 @@ public class AddFriendMsgActivity extends BaseActivity<AddFriendMsgContract.View
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initData(Bundle savedInstanceState) {
         tvName.setText(getIntent().getStringExtra("NICKNAME"));

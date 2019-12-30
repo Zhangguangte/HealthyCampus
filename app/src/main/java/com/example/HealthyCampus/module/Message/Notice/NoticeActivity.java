@@ -1,48 +1,32 @@
 package com.example.HealthyCampus.module.Message.Notice;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.HealthyCampus.R;
-import com.example.HealthyCampus.common.adapter.MessageRecyclerAdapter;
 import com.example.HealthyCampus.common.adapter.NoticeAdapter;
-import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.NoticeVo;
-import com.example.HealthyCampus.common.network.vo.RequestFriendVo;
 import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.custom_dialog.MapDialog;
 import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.MyLinearLayoutManager;
 import com.example.HealthyCampus.framework.BaseActivity;
-import com.example.HealthyCampus.module.Message.New_friend.Add_Friend.AddFriendActivity;
-import com.example.HealthyCampus.module.Message.New_friend.Apply_Friend.ApplyFriendActivity;
-import com.example.HealthyCampus.module.Message.New_friend.List.NewFriendListActivity;
-import com.example.HealthyCampus.module.Mine.User.UserInformationActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -162,39 +146,25 @@ public class NoticeActivity extends BaseActivity<NoticeContract.View, NoticeCont
         MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(this);
         materialDialog.title("点击确定删除所有通知")
                 .negativeText("取消")
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                    }
-                })
                 .positiveText("确定")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mPresenter.clearNotice();
-
-                    }
-                });
+                .onPositive((dialog, which) -> mPresenter.clearNotice());
         MaterialDialog materialDialog1 = materialDialog.build();
         materialDialog1.show();
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public void deleteNotice(int position) {
         View view = getLayoutInflater().inflate(R.layout.dialog_delete, null);
         MapDialog mapDialog = new MapDialog(getContext(), view, R.style.DialogMap);
-        mapDialog.getWindow().findViewById(R.id.tvDelete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ("ALL".equals(mData.get(position).getNoticeType())) {
-                    //删除本地数据库（sqlite）内数据
-                } else {
-                    mPresenter.deleteNotice(mData.get(position).getId());
-                    mData.remove(position);
-                    noticeAdapter.notifyItemRemoved(position);
-                    mapDialog.dismiss();
-                }
+        Objects.requireNonNull(mapDialog.getWindow()).findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            if ("ALL".equals(mData.get(position).getNoticeType())) {
+                //删除本地数据库（sqlite）内数据
+            } else {
+                mPresenter.deleteNotice(mData.get(position).getId());
+                mData.remove(position);
+                noticeAdapter.notifyItemRemoved(position);
+                mapDialog.dismiss();
             }
         });
         mapDialog.show();

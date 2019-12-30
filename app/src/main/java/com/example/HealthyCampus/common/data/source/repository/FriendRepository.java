@@ -4,14 +4,14 @@ import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.FriendDataSource;
-import com.example.HealthyCampus.common.data.source.callback.MessageDataSource;
+import com.example.HealthyCampus.common.data.source.callback.FriendDataSource;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 public class FriendRepository implements FriendDataSource {
 
-    private final FriendDataSource mMessageRemoteDataSource;
-    private final FriendDataSource mMessageLocalDataSource;
+    private final FriendDataSource mFriendRemoteDataSource;
+    private final FriendDataSource mFriendLocalDataSource;
     private static FriendRepository INSTANCE = null;
 
     public static FriendRepository getInstance() {
@@ -22,8 +22,8 @@ public class FriendRepository implements FriendDataSource {
     }
 
     private FriendRepository(FriendDataSource friendRemoteDataSource, FriendDataSource friendLocalDataSource) {
-        mMessageRemoteDataSource = checkNotNull(friendRemoteDataSource);
-        mMessageLocalDataSource = checkNotNull(friendLocalDataSource);
+        mFriendRemoteDataSource = checkNotNull(friendRemoteDataSource);
+        mFriendLocalDataSource = checkNotNull(friendLocalDataSource);
     }
 
     public static void initialize(FriendDataSource friendRemoteDataSource, FriendDataSource friendLocalDataSource) {
@@ -34,31 +34,31 @@ public class FriendRepository implements FriendDataSource {
 
     @Override
     public void allFriend(@NonNull GetAllFriend callback) {
-        mMessageRemoteDataSource.allFriend(callback);
+        mFriendRemoteDataSource.allFriend(callback);
     }
 
     @Override
     public void requestFriends(@NonNull GetRequestFriend callback) {
-        mMessageRemoteDataSource.requestFriends(callback);
+        mFriendRemoteDataSource.requestFriends(callback);
     }
 
     @Override
     public void clearRequestFriends(@NonNull ClearRequestFriends callback) {
-        mMessageRemoteDataSource.clearRequestFriends(callback);
+        mFriendRemoteDataSource.clearRequestFriends(callback);
     }
 
     @Override
     public void sendRequestFriend(RequestForm requestForm, @NonNull SendRequestFriend callback) {
-        mMessageRemoteDataSource.sendRequestFriend(requestForm,callback);
+        mFriendRemoteDataSource.sendRequestFriend(requestForm,callback);
     }
 
     @Override
     public void saveRequestFriend(@NonNull RequestForm requestForm, @NonNull SaveRequestFriend callback) {
-        mMessageRemoteDataSource.saveRequestFriend(requestForm,callback);
+        mFriendRemoteDataSource.saveRequestFriend(requestForm,callback);
     }
     @Override
     public void refuseRequestFriend(@NonNull RequestForm requestForm, @NonNull RefuseRequestFriend callback) {
-        mMessageRemoteDataSource.refuseRequestFriend(requestForm,callback);
+        mFriendRemoteDataSource.refuseRequestFriend(requestForm,callback);
     }
 
 

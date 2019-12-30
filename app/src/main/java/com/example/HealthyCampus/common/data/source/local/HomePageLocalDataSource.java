@@ -14,7 +14,7 @@ public class HomePageLocalDataSource implements HomePageDataSource {
 
     private static HomePageDataSource INSTANCE;
 
-    public HomePageLocalDataSource(@NonNull Context context) {
+    private HomePageLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
     }
 

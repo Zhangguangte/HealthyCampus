@@ -16,17 +16,6 @@ public class ToastUtil {
     }
 
     public static void show(final Context context, final int id) {
-        Activity activity = (Activity) context;
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (toast == null) {
-                    toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
-                }
-                String string = context.getResources().getString(id);
-                toast.setText(string);
-                toast.show();
-            }
-        });
+        Toast.makeText(context, context.getResources().getString(id), Toast.LENGTH_SHORT).show();
     }
 }

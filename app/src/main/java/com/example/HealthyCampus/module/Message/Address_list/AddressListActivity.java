@@ -107,6 +107,7 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
         } else {
             ToastUtil.show(this, "未知错误:" + throwable.getMessage());
         }
+        dismissProgressDialog();
     }
 
     //返回数据：成功：显示好友

@@ -11,7 +11,6 @@ import com.example.HealthyCampus.common.constants.ConstantValues;
  */
 public class AppStatusTracker implements Application.ActivityLifecycleCallbacks {
 
-    private Application application;
     private static AppStatusTracker tracker;
 
     private int mAppStatus = ConstantValues.STATUS_FORCE_KILLED;
@@ -20,8 +19,7 @@ public class AppStatusTracker implements Application.ActivityLifecycleCallbacks 
 
 
     private AppStatusTracker(Application application) {
-        this.application = application;
-        this.application.registerActivityLifecycleCallbacks(this);
+        application.registerActivityLifecycleCallbacks(this);
     }
 
     public static void init(Application application) {

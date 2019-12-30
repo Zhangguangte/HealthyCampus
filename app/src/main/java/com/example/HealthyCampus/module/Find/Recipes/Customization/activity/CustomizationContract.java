@@ -21,7 +21,7 @@ interface CustomizationContract {
     }
 
     abstract class Presenter extends BasePresenter<View> {
-        protected abstract void getRecipesByThreeMeals();
+        protected abstract void getRecipesByThreeMeals(int dayTitle, String type, int weekId);
 
 
     }

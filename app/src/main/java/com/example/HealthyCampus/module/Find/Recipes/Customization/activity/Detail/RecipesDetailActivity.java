@@ -2,11 +2,13 @@ package com.example.HealthyCampus.module.Find.Recipes.Customization.activity.Det
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -145,7 +147,16 @@ public class RecipesDetailActivity extends BaseActivity<RecipesDetailContract.Vi
         /**
          * 需要通过Message机制更新数据，或者初始化数据时直接赋值，不然Item部分不显示
          */
-        mPresenter.getRecipeDetail(getIntent().getStringExtra("ID"));
+        Intent intent = getIntent();
+        if (null == intent) {
+            ToastUtil.show(getContext(), getString(R.string.data_lose));
+            finish();
+        } else if (!TextUtils.isEmpty(getIntent().getStringExtra("ID"))) {
+            mPresenter.getRecipeDetail(0, getIntent().getStringExtra("ID"));
+        } else if (!TextUtils.isEmpty(getIntent().getStringExtra("NAME"))) {
+            mPresenter.getRecipeDetail(1, "%" + getIntent().getStringExtra("NAME") + "%");
+        }
+
     }
 
 
@@ -161,8 +172,8 @@ public class RecipesDetailActivity extends BaseActivity<RecipesDetailContract.Vi
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    ToastUtil.show(this, "无数据");
+                if (response.code == 999) {
+                    ToastUtil.show(getContext(), getString(R.string.database_empty_data));
                 } else {
                     ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
                 }
@@ -197,7 +208,7 @@ public class RecipesDetailActivity extends BaseActivity<RecipesDetailContract.Vi
 
     @Override
     public void showIconSuccess(String url) {
-        GlideUtils.display(ivIcon, url,false);
+        GlideUtils.display(ivIcon, url, false);
     }
 
     @Override
@@ -209,7 +220,7 @@ public class RecipesDetailActivity extends BaseActivity<RecipesDetailContract.Vi
     }
 
     @Override
-    public void showGeneralSuccess(String flavor,String productionTime,String mainProcess) {
+    public void showGeneralSuccess(String flavor, String productionTime, String mainProcess) {
         tvFlavor.setText(flavor);
         tvProductionTime.setText(productionTime);
         tvMainProcess.setText(mainProcess);
@@ -230,13 +241,13 @@ public class RecipesDetailActivity extends BaseActivity<RecipesDetailContract.Vi
                 case 1:                                 //更新元素数据
                     String[] array = (String[]) msg.obj;
                     //显示元素质量
-                    proteinText.setText(array[0] + "克");
+                    proteinText.setText(array[2] + "克");
                     fatText.setText(array[1] + "克");
-                    carbohydrateText.setText(array[2] + "克");
+                    carbohydrateText.setText(array[0] + "克");
                     //显示元素比例
-                    proteinCircle.setProgress((int) Float.parseFloat(array[0]));
+                    proteinCircle.setProgress((int) Float.parseFloat(array[2]));
                     fatCircle.setProgress((int) Float.parseFloat(array[1]));
-                    carbohydrateCircle.setProgress((int) Float.parseFloat(array[2]));
+                    carbohydrateCircle.setProgress((int) Float.parseFloat(array[0]));
                     dismissProgressDialog();
                     break;
                 case 2:                                 //更新材料数据

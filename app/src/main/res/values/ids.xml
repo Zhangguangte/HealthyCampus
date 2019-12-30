@@ -19,6 +19,7 @@
     <item name="ivBack" type="id"/>
     <item name="toolbar_title" type="id"/>
     <item name="ivSearch" type="id"/>
+    <item name="titleLayout" type="id"/>
 
     <!--immersion-->
     <item name="immersion_status_bar_view" type="id" />

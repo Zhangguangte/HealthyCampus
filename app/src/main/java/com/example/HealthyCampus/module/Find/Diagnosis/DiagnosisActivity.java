@@ -70,8 +70,6 @@ public class DiagnosisActivity extends BaseActivity<DiagnosisContract.View, Diag
     @BindView(R.id.tl_tabs)
     SlidingTabLayout tlTabs;
 
-    private DiagnosisPagerAdapter diagnosisPagerAdapter;
-
     private DiseaseAdapter diseaseAdapter;
     private List<DiseaseSortVo> diseaseSortVos = new LinkedList<>();
 
@@ -104,26 +102,23 @@ public class DiagnosisActivity extends BaseActivity<DiagnosisContract.View, Diag
 
     private void initEdit() {
 
-        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                /*判断是否是“搜索”键*/
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (TextUtils.isEmpty(etSearch.getText().toString().trim())) {
-                        ToastUtil.show(getContext(), getString(R.string.input_no_empty));
-                        return true;
-                    }
-                    showProgressDialog(getString(R.string.loading_footer_tips));
-                    diseaseSortVos.clear();
-                    diseaseAdapter.notifyDataSetChanged();
-
-                    diseaseAdapter.setIsLoad(true);
-                    mPresenter.getDiseaseInfo(etSearch.getText().toString().trim(), row);
-                    softInputHide();
+        etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            /*判断是否是“搜索”键*/
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (TextUtils.isEmpty(etSearch.getText().toString().trim())) {
+                    ToastUtil.show(getContext(), getString(R.string.input_no_empty));
                     return true;
                 }
-                return false;
+                showProgressDialog(getString(R.string.loading_footer_tips));
+                diseaseSortVos.clear();
+                diseaseAdapter.notifyDataSetChanged();
+
+                diseaseAdapter.setIsLoad(true);
+                mPresenter.getDiseaseInfo(etSearch.getText().toString().trim(), row);
+                softInputHide();
+                return true;
             }
+            return false;
         });
 
     }
@@ -190,7 +185,7 @@ public class DiagnosisActivity extends BaseActivity<DiagnosisContract.View, Diag
 
 
     private void initViewPager() {
-        diagnosisPagerAdapter = new DiagnosisPagerAdapter(getSupportFragmentManager(),
+        DiagnosisPagerAdapter diagnosisPagerAdapter = new DiagnosisPagerAdapter(getSupportFragmentManager(),
                 this);
         vpContent.setOffscreenPageLimit(2);
         vpContent.setAdapter(diagnosisPagerAdapter);

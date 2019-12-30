@@ -15,11 +15,4 @@ public class DefaultResponseVo {
         this.message = message;
     }
 
-    @Override
-    public String toString() {
-        return "DefaultResponseVo{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }

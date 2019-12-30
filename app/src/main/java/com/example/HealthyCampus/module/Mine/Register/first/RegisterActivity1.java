@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.Mine.Register.first;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -58,7 +59,6 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
     private boolean isExistSmsCode = false;
 
     private int countDown = 60;//倒计时
-    private String RegisterHint = "";
     private MaterialDialog progressDialog;
 
     @Override
@@ -130,22 +130,19 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
         SMSSDK.getVerificationCode(ConstantValues.COUNTRYCODE, phoneNum);
         sendSms.setClickable(false);
         //开始倒计时
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (; countDown > 0; countDown--) {
-                    handler.sendEmptyMessage(-1);
-                    if (countDown <= 0) {
-                        break;
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        new Thread(() -> {
+            for (; countDown > 0; countDown--) {
+                handler.sendEmptyMessage(-1);
+                if (countDown <= 0) {
+                    break;
                 }
-                handler.sendEmptyMessage(-2);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            handler.sendEmptyMessage(-2);
         }).start();
     }
 
@@ -171,7 +168,6 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
         Log.e("RegisterActivity1" + "123456", "codeUtils.getCode: " + codeUtils.getCode());
         if (!codeUtils.getCode().equals(picture_code.toLowerCase())) {
             ToastUtil.show(this, R.string.register1_picture_code_error);
-            return;
         } else {
             SMSSDK.submitVerificationCode(ConstantValues.COUNTRYCODE, phoneNum, sms_code);
         }
@@ -227,13 +223,14 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
 
     @Override
     public void setRegisterHint(final EditText editText) {
+        String registerHint;
         if (!TextUtils.isEmpty(editText.getHint().toString().trim())) {
-            RegisterHint = editText.getHint().toString().trim();
-            editText.setTag(RegisterHint);
+            registerHint = editText.getHint().toString().trim();
+            editText.setTag(registerHint);
             editText.setHint("");
         } else {
-            RegisterHint = editText.getTag().toString().trim();
-            editText.setHint(RegisterHint);
+            registerHint = editText.getTag().toString().trim();
+            editText.setHint(registerHint);
         }
     }
 
@@ -298,26 +295,11 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
 
     @Override
     public void focusRegisterEditTextStatus() {
-        etPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setRegisterHint(etPhone);
-            }
-        });
+        etPhone.setOnFocusChangeListener((v, hasFocus) -> setRegisterHint(etPhone));
 
-        pictureCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setRegisterHint(pictureCode);
-            }
-        });
+        pictureCode.setOnFocusChangeListener((v, hasFocus) -> setRegisterHint(pictureCode));
 
-        smsCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setRegisterHint(smsCode);
-            }
-        });
+        smsCode.setOnFocusChangeListener((v, hasFocus) -> setRegisterHint(smsCode));
     }
 
     @Override
@@ -340,7 +322,9 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
 
 
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
+        @SuppressLint("SetTextI18n")
         public void handleMessage(Message msg) {
             if (msg.what == -1) {
                 sendSms.setText(countDown + " s");
@@ -379,7 +363,6 @@ public class RegisterActivity1 extends BaseActivity<RegisterContract1.View, Regi
                         if (status > 0 && !TextUtils.isEmpty(des)) {
                             Log.e("RegisterActivity1" + "123456", "des: " + des);
                             Toast.makeText(RegisterActivity1.this, des, Toast.LENGTH_SHORT).show();
-                            return;
                         }
                     } catch (Exception e) {
                         //do something

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/classifyLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/cameraLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomLayout" />
+
+        <ImageView
+            android:id="@+id/ivAlbum"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/margin_mo"
+            android:layout_marginEnd="@dimen/margin_mo"
+            android:src="@drawable/find_recipes_album" />
+
+        <ImageView
+            android:id="@+id/ivReverse"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_alignParentStart="@dimen/margin_mo"
+            android:layout_marginStart="@dimen/margin_mo"
+            android:layout_marginTop="@dimen/margin_mo"
+            android:src="@drawable/find_recipes_photo_reverse" />
+
+        <RelativeLayout
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/icon_size_more_hundred"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/find_recipes_camera_bg">
+
+
+            <ImageView
+                android:id="@+id/ivPicture"
+                android:layout_width="@dimen/icon_size_more_more1"
+                android:layout_height="@dimen/icon_size_more_more1"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin" />
+
+
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="@dimen/icon_size_more_more1"
+                android:layout_height="@dimen/icon_size_more_more1"
+                android:layout_centerInParent="true"
+                android:focusable="true"
+                android:src="@drawable/find_recipes_take_photo" />
+
+            <ImageView
+                android:id="@+id/ivOk"
+                android:layout_width="@dimen/icon_size_more"
+                android:layout_height="@dimen/icon_size_more"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_more"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/margin_mo"
+                android:src="@drawable/find_recipes_photo_analy" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:background="@color/white" />
+
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="@dimen/icon_size_more_more1"
+            android:layout_height="@dimen/icon_size_more_more1"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

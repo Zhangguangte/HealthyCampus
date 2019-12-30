@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCosmetology"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_hundred"
+            android:background="@mipmap/find_recipes_function_cosmetology"
+            android:gravity="end|center_vertical"
+            android:text="@string/find_recipes_function_cosmetology"
+            android:layout_margin="@dimen/left_margin1"
+            android:textSize="@dimen/text_f2" />
+
+        <Button
+            android:id="@+id/btnPreservation"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_hundred"
+            android:background="@mipmap/find_recipes_function_health_preservation"
+            android:gravity="start|center_vertical"
+            android:text="@string/find_recipes_function_health_preservation"
+            android:layout_margin="@dimen/left_margin1"
+            android:textSize="@dimen/text_f2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSlimming"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_hundred"
+            android:background="@mipmap/find_recipes_function_slimming"
+            android:gravity="center|end"
+            android:layout_margin="@dimen/left_margin1"
+            android:text="@string/find_recipes_function_slimming"
+            android:textSize="@dimen/text_f2" />
+
+        <Button
+            android:id="@+id/btnMore"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_hundred"
+            android:background="@mipmap/find_recipes_function_more"
+            android:gravity="center|start"
+            android:text="@string/find_recipes_function_more"
+            android:layout_margin="@dimen/left_margin1"
+            android:textSize="@dimen/text_f2" />
+    </LinearLayout>
+
+</LinearLayout>

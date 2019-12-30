@@ -1,7 +1,5 @@
 package com.example.HealthyCampus.common.network.vo;
 
-import com.example.HealthyCampus.dao.Friend;
-
 import java.io.Serializable;
 
 

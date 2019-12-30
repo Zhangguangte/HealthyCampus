@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_text_send"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,15 +19,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_more"
+        android:layout_marginStart="@dimen/margin_more"
         android:layout_marginTop="@dimen/margin_less"
-        android:layout_marginRight="@dimen/right_margin">
+        android:layout_marginEnd="@dimen/right_margin">
 
         <com.example.HealthyCampus.common.widgets.custom_image.CircleImageView
             android:id="@+id/chat_icon"
             android:layout_width="@dimen/icon_size_more"
             android:layout_height="@dimen/icon_size_more"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_head_default_right" />
 
@@ -35,8 +35,8 @@
             android:id="@+id/mapLayout"
             android:layout_width="@dimen/icon_size_more_hundred3"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_less2"
-            android:layout_toLeftOf="@id/chat_icon"
+            android:layout_marginEnd="@dimen/padding_less2"
+            android:layout_toStartOf="@id/chat_icon"
             android:background="@drawable/shape_button_lines6"
             android:orientation="vertical">
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/lightPrimary"
                 android:padding="@dimen/padding_less3"
-                android:text="位置"
+                android:text="@string/message_chatting_map_position"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_f0" />
 
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="查看详情"
+                    android:text="@string/message_chatting_map_detail"
                     android:textColor="@color/cyan"
                     android:textSize="@dimen/text_f3" />
 
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="到这去"
+                    android:text="@string/message_chatting_map_here"
                     android:textColor="@color/cyan"
                     android:textSize="@dimen/text_f3" />
             </LinearLayout>
@@ -101,11 +101,12 @@
             android:layout_width="@dimen/icon_size_less"
             android:layout_height="@dimen/icon_size_less"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_less"
-            android:layout_toLeftOf="@+id/csChat"
+            android:layout_marginEnd="@dimen/margin_less"
+            android:layout_toStartOf="@+id/csChat"
             android:focusable="false"
             android:src="@drawable/msg_state_fail_resend"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:ignore="UnknownIdInLayout" />
 
         <ProgressBar
             android:id="@+id/chat_item_progress"
@@ -113,9 +114,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_less"
-            android:layout_toLeftOf="@+id/csChat"
-            android:visibility="gone" />
+            android:layout_marginEnd="@dimen/margin_less"
+            android:layout_toStartOf="@+id/csChat"
+            android:visibility="gone"
+            tools:ignore="UnknownIdInLayout" />
     </RelativeLayout>
 
 </LinearLayout>

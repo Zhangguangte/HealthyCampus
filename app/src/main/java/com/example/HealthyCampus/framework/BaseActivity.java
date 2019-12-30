@@ -1,7 +1,6 @@
 package com.example.HealthyCampus.framework;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.avos.avoscloud.AVAnalytics;
-import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
-import com.example.HealthyCampus.common.immersionbar.ImmersionBar;
 import com.example.HealthyCampus.common.utils.AppStatusTracker;
 import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
-import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.module.MainActivity;
 import com.umeng.socialize.UMShareAPI;
 
@@ -33,7 +29,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     protected T mPresenter;
     private Unbinder unbinder;
     //加载中
-    private ProgressDialog progressDialog;
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,6 +140,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView();
+            mPresenter = null;
+            System.gc();
         }
         unbinder.unbind();
         LogUtil.logE("BaseActivity123456", toString() + ":onDestroy");

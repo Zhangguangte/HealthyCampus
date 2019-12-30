@@ -13,13 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.HealthyCampus.R;
-import com.example.HealthyCampus.common.constants.ConstantValues;
-import com.example.HealthyCampus.common.data.Bean.MedicineList;
 import com.example.HealthyCampus.common.network.vo.MedicineListVo;
 import com.example.HealthyCampus.common.utils.GlideUtils;
-import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 
 import java.util.ArrayList;

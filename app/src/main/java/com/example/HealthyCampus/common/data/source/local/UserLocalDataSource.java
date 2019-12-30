@@ -13,7 +13,7 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 public class UserLocalDataSource implements UserDataSource {
     private static UserLocalDataSource INSTANCE;
 
-    public UserLocalDataSource(@NonNull Context context) {
+    private UserLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
     }
 

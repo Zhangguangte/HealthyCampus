@@ -18,13 +18,13 @@ import android.widget.TextView;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.AddSearchAdapter;
+import com.example.HealthyCampus.common.helper.GreenDaoHelper;
 import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
-import com.example.HealthyCampus.framework.helper.GreenDaoHelper;
 import com.example.HealthyCampus.greendao.SearchAddDao;
 import com.example.HealthyCampus.greendao.model.SearchAdd;
 import com.example.HealthyCampus.module.Message.New_friend.Add_Friend.Add_Friend_Msg.AddFriendMsgActivity;
@@ -57,7 +57,6 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
     @BindView(R.id.btnSearch)
     Button btnSearch;
 
-    private GreenDaoHelper daoHelper;
     private SearchAddDao dao;
     private AddSearchAdapter adapter;
     private List<SearchAdd> list;
@@ -108,7 +107,7 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
     @Override
     public void initSearchDB() {
         //初始化
-        daoHelper = new GreenDaoHelper(this);
+        GreenDaoHelper daoHelper = new GreenDaoHelper(this);
         dao = daoHelper.initDao().getSearchAddDao();
 
     }
@@ -229,6 +228,7 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } else {
             Intent intent = new Intent(this, AddFriendMsgActivity.class);
+            assert userVo != null;
             intent.putExtra("ID", userVo.getId());
             intent.putExtra("NICKNAME", userVo.getNickname());
             if (userVo.getAvatar() != null) {
@@ -273,7 +273,7 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
     }
 
     @Override
-    public void onItemOnClick(String content) {
+    public void onitemonclick(String content) {
         etSearch.setText(content);
     }
 

@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.framework;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -13,7 +14,7 @@ import com.example.HealthyCampus.common.utils.LogUtil;
  */
 public class BaseContainerActivity extends BaseActivity {
 
-    private static String TAG = "BaseContainerActivity";
+    @SuppressLint("StaticFieldLeak")
     private static BaseFragment baseFragment;
 
     public static void setFragment(BaseFragment baseFragment) {
@@ -38,6 +39,7 @@ public class BaseContainerActivity extends BaseActivity {
     @Override
     protected void initView() {
         if (baseFragment == null) {
+            String TAG = "BaseContainerActivity";
             LogUtil.logE(TAG, "create baseFragment is null !");
             finish();
             return;

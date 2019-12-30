@@ -7,27 +7,14 @@ import com.example.HealthyCampus.common.data.form.ChatForm;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.MessageDataSource;
 import com.example.HealthyCampus.common.network.NetworkManager;
-import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.example.HealthyCampus.common.network.vo.MessageListVo;
-import com.example.HealthyCampus.common.network.vo.NoticeVo;
-import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.PictureUtil;
 
-import java.util.List;
-
-import retrofit2.http.Body;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MessageRemoteDataSource implements MessageDataSource {
 
     private static MessageRemoteDataSource INSTANCE = null;
-
-
-    public MessageRemoteDataSource() {
-    }
 
     public static MessageRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -43,36 +30,103 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .lastMessage()
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("UserRemoteDa" + "123456", "register:7");
-                    }
-                })
-                .subscribe(new Action1<List<MessageListVo>>() {
-                    @Override
-                    public void call(List<MessageListVo> messageListVos) {
-                        try {
-                            Log.e("ChatListPresenter" + "123456", "allchat success");
-                            for (MessageListVo messageListVo : messageListVos) {
-                                Log.e("ChatListPresenter" + "123456", "messageListVo.toString" + messageListVo.toString());
-                            }
-                            Log.e("ChatListPresenter" + "123456", "messageListVo.toString" + messageListVos.size());
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "lastMessage:7"))
+                .subscribe(messageListVos -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "lastMessage success");
+//                            for (MessageListVo messageListVo : messageListVos) {
+//                                Log.e("MessageRemoteDa" + "123456", "lastMessage.toString" + messageListVo.toString());
+//                            }
+//                            Log.e("MessageRemoteDa" + "123456", "lastMessage.toString" + messageListVos.size());
 
-                            callback.onDataAvailable(messageListVos);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        callback.onDataAvailable(messageListVos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("UserRemoteDa" + "123456", "register:9");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "register:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void createRoom(RequestForm requestForm,@NonNull MessageCreateRoom callback) {
+        NetworkManager.getInstance().getMessageApi()
+                .createRoom(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "createRoom:7"))
+                .subscribe(messageListVo -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "createRoom success");
+//                        Log.e("MessageRemoteDa" + "123456", "roomId"+roomId);
+//                            for (MessageListVo messageListVo : messageListVos) {
+//                                Log.e("MessageRemoteDa" + "123456", "lastMessage.toString" + messageListVo.toString());
+//                            }
+//                            Log.e("MessageRemoteDa" + "123456", "lastMessage.toString" + messageListVos.size());
+
+                        callback.onDataAvailable(messageListVo.getRoom_id());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "createRoom:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void deleteRoomId(RequestForm requestForm, @NonNull MessageDeleteRoom callback) {
+        NetworkManager.getInstance().getMessageApi()
+                .deleteRoomId(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "deleteRoomId:7"))
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "deleteRoomId success");
+                        callback.onDataAvailable(defaultResponseVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "deleteRoomId:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void getDoctorRoom(@NonNull MessageGetRoom callback) {
+        NetworkManager.getInstance().getMessageApi()
+                .getDoctorRoom()
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "getDoctorRoom:7"))
+                .subscribe(messageListVo -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "getDoctorRoom success");
+                        callback.onDataAvailable(messageListVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "getDoctorRoom:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -83,30 +137,19 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .allChatByRoomId(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "allChatByRoomId:7");
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "allChatByRoomId:7"))
+                .subscribe(messageListVos -> {
+                    try {
+                        callback.onDataAvailable(messageListVos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<List<MessageListVo>>() {
-                    @Override
-                    public void call(List<MessageListVo> messageListVos) {
-                        try {
-                            callback.onDataAvailable(messageListVos);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "allChatByRoomId:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "allChatByRoomId:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -117,27 +160,16 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .searchRoomid(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "searchRoomid:7");
-                    }
-                })
-                .subscribe(new Action1<MessageListVo>() {
-                    @Override
-                    public void call(MessageListVo messageListVo) {
-                        Log.e("MessageRemoteDa" + "123456", "searchRoomid:8");
-                        callback.onDataAvailable(messageListVo);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "searchRoomid:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "searchRoomid:7"))
+                .subscribe(messageListVo -> {
+                    Log.e("MessageRemoteDa" + "123456", "searchRoomid:8");
+                    callback.onDataAvailable(messageListVo);
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "searchRoomid:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -149,31 +181,20 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .allChatByUid(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "allChatByUid:7");
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "allChatByUid:7"))
+                .subscribe(messageListVos -> {
+                    Log.e("MessageRemoteDa" + "123456", "allChatByUid:8");
+                    try {
+                        callback.onDataAvailable(messageListVos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<List<MessageListVo>>() {
-                    @Override
-                    public void call(List<MessageListVo> messageListVos) {
-                        Log.e("MessageRemoteDa" + "123456", "allChatByUid:8");
-                        try {
-                            callback.onDataAvailable(messageListVos);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "allChatByUid:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "allChatByUid:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -184,27 +205,16 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .insertContent(chatForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "insertText:7");
-                    }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("MessageRemoteDa" + "123456", "insertText success");
-                        callback.onDataAvailable();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "insertText:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "insertText:7"))
+                .subscribe(defaultResponseVo -> {
+                    Log.e("MessageRemoteDa" + "123456", "insertText success");
+                    callback.onDataAvailable();
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "insertText:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -215,29 +225,20 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .insertCard(chatForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                    }
+                .doOnSubscribe(() -> {
                 })
-                .subscribe(new Action1<UserVo>() {
-                    @Override
-                    public void call(UserVo userVo) {
-                        try {
-                            callback.onDataAvailable(userVo);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .subscribe(userVo -> {
+                    try {
+                        callback.onDataAvailable(userVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("MessageRemoteDa" + "123456", "insertText:9");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "insertText:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -248,58 +249,36 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .upPicture(PictureUtil.upImage())
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "upPicture:7");
-                    }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        Log.e("MessageRemoteDa" + "123456", "upPicture success");
-                        callback.onDataAvailable();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "upPicture:9");
-                        callback.onDataNotAvailable(throwable);
-                    }
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "upPicture:7"))
+                .subscribe(defaultResponseVo -> {
+                    Log.e("MessageRemoteDa" + "123456", "upPicture success");
+                    callback.onDataAvailable();
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "upPicture:9");
+                    callback.onDataNotAvailable(throwable);
                 });
     }
 
     @Override
-    public void getAllNotice(@NonNull RequestForm requestForm,@NonNull MessageAllNotice callback) {
+    public void getAllNotice(@NonNull RequestForm requestForm, @NonNull MessageAllNotice callback) {
         NetworkManager.getInstance().getMessageApi()
                 .getAllNotice(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "getAllNotice:7");
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "getAllNotice:7"))
+                .subscribe(noticeVos -> {
+                    Log.e("MessageRemoteDa" + "123456", "getAllNotice success");
+                    try {
+                        callback.onDataAvailable(noticeVos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<List<NoticeVo>>() {
-                    @Override
-                    public void call(List<NoticeVo> noticeVos) {
-                        Log.e("MessageRemoteDa" + "123456", "getAllNotice success");
-                        try {
-                            callback.onDataAvailable(noticeVos);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "getAllNotice:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "getAllNotice:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -310,31 +289,20 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .clearNotice()
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        Log.e("MessageRemoteDa" + "123456", "getAllNotice:7");
+                .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "getAllNotice:7"))
+                .subscribe(defaultResponseVo -> {
+                    Log.e("MessageRemoteDa" + "123456", "getAllNotice success");
+                    try {
+                        callback.onDataAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo ) {
-                        Log.e("MessageRemoteDa" + "123456", "getAllNotice success");
-                        try {
-                            callback.onDataAvailable();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.e("MessageRemoteDa" + "123456", "getAllNotice:9");
-                        try {
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    Log.e("MessageRemoteDa" + "123456", "getAllNotice:9");
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -345,29 +313,20 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .deleteNotice(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                    }
+                .doOnSubscribe(() -> {
                 })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        try {
-                            callback.onDataAvailable();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        callback.onDataAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("MessageRemoteDa" + "123456", "deleteNotice:9");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "deleteNotice:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -378,29 +337,20 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .lookNotice(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                    }
+                .doOnSubscribe(() -> {
                 })
-                .subscribe(new Action1<DefaultResponseVo>() {
-                    @Override
-                    public void call(DefaultResponseVo defaultResponseVo) {
-                        try {
-                            callback.onDataAvailable();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        callback.onDataAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            Log.e("MessageRemoteDa" + "123456", "lookNotice:9");
-                            callback.onDataNotAvailable(throwable);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        Log.e("MessageRemoteDa" + "123456", "lookNotice:9");
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }

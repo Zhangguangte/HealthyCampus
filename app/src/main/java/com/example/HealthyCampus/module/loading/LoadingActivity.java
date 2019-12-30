@@ -15,12 +15,7 @@ import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.utils.AppStatusTracker;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
-import com.example.HealthyCampus.module.Find.Diagnosis.DiagnosisActivity;
-import com.example.HealthyCampus.module.Find.Diagnosis.List.DiseaseSort.Detail.DiseaseDetailActivity;
-import com.example.HealthyCampus.module.Find.Nearby.NearbyActivity;
-import com.example.HealthyCampus.module.Find.Recipes.RecipesActivity;
 import com.example.HealthyCampus.module.MainActivity;
-import com.example.HealthyCampus.module.Message.Chat.Map.MapActivity;
 import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
 
 import butterknife.BindView;
@@ -29,8 +24,6 @@ import butterknife.BindView;
  * OK
  */
 public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingContract.Presenter> implements LoadingContract.View {//, Observer<Long>
-
-    private int i = 0;
 
     private long mTotalTime = 3;
 
@@ -79,7 +72,6 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        //  startCountDown();
     }
 
 //    /**
@@ -100,8 +92,7 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
         return this;
     }
 
-    @Override
-    public Animation createBackgroundAnimation() {
+    private Animation createBackgroundAnimation() {
         ScaleAnimation scaleAnimationa = new ScaleAnimation(1.0f, 1.3f, 1.0f, 1.3f
                 , Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimationa.setFillAfter(true);
@@ -130,8 +121,7 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
         return scaleAnimationa;
     }
 
-    @Override
-    public Animation createLogoAnimation() {
+    private Animation createLogoAnimation() {
         ScaleAnimation tvScaleAnim = new ScaleAnimation(1.0f, 1.3f, 1.0f, 1.3f
                 , Animation.RELATIVE_TO_SELF, 0.5F, Animation.RELATIVE_TO_SELF, 0.5f);
         TranslateAnimation tvTranslateAnim = new TranslateAnimation(0, 0, 0, -40);
@@ -144,8 +134,7 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
         return animationSet;
     }
 
-    @Override
-    public void jumpToMain() {
+    private void jumpToMain() {
         Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

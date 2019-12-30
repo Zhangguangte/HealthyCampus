@@ -27,7 +27,7 @@ public class PackageManagerUtil {
         }
     }
 
-    public static boolean haveGaodeMap(){
+    static boolean haveGaodeMap(){
         initPackageManager();
         return mPackageNames.contains(GAODE_PACKAGE_NAME);
     }

@@ -1,16 +1,14 @@
 package com.example.HealthyCampus.module.Mine.Login;
 
-import android.util.Base64;
-
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.data.source.callback.UserDataSource;
 import com.example.HealthyCampus.common.data.source.repository.UserRepository;
 import com.example.HealthyCampus.common.helper.SPHelper;
+import com.example.HealthyCampus.common.helper.UserHelper;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.StringUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
-import com.example.HealthyCampus.service.UserService;
 
 public class LoginPresenter extends LoginContract.Presenter {
 
@@ -61,8 +59,7 @@ public class LoginPresenter extends LoginContract.Presenter {
 
     @Override
     public void initUserInformation(UserVo userVo, String password) throws Exception {
-        UserService.registerJPush(getView().getContext(), userVo.id);
-        UserService.persistenceUser(userVo, password);
+        UserHelper.persistenceUser(userVo, password);
     }
 
 }

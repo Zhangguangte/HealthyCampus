@@ -6,8 +6,49 @@
 
     <include layout="@layout/title_bar_recipes1" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_size_more_more"
+        android:background="@color/bright_green"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnBreakfast"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/find_health_recipes_breakfast"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_f1" />
+
+        <Button
+            android:id="@+id/btnLunch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/find_health_recipes_lunch"
+            android:background="@null"
+            android:textColor="@color/text_level_4"
+            android:textSize="@dimen/text_f2" />
+
+        <Button
+            android:id="@+id/btnDinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/find_health_recipes_dinner"
+            android:textColor="@color/text_level_4"
+            android:textSize="@dimen/text_f2" />
+    </LinearLayout>
+
+
     <include
-        layout="@layout/layout_empty" />
+        layout="@layout/layout_empty"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvContent"
@@ -16,31 +57,43 @@
         android:layout_weight="1"
         android:background="@color/ghostwhite" />
 
-    <RelativeLayout
-        android:id="@+id/change_layout"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/icon_size_more_more"
         android:background="@color/beige"
-        android:paddingTop="@dimen/padding"
-        android:paddingBottom="@dimen/padding">
+        android:weightSum="2">
 
-        <ImageView
-            android:id="@+id/ivNext"
-            android:layout_width="@dimen/icon_size_less1"
-            android:layout_height="@dimen/icon_size_less1"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="@dimen/margin_top"
-            android:layout_toLeftOf="@+id/tvNext"
-            android:src="@drawable/find_recipes_exchange_customization" />
+        <Button
+            android:id="@+id/btnPreday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/find_health_recipes_yesterday"
+            android:background="@color/beige"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f2" />
 
-        <TextView
-            android:id="@+id/tvNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/find_health_recipes_customization_next"
-            android:textColor="@color/text_level_4"
-            android:textSize="@dimen/text_f3" />
-    </RelativeLayout>
+        <View
+            android:layout_width="@dimen/view_height_three"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_less"
+            android:layout_marginBottom="@dimen/margin_less"
+            android:background="@color/cyan"/>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/find_health_recipes_tomorrow"
+            android:background="@color/beige"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f2" />
+
+    </LinearLayout>
+
+
 </LinearLayout>

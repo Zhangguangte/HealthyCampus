@@ -20,7 +20,7 @@ public class ShareController {
 
     private ShareBoardConfig shareBoardConfig;
 
-    public ShareController() {
+    private ShareController() {
         if (shareBoardConfig == null) {
             shareBoardConfig = new ShareBoardConfig();
         }
@@ -45,11 +45,6 @@ public class ShareController {
 
     /**
      * 分享链接
-     *
-     * @param activity
-     * @param url
-     * @param title
-     * @param callBack
      */
     public void shareLink(Activity activity, String url, String title, UMShareListener callBack) {
         shareLink(activity, url, title, null, callBack);
@@ -57,12 +52,6 @@ public class ShareController {
 
     /**
      * 分享链接
-     *
-     * @param activity
-     * @param url
-     * @param title
-     * @param imageUrl
-     * @param callBack
      */
     public void shareLink(Activity activity, String url, String title, String imageUrl, UMShareListener callBack) {
         if (activity == null || TextUtils.isEmpty(url)) {
@@ -95,9 +84,6 @@ public class ShareController {
 
     /**
      * 推荐好友-分享app
-     *
-     * @param activity
-     * @param callBack
      */
     public void shareApp(Activity activity, UMShareListener callBack) {
         if (activity == null) {

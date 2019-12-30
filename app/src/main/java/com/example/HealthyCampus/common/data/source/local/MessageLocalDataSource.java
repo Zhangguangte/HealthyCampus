@@ -4,23 +4,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.ChatForm;
-import com.example.HealthyCampus.common.data.form.LoginForm;
-import com.example.HealthyCampus.common.data.form.RegisterFrom;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.MessageDataSource;
-import com.example.HealthyCampus.common.data.source.callback.UserDataSource;
-import com.example.HealthyCampus.common.network.vo.MessageListVo;
-
-import java.util.List;
-
-import rx.Observable;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 public class MessageLocalDataSource implements MessageDataSource {
     private static MessageLocalDataSource INSTANCE;
 
-    public MessageLocalDataSource(@NonNull Context context) {
+    private MessageLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
     }
 
@@ -35,6 +27,21 @@ public class MessageLocalDataSource implements MessageDataSource {
 
     @Override
     public void lastMessage(@NonNull MessageSearchMessage callback) {
+
+    }
+
+    @Override
+    public void createRoom(RequestForm requestForm, @NonNull MessageCreateRoom callback) {
+
+    }
+
+    @Override
+    public void deleteRoomId(RequestForm requestForm, @NonNull MessageDeleteRoom callback) {
+
+    }
+
+    @Override
+    public void getDoctorRoom(@NonNull MessageGetRoom callback) {
 
     }
 

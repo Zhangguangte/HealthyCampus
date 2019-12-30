@@ -19,8 +19,8 @@ public class RecipesDetailPresenter extends RecipesDetailContract.Presenter {
 
 
     @Override
-    protected void getRecipeDetail(String id) {
-        RequestForm requestForm = new RequestForm(id);
+    protected void getRecipeDetail(int type, String id) {
+        RequestForm requestForm = new RequestForm(type, id);
         RecipesRepository.getInstance().getRecipeDetail(requestForm, new RecipesDataSource.RecipesGetDetail() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
@@ -38,7 +38,7 @@ public class RecipesDetailPresenter extends RecipesDetailContract.Presenter {
     private void changedData(FoodVo foodVo) {
         getView().showIconSuccess(foodVo.getPictureUrl());      //菜肴图片
         getView().showTitle(foodVo.getDishName());      //标题
-        getView().showGeneralSuccess(foodVo.getFlavor(),foodVo.getProductionTime(),foodVo.getMainProcess());  //大概
+        getView().showGeneralSuccess(foodVo.getFlavor(), foodVo.getProductionTime(), foodVo.getMainProcess());  //大概
 
 
         //需要通过Message机制更新数据，或者初始化数据时直接赋值，不然Item部分不显示

@@ -3,7 +3,7 @@
 
     <solid android:color="@color/white"/>
     <stroke
-        android:width="@dimen/view_height_one"
+        android:width="@dimen/view_height_three"
         android:color="@color/interval_background"/><!-- 描边，边框宽度、颜色 -->
 
 

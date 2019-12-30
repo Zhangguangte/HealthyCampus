@@ -1,9 +1,8 @@
 package com.example.HealthyCampus.greendao;
 
-import com.example.HealthyCampus.greendao.model.ChatLog;
-import com.example.HealthyCampus.greendao.model.RequestList;
+import com.example.HealthyCampus.greendao.model.PatienInforBean;
 import com.example.HealthyCampus.greendao.model.SearchAdd;
-import com.example.HealthyCampus.greendao.model.User;
+import com.example.HealthyCampus.greendao.model.SearchBook;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.AbstractDaoSession;
@@ -22,64 +21,52 @@ import java.util.Map;
  */
 public class DaoSession extends AbstractDaoSession {
 
-    private final DaoConfig userDaoConfig;
+    private final DaoConfig patienInforBeanDaoConfig;
     private final DaoConfig searchAddDaoConfig;
-    private final DaoConfig requestListDaoConfig;
-    private final DaoConfig chatLogDaoConfig;
+    private final DaoConfig searchBookDaoConfig;
 
-    private final UserDao userDao;
+    private final PatienInforBeanDao patienInforBeanDao;
     private final SearchAddDao searchAddDao;
-    private final RequestListDao requestListDao;
-    private final ChatLogDao chatLogDao;
+    private final SearchBookDao searchBookDao;
 
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
 
-        userDaoConfig = daoConfigMap.get(UserDao.class).clone();
-        userDaoConfig.initIdentityScope(type);
+        patienInforBeanDaoConfig = daoConfigMap.get(PatienInforBeanDao.class).clone();
+        patienInforBeanDaoConfig.initIdentityScope(type);
 
         searchAddDaoConfig = daoConfigMap.get(SearchAddDao.class).clone();
         searchAddDaoConfig.initIdentityScope(type);
 
-        requestListDaoConfig = daoConfigMap.get(RequestListDao.class).clone();
-        requestListDaoConfig.initIdentityScope(type);
+        searchBookDaoConfig = daoConfigMap.get(SearchBookDao.class).clone();
+        searchBookDaoConfig.initIdentityScope(type);
 
-        chatLogDaoConfig = daoConfigMap.get(ChatLogDao.class).clone();
-        chatLogDaoConfig.initIdentityScope(type);
-
-        userDao = new UserDao(userDaoConfig, this);
+        patienInforBeanDao = new PatienInforBeanDao(patienInforBeanDaoConfig, this);
         searchAddDao = new SearchAddDao(searchAddDaoConfig, this);
-        requestListDao = new RequestListDao(requestListDaoConfig, this);
-        chatLogDao = new ChatLogDao(chatLogDaoConfig, this);
+        searchBookDao = new SearchBookDao(searchBookDaoConfig, this);
 
-        registerDao(User.class, userDao);
+        registerDao(PatienInforBean.class, patienInforBeanDao);
         registerDao(SearchAdd.class, searchAddDao);
-        registerDao(RequestList.class, requestListDao);
-        registerDao(ChatLog.class, chatLogDao);
+        registerDao(SearchBook.class, searchBookDao);
     }
     
     public void clear() {
-        userDaoConfig.clearIdentityScope();
+        patienInforBeanDaoConfig.clearIdentityScope();
         searchAddDaoConfig.clearIdentityScope();
-        requestListDaoConfig.clearIdentityScope();
-        chatLogDaoConfig.clearIdentityScope();
+        searchBookDaoConfig.clearIdentityScope();
     }
 
-    public UserDao getUserDao() {
-        return userDao;
+    public PatienInforBeanDao getPatienInforBeanDao() {
+        return patienInforBeanDao;
     }
 
     public SearchAddDao getSearchAddDao() {
         return searchAddDao;
     }
 
-    public RequestListDao getRequestListDao() {
-        return requestListDao;
-    }
-
-    public ChatLogDao getChatLogDao() {
-        return chatLogDao;
+    public SearchBookDao getSearchBookDao() {
+        return searchBookDao;
     }
 
 }

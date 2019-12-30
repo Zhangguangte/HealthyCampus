@@ -1,18 +1,26 @@
 package com.example.HealthyCampus.module.Find.Recipes;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.RecipesPagerAdapter;
+import com.example.HealthyCampus.common.data.form.MapForm;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
+import com.example.HealthyCampus.common.widgets.custom_dialog.MapDialog;
+import com.example.HealthyCampus.common.widgets.custom_dialog.RecipesDialog;
 import com.example.HealthyCampus.framework.BaseActivity;
+import com.example.HealthyCampus.module.Find.Recipes.ClassifierCamera.ClassifierCameraActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.youth.banner.transformer.AccordionTransformer;
 import com.youth.banner.transformer.CubeOutTransformer;
@@ -36,14 +44,18 @@ public class RecipesActivity extends BaseActivity<RecipesContract.View, RecipesC
     TextView tvTitle;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.ivBackground)
+    ImageView ivBackground;
     @BindView(R.id.vp_content)
     ViewPager vpContent;
     @BindView(R.id.tl_tabs)
     SlidingTabLayout tlTabs;
+    @BindView(R.id.cvClassify)
+    CardView cvClassify;
 
 
     private RecipesPagerAdapter recipesPagerAdapter;
-
+    private RecipesDialog recipesDialog;
 
     @Override
     protected void setUpContentView() {
@@ -71,15 +83,52 @@ public class RecipesActivity extends BaseActivity<RecipesContract.View, RecipesC
         finish();
     }
 
+    @OnClick(R.id.cvClassify)
+    public void cvClassify(View view) {
+        ivBackground.setVisibility(View.GONE);
+        recipesDialog.show();
+    }
+
+    private void initrecipesDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_recipe_classify, null);
+        recipesDialog = new RecipesDialog(this, dialogView, R.style.DialogMap);
+        recipesDialog.getWindow().findViewById(R.id.foodLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(RecipesActivity.this, ClassifierCameraActivity.class);
+                cameraIntent.putExtra("CODE", ClassifierCameraActivity.DISH_CODE);
+                startActivity(cameraIntent);
+                recipesDialog.dismiss();
+            }
+        });
+        recipesDialog.getWindow().findViewById(R.id.materialLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(RecipesActivity.this, ClassifierCameraActivity.class);
+                cameraIntent.putExtra("CODE", ClassifierCameraActivity.MATERAIL_CODE);
+                startActivity(cameraIntent);
+                recipesDialog.dismiss();
+            }
+        });
+        recipesDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ivBackground.setVisibility(View.VISIBLE);
+                recipesDialog.dismiss();
+            }
+        });
+    }
+
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        initrecipesDialog();
     }
 
     private void initViewPager() {
         recipesPagerAdapter = new RecipesPagerAdapter(getSupportFragmentManager(),
                 this);
-        vpContent.setOffscreenPageLimit(1);
+        vpContent.setOffscreenPageLimit(2);
         vpContent.setAdapter(recipesPagerAdapter);
         //CubeInTransformer 内旋
         //FlipHorizontalTransformer 像翻书一样

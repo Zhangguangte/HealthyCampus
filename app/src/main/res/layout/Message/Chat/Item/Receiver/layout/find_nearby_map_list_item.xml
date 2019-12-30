@@ -17,7 +17,7 @@
             android:layout_width="@dimen/icon_size_more_hundre_9"
             android:layout_height="@dimen/icon_size_more_more1"
             android:layout_gravity="center"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_marginEnd="@dimen/right_margin" />
 
         <TextView

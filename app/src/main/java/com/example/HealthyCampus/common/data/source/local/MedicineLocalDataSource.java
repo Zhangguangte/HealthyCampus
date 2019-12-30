@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.RequestForm;
-import com.example.HealthyCampus.common.data.source.callback.FriendDataSource;
 import com.example.HealthyCampus.common.data.source.callback.MedicineDataSource;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
@@ -12,7 +11,7 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 public class MedicineLocalDataSource implements MedicineDataSource {
     private static MedicineLocalDataSource INSTANCE;
 
-    public MedicineLocalDataSource(@NonNull Context context) {
+    private MedicineLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
     }
 

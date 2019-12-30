@@ -8,8 +8,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.TextView;
 
 
 @SuppressLint("AppCompatCustomView")
@@ -39,25 +37,20 @@ public class RecordTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
         mDialogManager = new DialogManager(context);
         mRecordManager = RecordManager.getInstance();
-        mRecordManager.setOnAudioStateListener(new RecordManager.OnAudioStateListener() {
-            @Override
-            public void wellPrepared() {
-                mHandler.sendEmptyMessage(MSG_AUDIO_PREPARED);
-                Log.e("RecordTextView" + "123456", "789456123" );
-            }
+        mRecordManager.setOnAudioStateListener(() -> {
+            mHandler.sendEmptyMessage(MSG_AUDIO_PREPARED);
+            Log.e("RecordTextView" + "123456", "789456123" );
         });
 
-        setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                mRecordManager.prepareAudio();
-                setText("松开 结束");
-                return false;
-            }
+        setOnLongClickListener(v -> {
+            mRecordManager.prepareAudio();
+            setText("松开 结束");
+            return false;
         });
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.e("RecordTextView" + "123456", "event.getAction():" + event.getAction());
@@ -115,11 +108,8 @@ public class RecordTextView extends AppCompatTextView {
             return true;
         }
         // 超过按钮的高度
-        if (y < -DISTANCE_Y_CANCEL || y > getHeight() + DISTANCE_Y_CANCEL) {
-            return true;
-        }
+        return y < -DISTANCE_Y_CANCEL || y > getHeight() + DISTANCE_Y_CANCEL;
 
-        return false;
     }
 
     /*

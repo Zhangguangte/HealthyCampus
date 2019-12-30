@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--食谱-->
+    <string-array name="recipes_sections">
+        <item>一周美食</item>
+        <item>推荐菜谱</item>
+        <item>功能食谱</item>
+    </string-array>
+
+    <!--食谱-->
+    <string-array name="recipes_week">
+        <item>潇洒属周日</item>
+        <item>快乐陪周一</item>
+        <item>幸运伴周二</item>
+        <item>轻松有周三</item>
+        <item>温馨携周四</item>
+        <item>愉悦同周五</item>
+        <item>休闲找周六</item>
+    </string-array>
+
+    <!--食谱-->
+    <string-array name="diagnosis_sections">
+        <item>身体部位</item>
+        <item>科室分类</item>
+    </string-array>
+
+
+    <!--健康资讯-->
+    <string-array name="health_news">
+        <item>健康资讯</item>
+        <item>大家养生</item>
+        <item>膳食生活</item>
+        <item>药膳调理</item>
+        <item>养生动态</item>
+    </string-array>
+
+
+    <!--健康资讯地址-->
+    <string-array name="health_news_urls">
+        <item>/mynews/jiankang/jiankang468</item>
+        <item>/yangsheng/mingjiayangsheng/yangsheng178</item>
+        <item>/shanshi/shanshi/yangshengshipu/yangsheng471</item>
+        <item>/zhongyi/zhongyaoyaoshan/yangsheng264</item>
+        <item>/news/yangsheng410</item>
+    </string-array>
+
+
+    <string-array name="picture_vedio">
+        <item>图片</item>
+        <item>视频</item>
+    </string-array>
+
+    <string-array name="operation">
+        <item>删除</item>
+        <item>修改</item>
+    </string-array>
+
+
+    <string-array name="delete">
+        <item>删除</item>
+    </string-array>
+
+    <string-array name="weather_city">
+        <item>北京</item>
+        <item>上海</item>
+        <item>深圳</item>
+        <item>苏州</item>
+        <item>郑州</item>
+        <item>南京</item>
+        <item>武汉</item>
+        <item>西安</item>
+        <item>天津</item>
+        <item>成都</item>
+        <item>大连</item>
+        <item>厦门</item>
+    </string-array>
+
+    <string-array name="library_host">
+        <item>清单人生</item>
+        <item>看人的艺术</item>
+        <item>中国近代史</item>
+        <item>人工智能简史</item>
+        <item>素描的诀窍</item>
+        <item>本源</item>
+    </string-array>
+
+
+
+</resources>

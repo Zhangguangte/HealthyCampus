@@ -3,8 +3,8 @@ package com.example.HealthyCampus.common.network.vo;
 import java.util.List;
 
 public class DiseaseSortListVo {
-    public String title;
-    public List<String> subName;
+    private String title;
+    private List<String> subName;
 
     public String getTitle() {
         return title;

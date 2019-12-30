@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/margin_less"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:ignore="UnusedAttribute">
+
+    <LinearLayout
+        android:id="@+id/pictureButton"
+        android:layout_width="@dimen/icon_size_more_more4"
+        android:layout_height="@dimen/icon_size_more_more4"
+        android:background="@drawable/shape_button_lines4"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_less">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_mo"
+            android:layout_height="@dimen/icon_size_mo"
+            android:layout_gravity="center"
+            android:src="@drawable/health_consult_picture_camera" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/top_margin_less_less"
+            android:text="@string/health_consult_picture_selec"
+            android:textColor="@color/text_level_4"
+            android:textSize="@dimen/text_f4" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -24,21 +24,6 @@ public class ChatItemBean {
         sentstatus = "SENDING";
     }
 
-    @Override
-    public String toString() {
-        return "ChatItemBean{" +
-                "time='" + time + '\'' +
-                ", direction=" + direction +
-                ", nickname='" + nickname + '\'' +
-                ", type='" + type + '\'' +
-                ", content='" + content + '\'' +
-                ", file_path='" + file_path + '\'' +
-                ", picture='" + picture + '\'' +
-                ", avatar='" + avatar + '\'' +
-                '}';
-    }
-
-
     public ChatItemBean(MessageListVo messageListVo, String userid) {
         type = messageListVo.getType();
         content = messageListVo.getContent();

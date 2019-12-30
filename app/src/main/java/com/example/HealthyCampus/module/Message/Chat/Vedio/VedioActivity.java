@@ -101,12 +101,9 @@ public class VedioActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        firstLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firstLayout.setVisibility(View.GONE);
-                videoView.start();
-            }
+        firstLayout.setOnClickListener(v -> {
+            firstLayout.setVisibility(View.GONE);
+            videoView.start();
         });
     }
 

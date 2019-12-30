@@ -34,7 +34,6 @@ public class RoadDetailAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Context context;
     private List<RoadDetailBean> mData = new LinkedList<>();
     private int type = 0;
-    private StringBuffer stringBuffer = new StringBuffer();
 
     public int getType() {
         return type;

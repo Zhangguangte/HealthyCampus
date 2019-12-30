@@ -3,19 +3,13 @@ package com.example.HealthyCampus.common.data.source.callback;
 import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.ChatForm;
-import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.MessageListVo;
 import com.example.HealthyCampus.common.network.vo.NoticeVo;
 import com.example.HealthyCampus.common.network.vo.UserVo;
-import com.example.HealthyCampus.greendao.model.User;
 
 import java.util.List;
-
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import rx.Observable;
 
 public interface MessageDataSource {
 
@@ -29,6 +23,36 @@ public interface MessageDataSource {
 
     void lastMessage(@NonNull MessageSearchMessage callback);   //消息界面最后一条消息
 
+    interface MessageCreateRoom {
+
+        void onDataNotAvailable(Throwable throwable) throws Exception;
+
+        void onDataAvailable(String roomId) throws Exception;
+
+    }
+
+    void createRoom(RequestForm requestForm, @NonNull MessageCreateRoom callback);   //消息界面最后一条消息
+
+    interface MessageDeleteRoom {
+
+        void onDataNotAvailable(Throwable throwable) throws Exception;
+
+        void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception;
+
+    }
+
+    void deleteRoomId(RequestForm requestForm, @NonNull MessageDeleteRoom callback);   //消息界面最后一条消息
+
+    interface MessageGetRoom {
+
+        void onDataNotAvailable(Throwable throwable) throws Exception;
+
+        void onDataAvailable(List<MessageListVo> listVos) throws Exception;
+
+    }
+
+    void getDoctorRoom(@NonNull MessageGetRoom callback);   //消息界面最后一条消息
+
     interface MessageAllChat {
 
         void onDataNotAvailable(Throwable throwable) throws Exception;
@@ -37,9 +61,9 @@ public interface MessageDataSource {
 
     }
 
-    void allChatByRoomId(@NonNull RequestForm requestForm, @NonNull MessageAllChat callback);   //查询所有消息根据房间号
+    void allChatByRoomId(RequestForm requestForm, @NonNull MessageAllChat callback);   //查询所有消息根据房间号
 
-    void allChatByUid(@NonNull RequestForm requestForm, @NonNull MessageAllChat callback);
+    void allChatByUid(RequestForm requestForm, @NonNull MessageAllChat callback);
 
     interface MessageAddContent {
 
@@ -49,7 +73,7 @@ public interface MessageDataSource {
 
     }
 
-    void insertContent(@NonNull ChatForm chatForm, @NonNull MessageAddContent callback);
+    void insertContent(ChatForm chatForm, @NonNull MessageAddContent callback);
 
     interface MessageAddCard {
 
@@ -59,9 +83,9 @@ public interface MessageDataSource {
 
     }
 
-    void insertCard(@NonNull ChatForm chatForm, @NonNull MessageAddCard callback);
+    void insertCard(ChatForm chatForm, @NonNull MessageAddCard callback);
 
-    void searchRoomid(@NonNull RequestForm requestForm, @NonNull MessageSearchRoomid callback);
+    void searchRoomid(RequestForm requestForm, @NonNull MessageSearchRoomid callback);
 
     interface MessageSearchRoomid {
 
@@ -80,7 +104,7 @@ public interface MessageDataSource {
 
     }
 
-    void upPicture(@NonNull String bitmapStr, @NonNull MessageUpPicture callback);
+    void upPicture(String bitmapStr, @NonNull MessageUpPicture callback);
 
     interface MessageAllNotice {
 
@@ -115,7 +139,7 @@ public interface MessageDataSource {
     }
 
 
-    void getAllNotice(@NonNull RequestForm requestForm,@NonNull MessageAllNotice callback);      //获得所有通知
+    void getAllNotice(@NonNull RequestForm requestForm, @NonNull MessageAllNotice callback);      //获得所有通知
 
     void clearNotice(@NonNull MessagClearNotice callback);       //清空通知
 

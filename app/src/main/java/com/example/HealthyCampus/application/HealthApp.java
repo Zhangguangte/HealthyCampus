@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.application;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.example.HealthyCampus.framework.BaseApplication;
@@ -10,6 +11,7 @@ import com.example.HealthyCampus.framework.BaseApplication;
 public class HealthApp extends BaseApplication {
 
     private static Context appContext;
+    @SuppressLint("StaticFieldLeak")
     private static HealthApp INSTANCE;
     @Override
     public void onCreate() {

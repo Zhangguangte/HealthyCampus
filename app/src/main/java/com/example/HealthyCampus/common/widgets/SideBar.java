@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.common.widgets;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,7 @@ public class SideBar extends View {
     /**
      * 重写这个方法
      */
+    @SuppressLint("DrawAllocation")
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // 获取焦点改变背景颜色.
@@ -55,7 +57,7 @@ public class SideBar extends View {
         int width = getWidth(); // 获取对应宽度
         int singleHeight = height / b.length;// 获取每一个字母的高度
 
-        DisplayMetrics dm = new DisplayMetrics();
+        DisplayMetrics dm;
         dm = getResources().getDisplayMetrics();
 
         int screenWidth = dm.widthPixels;      // 屏幕宽（像素，如：480px）
@@ -79,7 +81,7 @@ public class SideBar extends View {
             if (i == choose) {
                 paint.setColor(Color.parseColor("#ffffff"));
                 paint.setFakeBoldText(true);
-                Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
+                 Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
                         R.drawable.message_show_toast_bg);
                 canvas.drawBitmap(bitmap, width / 6, singleHeight * i + singleHeight / 5, paint);
             }
@@ -145,6 +147,6 @@ public class SideBar extends View {
      * @author coder
      */
     public interface OnTouchingLetterChangedListener {
-        public void onTouchingLetterChanged(String s);
+        void onTouchingLetterChanged(String s);
     }
 }

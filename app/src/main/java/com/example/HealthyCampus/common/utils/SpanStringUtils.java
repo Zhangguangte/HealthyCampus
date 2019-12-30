@@ -17,29 +17,26 @@ import java.util.regex.Pattern;
 
 public class SpanStringUtils {
 
-    public static final String EMOJI = "emoji";
+    private static final String EMOJI = "emoji";
     public final static String DELETE = "[edelete]";
 
     public static SpannableString getEmojiDelete(final Context context, int itemWidth) {
-        SpannableString spannableString = null;
+        SpannableString spannableString;
         Resources res = context.getResources();
         // 利用表情名字获取到对应的图片
         Integer imgRes = R.drawable.edelete;
-        if (imgRes != null) {
-            int size = itemWidth;
-            spannableString = new SpannableString(EMOJI);
-            Bitmap bitmap = BitmapFactory.decodeResource(res, imgRes);
-            Bitmap scaleBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
-            ImageSpan span = new ImageSpan(context, scaleBitmap);
-            spannableString.setSpan(span, 0, EMOJI.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
+        spannableString = new SpannableString(EMOJI);
+        Bitmap bitmap = BitmapFactory.decodeResource(res, imgRes);
+        Bitmap scaleBitmap = Bitmap.createScaledBitmap(bitmap, itemWidth, itemWidth, true);
+        ImageSpan span = new ImageSpan(context, scaleBitmap);
+        spannableString.setSpan(span, 0, EMOJI.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
 
     public static SpannableString getEmojiContent(int emotion_map_type, final Context context, int itemWidth, String name) {
         SpannableString spannableString = new SpannableString(name);
         Resources res = context.getResources();
-        String regexEmotion = "\\[(e1f){1}[0-9]+\\]";
+        String regexEmotion = "\\[(e1f){1}[0-9]+]";
 
 //        String regexEmotion = "\\[([\u4e00-\u9fa5\\w])+\\]";
         Pattern patternEmotion = Pattern.compile(regexEmotion);
@@ -51,29 +48,26 @@ public class SpanStringUtils {
             int start = matcherEmotion.start();
             // 利用表情名字获取到对应的图片
             Integer imgRes = EmojiUtils.getImgByName(emotion_map_type,key);
-            if (imgRes != null) {
-                // 压缩表情图片
-                int size = itemWidth;
-                Bitmap bitmap = BitmapFactory.decodeResource(res, imgRes);
-                Bitmap scaleBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
-                ImageSpan span = new ImageSpan(context, scaleBitmap);
-                spannableString.setSpan(span, start, start + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-        }
-        return spannableString;
-    }
-
-    public static SpannableString getTopicContent(Context context, SpannableString spannableString) {
-        String rule = "#{1}[\\S]*#{1}";
-        Pattern patternTopic = Pattern.compile(rule);
-        Matcher matcherTopic = patternTopic.matcher(spannableString);
-        while (matcherTopic.find()) {
-            String key = matcherTopic.group();
-            int start = matcherTopic.start();
-            TopicClickableSpan span = new TopicClickableSpan(key, context);
+            // 压缩表情图片
+            Bitmap bitmap = BitmapFactory.decodeResource(res, imgRes);
+            Bitmap scaleBitmap = Bitmap.createScaledBitmap(bitmap, itemWidth, itemWidth, true);
+            ImageSpan span = new ImageSpan(context, scaleBitmap);
             spannableString.setSpan(span, start, start + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return spannableString;
     }
+
+//    public static SpannableString getTopicContent(Context context, SpannableString spannableString) {
+//        String rule = "#[\\S]*#{1}";
+//        Pattern patternTopic = Pattern.compile(rule);
+//        Matcher matcherTopic = patternTopic.matcher(spannableString);
+//        while (matcherTopic.find()) {
+//            String key = matcherTopic.group();
+//            int start = matcherTopic.start();
+//            TopicClickableSpan span = new TopicClickableSpan(key, context);
+//            spannableString.setSpan(span, start, start + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        }
+//        return spannableString;
+//    }
 
 }

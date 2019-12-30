@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.common.widgets;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -8,7 +9,7 @@ public abstract class RecycleOnscrollListener extends RecyclerView.OnScrollListe
     private boolean isSlidingUp = false;
 
     @Override
-    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
         // 当不滑动时

@@ -18,6 +18,17 @@
     <string name="input_key_word">请输入关键字</string>
     <string name="input_no_empty">输入不为空</string>
     <string name="data_finish">数据到底</string>
+    <string name="database_empty_data">数据库不含该数据</string>
+    <string name="type">类型</string>
+    <string name="next">下一步</string>
+    <string name="hasnt">无</string>
+    <string name="has">有</string>
+    <string name="normal">正常</string>
+    <string name="abnormal">异常</string>
+    <string name="submit">提交</string>
+    <string name="delete">删除</string>
+    <string name="operation">操作</string>
+    <string name="sure">确定</string>
 
     <!--视频-->
     <string name="play">播放</string>
@@ -45,10 +56,12 @@
     <string name="tips_select_browser">请选择浏览器</string>
     <string name="tips_share_success">分享成功</string>
     <!--消息加载-->
-    <string name="loading_footer_tips">正在加载中...</string>
+    <string name="loading_footer_tips">正在加载中……</string>
     <string name="loading_header_tips">查看更多消息</string>
     <string name="loading_success">加载成功</string>
     <string name="loading_finish">这是底部《^ --- ^》</string>
+    <string name="loading_classify">正在分析中……</string>
+    <string name="loading_sumbit">正在提交中……</string>
 
 
     <!--校验-->
@@ -136,10 +149,68 @@
     <!--界面-->
     <string name="docotor_display_doctor_name">友医生</string>
     <string name="docotor_display_doctor_comment">专业认真  和蔼细心</string>
-    <string name="docotor_display_school_clinic">学校医务室</string>
+    <string name="docotor_display_school_clinic">健康咨询</string>
     <string name="docotor_display_clinic_slogan">追求健康从我做起</string>
     <string name="docotor_display_self_diagnosis">自助诊断</string>
     <string name="docotor_display_diagnosis_slogan">自测就医 快速解决</string>
+
+    <!--咨询-->
+    <!--界面-->
+    <string name="health_consult_doctor">咨询医生</string>
+    <string name="health_consult_picture_interrogation">图片问诊</string>
+    <string name="health_consult_picture_interrogation_intro">图文询问，解决你的小疑惑</string>
+    <string name="health_consult_emergency_call">电话急诊</string>
+    <string name="health_consult_emergency_call_intro">一对一电话咨询，实时解答</string>
+    <string name="health_consult_ask_doctor">问医生</string>
+    <string name="health_consult_ask_doctor_intro">匿名聊天，保护你的隐私</string>
+    <string name="health_consult_ask_doctor_nickname">昵称</string>
+
+    <!--咨询图片-->
+    <string name="health_consult_picture_hint_describe">请描述你的性别、年龄、症状、就诊经历</string>
+    <string name="health_consult_picture_selec">图片/视频</string>
+    <string name="health_consult_picture_private">上传的内容仅对医生可见</string>
+    <string name="health_consult_picture_apply_prescription">免费申请处方</string>
+    <string name="health_consult_picture_history">允许查看及时记录</string>
+    <string name="health_consult_picture_prescription">麻烦医生根据我的情况,提供用药建议</string>
+    <string name="health_consult_picture_describe">请至少使用10个字以上的内容来描述症状</string>
+    <string name="health_consult_picture_add_infor">添加个人信息</string>
+
+    <string name="health_consult_picture_information_select">请选择患者信息</string>
+    <string name="health_consult_picture_information_select_hint">以便医生给出更准确的治疗，信息仅医生可见</string>
+    <string name="health_consult_picture_information_add_patient">添加个人信息</string>
+    <string name="health_consult_picture_information">个人信息</string>
+    <string name="health_consult_picture_information_name">姓名</string>
+    <string name="health_consult_picture_information_id">身份证号</string>
+    <string name="health_consult_picture_information_sex">性别</string>
+    <string name="health_consult_picture_information_birthday">出生日期</string>
+    <string name="health_consult_picture_information_weight">体重（kg）</string>
+    <string name="health_consult_picture_information_allergy">过敏史</string>
+    <string name="health_consult_picture_information_medical_history">过往病史</string>
+    <string name="health_consult_picture_information_liver">肝功能</string>
+    <string name="health_consult_picture_information_renal">肾功能</string>
+    <string name="health_consult_picture_information_hint_name">请填写真实姓名</string>
+    <string name="health_consult_picture_information_hint_id">请填写身份证号</string>
+    <string name="health_consult_picture_information_hint_man">男</string>
+    <string name="health_consult_picture_information_hint_woman">女</string>
+    <string name="health_consult_picture_information_hint_birthday">请选择出生日期</string>
+    <string name="health_consult_picture_information_hint_weight">请输入体重</string>
+    <string name="health_consult_picture_information_hint_allergy">请填写过敏药物（非常重要）</string>
+    <string name="health_consult_picture_information_hint_history">请填写过往病史</string>
+    <string name="health_consult_picture_information_tip_name">请填写姓名</string>
+    <string name="health_consult_picture_information_tip_birthday">请选择出生年月</string>
+    <string name="health_consult_picture_information_tip_weight">请填写体重</string>
+
+    <!--咨询电话-->
+    <string name="health_consult_phone_tips">
+        拨打必读\n
+        1.工作时间:8:00–12:00&#160;&#160;&#160;13:00–21:30\n
+         &#160;&#160;(如遇到紧急情况,请拨打120)\n
+        2.未接通或者通过失败,请稍后再拨.如通话意外中断、医生会再次拨打您的电话.\n
+        3.请提供相关检查资料,便于医生准确判断.\n
+        4.医务室老师的回复仅为建议,重大疾病或紧急情况请及时前往医院就诊.\n
+    </string>
+    <string name="health_consult_phone_call">拨打电话</string>
+
 
     <!--用户信息-->
     <!--代码-->
@@ -186,6 +257,9 @@
     <!--界面-->
     <string name="message_chatting_press_send_voice">按住发送语音</string>
     <string name="message_chatting_recommended_friend">推荐好友</string>
+    <string name="message_chatting_map_detail">查看详情</string>
+    <string name="message_chatting_map_here">到这去</string>
+    <string name="message_chatting_map_position">位置</string>
 
     <!--名片-->
     <!--代码-->
@@ -197,19 +271,19 @@
 
     <!--发现-->
     <!--界面-->
-    <string name="find_health_information">健康资讯</string>
     <string name="find_drug_bank">药品库</string>
     <string name="find_disease_bank">疾病库</string>
     <string name="find_health_recipes">健康食谱</string>
     <string name="find_nearby_hospital_or_pharmacy">附近(医院/药店)</string>
     <string name="find_self_help_diagnosis">自助诊断</string>
+    <string name="find_self_help_hralth_news">健康资讯</string>
 
-    <!--发现-->
+    <!--我的-->
     <!--界面-->
     <string name="mine_coupon">我的优惠券</string>
     <string name="mine_wallet">我的钱包</string>
     <string name="mine_integral">我的积分</string>
-    <string name="mine_service">我的服务</string>
+    <string name="mine_service">校园服务</string>
     <string name="mine_case">电子病历</string>
     <string name="mine_history">自测历史</string>
     <string name="mine_order">药品订单</string>
@@ -241,6 +315,39 @@
     <string name="find_health_recipes_detail_carbohydrate">碳水化合物</string>
     <string name="find_health_recipes_detail_main_material">主要材料</string>
     <string name="find_health_recipes_detail_detail_ways">详细步骤</string>
+    <string name="find_health_recipes_meterial_title">食材识别</string>
+    <string name="find_health_recipes_title">菜品识别</string>
+    <string name="find_health_recipes_result">识别结果</string>
+    <string name="find_health_recipes_yesterday">前一天</string>
+    <string name="find_health_recipes_tomorrow">后一天</string>
+    <string name="find_health_recipes_breakfast">早餐</string>
+    <string name="find_health_recipes_dinner">晚餐</string>
+    <string name="find_health_recipes_lunch">午餐</string>
+
+    <!-- 识别结果-->
+    <!--界面-->
+    <string name="find_health_recipes_classify_list">信息清单</string>
+    <string name="find_health_recipes_classify_preview_weight">食用量（100克）</string>
+    <string name="find_health_recipes_classify_calorie_sum">卡路里</string>
+    <string name="find_health_recipes_classify_kilocalorie">大卡</string>
+    <string name="find_health_recipes_classify_carbohydrate">碳水化合物</string>
+    <string name="find_health_recipes_classify_gram">克</string>
+    <string name="find_health_recipes_classify_fat">脂肪</string>
+    <string name="find_health_recipes_classify_protein">蛋白质</string>
+    <string name="find_health_recipes_classify_synopsis">简介:</string>
+    <string name="find_health_recipes_classify_nutritive">营养:</string>
+    <string name="find_health_recipes_classify_effect">功效:</string>
+
+    <!-- 功能性食谱-->
+    <!--界面-->
+    <string name="find_recipes_function_cosmetology">人群&#160;&#160;</string>
+    <string name="find_recipes_function_health_preservation">&#160;&#160;疾病</string>
+    <string name="find_recipes_function_slimming">功能&#160;&#160;</string>
+    <string name="find_recipes_function_more">&#160;&#160;脏腑</string>
+    <string name="find_recipes_function_function_recipes">功能食谱</string>
+    <string name="find_recipes_function_recipes">菜肴</string>
+    <string name="find_recipes_function_calorie">大卡</string>
+
 
     <!--疾病详细-->
     <!--界面-->
@@ -299,6 +406,37 @@
     <string name="find_nearby_list_last_page">上一页</string>
     <string name="find_nearby_walk">步行</string>
     <string name="find_nearby_car">汽车</string>
+
+    <!--******************************************************************************************-->
+    <!--我的-->
+    <!--界面-->
+
+    <!--服务-->
+    <string name="mine_service_study">💻</string>
+    <string name="mine_service_study_application">学习应用</string>
+    <string name="mine_service_overall_situation">城院全景</string>
+    <string name="mine_service_level_4and6">4、6级查询</string>
+    <string name="mine_service_level_4and6_title">四六级查询</string>
+    <string name="mine_service_library">图书查询</string>
+    <string name="mine_service_life">💗</string>
+    <string name="mine_service_life_service">生活服务</string>
+    <string name="mine_service_canteen">校园食堂</string>
+    <!--快递-->
+    <string name="mine_service_my_deliver">我的快递</string>
+    <string name="mine_service_deliver_search">快递查询</string>
+    <!--天气-->
+    <string name="mine_service_weather_search">天气查询</string>
+    <string name="mine_service_weather_ai">AI天气</string>
+    <string name="mine_service_weather_preview">预报</string>
+    <string name="mine_service_weather_city">请输入城市</string>
+    <string name="mine_service_weather_city_recommend">热门城市推荐</string>
+    <!--图书馆-->
+    <string name="mine_service_library_search">大家都在搜</string>
+    <string name="mine_service_library_recent_search">最近搜索</string>
+    <string name="mine_service_library_clear_history">清除历史</string>
+    <string name="mine_service_library_detail">图书详情</string>
+    <string name="mine_service_library_introo">简介</string>
+    <string name="mine_service_library_place">藏馆信息</string>
 
 
 </resources>

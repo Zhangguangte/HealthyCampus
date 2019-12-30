@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.module.Find.Recipes.Customization.Fragment.CustomizationFragment;
+import com.example.HealthyCampus.module.Find.Recipes.Functionality.FunctionalityFragment;
 import com.example.HealthyCampus.module.Find.Recipes.Recommend.RecommendFragment;
 
 public class RecipesPagerAdapter extends FragmentPagerAdapter {
@@ -36,6 +37,9 @@ public class RecipesPagerAdapter extends FragmentPagerAdapter {
                 case 1:
                     fragments[position] = RecommendFragment.getInstance();
                     break;
+                case 2:
+                    fragments[position] = FunctionalityFragment.getInstance();
+                    break;
                 default:
                     break;
             }
@@ -57,7 +61,7 @@ public class RecipesPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void refreshUI() {
-//        ((DiagnosisListFragment) fragments[1]).refreshUI();
+//        ((HealthNewsListFragment) fragments[1]).refreshUI();
     }
 
     @Override

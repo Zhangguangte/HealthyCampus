@@ -3,7 +3,6 @@ package com.example.HealthyCampus.module.Mine.Login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -20,16 +19,13 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.data.form.LoginForm;
 import com.example.HealthyCampus.common.engine.MyTextWatcher;
-import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.MainActivity;
 import com.example.HealthyCampus.module.Mine.Register.first.RegisterActivity1;
-import com.example.HealthyCampus.service.UserService;
 
 import java.io.IOException;
 
@@ -62,7 +58,6 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
     private boolean PasswordVisible = false;
     private boolean isExistUsername = false;
     private boolean isExistPassword = false;
-    private String loginHint = "";
     private MaterialDialog progressDialog;
 
     @Override
@@ -235,6 +230,7 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
 
     @Override
     public void setLoginHint(final EditText editText, final ImageView imageView) {
+        String loginHint;
         if (!TextUtils.isEmpty(editText.getHint().toString().trim())) {
             loginHint = editText.getHint().toString().trim();
             editText.setTag(loginHint);
@@ -295,18 +291,8 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
 
     @Override
     public void focusLoginEditTextStatus() {
-        etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setLoginHint(etUsername, Username_clear);
-            }
-        });
-        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setLoginHint(etPassword, Password_clear);
-            }
-        });
+        etUsername.setOnFocusChangeListener((v, hasFocus) -> setLoginHint(etUsername, Username_clear));
+        etPassword.setOnFocusChangeListener((v, hasFocus) -> setLoginHint(etPassword, Password_clear));
     }
 
 

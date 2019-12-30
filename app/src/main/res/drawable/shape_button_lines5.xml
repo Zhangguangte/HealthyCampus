@@ -5,6 +5,6 @@
     <stroke
         android:width="@dimen/view_height_three"
         android:color="@color/interval_background"/><!-- 描边，边框宽度、颜色 -->
-    <corners android:radius="@dimen/login_input_radius" /><!-- 边角圆弧的半径 -->
+    <corners android:radius="@dimen/radius_button3" /><!-- 边角圆弧的半径 -->
 
 </shape>

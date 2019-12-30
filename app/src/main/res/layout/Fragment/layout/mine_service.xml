@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_service" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:text="@string/mine_service_study"
+                    android:textSize="@dimen/text_f0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:text="@string/mine_service_study_application"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f0" />
+            </LinearLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:columnCount="3"
+                android:rowCount="2"
+                tools:ignore="UnusedAttribute">
+
+                <LinearLayout
+                    android:id="@+id/sceneryLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_scenery" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_overall_situation"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/englishLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_level_4and6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_level_4and6"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/libraryLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_library" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_library"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:text="@string/mine_service_life"
+                    android:textSize="@dimen/text_f0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/left_margin"
+                    android:text="@string/mine_service_life_service"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f0" />
+            </LinearLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:columnCount="3"
+                android:rowCount="2"
+                tools:ignore="UnusedAttribute">
+
+                <LinearLayout
+                    android:id="@+id/canteenLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_canteen" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_canteen"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/deliverLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_delivery" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_my_deliver"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/weatherLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_weather" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_weather_search"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+            </GridLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

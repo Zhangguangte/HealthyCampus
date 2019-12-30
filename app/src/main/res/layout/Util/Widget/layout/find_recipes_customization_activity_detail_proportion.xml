@@ -18,7 +18,7 @@
             android:id="@+id/protein_circle"
             android:layout_width="@dimen/icon_size_more_more1"
             android:layout_height="@dimen/icon_size_more_more1"
-            app:arc_progress="33"
+            app:arc_progress="0"
             app:arc_bottom_text="@string/find_health_recipes_detail_protein"
             app:arc_suffix_text_size="@dimen/text_f4"
             app:arc_text_size="@dimen/text_f4" />
@@ -44,7 +44,7 @@
             android:layout_width="@dimen/icon_size_more_more1"
             android:layout_height="@dimen/icon_size_more_more1"
             app:arc_bottom_text="@string/find_health_recipes_detail_fat"
-            app:arc_progress="33"
+            app:arc_progress="0"
             app:arc_suffix_text_size="@dimen/text_f4"
             app:arc_text_size="@dimen/text_f4" />
 
@@ -71,7 +71,7 @@
             android:layout_height="@dimen/icon_size_more_more1"
             app:arc_bottom_text="@string/find_health_recipes_detail_carbohydrate"
             app:arc_suffix_text_size="@dimen/text_f4"
-            app:arc_progress="33"
+            app:arc_progress="0"
             app:arc_text_size="@dimen/text_f4" />
 
         <TextView

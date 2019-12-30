@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.Mine.User;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -137,6 +138,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initUserInfo(UserVo userVo) {
         if (null != userVo) {
@@ -163,6 +165,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
         dismissProgressDialog();
     }
 
+    @SuppressLint("SetTextI18n")
     public void initUserInfo() {
         addFriend.setVisibility(View.GONE);
         tvUsername.setText(SPHelper.getString(SPHelper.NICKNAME) + "(" + SPHelper.getString(SPHelper.ACCOUNT) + ")");

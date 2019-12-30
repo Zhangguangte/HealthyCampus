@@ -13,6 +13,7 @@ import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.ILayo
 import com.example.HealthyCampus.common.widgets.pullrecycler.layoutmanager.MyLinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -64,7 +65,7 @@ public abstract class BaseListFragment<V extends BaseView,T extends BasePresente
     }
 
     protected RecyclerView.ItemDecoration getItemDecoration() {
-        return new DividerItemDecoration(getContext(), R.drawable.list_divider);
+        return new DividerItemDecoration(Objects.requireNonNull(getContext()), R.drawable.list_divider);
     }
 
     public class ListAdapter extends BaseListAdapter {
@@ -86,11 +87,11 @@ public abstract class BaseListFragment<V extends BaseView,T extends BasePresente
 
         @Override
         public boolean isSectionHeader(int position) {
-            return BaseListFragment.this.isSectionHeader(position);
+            return BaseListFragment.this.isSectionHeader();
         }
     }
 
-    protected boolean isSectionHeader(int position) {
+    protected boolean isSectionHeader() {
         return false;
     }
 

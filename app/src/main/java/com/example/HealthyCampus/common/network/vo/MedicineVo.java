@@ -1,8 +1,8 @@
 package com.example.HealthyCampus.common.network.vo;
 
 public class MedicineVo {
-    public String typeName;
-    public String classifyName;
+    private String typeName;
+    private String classifyName;
 
 
 

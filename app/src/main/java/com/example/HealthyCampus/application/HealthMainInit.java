@@ -1,44 +1,45 @@
 package com.example.HealthyCampus.application;
 
 import android.app.Application;
+import android.app.Service;
 import android.content.Context;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.example.HealthyCampus.BuildConfig;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.data.source.local.ConsultLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.DiseaseLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.FriendLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.HomePageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.MedicineLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.MessageLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.RecipesLocalDataSource;
+import com.example.HealthyCampus.common.data.source.local.ServiceLocalDataSource;
 import com.example.HealthyCampus.common.data.source.local.UserLocalDataSource;
+import com.example.HealthyCampus.common.data.source.remote.ConsultRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.DiseaseRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.FriendRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.HomePageRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.MedicineRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.MessageRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.RecipesRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.remote.ServiceRemoteDataSource;
 import com.example.HealthyCampus.common.data.source.remote.UserRemoteDataSource;
+import com.example.HealthyCampus.common.data.source.repository.ConsultRepository;
 import com.example.HealthyCampus.common.data.source.repository.DiseaseRepository;
 import com.example.HealthyCampus.common.data.source.repository.FriendRepository;
 import com.example.HealthyCampus.common.data.source.repository.HomePageRepository;
 import com.example.HealthyCampus.common.data.source.repository.MedicineRepository;
 import com.example.HealthyCampus.common.data.source.repository.MessageRepository;
 import com.example.HealthyCampus.common.data.source.repository.RecipesRepository;
+import com.example.HealthyCampus.common.data.source.repository.ServiceRepository;
 import com.example.HealthyCampus.common.data.source.repository.UserRepository;
 import com.example.HealthyCampus.common.utils.StorageManager;
-
-
 import com.example.HealthyCampus.framework.IAppInitialization;
-import com.example.HealthyCampus.framework.helper.MySQLiteOpenHelper;
-import com.example.HealthyCampus.greendao.DaoMaster;
 import com.example.HealthyCampus.module.MainActivity;
-import com.github.yuweiguocn.library.greendao.MigrationHelper;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -51,6 +52,7 @@ import com.tencent.bugly.beta.Beta;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -61,8 +63,8 @@ import org.greenrobot.greendao.query.QueryBuilder;
 public class HealthMainInit implements IAppInitialization {
 
     private Context appContext;
-    public MySQLiteOpenHelper helper;
-    private DaoMaster master;
+//    public MySQLiteOpenHelper helper;
+//    private DaoMaster master;
 
     @Override
     public void onAppCreate(Application application) {
@@ -75,9 +77,10 @@ public class HealthMainInit implements IAppInitialization {
         initBugly();
         initUmengShare();
 //        initJPush();
-        setupDatabase(); //初始化数据库
+        initGreenDao(); //初始化数据库
         initCamera();
         initImageLoader();
+        ZXingLibrary.initDisplayOpinion(appContext);    //二维码扫描
     }
 
     private void initLog() {
@@ -98,6 +101,8 @@ public class HealthMainInit implements IAppInitialization {
         MedicineRepository.initialize(MedicineRemoteDataSource.getInstance(), MedicineLocalDataSource.getInstance(appContext));
         RecipesRepository.initialize(RecipesRemoteDataSource.getInstance(), RecipesLocalDataSource.getInstance(appContext));
         DiseaseRepository.initialize(DiseaseRemoteDataSource.getInstance(), DiseaseLocalDataSource.getInstance(appContext));
+        ConsultRepository.initialize(ConsultRemoteDataSource.getInstance(), ConsultLocalDataSource.getInstance(appContext));
+        ServiceRepository.initialize(ServiceRemoteDataSource.getInstance(), ServiceLocalDataSource.getInstance(appContext));
 
 //        NewsRepository.initialize(NewsRemoteDataSource.getInstance(), NewsLocalDataSource.getInstance(appContext));
 //        WechatRepository.initialize(WechatRemoteDataSource.getInstance(), WechatLocalDataSource.getInstance(appContext));
@@ -152,14 +157,13 @@ public class HealthMainInit implements IAppInitialization {
 ////        SPHelper.setString("JAPP_KEY", JAPP_KEY);
 //    }
 
-    private void setupDatabase() {
+    private void initGreenDao() {
         //是否开启调试
-        MigrationHelper.DEBUG = true;
         QueryBuilder.LOG_SQL = true;
         QueryBuilder.LOG_VALUES = true;
         //数据库升级
-        helper = new MySQLiteOpenHelper(appContext, "text");
-        master = new DaoMaster(helper.getWritableDb());
+//        helper = new MySQLiteOpenHelper(appContext, "health");
+//        master = new DaoMaster(helper.getWritableDb());
     }
 
     private void initCamera() {
@@ -170,7 +174,7 @@ public class HealthMainInit implements IAppInitialization {
 
     private void initImageLoader() {
         //创建默认的ImageLoader配置参数
-        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(appContext);
+//        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(appContext);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(appContext)
                 .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
                 .threadPriority(Thread.MAX_PRIORITY) // default

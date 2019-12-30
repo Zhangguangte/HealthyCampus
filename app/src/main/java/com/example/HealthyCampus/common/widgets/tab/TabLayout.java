@@ -161,7 +161,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
     }
 
     public static class Tab {
-        public int imgResId;
+        int imgResId;
         public int labelResId;
         public Class<? extends ITabFragment> targetFragmentClz;
 

@@ -63,7 +63,7 @@ public class ImageSelectAdapter extends BaseAdapter {
         if (null == convertView) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.chats_item_imageselect, parent, false);
             holder = new ImageSelectHolder();
-            holder.imageSelectView = (ImageSelectView) convertView.findViewById(R.id.imageselect_image);
+            holder.imageSelectView = convertView.findViewById(R.id.imageselect_image);
             convertView.setTag(holder);
         } else {
             holder = (ImageSelectHolder) convertView.getTag();

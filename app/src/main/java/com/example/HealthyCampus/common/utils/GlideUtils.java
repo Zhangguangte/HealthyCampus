@@ -9,6 +9,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -31,6 +32,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.HealthyCampus.R;
 
+import java.io.File;
 import java.security.MessageDigest;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -47,8 +49,7 @@ public class GlideUtils {
     private static RequestOptions medicineOptions = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.loading)
-            .error(R.mipmap.picture_lose)
-            .centerCrop();
+            .error(R.mipmap.picture_lose);
 
     private static RequestOptions diseaseOptions = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -142,7 +143,7 @@ public class GlideUtils {
 
             }
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -150,7 +151,7 @@ public class GlideUtils {
 
 
         @Override
-        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
             return circleCrop(pool, toTransform);
         }
 
@@ -165,9 +166,6 @@ public class GlideUtils {
             Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
 
             Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
-            if (result == null) {
-                result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-            }
 
             Canvas canvas = new Canvas(result);
             Paint paint = new Paint();
@@ -199,7 +197,7 @@ public class GlideUtils {
                     .load(url)
                     .apply(medicineOptions) // 参数
                     .into(view);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -226,7 +224,7 @@ public class GlideUtils {
                     .load(url)
                     .apply(blurOptions) // 参数
                     .into(view);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -244,7 +242,7 @@ public class GlideUtils {
         }
 
         @Override
-        public void updateDiskCacheKey(MessageDigest messageDigest) {
+        public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
         }
 
         /**
@@ -296,7 +294,27 @@ public class GlideUtils {
                     .load(res)
                     .apply(requestOptions) // 参数
                     .into(view);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+        }
+
+    }
+
+    public static void displaySDKImage(ImageView view, String path) {
+        if (view == null) {
+            return;
+        }
+        Context context = view.getContext();
+        if (context instanceof Activity) {
+            if (((Activity) context).isFinishing()) {
+                return;
+            }
+        }
+        try {
+            Glide.with(context)
+                    .load(Uri.fromFile(new File(path)))
+                    .apply(requestOptions) // 参数
+                    .into(view);
+        } catch (Exception ignored) {
         }
 
     }

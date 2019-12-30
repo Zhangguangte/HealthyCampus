@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
 
 public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Context context;
-    private List<RequestFriendVo> data = new ArrayList<RequestFriendVo>();
-    private boolean val = false;
+    private List<RequestFriendVo> data;
+    private boolean val;
     private onItemClick onItemClick;
 
     public void addList(List<RequestFriendVo> newList) {
@@ -57,24 +57,6 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
 
-    public MessageRecyclerAdapter(List<RequestFriendVo> data, Context context, boolean val) {
-        this.data = data;
-        this.context = context;
-        this.val = val;
-    }
-
-
-    public MessageRecyclerAdapter(List<RequestFriendVo> data, Context context, onItemClick onItemClick) {
-        this.data = data;
-        this.context = context;
-        this.onItemClick = onItemClick;
-    }
-
-
-    public MessageRecyclerAdapter(List<RequestFriendVo> data, Context context) {
-        this.data = data;
-        this.context = context;
-    }
 
 
     @Override
@@ -89,8 +71,9 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.user_new_friend_item, parent, false);
         return new ItemViewHolder(view);
 
@@ -167,19 +150,9 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
                 btnOperation.setTextColor(context.getResources().getColor(R.color.white));
                 btnOperation.setEnabled(true);
             }
-            btnOperation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.onItemButtonClick(data.get(position).getUser_id(), position, data.get(position).getNickname());
-                }
-            });
+            btnOperation.setOnClickListener(v -> onItemClick.onItemButtonClick(data.get(position).getUser_id(), position, data.get(position).getNickname()));
 
-            ItemLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.onItemViewClick(data.get(position).getRequest_user_id(), data.get(position).getNickname(), data.get(position).getContent(), data.get(position).getStatus(), position);
-                }
-            });
+            ItemLayout.setOnClickListener(v -> onItemClick.onItemViewClick(data.get(position).getRequest_user_id(), data.get(position).getNickname(), data.get(position).getContent(), data.get(position).getStatus(), position));
 
 //            Picasso.with(context)
 //                    .load(data.get(position).getHeadImg())

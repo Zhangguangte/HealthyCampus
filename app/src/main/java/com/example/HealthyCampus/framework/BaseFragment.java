@@ -3,11 +3,9 @@ package com.example.HealthyCampus.framework;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.avos.avoscloud.AVAnalytics;
-import com.example.HealthyCampus.R;
-import com.example.HealthyCampus.common.immersionbar.ImmersionBar;
 import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
+
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -61,7 +59,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.logE("BaseFragment123456", toString() + ":onCreateView");
 
         View mRootView = inflater.inflate(setContentLayout(), container, false);
@@ -70,7 +68,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //    addStatusBar();
         setUpView(view);
@@ -79,7 +77,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
         } else {
             isViewInitialized = true;
             if (savedInstanceState != null) {
-                onRestoreInstanceState(savedInstanceState);
+                onRestoreInstanceState();
             }
             if (isDataInitialized) {
                 initPresenter();
@@ -174,8 +172,6 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
 
     /**
      * 执行于setUpView之后
-     *
-     * @return
      */
     protected abstract T setPresenter();
 
@@ -208,7 +204,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     }
 
 
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState() {
         isDataInitialized = true;
     }
 
@@ -220,11 +216,11 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
     }
 
     protected void onBack() {
-        getActivity().onBackPressed();
+        Objects.requireNonNull(getActivity()).onBackPressed();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         LogUtil.logE("BaseFragment123456", toString() + ":onSaveInstanceState");
     }

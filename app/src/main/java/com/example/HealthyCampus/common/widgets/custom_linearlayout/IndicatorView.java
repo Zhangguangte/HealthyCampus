@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.common.widgets.custom_linearlayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -23,6 +24,7 @@ public class IndicatorView extends LinearLayout {
     private int indicatorCount = 0;
     private int currentIndicator = 0;
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -48,13 +50,14 @@ public class IndicatorView extends LinearLayout {
         }
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         int viewWidth = getWidth();
         int viewHeight = getHeight();
         int totalWidth = indicatorWidth * (2 * indicatorCount - 1);
 
-        Paint paint = new Paint();
+         Paint paint = new Paint();
         paint.setAntiAlias(true);
 
         if (indicatorCount > 0) {
@@ -102,7 +105,6 @@ public class IndicatorView extends LinearLayout {
 
     public int dip2Px(Context context,int dip) {
         float density = context.getApplicationContext().getResources().getDisplayMetrics().density;
-        int px = (int) (dip * density + 0.5f);
-        return px;
+        return (int) (dip * density + 0.5f);
     }
 }

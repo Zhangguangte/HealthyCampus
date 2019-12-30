@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zz"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:gravity="center"
+        android:text="@string/find_health_recipes_classify_list"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f1"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/top_margin0"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/icon_size_more_hundred_2"
+            android:layout_height="@dimen/icon_size_more_hundre_9"
+            app:cardCornerRadius="@dimen/radius_card5">
+
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="@dimen/icon_size_more_hundred_2"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_less"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFoodName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|end"
+                android:text="@string/find_health_recipes_classify_preview_weight"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/top_margin0"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/find_health_recipes_classify_synopsis"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f1" />
+
+                <TextView
+                    android:id="@+id/tvSynopsis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/find_health_recipes_classify_nutritive"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/margin_less"
+                    android:textSize="@dimen/text_f1" />
+
+                <TextView
+                    android:id="@+id/tvNutritive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+                    android:textSize="@dimen/text_f3" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/find_health_recipes_classify_effect"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/margin_less"
+                    android:textSize="@dimen/text_f1" />
+                <TextView
+                    android:id="@+id/tvEffect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+                    android:textSize="@dimen/text_f3" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardCornerRadius="@dimen/radius_card5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cyan"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:paddingTop="@dimen/padding_less"
+                android:paddingBottom="@dimen/padding_less"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/no_width"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_less"
+                    android:paddingBottom="@dimen/padding_less"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/no_hight"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="@dimen/margin_less"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/find_health_recipes_classify_calorie_sum"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_f3" />
+
+
+                        <TextView
+                            android:id="@+id/tvCalorie"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="@dimen/top_margin_less_less"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_f4" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/no_hight"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/find_health_recipes_classify_carbohydrate"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_f3" />
+
+                        <TextView
+                            android:id="@+id/tvSugar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_f4" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/view_height_one"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_less"
+                    android:layout_marginBottom="@dimen/margin_less"
+                    android:background="@color/interval_background" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/no_width"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_less"
+                    android:paddingBottom="@dimen/padding_less"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/no_hight"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="@dimen/margin_less"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/find_health_recipes_classify_fat"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_f3" />
+
+
+                        <TextView
+                            android:id="@+id/tvFat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_f4" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/no_hight"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/find_health_recipes_classify_protein"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_f3" />
+
+                        <TextView
+                            android:id="@+id/tvprotein"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_f4" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</LinearLayout>

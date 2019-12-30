@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_button_lines9"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_less3">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f2" />
+
+
+    <TextView
+        android:id="@+id/tvSex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f2" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f2" />
+
+    <ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="@dimen/icon_size_less"
+        android:layout_height="@dimen/icon_size_less"
+        android:gravity="start"
+        android:layout_gravity="center"
+        android:src="@drawable/password_clear" />
+
+
+</LinearLayout>

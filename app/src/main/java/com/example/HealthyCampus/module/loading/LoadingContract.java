@@ -12,9 +12,6 @@ import com.example.HealthyCampus.framework.BaseView;
 interface LoadingContract {
     interface View extends BaseView {
         Context getContext();
-        Animation createBackgroundAnimation();
-        Animation createLogoAnimation();
-        void jumpToMain();
     }
 
     abstract class Presenter extends BasePresenter<View> {

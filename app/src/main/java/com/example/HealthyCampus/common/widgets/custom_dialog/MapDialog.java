@@ -23,6 +23,7 @@ public class MapDialog extends Dialog {
         super(context, style);
         setContentView(layout);
         Window window = getWindow();
+        assert window != null;
         WindowManager.LayoutParams params = window.getAttributes();
         params.gravity = Gravity.CENTER;
 

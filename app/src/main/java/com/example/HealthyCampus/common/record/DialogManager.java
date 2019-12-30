@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.common.record;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -26,17 +27,16 @@ public class DialogManager {
     TextView mLable;
 
     private Context mContext;
-    private AlertDialog.Builder builder;
     private AlertDialog mDialog;
-    private View mDialogView;
 
-    public DialogManager(Context context) {
+    DialogManager(Context context) {
         this.mContext = context;
     }
 
+    @SuppressLint("InflateParams")
     public void show() {
-        builder = new AlertDialog.Builder(mContext, R.style.NobackDialog);
-        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.chats_dialog_record, null);    //录音框
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.NobackDialog);
+        View mDialogView = LayoutInflater.from(mContext).inflate(R.layout.chats_dialog_record, null);
         ButterKnife.bind(this, mDialogView);
         builder.setView(mDialogView);
         mDialog = builder.create();
@@ -52,7 +52,7 @@ public class DialogManager {
         }
     }
 
-    public void recording() {
+    void recording() {
         if (mDialog != null && mDialog.isShowing()) { //显示状态
             mIcon.setVisibility(View.VISIBLE);
             mVoice.setVisibility(View.VISIBLE);
@@ -63,7 +63,7 @@ public class DialogManager {
     }
 
     // 显示想取消的对话框
-    public void wantToCancel() {
+    void wantToCancel() {
         if (mDialog != null && mDialog.isShowing()) { //显示状态
             mIcon.setVisibility(View.VISIBLE);
             mVoice.setVisibility(View.GONE);
@@ -74,7 +74,7 @@ public class DialogManager {
     }
 
     // 显示时间过短的对话框
-    public void tooShort() {
+    void tooShort() {
         if (mDialog != null && mDialog.isShowing()) { //显示状态
             mIcon.setVisibility(View.VISIBLE);
             mVoice.setVisibility(View.GONE);

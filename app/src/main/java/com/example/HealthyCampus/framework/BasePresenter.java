@@ -11,8 +11,8 @@ import java.lang.ref.WeakReference;
  */
 public abstract class BasePresenter<T> {
 
-    protected Reference<T> mViewRef; //View接口类型的弱引用
-    protected RxManager mRxManager;
+    private Reference<T> mViewRef; //View接口类型的弱引用
+    private RxManager mRxManager;
 
     public abstract void onStart();
 
@@ -20,7 +20,7 @@ public abstract class BasePresenter<T> {
         return mViewRef.get();
     }
 
-    public void attatchView(T view) {
+    void attatchView(T view) {
         mViewRef = new WeakReference<>(view);//建立关联
         mRxManager = new RxManager();
         this.onStart();
@@ -34,7 +34,7 @@ public abstract class BasePresenter<T> {
         return mViewRef != null && mViewRef.get() != null;
     }
 
-    public void detachView() {
+    void detachView() {
         if (mViewRef != null) {
             mViewRef.clear();
             mViewRef = null;

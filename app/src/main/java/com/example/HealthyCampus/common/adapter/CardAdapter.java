@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.HealthyCampus.R;
+import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.common.widgets.card.DailyCard;
 import com.example.HealthyCampus.module.Find.Recipes.Customization.activity.CustomizationActivity;
@@ -75,13 +76,8 @@ public class CardAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             tvName.setText(mList.get(position).getTitle());
             tvSign.setText(mList.get(position).getDescription());
             Glide.with(context).load(mList.get(position).getPictureId()).into(ivPhoto);
-            CardLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, CustomizationActivity.class);
-                    intent.putExtra("week_title", mList.get(position).getTitle());
-                    context.startActivity(intent);
-                }
+            CardLayout.setOnClickListener(v -> {
+                CustomizationActivity.actionShow(context, mList.get(position).getDescription());
             });
         }
 

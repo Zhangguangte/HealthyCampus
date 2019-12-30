@@ -1,9 +1,7 @@
 package com.example.HealthyCampus.module.Mine.Register.second;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -16,15 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.data.form.RegisterFrom;
 import com.example.HealthyCampus.common.engine.MyTextWatcher;
-import com.example.HealthyCampus.common.network.ErrorHandler.RequestFailError;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.LogUtil;
@@ -65,7 +60,6 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
     LinearLayout registerPage;
 
 
-    private String RegisterHint = "";
     private boolean PasswordVisible1 = false;
     private boolean PasswordVisible2 = false;
     private boolean isExistPassword1 = false;
@@ -108,37 +102,23 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
 
     @Override
     public void focusRegisterEditTextStatus() {
-        etPwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setRegisterHint(etPwd);
-            }
-        });
+        etPwd.setOnFocusChangeListener((v, hasFocus) -> setRegisterHint(etPwd));
 
-        etRepeatPwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setRegisterHint(etRepeatPwd);
-            }
-        });
+        etRepeatPwd.setOnFocusChangeListener((v, hasFocus) -> setRegisterHint(etRepeatPwd));
 
-        etInviteCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setRegisterHint(etInviteCode);
-            }
-        });
+        etInviteCode.setOnFocusChangeListener((v, hasFocus) -> setRegisterHint(etInviteCode));
     }
 
     @Override
     public void setRegisterHint(final EditText editText) {
+        String registerHint;
         if (!TextUtils.isEmpty(editText.getHint().toString().trim())) {
-            RegisterHint = editText.getHint().toString().trim();
-            editText.setTag(RegisterHint);
+            registerHint = editText.getHint().toString().trim();
+            editText.setTag(registerHint);
             editText.setHint("");
         } else {
-            RegisterHint = editText.getTag().toString().trim();
-            editText.setHint(RegisterHint);
+            registerHint = editText.getTag().toString().trim();
+            editText.setHint(registerHint);
         }
     }
 
@@ -246,6 +226,7 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
         if (TextUtils.isEmpty(phoneNo)) {
             jumpToRegister1();
         } else {
+            assert phoneNo != null;
             phoneNo = phoneNo.substring(0, 3) + " **** " + phoneNo.substring(7);
             currentPhone.setText(phoneNo);
         }
@@ -269,19 +250,13 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.register2_register_success)
                 .setMessage("您的登录账号为:" + username + "\n\n点击进入首页.")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        jumpToMain();
-                    }
+                .setPositiveButton("确定", (dialog, which) -> {
+                    dialog.dismiss();
+                    jumpToMain();
                 })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        dialog.dismiss();
-                        jumpToMain();
-                    }
+                .setOnCancelListener(dialog -> {
+                    dialog.dismiss();
+                    jumpToMain();
                 })
                 .show();
     }

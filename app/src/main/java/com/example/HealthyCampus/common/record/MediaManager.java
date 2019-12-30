@@ -2,7 +2,6 @@ package com.example.HealthyCampus.common.record;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.util.Log;
 
 
 public class MediaManager {
@@ -12,19 +11,15 @@ public class MediaManager {
 
     /**
      * 播放音乐
-     * @param filePath
-     * @param onCompletionListener
      */
     public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
             //设置一个error监听器
-            mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                public boolean onError(MediaPlayer arg0, int arg1, int arg2) {
-                    mMediaPlayer.reset();
-                    //        Log.e("MediaManager123456","VOICE:1");
-                    return false;
-                }
+            mMediaPlayer.setOnErrorListener((arg0, arg1, arg2) -> {
+                mMediaPlayer.reset();
+                //        Log.e("MediaManager123456","VOICE:1");
+                return false;
             });
             //        Log.e("MediaManager123456","VOICE:2");
         } else {

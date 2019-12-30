@@ -15,8 +15,8 @@ import com.example.HealthyCampus.R;
 
 public abstract class BaseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    protected static final int VIEW_TYPE_LOAD_MORE_FOOTER = 100;
-    protected boolean isLoadMoreFooterShown;
+    private static final int VIEW_TYPE_LOAD_MORE_FOOTER = 100;
+    private boolean isLoadMoreFooterShown;
 
     @NonNull
     @Override
@@ -27,7 +27,7 @@ public abstract class BaseListAdapter extends RecyclerView.Adapter<BaseViewHolde
         return onCreateNormalViewHolder(parent, viewType);
     }
 
-    public void onLoadMoreStateChanged(boolean isShow) {
+    void onLoadMoreStateChanged(boolean isShow) {
         this.isLoadMoreFooterShown = isShow;
         if (isShow) {
             notifyItemInserted(getItemCount());
@@ -36,7 +36,7 @@ public abstract class BaseListAdapter extends RecyclerView.Adapter<BaseViewHolde
         }
     }
 
-    protected BaseViewHolder onCreateLoadMoreFooterViewHolder(ViewGroup parent) {
+    private BaseViewHolder onCreateLoadMoreFooterViewHolder(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.widget_pull_to_refresh_footer, parent, false);
         return new LoadMoreFooterViewHolder(view);
     }
@@ -83,7 +83,7 @@ public abstract class BaseListAdapter extends RecyclerView.Adapter<BaseViewHolde
 
     private class LoadMoreFooterViewHolder extends BaseViewHolder {
 
-        public LoadMoreFooterViewHolder(View itemView) {
+        LoadMoreFooterViewHolder(View itemView) {
             super(itemView);
         }
 

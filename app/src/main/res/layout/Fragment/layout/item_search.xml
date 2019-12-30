@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/searchLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,10 +20,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="@dimen/margin_mo"
+            android:layout_marginEnd="@dimen/margin_mo"
             android:background="@null"
-            android:drawableLeft="@mipmap/icon_search"
+            android:drawableStart="@mipmap/icon_search_grey"
             android:hint="@string/user_add_friend_search"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:drawablePadding="@dimen/padding_less"
             android:padding="@dimen/padding_less2"
             android:singleLine="true"
             android:textSize="@dimen/text_f2" />
@@ -31,9 +35,9 @@
             android:id="@+id/ivClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/right_margin"
+            android:layout_marginEnd="@dimen/right_margin"
             android:src="@drawable/password_clear"
             android:visibility="gone" />
     </RelativeLayout>
@@ -43,7 +47,7 @@
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginRight="@dimen/right_margin"
+        android:layout_marginEnd="@dimen/right_margin"
         android:background="@drawable/shape_button_lines"
         android:gravity="center"
         android:text="@string/user_add_friend_search"
@@ -56,13 +60,14 @@
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginRight="@dimen/right_margin"
+        android:layout_marginEnd="@dimen/right_margin"
         android:background="@null"
         android:elevation="1dp"
         android:gravity="center"
         android:text="@string/umeng_socialize_cancel_btn_str"
         android:textColor="@color/black"
         android:textSize="@dimen/text_f2"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="UnusedAttribute" />
 
 </LinearLayout>

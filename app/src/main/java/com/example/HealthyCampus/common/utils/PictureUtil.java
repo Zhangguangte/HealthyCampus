@@ -3,8 +3,6 @@ package com.example.HealthyCampus.common.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -25,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -39,9 +36,6 @@ public class PictureUtil {
 
     /**
      * String 转 Bitmap
-     *
-     * @param imgString 图片的String
-     * @return
      */
     public static Bitmap stringToBitmap(String imgString) {
         if (!imgString.equals("")) {
@@ -52,8 +46,7 @@ public class PictureUtil {
             ByteArrayInputStream byInput = new ByteArrayInputStream(byteArray);
 
             // 生成bitmap
-            Bitmap bitmap = BitmapFactory.decodeStream(byInput);
-            return bitmap;
+            return BitmapFactory.decodeStream(byInput);
         }
         return null;
     }
@@ -64,15 +57,14 @@ public class PictureUtil {
      * @return
      */
     public static String bitmapToString(Bitmap bitmap) {
-        Log.e("ChatPresenter123456", "bitmap" + bitmap);
+        Log.e("ClassifierCame123456", "bitmap" + bitmap);
         // 第一步 将bitmap 转换成字节数组输出流
         ByteArrayOutputStream byStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, byStream);
 
         // 利用base64将字节数组转换成字符串
         byte[] byteArray = byStream.toByteArray();
-        String imgString = new String(Base64.encodeToString(byteArray, Base64.DEFAULT));
-        return imgString;
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     /**
@@ -83,7 +75,7 @@ public class PictureUtil {
             return null;
         }
         InputStream is = null;
-        byte[] data = null;
+        byte[] data;
         String result = null;
         try {
             is = new FileInputStream(path);
@@ -126,11 +118,10 @@ public class PictureUtil {
     /**
      * Bitmap存储到本地
      */
-    public static boolean saveBmpToSd(Bitmap bm, String filename, int quantity, boolean recyle) {
+    public static void saveBmpToSd(Bitmap bm, String filename, int quantity, boolean recyle) {
         String dir = ConstantValues.PICTURE_PATH;
-        boolean ret = true;
         if (bm == null) {
-            return false;
+            return;
         }
         Log.e("PictureUtil" + "123456", "1");
         File dirPath = new File(dir);
@@ -153,7 +144,6 @@ public class PictureUtil {
                 bm.compress(Bitmap.CompressFormat.PNG, quantity, outStream);
         } catch (Exception e) {
             e.printStackTrace();
-            ret = false;
         } finally {
             Log.e("PictureUtil" + "123456", "5");
             try {
@@ -163,10 +153,8 @@ public class PictureUtil {
             }
             if (recyle && !bm.isRecycled()) {
                 bm.recycle();
-                bm = null;
             }
         }
-        return ret;
     }
 
 
@@ -191,12 +179,9 @@ public class PictureUtil {
     }
 
     public static MultipartBody.Part upImage2() {
-
         File file = new File("/storage/emulated/0/Pictures/Screenshots/S00101-081433.jpg");
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
-        return body;
+        return MultipartBody.Part.createFormData("imageFile", file.getName(), requestFile);
     }
 
     public static Bitmap blurBitmap(Context context, Bitmap image, float blurRadius) {        // 计算图片缩小后的长宽
@@ -222,8 +207,7 @@ public class PictureUtil {
         view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         view.buildDrawingCache();
-        Bitmap bitmap = view.getDrawingCache();
-        return bitmap;
+        return view.getDrawingCache();
     }
 
 }

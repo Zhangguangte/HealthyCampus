@@ -1,26 +1,21 @@
 package com.example.HealthyCampus.common.utils;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Environment;
 
 import java.io.File;
 
 public class StorageManager {
 
+    @SuppressLint("StaticFieldLeak")
     private static StorageManager INSTANCE;
     private Context mContext;
 
-    private BroadcastReceiver mExternalStorageReceiver;
-
     private boolean mExternalStorageAvailable = false;
-    private boolean mExternalStorageWriteable = false;
-
-    private File mRoot;
-    private File mImageDir;
 
     public synchronized static StorageManager getInstance() {
         if (INSTANCE == null) {
@@ -38,20 +33,15 @@ public class StorageManager {
     private void updateExternalStorageState() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
-            mExternalStorageAvailable = mExternalStorageWriteable = true;
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
             mExternalStorageAvailable = true;
-            mExternalStorageWriteable = false;
-        } else {
-            mExternalStorageAvailable = mExternalStorageWriteable = false;
-        }
+        } else mExternalStorageAvailable = Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
     }
 
-    public void startWatching() {
+    private void startWatching() {
         if (mContext == null) {
             return;
         }
-        mExternalStorageReceiver = new BroadcastReceiver() {
+        BroadcastReceiver mExternalStorageReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 updateExternalStorageState();
@@ -66,10 +56,9 @@ public class StorageManager {
 
     public void setRootDir(String rootDir) {
         File f = getCacheDir(mContext, rootDir);
-        if (f != null && !f.exists()) {
+        if (!f.exists()) {
             f.mkdir();
         }
-        this.mRoot = f;
     }
 
     private File getCacheDir(Context context, String uniqueName) {
@@ -78,7 +67,7 @@ public class StorageManager {
         return new File(cachePath + File.separator + uniqueName);
     }
 
-    public boolean isExternalStorageAvailable() {
+    private boolean isExternalStorageAvailable() {
         return mExternalStorageAvailable;
     }
 
@@ -88,10 +77,7 @@ public class StorageManager {
      * @return
      */
     private boolean isExternalStorageRemovable() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            return Environment.isExternalStorageRemovable();
-        }
-        return true;
+        return Environment.isExternalStorageRemovable();
     }
 
     private File getExternalStorageDir() {
@@ -101,10 +87,7 @@ public class StorageManager {
 
     public void setImageDir(String rootDir) {
         File f = getCacheDir(mContext, rootDir);
-        if (f != null || !f.exists()) {
-            f.mkdir();
-        }
-        this.mImageDir = f;
+        f.mkdir();
     }
 
 

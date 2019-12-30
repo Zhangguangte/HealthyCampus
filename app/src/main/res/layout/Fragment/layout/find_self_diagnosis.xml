@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_diagnosis" />
+    <include layout="@layout/title_bar_search" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvDisease"

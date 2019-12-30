@@ -12,6 +12,7 @@ import com.example.HealthyCampus.framework.ITabFragment;
 import com.example.HealthyCampus.module.Find.Diagnosis.DiagnosisActivity;
 import com.example.HealthyCampus.module.Find.Drug_Bank.DrugBankActivity;
 import com.example.HealthyCampus.module.Find.Nearby.NearbyActivity;
+import com.example.HealthyCampus.module.Find.News.HealthNewsActivity;
 import com.example.HealthyCampus.module.Find.Recipes.RecipesActivity;
 import com.example.HealthyCampus.module.Message.New_friend.NewFriendActivity;
 
@@ -79,6 +80,13 @@ public class FindFragment extends BaseFragment<FindContract.View, FindContract.P
     public void NearbyLayout(View view) {
         startActivity(new Intent(mActivity, NearbyActivity.class));
         mActivity.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+    }
+
+    //附近药店
+    @OnClick(R.id.HealthNewsLayout)
+    public void HealthNewsLayout(View view) {
+        startActivity(new Intent(mActivity, HealthNewsActivity.class));
+        mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
     }
 
 

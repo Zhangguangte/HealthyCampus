@@ -1,28 +1,28 @@
 package com.example.HealthyCampus.common.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.TypedValue;
 
 public class DensityUtil {
+    @SuppressLint("StaticFieldLeak")
     private static DensityUtil instance;
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
 
-    public static final DensityUtil getInstance(Context context) {
+    public static DensityUtil getInstance() {
         if (instance == null) {
-            instance = getInstance(context);
+            instance = getInstance();
         }
         return instance;
     }
 
     public DensityUtil(Context context) {
-        this.context = context;
+        DensityUtil.context = context;
     }
 
     /**
      * Dp转PX
-     *
-     * @param size
-     * @return
      */
     public static int getDip2Px(int size) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, context.getResources().getDisplayMetrics());
@@ -30,8 +30,7 @@ public class DensityUtil {
 
     public static int dip2Px(int dip,Context context) {
         float density = context.getApplicationContext().getResources().getDisplayMetrics().density;
-        int px = (int) (dip * density + 0.5f);
-        return px;
+        return (int) (dip * density + 0.5f);
     }
 
 }

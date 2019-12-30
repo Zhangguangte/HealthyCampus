@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/radius_button"/>
+    <solid android:color="@null"/>
+    <stroke android:width="@dimen/view_height_one"
+        android:color="@color/library_level_press" />
+    <padding android:left="@dimen/margin_less" android:right="@dimen/margin_less" android:top="@dimen/margin_less" android:bottom="@dimen/margin_less"/>
+</shape>

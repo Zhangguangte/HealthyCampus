@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/title"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding"
+        layout="@layout/title_bar_consult" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="@dimen/margin"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding"
+        android:text="@string/health_consult_phone_tips"
+        android:textColor="@color/text_level_3"
+        android:textSize="@dimen/text_f2" />
+
+    <TextView
+        android:id="@+id/tvCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_button_lines2"
+        android:gravity="center"
+        android:padding="@dimen/padding"
+        android:text="@string/health_consult_phone_call"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_f1" />
+
+
+</RelativeLayout>

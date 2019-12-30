@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public final class FileUtils {
 
@@ -35,7 +36,7 @@ public final class FileUtils {
      * @param filePath The path of file.
      * @return the file
      */
-    public static File getFileByPath(final String filePath) {
+    private static File getFileByPath(final String filePath) {
         return isSpace(filePath) ? null : new File(filePath);
     }
 
@@ -1263,6 +1264,10 @@ public final class FileUtils {
         if (isSpace(filePath)) return "";
         int lastSep = filePath.lastIndexOf(".");
         return lastSep == -1 ? filePath : filePath.substring(lastSep);
+    }
+
+    public static String getFileName() {
+        return UUID.randomUUID().toString().substring(5) + ".jpg";
     }
 
 }

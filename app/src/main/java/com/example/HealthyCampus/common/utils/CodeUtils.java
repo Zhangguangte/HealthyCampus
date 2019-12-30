@@ -74,15 +74,13 @@ public class CodeUtils {
 
     /**
      * 得到图片中的验证码字符串
-     *
-     * @return
      */
     public String getCode() {
         return code.toLowerCase();
     }
 
     //生成验证码
-    public String createCode() {
+    private String createCode() {
         mBuilder.delete(0, mBuilder.length()); //使用之前首先清空内容
         for (int i = 0; i < DEFAULT_CODE_LENGTH; i++) {
             mBuilder.append(CHARS[mRandom.nextInt(CHARS.length)]);

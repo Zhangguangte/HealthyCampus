@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/press_item_radius_color" />
+            <stroke android:width="@dimen/view_height_one" android:color="@color/press_item_radius_border_color" />
+            <corners android:bottomLeftRadius="@dimen/radius_button4" android:bottomRightRadius="@dimen/radius_button4" android:topLeftRadius="@dimen/radius_button4" android:topRightRadius="@dimen/radius_button4" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/white" />
+            <stroke android:width="@dimen/view_height_one" android:color="@color/press_item_radius_border_color" />
+            <corners android:bottomLeftRadius="@dimen/radius_button4" android:bottomRightRadius="@dimen/radius_button4" android:topLeftRadius="@dimen/radius_button4" android:topRightRadius="@dimen/radius_button4" />
+        </shape>
+    </item>
+</selector>

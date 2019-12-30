@@ -67,9 +67,8 @@ import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -87,6 +86,7 @@ import static com.example.HealthyCampus.common.constants.ConstantValues.TAKE_PHO
 import static com.example.HealthyCampus.common.constants.ConstantValues.USER_CARD;
 import static com.example.HealthyCampus.common.helper.SPHelper.IS_EXCEED_SCEEN;
 import static com.example.HealthyCampus.common.helper.SPHelper.SOFT_INPUT_HEIGHT;
+import static com.example.HealthyCampus.common.record.MediaManager.release;
 
 
 public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.Presenter> implements ChatContract.View, ChatRecyclerAdapter.onItemClick, SwipeRefreshLayout.OnRefreshListener {
@@ -156,7 +156,6 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     //聊天数据、适配器
     private List<ChatItemBean> chatItemBeanList = new ArrayList<>();
     private ChatRecyclerAdapter mAdapter;
-    private MediaManager mediaManager;      //用于activity结束时
     private Integer row = 0;                //加载数量
     private LinearLayoutManager manager;
 
@@ -190,16 +189,19 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     @SuppressLint("ClickableViewAccessibility")
     private void initRecyclerView() {
         //音频
-        mediaManager = new MediaManager();
+        //用于activity结束时
+        MediaManager mediaManager = new MediaManager();
         mSwipeRefresh.setOnRefreshListener(this);
-        mAdapter = new ChatRecyclerAdapter(chatItemBeanList, HealthApp.getAppContext(), mediaManager, this);
+        mAdapter = new ChatRecyclerAdapter(chatItemBeanList, HealthApp.getAppContext(), this);
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 //        manager.setStackFromEnd(true);
         rvChatting.setLayoutManager(manager);
         rvChatting.setHasFixedSize(true);
         rvChatting.setItemViewCacheSize(15);
-        ((SimpleItemAnimator) rvChatting.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((SimpleItemAnimator) Objects.requireNonNull(rvChatting.getItemAnimator())).setSupportsChangeAnimations(false);
         rvChatting.setAdapter(mAdapter);
+        if (null == getIntent().getExtras())
+            finish();
         roomId = getIntent().getExtras().getString("roomid");
         if (TextUtils.isEmpty(roomId)) {
             String uid = getIntent().getExtras().getString("uid");
@@ -209,26 +211,20 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             loadMoreMessage();
         }
         //聊天RecycleView布局变化的监听，数据项移动到底部，解决底部布局的遮盖
-        rvChatting.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        rvChatting.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
 
-                if (oldBottom != -1 && oldBottom > bottom) {
-                    rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
-                }
+            if (oldBottom != -1 && oldBottom > bottom) {
+                rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
             }
         });
 
         //点击空白区域关闭键盘
-        rvChatting.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                hideBottomLayout(false);
-                hideSoftInput();
-                etChat.clearFocus();
-                ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
-                return false;
-            }
+        rvChatting.setOnTouchListener((view, motionEvent) -> {
+            hideBottomLayout(false);
+            hideSoftInput();
+            etChat.clearFocus();
+            ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
+            return false;
         });
 
     }
@@ -236,7 +232,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     @Override
     protected void onPause() {
         super.onPause();
-        mediaManager.release();
+        release();
     }
 
     //设置房间号
@@ -287,7 +283,8 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
                 if (response.code == 1006) {
                     mSwipeRefresh.setEnabled(false);
-                    ToastUtil.show(this, "无数据");
+                    if (1 != row)
+                        ToastUtil.show(this, "无数据");
                 } else {
                     ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
                 }
@@ -338,22 +335,15 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             }
         });
 
-        etChat.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP && mBottomLayout.isShown()) {
-                    lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
-                    hideBottomLayout(true);//隐藏表情布局，显示软件盘
-                    ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
-                    etChat.postDelayed(new Runnable() {      //软件盘显示后，释放内容高度
-                        @Override
-                        public void run() {
-                            unlockContentHeightDelayed();
-                        }
-                    }, 200L);
-                }
-                return false;
+        etChat.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP && mBottomLayout.isShown()) {
+                lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
+                //软件盘显示后，释放内容高度
+                etChat.postDelayed(this::unlockContentHeightDelayed, 200L);
             }
+            return false;
         });
         etChat.setFocusable(true);
         etChat.setFocusableInTouchMode(true);
@@ -373,12 +363,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
      * 释放被锁定的内容高度
      */
     public void unlockContentHeightDelayed() {
-        etChat.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ((LinearLayout.LayoutParams) mContentLayout.getLayoutParams()).weight = 1.0F;
-            }
-        }, 200L);
+        etChat.postDelayed(() -> ((LinearLayout.LayoutParams) mContentLayout.getLayoutParams()).weight = 1.0F, 200L);
     }
 
     //更多和发送显隐
@@ -394,7 +379,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     }
 
     private void setCustomActionBar() {
-        tvTitle.setText(getIntent().getExtras().getString("anotherName"));
+        tvTitle.setText(Objects.requireNonNull(getIntent().getExtras()).getString("anotherName"));
         ivBack.setVisibility(View.VISIBLE);
     }
 
@@ -424,37 +409,16 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
 
     private void initEmoji() {
         vpEmoji.setAdapter(new EmojiPagerAdapter(this, etChat));
-        ivEmoji.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mEmojiLayout.isShown()) {      //判断表情布局是否已经显示
-                    if (mPlusLayout.isShown()) {
-                        showEmotionLayout();
-                        hideMoreLayout();
-                        hideAudioButton();
-                        return;
-                    }
-                } else if (mEmojiLayout.isShown() && !mPlusLayout.isShown()) {
-                    ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
-                    if (mBottomLayout.isShown()) {
-                        lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
-                        hideBottomLayout(true);//隐藏表情布局，显示软件盘
-                        unlockContentHeightDelayed();//软件盘显示后，释放内容高度
-                    } else {
-                        if (isSoftInputShown()) {//同上
-                            lockContentHeight();
-                            showBottomLayout();
-                            unlockContentHeightDelayed();
-                        } else {
-                            showBottomLayout();//两者都没显示，直接显示表情布局
-                        }
-                    }
+        ivEmoji.setOnClickListener(v -> {
+            if (!mEmojiLayout.isShown()) {      //判断表情布局是否已经显示
+                if (mPlusLayout.isShown()) {
+                    showEmotionLayout();
+                    hideMoreLayout();
+                    hideAudioButton();
                     return;
                 }
-                showEmotionLayout();
-                hideMoreLayout();
-                hideAudioButton();
-//                Log.e("ChatActivity" + "123456", "mBottomLayout.isShown():" + mBottomLayout.isShown());
+            } else if (mEmojiLayout.isShown() && !mPlusLayout.isShown()) {
+                ivEmoji.setImageResource(R.mipmap.chatting_emoticons);
                 if (mBottomLayout.isShown()) {
                     lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
                     hideBottomLayout(true);//隐藏表情布局，显示软件盘
@@ -468,9 +432,27 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                         showBottomLayout();//两者都没显示，直接显示表情布局
                     }
                 }
+                return;
+            }
+            showEmotionLayout();
+            hideMoreLayout();
+            hideAudioButton();
+//                Log.e("ChatActivity" + "123456", "mBottomLayout.isShown():" + mBottomLayout.isShown());
+            if (mBottomLayout.isShown()) {
+                lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                unlockContentHeightDelayed();//软件盘显示后，释放内容高度
+            } else {
+                if (isSoftInputShown()) {//同上
+                    lockContentHeight();
+                    showBottomLayout();
+                    unlockContentHeightDelayed();
+                } else {
+                    showBottomLayout();//两者都没显示，直接显示表情布局
+                }
             }
         });
-        indEmoji.setIndicatorCount(vpEmoji.getAdapter().getCount());
+        indEmoji.setIndicatorCount(Objects.requireNonNull(vpEmoji.getAdapter()).getCount());
         indEmoji.setCurrentIndicator(vpEmoji.getCurrentItem());
         vpEmoji.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -499,23 +481,19 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
 
     /**
      * 获取软件盘的高度
-     *
-     * @return
      */
     private int getSupportSoftInputHeight() {
         Rect r = new Rect();
         getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
         int screenHeight = getWindow().getDecorView().getRootView().getHeight();          //获取屏幕的高度
         int softInputHeight = screenHeight - r.bottom;              //计算软件盘的高度
-        /**
-         * 某些Android版本下，没有显示软键盘时减出来的高度总是144，而不是零，
-         * 这是因为高度是包括了虚拟按键栏的(例如华为系列)，所以在API Level高于20时，
-         * 我们需要减去底部虚拟按键栏的高度（如果有的话）
+        /*
+          某些Android版本下，没有显示软键盘时减出来的高度总是144，而不是零，
+          这是因为高度是包括了虚拟按键栏的(例如华为系列)，所以在API Level高于20时，
+          我们需要减去底部虚拟按键栏的高度（如果有的话）
          */
         if (Build.VERSION.SDK_INT >= 20) {
             softInputHeight = softInputHeight - getSoftButtonsBarHeight();
-        }
-        if (softInputHeight < 0) {
         }
         //存一份到本地
         if (softInputHeight > 0) {
@@ -551,7 +529,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     @OnClick(R.id.btnSend)
     public void sendMessage(View view) {
         String str = etChat.getText().toString().trim();
-        if (str == null || "".equals(str)) {
+        if (TextUtils.isEmpty(str)) {
             Toast.makeText(ChatActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -562,28 +540,22 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
 
     //初始化录音
     private void initRecord() {
-        mRecordText.setOnFinishRecordListener(new RecordTextView.OnFinishRecordListener() {
-            @Override
-            public void onFinish(int time, String filePath) {
-                addRecordItem(time + "\"", filePath);
-                mPresenter.insertContent(time + "\"", roomId, filePath, "RECORD", chatItemBeanList.size() - 1);
-            }
+        mRecordText.setOnFinishRecordListener((time, filePath) -> {
+            addRecordItem(time + "\"", filePath);
+            mPresenter.insertContent(time + "\"", roomId, filePath, "RECORD", chatItemBeanList.size() - 1);
         });
 
-        ivRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //如果录音按钮显示
-                if (mRecordText.isShown()) {
-                    hideAudioButton();
-                    etChat.requestFocus();
-                    showSoftInput();
-                } else {
-                    etChat.clearFocus();
-                    showAudioButton();
-                    hideEmotionLayout();
-                    hideMoreLayout();
-                }
+        ivRecord.setOnClickListener(view -> {
+            //如果录音按钮显示
+            if (mRecordText.isShown()) {
+                hideAudioButton();
+                etChat.requestFocus();
+                showSoftInput();
+            } else {
+                etChat.clearFocus();
+                showAudioButton();
+                hideEmotionLayout();
+                hideMoreLayout();
             }
         });
 
@@ -624,92 +596,59 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
 
     public void showSoftInput() {
         etChat.requestFocus();
-        etChat.post(new Runnable() {
-            @Override
-            public void run() {
-                mImm.showSoftInput(etChat, 0);
-            }
-        });
+        etChat.post(() -> mImm.showSoftInput(etChat, 0));
     }
 
     private void initPlus() {
-        ivPlus.setOnClickListener(new View.OnClickListener() {      //更多图标点击
-            @Override
-            public void onClick(View v) {
-                etChat.clearFocus();
-                hideAudioButton();
-                if (mBottomLayout.isShown()) {          //底部布局，是否显示
-                    if (mPlusLayout.isShown()) {        //底部布局的更多布局，是否显示
-                        lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
-                        hideBottomLayout(true);//隐藏表情布局，显示软件盘
-                        unlockContentHeightDelayed();//软件盘显示后，释放内容高度
-                    } else {                              //底部布局的表情布局，是否显示
-                        showMoreLayout();
-                        hideEmotionLayout();
-                    }
+        //更多图标点击
+        ivPlus.setOnClickListener(v -> {
+            etChat.clearFocus();
+            hideAudioButton();
+            if (mBottomLayout.isShown()) {          //底部布局，是否显示
+                if (mPlusLayout.isShown()) {        //底部布局的更多布局，是否显示
+                    lockContentHeight();//显示软件盘时，锁定内容高度，防止跳闪。
+                    hideBottomLayout(true);//隐藏表情布局，显示软件盘
+                    unlockContentHeightDelayed();//软件盘显示后，释放内容高度
+                } else {                              //底部布局的表情布局，是否显示
+                    showMoreLayout();
+                    hideEmotionLayout();
+                }
+            } else {
+                if (isSoftInputShown()) {//同上
+                    hideEmotionLayout();
+                    showMoreLayout();
+                    lockContentHeight();
+                    showBottomLayout();
+                    unlockContentHeightDelayed();
                 } else {
-                    if (isSoftInputShown()) {//同上
-                        hideEmotionLayout();
-                        showMoreLayout();
-                        lockContentHeight();
-                        showBottomLayout();
-                        unlockContentHeightDelayed();
-                    } else {
-                        showMoreLayout();
-                        hideEmotionLayout();
-                        showBottomLayout();//两者都没显示，直接显示表情布局
-                    }
+                    showMoreLayout();
+                    hideEmotionLayout();
+                    showBottomLayout();//两者都没显示，直接显示表情布局
                 }
             }
         });
         //照相机
-        CameraLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePhoto(v);
-            }
-        });
+        CameraLayout.setOnClickListener(v -> takePhoto());
         //相册
-        AlbumLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pickPhoto(v);
-            }
-        });
+        AlbumLayout.setOnClickListener(this::pickPhoto);
         //定位
-        PositionLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(ChatActivity.this, MapActivity.class), MAP_LOCATION);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
+        PositionLayout.setOnClickListener(v -> {
+            startActivityForResult(new Intent(ChatActivity.this, MapActivity.class), MAP_LOCATION);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
         //名片
-        CardLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChatActivity.this, AddressListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("chat", true);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, USER_CARD);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
+        CardLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(ChatActivity.this, AddressListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("chat", true);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, USER_CARD);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
         //文件
-        FileLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FunctionUtils.openFile(ChatActivity.this, PICK_FILE);
-            }
-        });
+        FileLayout.setOnClickListener(v -> FunctionUtils.openFile(ChatActivity.this, PICK_FILE));
         //视频
-        VedioLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FunctionUtils.openGalleryAudio(ChatActivity.this, PICK_VEDIO);
-            }
-        });
+        VedioLayout.setOnClickListener(v -> FunctionUtils.openGalleryAudio(ChatActivity.this, PICK_VEDIO));
     }
 
     private void showMoreLayout() {
@@ -727,7 +666,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     }
 
     //拍照
-    private void takePhoto(View view) {
+    private void takePhoto() {
         String dirStr = PICTURE_PATH;
         File dir = new File(dirStr);
         if (!dir.exists()) {
@@ -790,7 +729,7 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                 break;
             case MAP_LOCATION:      //定位回调
                 if (RESULT_OK == resultCode) {
-                    MapForm mapForm = (MapForm) data.getParcelableExtra("map");
+                    MapForm mapForm = data.getParcelableExtra("map");
                     stringBuilder.setLength(0);
                     addMapItem(mapForm);
                     mPresenter.insertContent(mapForm.address, roomId, stringBuilder.append(mapForm.latLng.latitude + "," + mapForm.latLng.longitude).toString(), "MAP", chatItemBeanList.size() - 1);
@@ -817,8 +756,8 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             case PICK_VEDIO:   //视频
                 // 视频选择结果回调
                 List<LocalMedia> selectListVideo = PictureSelector.obtainMultipleResult(data);
-                StringBuffer urlpath = new StringBuffer();
-                StringBuffer vedioName = new StringBuffer();
+                StringBuilder urlpath = new StringBuilder();
+                StringBuilder vedioName = new StringBuilder();
                 for (LocalMedia media : selectListVideo) {
 //                    LogUtil.logE("ChatActivity" + "123456", "获取视频路径成功:" + media.getPath());
                     //数据重置

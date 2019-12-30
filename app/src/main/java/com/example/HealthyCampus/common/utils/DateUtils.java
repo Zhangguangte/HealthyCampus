@@ -1,24 +1,29 @@
 package com.example.HealthyCampus.common.utils;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @SuppressLint("ConstantLocale")
 public class DateUtils {
     private static final String[] weeks = {"日", "一", "二", "三", "四", "五", "六"};
+    public static final String[] weekStr = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
     public static final DateFormat FORMAT_HP_yyyyMMdd = new SimpleDateFormat("yyyy年MM月dd日", Locale.getDefault());
-    public static final DateFormat FORMAT_yyyyMMdd = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-    public static final DateFormat FORMAT_yyyy_MM_dd_H_m_s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private static final DateFormat FORMAT_yyyyMMdd = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+    private static final DateFormat FORMAT_yyyy_MM_dd_H_m_s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     public static final DateFormat FORMAT_MM_dd = new SimpleDateFormat("MM月dd日", Locale.getDefault());
 
-    public static final DateFormat FORMAT_yyyy_MM_dd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private static final DateFormat FORMAT_yyyy_MM_dd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
 
     /**
@@ -28,8 +33,7 @@ public class DateUtils {
      */
     public static String getStringDate() {
         Date currentTime = new Date();
-        String dateString = FORMAT_yyyy_MM_dd_H_m_s.format(currentTime);
-        return dateString;
+        return FORMAT_yyyy_MM_dd_H_m_s.format(currentTime);
     }
 
 
@@ -54,7 +58,7 @@ public class DateUtils {
      * @param format 时间格式
      * @return Date类型
      */
-    public static Date string2Date(final String time, final DateFormat format) {
+    private static Date string2Date(final String time, final DateFormat format) {
         try {
             return format.parse(time);
         } catch (ParseException e) {
@@ -72,24 +76,55 @@ public class DateUtils {
      * @param format 时间格式
      * @return 时间字符串
      */
-    public static String date2String(final Date date, final DateFormat format) {
+    private static String date2String(final Date date, final DateFormat format) {
         return format.format(date);
     }
 
     /**
      * 获取星期几
-     *
-     * @return
      */
     public static int getWeek() {
         Calendar calendar = Calendar.getInstance();
-        int week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        return week;
+        return calendar.get(Calendar.DAY_OF_WEEK) - 1;
+    }
+
+    //由出生日期获得年龄
+    public static int getAge(String birthstr) {
+
+        Date birthDay = string2Date(birthstr, FORMAT_yyyy_MM_dd);
+
+        Calendar cal = Calendar.getInstance();
+        if (cal.before(birthDay)) {
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);
+        int monthNow = cal.get(Calendar.MONTH);
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(birthDay);
+
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+        int age = yearNow - yearBirth;
+
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                if (dayOfMonthNow < dayOfMonthBirth) age--;
+            } else {
+                age--;
+            }
+        }
+        return age;
     }
 
     public static String arab2Chinese(int number) {
         return weeks[number % 7];
     }
 
+    public static int chines2Number(String day) {
+        return Arrays.asList(weekStr).indexOf(day);
+    }
 
 }

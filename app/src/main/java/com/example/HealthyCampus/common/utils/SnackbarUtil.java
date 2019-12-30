@@ -10,16 +10,9 @@ import com.example.HealthyCampus.R;
 public class SnackbarUtil {
 
     public static final int Info = 1;
-    public static final int Confirm = 2;
-    public static final int Warning = 3;
-    public static final int Alert = 4;
-
-
-    //ARGB
-    public static int red = 0xfff44336;
-    public static int green = 0xFF53DC92;
-    public static int blue = 0xff2196f3;
-    public static int orange = 0xffffc107;
+    private static final int Confirm = 2;
+    private static final int Warning = 3;
+    private static final int Alert = 4;
 
 
     /**
@@ -42,11 +35,9 @@ public class SnackbarUtil {
      * @param snackbar
      * @param backgroundColor
      */
-    public static void setSnackbarColor(Snackbar snackbar, int backgroundColor) {
+    private static void setSnackbarColor(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if (view != null) {
-            view.setBackgroundColor(backgroundColor);
-        }
+        view.setBackgroundColor(backgroundColor);
     }
 
     /**
@@ -56,16 +47,19 @@ public class SnackbarUtil {
      * @param messageColor
      * @param backgroundColor
      */
-    public static void setSnackbarColor(Snackbar snackbar, int messageColor, int backgroundColor) {
+    private static void setSnackbarColor(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if (view != null) {
-            view.setBackgroundColor(backgroundColor);
-            ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
-        }
+        view.setBackgroundColor(backgroundColor);
+        ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
     }
 
     //选择预设类型
-    public static void switchType(Snackbar snackbar, int type) {
+    private static void switchType(Snackbar snackbar, int type) {
+        int green = 0xFF53DC92;
+        int blue = 0xff2196f3;
+        int orange = 0xffffc107;
+        //ARGB
+        int red = 0xfff44336;
         switch (type) {
             case Info:
                 setSnackbarColor(snackbar, green);

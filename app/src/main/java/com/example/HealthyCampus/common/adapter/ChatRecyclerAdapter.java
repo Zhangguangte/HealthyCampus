@@ -1,10 +1,10 @@
 package com.example.HealthyCampus.common.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.data.Bean.ChatItemBean;
 import com.example.HealthyCampus.common.record.MediaManager;
-import com.example.HealthyCampus.common.utils.FunctionUtils;
 import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.utils.SpanStringUtils;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
@@ -39,12 +38,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.HealthyCampus.common.constants.ConstantValues.FILE_SDK_PATH;
 import static com.example.HealthyCampus.common.constants.ConstantValues.PICTURE_SDK_PATH;
 import static com.example.HealthyCampus.common.constants.ConstantValues.PICTURE_SHOW_PATH;
 import static com.example.HealthyCampus.common.constants.ConstantValues.VEDIO_SDK_PATH;
 import static com.example.HealthyCampus.common.constants.ConstantValues.VEDIO_SHOW_THUMBNAIL_PATH;
-import static com.example.HealthyCampus.common.constants.ConstantValues.VIEW_HEALTH_BANNER;
 
 /**
  * 聊天项适配器
@@ -54,12 +51,11 @@ import static com.example.HealthyCampus.common.constants.ConstantValues.VIEW_HEA
 public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private Context context;
-    private List<ChatItemBean> mData = new ArrayList<ChatItemBean>();
+    private List<ChatItemBean> mData;
     private boolean finish = true, isPause = false;
     private int pos = -1;
     private ImageView audioImage;
     private onItemClick onItemClick;
-    private MediaManager mediaManager;
 
     //文本
     private static final int SEND_TEXT = R.layout.chats_item_sender_text;
@@ -83,23 +79,15 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final int SEND_MAP = R.layout.chats_item_sender_map;
     private static final int RECEIVE_MAP = R.layout.chats_item_receiver_map;
 
-    public void addList(List<ChatItemBean> newList) {
-        if (null != newList && newList.size() > 0) {
-            mData.addAll(newList);
-            notifyDataSetChanged();
-        }
-    }
-
     public void clear() {
         mData.clear();
         notifyDataSetChanged();
     }
 
 
-    public ChatRecyclerAdapter(List<ChatItemBean> data, Context context, MediaManager mediaManager, onItemClick onItemClick) {
+    public ChatRecyclerAdapter(List<ChatItemBean> data, Context context, onItemClick onItemClick) {
         this.mData = data;
         this.context = context;
-        this.mediaManager = mediaManager;
         this.onItemClick = onItemClick;
     }
 
@@ -132,8 +120,9 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return 0;
     }
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(viewType, parent, false);
 //        if (viewType == SEND_TEXT || viewType == SEND_PICTURE || viewType == SEND_RECORD || viewType == SEND_MAP || viewType == SEND_VIDEO || viewType == SEND_FILE)
 //            new ProcessViewHolder(view);
@@ -216,9 +205,8 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     class PictureItemViewHolder extends BaseViewHolder {       //图片
         @BindView(R.id.chat_picture)
         ImageView chat_picture;
-        private String url = "";
 
-        public PictureItemViewHolder(View view) {
+        PictureItemViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -226,7 +214,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBindViewHolder(int position) {
             chat_picture.setOnClickListener(v -> {
-                ArrayList<String> images = new ArrayList<String>();                //以后修改为可以滑动，预先加载
+                ArrayList<String> images = new ArrayList<>();                //以后修改为可以滑动，预先加载
                 images.add(mData.get(position).getFile_path());
                 Intent intent = new Intent(context, ImageActivity.class);
                 intent.putExtra("curPosition", 0);
@@ -289,44 +277,38 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBindViewHolder(int position) {
             tvDuration.setText(mData.get(position).getContent());
-            ivAudio.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (TextUtils.isEmpty(mData.get(position).getFile_path())) {
-                        onItemClick.showToast("录音资源丢失");
-                        return;
-                    }
-                    if (!finish && pos == position) {
-                        if (isPause) {
-                            ivAudio.setImageResource(R.drawable.media_play);
-                            AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
-                            animation.start();
-                            mediaManager.resume();
-                            isPause = false;
-                        } else {
-                            mediaManager.pause();
-                            audioImage.setImageDrawable(context.getResources().getDrawable(R.drawable.sound_2));
-                            isPause = true;
-                        }
-                    } else {
-                        mediaManager.release();
-                        mediaManager.playSound(mData.get(position).getFile_path(), new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                ivAudio.setImageDrawable(context.getResources().getDrawable(R.drawable.sound_all));
-                                finish = true;
-                                isPause = false;
-                            }
-                        });
+            ivAudio.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(mData.get(position).getFile_path())) {
+                    onItemClick.showToast("录音资源丢失");
+                    return;
+                }
+                if (!finish && pos == position) {
+                    if (isPause) {
                         ivAudio.setImageResource(R.drawable.media_play);
                         AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
                         animation.start();
-                        audioImage = ivAudio;
-                        finish = false;
-                        pos = position;
+                        MediaManager.resume();
+                        isPause = false;
+                    } else {
+                        MediaManager.pause();
+                        audioImage.setImageDrawable(context.getResources().getDrawable(R.drawable.sound_2));
+                        isPause = true;
                     }
-
+                } else {
+                    MediaManager.release();
+                    MediaManager.playSound(mData.get(position).getFile_path(), mp -> {
+                        ivAudio.setImageDrawable(context.getResources().getDrawable(R.drawable.sound_all));
+                        finish = true;
+                        isPause = false;
+                    });
+                    ivAudio.setImageResource(R.drawable.media_play);
+                    AnimationDrawable animation = (AnimationDrawable) ivAudio.getDrawable();
+                    animation.start();
+                    audioImage = ivAudio;
+                    finish = false;
+                    pos = position;
                 }
+
             });
         }
 
@@ -352,18 +334,8 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBindViewHolder(int position) {
             tvAddress.setText(mData.get(position).getContent());
-            btnMap.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.btnDetail(mData.get(position).getContent(), mData.get(position).getFile_path());
-                }
-            });
-            btnDetail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.btnMap(mData.get(position).getContent(), mData.get(position).getFile_path());
-                }
-            });
+            btnMap.setOnClickListener(v -> onItemClick.btnDetail(mData.get(position).getContent(), mData.get(position).getFile_path()));
+            btnDetail.setOnClickListener(v -> onItemClick.btnMap(mData.get(position).getContent(), mData.get(position).getFile_path()));
         }
 
         @Override
@@ -387,18 +359,17 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             ButterKnife.bind(this, view);
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(int position) {
             String[] data = mData.get(position).getContent().split(",");    //数据分别为：0：头像；1：用户名；2：用户账号
             recommendName.setText(data[1]);
             recommendAccount.setText("账号:" + data[2]);
-            cardLayout.setOnClickListener(new View.OnClickListener() {  //跳转至用户信息界面
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, UserInformationActivity.class);
-                    intent.putExtra("ACCOUNT", data[2]);
-                    context.startActivity(intent);
-                }
+            //跳转至用户信息界面
+            cardLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(context, UserInformationActivity.class);
+                intent.putExtra("ACCOUNT", data[2]);
+                context.startActivity(intent);
             });
         }
 
@@ -425,18 +396,15 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             LogUtil.logE("ChatRecyclerAda" + "123456", "mData.get(position).getFile_path():" + mData.get(position).getFile_path());
 
 
-            contentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    File file = new File(VEDIO_SDK_PATH + mData.get(position).getFile_path());
-                    if (!file.exists()) {
-                        onItemClick.showToast("视频资源丢失");
-                    } else {
-                        Intent intent = new Intent(context, VedioActivity.class);
-                        intent.putExtra("FILEPATH", mData.get(position).getFile_path());
-                        intent.putExtra("CONTENTPATH", mData.get(position).getContent());
-                        context.startActivity(intent);
-                    }
+            contentLayout.setOnClickListener(v -> {
+                File file = new File(VEDIO_SDK_PATH + mData.get(position).getFile_path());
+                if (!file.exists()) {
+                    onItemClick.showToast("视频资源丢失");
+                } else {
+                    Intent intent = new Intent(context, VedioActivity.class);
+                    intent.putExtra("FILEPATH", mData.get(position).getFile_path());
+                    intent.putExtra("CONTENTPATH", mData.get(position).getContent());
+                    context.startActivity(intent);
                 }
             });
 
@@ -468,17 +436,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             String[] data = mData.get(position).getContent().split(",");    //数据分别为：0：文件名；1：文件大小
             tvfileName.setText(data[0]);
             tvFileSize.setText(data[1]);
-            ivFileIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.openFile(mData.get(position).getFile_path());
-                }
-            });
-
-//            File file = new File(PICTURE_SDK_PATH + mData.get(position).getFile_path());
-//            if(file.exists())
-//                FilePickerActivity.onFileClicked();
-
+            ivFileIcon.setOnClickListener(v -> onItemClick.openFile(mData.get(position).getFile_path()));
 
         }
 
@@ -488,12 +446,13 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     class ImagesCount extends AsyncTask<String, Void, ArrayList<String>> {
         private int cur = 0;
 
         @Override
         protected ArrayList<String> doInBackground(String... params) {
-            ArrayList<String> images = new ArrayList<String>();
+            ArrayList<String> images = new ArrayList<>();
             images.add(params[0]);
             return images;
         }

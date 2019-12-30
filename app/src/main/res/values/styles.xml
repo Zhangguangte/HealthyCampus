@@ -66,7 +66,20 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 遮罩层 -->
         <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowFullscreen">true</item>
+
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+
     </style>
+
+
+    <!-- dialog theme. -->
+    <style name="DialogAnimations" parent="android:Animation">
+        <item name="android:windowEnterAnimation" >@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation" >@anim/dialog_exit_anim</item>
+    </style>
+
 
     <!--默认样式-->
     <style name="picture_my_style" parent="Theme.AppCompat.Light.DarkActionBar">

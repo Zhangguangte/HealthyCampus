@@ -2,23 +2,16 @@ package com.example.HealthyCampus.common.data.source.remote;
 
 import android.support.annotation.NonNull;
 
-import com.example.HealthyCampus.common.data.model.BeforeNewsBean;
-import com.example.HealthyCampus.common.data.model.HomePageArticleBean;
-import com.example.HealthyCampus.common.data.model.LatestNewsBean;
 import com.example.HealthyCampus.common.data.source.callback.HomePageDataSource;
 import com.example.HealthyCampus.common.network.NetworkManager;
 
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class HomePageRemoteDataSource implements HomePageDataSource {
 
     private static HomePageRemoteDataSource INSTANCE = null;
 
-
-    public HomePageRemoteDataSource() {
-    }
 
     public static HomePageRemoteDataSource getInstance(){
         if(INSTANCE==null)
@@ -32,23 +25,17 @@ public class HomePageRemoteDataSource implements HomePageDataSource {
     public void getLatestNews(@NonNull final GetLatestNewsCallback callback) {
         NetworkManager.getHomePageApi().getHomePageLatestNews().subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(new Action1<LatestNewsBean>() {
-                    @Override
-                    public void call(LatestNewsBean LatestNewsBean) {
-                        try {
-                            callback.onLatestNewsLoaded(LatestNewsBean);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .subscribe(LatestNewsBean -> {
+                    try {
+                        callback.onLatestNewsLoaded(LatestNewsBean);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            callback.onDataNotAvailable();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -57,23 +44,17 @@ public class HomePageRemoteDataSource implements HomePageDataSource {
     public void getBeforeNews(@NonNull String date, @NonNull final GetBeforeNewsCallback callback) {
         NetworkManager.getHomePageApi().getHomePageBeforeNews(date).subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(new Action1<BeforeNewsBean>() {
-                    @Override
-                    public void call(BeforeNewsBean bean) {
-                        try {
-                            callback.onBeforeNewsLoaded(bean);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .subscribe(bean -> {
+                    try {
+                        callback.onBeforeNewsLoaded(bean);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            callback.onDataNotAvailable();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }
@@ -82,23 +63,17 @@ public class HomePageRemoteDataSource implements HomePageDataSource {
     public void getArticle(@NonNull String articleId, @NonNull final GetArticleCallback callback) {
         NetworkManager.getHomePageApi().getHomePageArticle(articleId).subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(new Action1<HomePageArticleBean>() {
-                    @Override
-                    public void call(HomePageArticleBean articleBean) {
-                        try {
-                            callback.onLatestNewsLoaded(articleBean);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .subscribe(articleBean -> {
+                    try {
+                        callback.onLatestNewsLoaded(articleBean);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        try {
-                            callback.onDataNotAvailable();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
     }

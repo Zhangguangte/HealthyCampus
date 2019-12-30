@@ -15,6 +15,8 @@ import com.example.HealthyCampus.module.Message.New_friend.NewFriendActivity;
 import com.example.HealthyCampus.module.Message.List.MessageListFragment;
 import com.example.HealthyCampus.module.Message.Notice.NoticeActivity;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -77,21 +79,21 @@ public class MessageFragment extends BaseFragment<MessageContract.View, MessageC
     public void mailList(View view) {
         Intent intent = new Intent(mActivity, AddressListActivity.class);
         startActivity(intent);
-        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @OnClick(R.id.newFriend)
     public void newFriend(View view) {
         Intent intent = new Intent(mActivity, NewFriendActivity.class);
         startActivity(intent);
-        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @OnClick(R.id.ivNotice)
     public void ivNotice(View view) {
         Intent intent = new Intent(mActivity, NoticeActivity.class);
         startActivity(intent);
-        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
 }

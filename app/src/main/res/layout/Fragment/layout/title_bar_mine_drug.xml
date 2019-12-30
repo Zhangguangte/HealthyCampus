@@ -17,7 +17,6 @@
             android:layout_height="@dimen/icon_size_less"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin"
-            android:visibility="gone"
             android:src="@mipmap/icon_back" />
 
         <TextView
@@ -38,8 +37,7 @@
             android:layout_height="@dimen/icon_size_le"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/right_margin"
-            android:textColor="@color/white"
-            android:visibility="gone"
+            android:src="@drawable/find_drug_scan"
             android:textSize="@dimen/text_f0" />
 
         <TextView

@@ -101,7 +101,6 @@ public class DiseaseDetailActivity extends BaseActivity<DiseaseDetailContract.Vi
     LinearLayout recommendDrugLayout;
 
     private String emptyString;
-    private int columnPosition = 0;
 
     private AnimationDrawable loadAnimation;
 
@@ -272,9 +271,10 @@ public class DiseaseDetailActivity extends BaseActivity<DiseaseDetailContract.Vi
         }
     }
 
+    @SuppressLint("InflateParams")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void generateView(String string, String diOrSy) {
-        columnPosition = 0;
+        int columnPosition = 0;
         LinearLayout linearLayout;
         if (diOrSy.equals("recommend")) {
             linearLayout = recommendDrugLayout;
@@ -285,9 +285,9 @@ public class DiseaseDetailActivity extends BaseActivity<DiseaseDetailContract.Vi
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         String[] strings = string.split(",");
-        StringBuffer item = new StringBuffer();
+        StringBuilder item = new StringBuilder();
 
-        List<TextView> childTvs = new ArrayList<TextView>();
+        List<TextView> childTvs = new ArrayList<>();
         for (String item1 : strings) {
             item.setLength(0);
             item.append("【" + item1 + "】");
@@ -307,26 +307,23 @@ public class DiseaseDetailActivity extends BaseActivity<DiseaseDetailContract.Vi
                 columnPosition += 3;
             }
 
-            TextView childTv = (TextView) LayoutInflater.from(this).inflate(R.layout.find_self_diagnosis_detail_item_button, null);
+          TextView childTv = (TextView) LayoutInflater.from(this).inflate(R.layout.find_self_diagnosis_detail_item_button, null);
             childTv.setText(item.toString());
-            childTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            childTv.setOnClickListener(v -> {
 
-                    if (emptyString.equals(item1)) {
-                        ToastUtil.show(getContext(), emptyString);
-                    } else if (diOrSy.equals("disease")) {
-                        Intent intent = new Intent(DiseaseDetailActivity.this, DiseaseDetailActivity.class);
-                        intent.putExtra("NAME", item1);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-                    } else {
-                        Intent intent = new Intent(DiseaseDetailActivity.this, MedicineDetailActivity.class);
-                        intent.putExtra("NAME", item1);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                if (emptyString.equals(item1)) {
+                    ToastUtil.show(getContext(), emptyString);
+                } else if (diOrSy.equals("disease")) {
+                    Intent intent = new Intent(DiseaseDetailActivity.this, DiseaseDetailActivity.class);
+                    intent.putExtra("NAME", item1);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                } else {
+                    Intent intent = new Intent(DiseaseDetailActivity.this, MedicineDetailActivity.class);
+                    intent.putExtra("NAME", item1);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
 
-                    }
                 }
             });
             childTv.setLayoutParams(itemParams);
@@ -371,7 +368,6 @@ public class DiseaseDetailActivity extends BaseActivity<DiseaseDetailContract.Vi
             }
             linearLayout.addView(horizLL);
             childTvs.clear();
-            columnPosition = 0;
         }
     }
 

@@ -1,9 +1,6 @@
 package com.example.HealthyCampus.common.network.vo;
 
-import com.example.HealthyCampus.dao.Friend;
-
 import java.io.Serializable;
-import java.util.Date;
 
 
 public class UserVo implements Serializable {

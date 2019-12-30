@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridView;
 
-
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.ImageSelectAdapter;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
@@ -48,80 +47,72 @@ public class ImageSelectorActivity extends AppCompatActivity {
     }
 
     private void initImmersionBar() {
-        StatusBarUtil.setStatusBarColor(this,R.color.background_page);
+        StatusBarUtil.setStatusBarColor(this, R.color.background_page);
     }
 
     private void initView() {
         WindowManager manager = this.getWindowManager();
         DisplayMetrics outMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(outMetrics);
-        int numColumns = 4;
+//        int numColumns = 4;
         // 获取屏幕宽度
-        int screenWidth = outMetrics.widthPixels;
+//        int screenWidth = outMetrics.widthPixels;
         // item的间距
         int padding = (int) (outMetrics.density * 3);
         // 动态计算item的宽度和高度
-        int itemWidth = (screenWidth - padding * numColumns) / numColumns;
+//        int itemWidth = (screenWidth - padding * numColumns) / numColumns;
 
-        mGridView = (GridView) findViewById(R.id.imageselect_grid);
+        mGridView = findViewById(R.id.imageselect_grid);
         mGridView.setNumColumns(4);
         mGridView.setPadding(padding, 0, padding, 0);
         mGridView.setHorizontalSpacing(padding);
         mGridView.setVerticalSpacing(padding);
 
         View cancel = findViewById(R.id.imageselect_cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSelect.clear();
-                finish();
-            }
+        cancel.setOnClickListener(v -> {
+            mSelect.clear();
+            finish();
         });
 
         final View finish = findViewById(R.id.imageselect_finish);
-        finish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putStringArrayListExtra("images", mSelect);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
+        finish.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putStringArrayListExtra("images", mSelect);
+            setResult(RESULT_OK, intent);
+            finish();
         });
 
     }
 
-    private void initImages(){
-        mImages = new ArrayList<String>();
-        mSelect = new ArrayList<String>();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+    @SuppressLint("Recycle")
+    private void initImages() {
+        mImages = new ArrayList<>();
+        mSelect = new ArrayList<>();
+        new Thread(() -> {
 
-                Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                ContentResolver mContentResolver = getContentResolver();
-                // 只查询jpeg和png的图片
-                Cursor cursor = mContentResolver.query(mImageUri, null,
-                        MediaStore.Images.Media.MIME_TYPE + "=? or "
-                                + MediaStore.Images.Media.MIME_TYPE + "=?",
-                        new String[] { "image/jpeg", "image/png" },
-                        MediaStore.Images.Media.DATE_MODIFIED);
-                Log.e("ImageSelectorActivi123", "\nmImageUri: "+mImageUri+"\ncursor:"+cursor.getCount()  );
-                while (null != cursor && cursor.moveToNext()) {
-                    // 获取图片的路径
-                    String path = cursor.getString(cursor
-                            .getColumnIndex(MediaStore.Images.Media.DATA));
-                    String imageUrl = ImageDownloader.Scheme.FILE.wrap(path);
+            Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            ContentResolver mContentResolver = getContentResolver();
+            // 只查询jpeg和png的图片
+            Cursor cursor = mContentResolver.query(mImageUri, null,
+                    MediaStore.Images.Media.MIME_TYPE + "=? or "
+                            + MediaStore.Images.Media.MIME_TYPE + "=?",
+                    new String[]{"image/jpeg", "image/png"},
+                    MediaStore.Images.Media.DATE_MODIFIED);
+            assert cursor != null;
+            Log.e("ImageSelectorActivi123", "\nmImageUri: " + mImageUri + "\ncursor:" + cursor.getCount());
+            while (cursor.moveToNext()) {
+                // 获取图片的路径
+                String path = cursor.getString(cursor
+                        .getColumnIndex(MediaStore.Images.Media.DATA));
+                String imageUrl = ImageDownloader.Scheme.FILE.wrap(path);
 //                    Log.d("DEBUG", "imageUrl = "+imageUrl);
-                    Log.e("ImageSelectorActivi123", "\npath: "+path+"\nimageUrl:"+imageUrl);
-                    mImages.add(imageUrl);
-                }
-                mHandler.sendEmptyMessage(MSG_FINISH);
+                Log.e("ImageSelectorActivi123", "\npath: " + path + "\nimageUrl:" + imageUrl);
+                mImages.add(imageUrl);
             }
+            mHandler.sendEmptyMessage(MSG_FINISH);
         }).start();
 
     }
-
 
 
     @SuppressLint("HandlerLeak")
@@ -131,8 +122,8 @@ public class ImageSelectorActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_FINISH:
-                    Log.e("123456", "images size = "+mImages.size());
-                    mGridView.setAdapter(new ImageSelectAdapter(ImageSelectorActivity.this, mImages ,mSelect, mMaxNum));
+                    Log.e("123456", "images size = " + mImages.size());
+                    mGridView.setAdapter(new ImageSelectAdapter(ImageSelectorActivity.this, mImages, mSelect, mMaxNum));
                     break;
                 default:
                     break;

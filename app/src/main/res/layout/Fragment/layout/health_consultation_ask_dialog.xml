@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivChange"
+        android:layout_width="@dimen/icon_size_le"
+        android:layout_height="@dimen/icon_size_le"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin"
+        android:src="@drawable/health_consult_dice" />
+
+    <EditText
+        android:id="@+id/etNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin"
+        android:maxLength="7"
+        android:singleLine="true"
+        android:background="@null"
+        android:hint="@string/health_consult_ask_doctor_nickname"
+        android:textColor="@color/black"
+        android:textColorHint="@color/text_level_3"
+        android:textSize="@dimen/text_f2" />
+
+</LinearLayout>

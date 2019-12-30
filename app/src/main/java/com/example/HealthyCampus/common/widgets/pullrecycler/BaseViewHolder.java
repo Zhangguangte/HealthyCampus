@@ -12,12 +12,7 @@ import java.text.ParseException;
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder(View itemView) {
         super(itemView);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClick(v, getAdapterPosition());
-            }
-        });
+        itemView.setOnClickListener(v -> onItemClick(v, getAdapterPosition()));
     }
 
     public abstract void onBindViewHolder(int position);

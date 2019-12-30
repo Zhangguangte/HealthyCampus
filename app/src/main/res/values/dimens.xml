@@ -3,8 +3,11 @@
 
     <!--Common-->
     <dimen name="no_width">0dp</dimen>
+    <dimen name="no_hight">0dp</dimen>
 
     <!--Text-->
+    <dimen name="text_big_4">40sp</dimen>
+    <dimen name="text_f_3">26sp</dimen>
     <dimen name="text_f_2">24sp</dimen>
     <dimen name="text_f0">20sp</dimen>
     <dimen name="text_f1">18sp</dimen>
@@ -54,10 +57,12 @@
     <!--Radius-->
     <dimen name="radius_button">5dp</dimen>
     <dimen name="radius_button3">15dp</dimen>
+    <dimen name="radius_button4">20dp</dimen>
     <dimen name="radius_card">30dp</dimen>
     <dimen name="radius_card4">15dp</dimen>
     <dimen name="radius_card5">10dp</dimen>
     <dimen name="radius_card6">5dp</dimen>
+    <dimen name="radius_card100">100dp</dimen>
 
     <dimen name="login_input_radius">20dp</dimen>
     <dimen name="register_input_radius">15dp</dimen>

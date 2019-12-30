@@ -25,6 +25,8 @@ interface MedicineDetailContract {
 
         protected abstract void getMedicineDetailByName(String name);
 
+        protected abstract void getMedicineDetailByCode(String code);
+
 
     }
 }

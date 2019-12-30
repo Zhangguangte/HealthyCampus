@@ -41,6 +41,21 @@ public class MessageRepository implements MessageDataSource {
     }
 
     @Override
+    public void getDoctorRoom(@NonNull MessageGetRoom callback) {
+        mMessageRemoteDataSource.getDoctorRoom(callback);
+    }
+
+    @Override
+    public void createRoom(RequestForm requestForm, @NonNull MessageCreateRoom callback) {
+        mMessageRemoteDataSource.createRoom(requestForm, callback);
+    }
+
+    @Override
+    public void deleteRoomId(RequestForm requestForm, @NonNull MessageDeleteRoom callback) {
+        mMessageRemoteDataSource.deleteRoomId(requestForm, callback);
+    }
+
+    @Override
     public void allChatByRoomId(RequestForm requestForm, @NonNull MessageAllChat callback) {
         mMessageRemoteDataSource.allChatByRoomId(requestForm, callback);
     }
@@ -56,7 +71,7 @@ public class MessageRepository implements MessageDataSource {
     }
 
     @Override
-    public void insertContent(ChatForm chatForm, @NonNull MessageAddContent callback) {
+    public void insertContent(@NonNull ChatForm chatForm, @NonNull MessageAddContent callback) {
         mMessageRemoteDataSource.insertContent(chatForm, callback);
     }
 
@@ -71,8 +86,8 @@ public class MessageRepository implements MessageDataSource {
     }
 
     @Override
-    public void getAllNotice(@NonNull RequestForm requestForm,@NonNull MessageAllNotice callback) {
-        mMessageRemoteDataSource.getAllNotice(requestForm,callback);
+    public void getAllNotice(@NonNull RequestForm requestForm, @NonNull MessageAllNotice callback) {
+        mMessageRemoteDataSource.getAllNotice(requestForm, callback);
     }
 
     @Override

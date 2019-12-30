@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.Message.Chat.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,7 +32,6 @@ import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
-import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
@@ -49,6 +49,7 @@ import com.example.HealthyCampus.framework.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -110,7 +111,6 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     private boolean isFirst = true;     //第一次加载
 
     private int row = 1;
-    private LatLngBounds.Builder newbounds;
 
     @Override
     protected void setUpContentView() {
@@ -282,10 +282,11 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
                 isFirst = false;
             }
         } else {
+            assert aMapLocation != null;
             String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
             stringBuilder.setLength(0);
             currentAddress.setText(stringBuilder.toString());
-            ToastUtil.show(getContext(),errText);
+            ToastUtil.show(getContext(), errText);
             Log.e("MapActivity123456:", errText);
         }
         dismissProgressDialog();
@@ -308,6 +309,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
                 btnCanel.setVisibility(s.toString().length() > 0 ? View.GONE : View.VISIBLE);
                 btnSearch.setVisibility(s.toString().length() > 0 ? View.VISIBLE : View.GONE);
                 poiSearch();
+                softInputHide();
             }
 
             @Override
@@ -316,20 +318,14 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
             }
         });
 
-        etSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                showMapHidden(hasFocus);
-                showSearchHidden(etSearch.getText().toString().trim().length() <= 0);
-            }
+        etSearch.setOnFocusChangeListener((v, hasFocus) -> {
+            showMapHidden(hasFocus);
+            showSearchHidden(etSearch.getText().toString().trim().length() <= 0);
         });
 
-        etSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMapHidden(true);
-                showSearchHidden(etSearch.getText().toString().trim().length() <= 0);
-            }
+        etSearch.setOnClickListener(v -> {
+            showMapHidden(true);
+            showSearchHidden(etSearch.getText().toString().trim().length() <= 0);
         });
 
     }
@@ -367,6 +363,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
 
     private void showOrExitList() {
         showMapHidden(false);
+        etSearch.setText("");
         ivClear.setVisibility(View.GONE);
         btnSearch.setVisibility(View.GONE);
         btnCanel.setVisibility(View.GONE);
@@ -523,34 +520,29 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
     }
 
     //目标定位和当前定位的选择框
+    @SuppressLint("InflateParams")
     public void showDialog() {
         View view = getLayoutInflater().inflate(R.layout.dialog_map, null);
         MapDialog mapDialog = new MapDialog(this, view, R.style.DialogMap);
-        mapDialog.getWindow().findViewById(R.id.ivNow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MapForm mapForm = new MapForm(currentAddress.getText().toString().trim(), nowlatLng);
-                Intent intent = getIntent();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("map", mapForm);
-                intent.putExtras(bundle);
-                setResult(RESULT_OK, intent);
-                mapDialog.dismiss();
-                finish();
-            }
+        Objects.requireNonNull(mapDialog.getWindow()).findViewById(R.id.ivNow).setOnClickListener(v -> {
+            MapForm mapForm = new MapForm(currentAddress.getText().toString().trim(), nowlatLng);
+            Intent intent = getIntent();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("map", mapForm);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+            mapDialog.dismiss();
+            finish();
         });
-        mapDialog.getWindow().findViewById(R.id.ivMove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MapForm mapForm = new MapForm(stringBuilder.toString().trim(), moveLatLng);
-                Intent intent = getIntent();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("map", mapForm);
-                intent.putExtras(bundle);
-                setResult(RESULT_OK, intent);
-                mapDialog.dismiss();
-                finish();
-            }
+        mapDialog.getWindow().findViewById(R.id.ivMove).setOnClickListener(v -> {
+            MapForm mapForm = new MapForm(stringBuilder.toString().trim(), moveLatLng);
+            Intent intent = getIntent();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("map", mapForm);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+            mapDialog.dismiss();
+            finish();
         });
         mapDialog.show();
     }
@@ -564,7 +556,7 @@ public class MapActivity extends BaseActivity<MapContract.View, MapContract.Pres
         centerMarkerOption = new MarkerOptions().position(latLng).icon(movingDescriptor);
         aMap.addMarker(centerMarkerOption);
 
-        newbounds = new LatLngBounds.Builder();
+        LatLngBounds.Builder newbounds = new LatLngBounds.Builder();
 
         newbounds.include(latLng).include(nowlatLng);//通过for循环将所有的轨迹点添加进去.
 

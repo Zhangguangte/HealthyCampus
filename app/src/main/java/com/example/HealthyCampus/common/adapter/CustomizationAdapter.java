@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.network.vo.FoodMenuVo;
+import com.example.HealthyCampus.common.widgets.ViewHolder.FooterFinishViewHolder;
+import com.example.HealthyCampus.common.widgets.ViewHolder.FooterViewHolder;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.module.Find.Recipes.Customization.activity.CustomizationActivity;
 import com.example.HealthyCampus.module.Find.Recipes.Customization.activity.Detail.RecipesDetailActivity;
@@ -35,6 +37,15 @@ public class CustomizationAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private Context context;
     private List<FoodMenuVo> mData;
+    private boolean isLoad = true;
+
+    public boolean isLoad() {
+        return isLoad;
+    }
+
+    public void setLoad(boolean load) {
+        isLoad = load;
+    }
 
     public void clear() {
         mData.clear();
@@ -51,7 +62,10 @@ public class CustomizationAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemCount() {
         if (null != mData && mData.size() > 0) {
-            return mData.size();
+            if (!isLoad)
+                return mData.size();
+            else
+                return mData.size() + 1;
         }
         return 0;
     }
@@ -62,15 +76,18 @@ public class CustomizationAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         if (viewType == ConstantValues.RECIPES_CONTENT) {
             view = LayoutInflater.from(context).inflate(R.layout.find_recipes_customization_activity_content, parent, false);
             return new ContentViewHolder(view);
-        } else {
+        } else if (viewType == ConstantValues.RECIPES_TITLE) {
             view = LayoutInflater.from(context).inflate(R.layout.find_recipes_customization_activity_title, parent, false);
             return new TitleViewHolder(view);
+        } else  {
+            view = LayoutInflater.from(context).inflate(R.layout.widget_pull_to_refresh_footer, parent, false);
+            return new FooterViewHolder(view);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mData.get(position).getMold();
+        return position != mData.size() ?mData.get(position).getMold(): ConstantValues.FOOTER_REFRESH;
     }
 
     @Override
@@ -108,7 +125,7 @@ public class CustomizationAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, RecipesDetailActivity.class);
-                    intent.putExtra("ID",mData.get(position).getId());
+                    intent.putExtra("ID", mData.get(position).getId());
                     context.startActivity(intent);
                 }
             });

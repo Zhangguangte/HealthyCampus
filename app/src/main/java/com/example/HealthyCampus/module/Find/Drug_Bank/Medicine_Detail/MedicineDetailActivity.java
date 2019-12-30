@@ -1,7 +1,9 @@
 package com.example.HealthyCampus.module.Find.Drug_Bank.Medicine_Detail;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -87,11 +89,14 @@ public class MedicineDetailActivity extends BaseActivity<MedicineDetailContract.
                 mPresenter.getMedicineDetailById(getIntent().getStringExtra("id"));
             else if (!TextUtils.isEmpty(getIntent().getStringExtra("NAME")))
                 mPresenter.getMedicineDetailByName(getIntent().getStringExtra("NAME"));
+            else if (!TextUtils.isEmpty(getIntent().getStringExtra("CODE")))
+                mPresenter.getMedicineDetailByCode(getIntent().getStringExtra("CODE"));
         } else {
             ToastUtil.show(getContext(), getString(R.string.data_lose));
             finish();
         }
     }
+
 
     @Override
     public Context getContext() {
@@ -103,8 +108,8 @@ public class MedicineDetailActivity extends BaseActivity<MedicineDetailContract.
     public void showMedicineDetail(MedicineDetailVo medicineVo) {
         tvTitle.setText(medicineVo.getName());
         tvDetail.setText(StringUtil.dealHtmlText(medicineVo.getDetail()));
-        tvSpecifications.setText("规格:"+medicineVo.getSpec()+"/"+medicineVo.getUnit());
-        tvIndications.setText(TextUtils.isEmpty(medicineVo.getZhuzhi()) ?getString(R.string.find_self_diagnosis_detail_no):"主治:\n"+medicineVo.getZhuzhi().replace(" ","、"));
+        tvSpecifications.setText("规格:" + medicineVo.getSpec() + "/" + medicineVo.getUnit());
+        tvIndications.setText(TextUtils.isEmpty(medicineVo.getZhuzhi()) ? getString(R.string.find_self_diagnosis_detail_no) : "主治:\n" + medicineVo.getZhuzhi().replace(" ", "、"));
         tvPrice.setText(TextUtils.isEmpty(medicineVo.getPrice()) ? getString(R.string.mine_drug_bank_price_unknown) : getString(R.string.mine_drug_bank_price) + medicineVo.getPrice());
         GlideUtils.displayMedicineImage(ivDrug, "http:" + medicineVo.getImage());
         dismissProgressDialog();
@@ -118,7 +123,7 @@ public class MedicineDetailActivity extends BaseActivity<MedicineDetailContract.
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
                 if (response.code == 1007) {
-                    ToastUtil.show(getContext(), getString(R.string.data_lose));
+                    ToastUtil.show(getContext(), getString(R.string.database_empty_data));
                     finish();
                 } else {
                     ToastUtil.show(this, "未知错误1:" + throwable.getMessage());

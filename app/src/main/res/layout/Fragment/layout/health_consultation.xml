@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/top_margin0"
+        android:text="@string/health_consult_doctor"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f_2"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/pictureLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/press_item"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more0"
+            android:layout_height="@dimen/icon_size_more_more0"
+            android:src="@drawable/health_picture_word" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/margin_less"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top|start"
+                android:text="@string/health_consult_picture_interrogation"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom|left"
+                android:text="@string/health_consult_picture_interrogation_intro"
+                android:textColor="@color/text_level_3"
+                android:textSize="@dimen/text_f2" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_gravity="center"
+            android:rotation="180"
+            android:src="@drawable/back_icon" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/phoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/press_item"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_less"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more0"
+            android:layout_height="@dimen/icon_size_more_more0"
+            android:src="@drawable/health_telephone" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/margin_less"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top|start"
+                android:text="@string/health_consult_emergency_call"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom|left"
+                android:text="@string/health_consult_emergency_call_intro"
+                android:textColor="@color/text_level_3"
+                android:textSize="@dimen/text_f2" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_gravity="center"
+            android:rotation="180"
+            android:src="@drawable/back_icon" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/doctorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/press_item"
+        android:layout_marginTop="@dimen/margin_less"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_more_more0"
+            android:layout_height="@dimen/icon_size_more_more0"
+            android:src="@drawable/health_doctor" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_less"
+            android:layout_marginEnd="@dimen/margin_less"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top|start"
+                android:text="@string/health_consult_ask_doctor"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_f0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom|left"
+                android:text="@string/health_consult_ask_doctor_intro"
+                android:textColor="@color/text_level_3"
+                android:textSize="@dimen/text_f2" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/icon_size_less"
+            android:layout_height="@dimen/icon_size_less"
+            android:layout_gravity="center"
+            android:rotation="180"
+            android:src="@drawable/back_icon" />
+    </LinearLayout>
+
+</LinearLayout>

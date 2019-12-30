@@ -50,7 +50,7 @@ public class SystemBarTintManager {
         // See https://github.com/android/platform_frameworks_base/blob/master/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java#L1076
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
-                Class c = Class.forName("android.os.SystemProperties");
+                @SuppressLint("PrivateApi") Class c = Class.forName("android.os.SystemProperties");
                 Method m = c.getDeclaredMethod("get", String.class);
                 m.setAccessible(true);
                 sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
@@ -64,7 +64,7 @@ public class SystemBarTintManager {
     /**
      * The default system bar tint color value.
      */
-    public static final int DEFAULT_TINT_COLOR = 0x99000000;
+    private static final int DEFAULT_TINT_COLOR = 0x99000000;
 
     private static String sNavBarOverride;
 
@@ -85,7 +85,7 @@ public class SystemBarTintManager {
      */
     @SuppressLint("ResourceType")
     @TargetApi(19)
-    public SystemBarTintManager(Activity activity) {
+    SystemBarTintManager(Activity activity) {
 
         Window win = activity.getWindow();
         ViewGroup decorViewGroup = (ViewGroup) win.getDecorView();
@@ -136,12 +136,11 @@ public class SystemBarTintManager {
      * UI modes have not been enabled in either the theme or via window flags,
      * then this method does nothing.
      *
-     * @param enabled True to enable tinting, false to disable it (default).
      */
-    public void setStatusBarTintEnabled(boolean enabled) {
-        mStatusBarTintEnabled = enabled;
+    void setStatusBarTintEnabled() {
+        mStatusBarTintEnabled = true;
         if (mStatusBarAvailable) {
-            mStatusBarTintView.setVisibility(enabled ? View.VISIBLE : View.GONE);
+            mStatusBarTintView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -217,7 +216,7 @@ public class SystemBarTintManager {
      *
      * @param res The identifier of the resource.
      */
-    public void setStatusBarTintResource(int res) {
+    private void setStatusBarTintResource(int res) {
         if (mStatusBarAvailable) {
             mStatusBarTintView.setBackgroundResource(res);
         }
@@ -229,7 +228,7 @@ public class SystemBarTintManager {
      * @param drawable The drawable to use as the background, or null to remove it.
      */
     @SuppressWarnings("deprecation")
-    public void setStatusBarTintDrawable(Drawable drawable) {
+    private void setStatusBarTintDrawable(Drawable drawable) {
         if (mStatusBarAvailable) {
             mStatusBarTintView.setBackgroundDrawable(drawable);
         }
@@ -241,8 +240,8 @@ public class SystemBarTintManager {
      * @param alpha The alpha to use
      */
     @TargetApi(11)
-    public void setStatusBarAlpha(float alpha) {
-        if (mStatusBarAvailable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    private void setStatusBarAlpha(float alpha) {
+        if (mStatusBarAvailable) {
             mStatusBarTintView.setAlpha(alpha);
         }
     }
@@ -252,7 +251,7 @@ public class SystemBarTintManager {
      *
      * @param color The color of the background tint.
      */
-    public void setNavigationBarTintColor(int color) {
+    private void setNavigationBarTintColor(int color) {
         if (mNavBarAvailable) {
             mNavBarTintView.setBackgroundColor(color);
         }
@@ -263,7 +262,7 @@ public class SystemBarTintManager {
      *
      * @param res The identifier of the resource.
      */
-    public void setNavigationBarTintResource(int res) {
+    private void setNavigationBarTintResource(int res) {
         if (mNavBarAvailable) {
             mNavBarTintView.setBackgroundResource(res);
         }

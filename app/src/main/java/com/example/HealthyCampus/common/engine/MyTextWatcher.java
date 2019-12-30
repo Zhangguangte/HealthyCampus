@@ -6,7 +6,7 @@ import android.text.TextWatcher;
 
 public class MyTextWatcher implements TextWatcher {
 
-    OnComplete onComplete;
+    private OnComplete onComplete;
 
     public MyTextWatcher(OnComplete onComplete) {
         this.onComplete = onComplete;

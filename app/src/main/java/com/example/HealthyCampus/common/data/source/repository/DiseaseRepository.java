@@ -48,4 +48,6 @@ public class DiseaseRepository implements DiseaseDataSource {
         mDiseaseRemoteDataSource.getDiseaseDetail(requestForm,callback);
     }
 
+
+
 }

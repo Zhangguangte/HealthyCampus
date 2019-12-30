@@ -16,7 +16,6 @@
         android:id="@+id/imageselect_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isv_imagesrc = "@mipmap/chatting_picture"
         app:isv_selectdef="@mipmap/select_def"
         app:isv_selectchecked="@mipmap/select_checked"
         app:isv_selectradius="25dp"/>

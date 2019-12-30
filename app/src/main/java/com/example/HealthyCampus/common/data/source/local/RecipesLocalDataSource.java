@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.RequestForm;
-import com.example.HealthyCampus.common.data.source.callback.MedicineDataSource;
 import com.example.HealthyCampus.common.data.source.callback.RecipesDataSource;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
@@ -12,7 +11,7 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 public class RecipesLocalDataSource implements RecipesDataSource {
     private static RecipesLocalDataSource INSTANCE;
 
-    public RecipesLocalDataSource(@NonNull Context context) {
+    private RecipesLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
     }
 
@@ -25,7 +24,7 @@ public class RecipesLocalDataSource implements RecipesDataSource {
 
 
     @Override
-    public void getRecipesByThreeMeals(@NonNull RecipesThreesMeals callback) {
+    public void getRecipesByThreeMeals(@NonNull RequestForm requestForm, @NonNull RecipesThreesMeals callback) {
 
     }
 
@@ -38,4 +37,30 @@ public class RecipesLocalDataSource implements RecipesDataSource {
     public void getRecommendRecipes(@NonNull RecipesGetRecommend callback) {
 
     }
+
+    @Override
+    public void getDishResult(@NonNull String data, @NonNull RecipesGetDish callback) {
+
+    }
+
+    @Override
+    public void getIngredientResult(@NonNull String data, @NonNull RecipesGetIngredient callback) {
+
+    }
+
+    @Override
+    public void getIngredientResult(@NonNull RequestForm requestForm, @NonNull RecipesGetSearch callback) {
+
+    }
+
+    @Override
+    public void getRecipesList(@NonNull RequestForm requestForm, @NonNull RecipesGetList callback) {
+
+    }
+
+    @Override
+    public void getFoodList(@NonNull RequestForm requestForm, @NonNull RecipesGetFood callback) {
+
+    }
+
 }

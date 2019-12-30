@@ -5,14 +5,13 @@ import android.support.annotation.NonNull;
 
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.DiseaseDataSource;
-import com.example.HealthyCampus.common.data.source.callback.RecipesDataSource;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 public class DiseaseLocalDataSource implements DiseaseDataSource {
     private static DiseaseLocalDataSource INSTANCE;
 
-    public DiseaseLocalDataSource(@NonNull Context context) {
+    private DiseaseLocalDataSource(@NonNull Context context) {
         checkNotNull(context);
     }
 
@@ -38,4 +37,5 @@ public class DiseaseLocalDataSource implements DiseaseDataSource {
     public void getDiseaseDetail(@NonNull RequestForm requestForm, @NonNull DiseaseGetDetail callback) {
 
     }
+
 }

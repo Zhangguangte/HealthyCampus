@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.module.HomePage.article;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
@@ -77,12 +78,14 @@ public class HomePageArticleFragment extends BaseFragment<HomePageArticleContrac
 
     @Override
     public int setContentLayout() {
-        return R.layout.fragment_health_article;
+        return R.layout.health_article_fragment;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void setUpView(View view) {
         AppCompatActivity mAppCompatActivity = (AppCompatActivity) getActivity();
+        assert mAppCompatActivity != null;
         mAppCompatActivity.setSupportActionBar(toolbar);
         ActionBar actionBar = mAppCompatActivity.getSupportActionBar();
         if (actionBar != null) {
@@ -91,6 +94,7 @@ public class HomePageArticleFragment extends BaseFragment<HomePageArticleContrac
 
         setHasOptionsMenu(true);//处理 onOptionsItemSelected方法不被调用
 
+        assert getArguments() != null;
         final String articleTitle = getArguments().getString(ConstantValues.KEY_HEALTH_ARTICLE_TITLE);
         String imageUrl = getArguments().getString(ConstantValues.KEY_HEALTH_ARTICLE_IMAGE);
         this.articleId = String.valueOf(getArguments().getInt(ConstantValues.KEY_HEALTH_ARTICLE_ID));
@@ -121,13 +125,10 @@ public class HomePageArticleFragment extends BaseFragment<HomePageArticleContrac
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        swipeLoadDataLayout.setOnReloadListener(new SwipeLoadDataLayout.OnReloadListener() {
-            @Override
-            public void onReload(View v, int status) {
-                if (status != SwipeLoadDataLayout.LOADING) {
-                    mPresenter.getArticle(getArticleId());
+        swipeLoadDataLayout.setOnReloadListener((v, status) -> {
+            if (status != SwipeLoadDataLayout.LOADING) {
+                mPresenter.getArticle(getArticleId());
 
-                }
             }
         });
     }
@@ -199,12 +200,7 @@ public class HomePageArticleFragment extends BaseFragment<HomePageArticleContrac
         webView.setVisibility(View.GONE);
         swipeLoadDataLayout.setVisibility(View.VISIBLE);
         swipeLoadDataLayout.setStatus(SwipeLoadDataLayout.LOADING);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPresenter.getArticle(getArticleId());
-            }
-        }, 300);
+        new Handler().postDelayed(() -> mPresenter.getArticle(getArticleId()), 300);
     }
 
     @Override

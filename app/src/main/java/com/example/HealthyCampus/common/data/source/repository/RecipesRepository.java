@@ -33,8 +33,8 @@ public class RecipesRepository implements RecipesDataSource {
 
 
     @Override
-    public void getRecipesByThreeMeals(@NonNull RecipesThreesMeals callback) {
-        mRecipesRemoteDataSource.getRecipesByThreeMeals(callback);
+    public void getRecipesByThreeMeals(@NonNull RequestForm requestForm,@NonNull RecipesThreesMeals callback) {
+        mRecipesRemoteDataSource.getRecipesByThreeMeals(requestForm,callback);
     }
 
     @Override
@@ -45,5 +45,29 @@ public class RecipesRepository implements RecipesDataSource {
     @Override
     public void getRecommendRecipes(@NonNull RecipesGetRecommend callback) {
         mRecipesRemoteDataSource.getRecommendRecipes(callback);
+    }
+
+    @Override
+    public void getDishResult(@NonNull String data, @NonNull RecipesGetDish callback) {
+        mRecipesRemoteDataSource.getDishResult(data,callback);
+    }
+
+    @Override
+    public void getIngredientResult(@NonNull String data, @NonNull RecipesGetIngredient callback) {
+        mRecipesRemoteDataSource.getIngredientResult(data,callback);
+    }
+
+
+    @Override
+    public void getIngredientResult(@NonNull RequestForm requestForm, @NonNull RecipesGetSearch callback) {
+        mRecipesRemoteDataSource.getIngredientResult(requestForm,callback);
+    }
+
+    @Override
+    public void getRecipesList(@NonNull RequestForm requestForm, @NonNull RecipesGetList callback) {
+        mRecipesRemoteDataSource.getRecipesList(requestForm,callback);
+    }@Override
+    public void getFoodList(@NonNull RequestForm requestForm, @NonNull RecipesGetFood callback) {
+        mRecipesRemoteDataSource.getFoodList(requestForm,callback);
     }
 }

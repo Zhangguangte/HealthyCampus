@@ -6,10 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.widget.FrameLayout;
 
 import com.example.HealthyCampus.R;
@@ -147,7 +144,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             switch (labelResId) {
                 case R.string.tab_about:
-                    appBarLayout.setElevation((float) DensityUtil.getInstance(this).getDip2Px(5));
+                    appBarLayout.setElevation((float) DensityUtil.getInstance().getDip2Px(5));
                     break;
                 default:
                     appBarLayout.setElevation(0);

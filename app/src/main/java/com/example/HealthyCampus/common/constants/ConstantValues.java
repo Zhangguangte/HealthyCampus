@@ -16,16 +16,31 @@ public class ConstantValues {
 
     //接口地址
     public static final String BASE_URL_ZHIHU = "http://news-at.zhihu.com/api/4/"; // HOST地址:知乎接口
-    public static final String BASE_URL_HEALTH = "http://192.168.0.107:8087/"; // HOST地址:后台接口
-    public static final String BASE_URL_GETE = "http://192.168.0.107:8097/GETE/"; // HOST地址:后台接口
-    public static final String BASE_URL_MEDICINE = " http://api.avatardata.cn/Drug/"; // HOST地址:药品接口
+    public static final String BASE_URL_HEALTH = "http://192.168.2.109:8087/"; // HOST地址:后台接口
+    public static final String BASE_URL_GETE = "http://192.168.2.109:8097/GETE/"; // HOST地址:后台接口
+    public static final String BASE_URL_BAIDU = "https://aip.baidubce.com/";      // HOST地址:百度API
+    public static final String BASE_URL_NEWS = "http://www.cpoha.com.cn";              // HOST地址:养生网
+
+    //服务接口
+    public static final String BASE_URL_SCENERY = "https://720.vrqjcs.com/t/a8d628ccc39951e9";              // HOST地址:全景地址
+    public static final String BASE_URL_ENGLISH = "http://weixiao.qq.com/apps/public/cet/index.html";       // HOST地址:查询四六级
+    public static final String BASE_URL_DELIVER = "http://m.kuaidi100.com/index_all.html";       // HOST地址:查询快递
+    public static final String BASE_URL_WEATHER = "http://weather.123.duba.net/static/weather_info/";       // HOST地址:天气
+
+
     //医药
-    public static final String BASE_URL_IMG = "http://tnfs.tngou.net/image";
+//    public static final String BASE_URL_IMG = "http://tnfs.tngou.net/image";
 
     public static final int ACTION_BACK_TO_HOME = 0;
     public static final int ACTION_RESTART_APP = 1;
     public static final int ACTION_LOGOUT = 2;
     public static final int ACTION_KICK_OUT = 3;
+
+
+    //请求码
+    public static final int RC_PERMISSION = 0;
+
+
 
     //Leancloud
     public static final String LEANCLOUD_ID = "WIpY3lbfr1v5TH1iotHksBDw-gzGzoHsz";
@@ -52,7 +67,7 @@ public class ConstantValues {
     public static final String MOBSMSSDK_SECRET = "71f3a0e022ec6007c72fbf16d2f6b56e";
 
     //极光
-    public static final String JAPP_KEY = "4771768eedbbaf7afe9b81c5";
+//    public static final String JAPP_KEY = "4771768eedbbaf7afe9b81c5";
 
     //http请求配置
     public static final boolean HTTP_CACHE_ENABLE = !BuildConfig.DEBUG; // 是否开启OkHTTP缓存
@@ -128,4 +143,16 @@ public class ConstantValues {
     //底部刷新
     public static final int FOOTER_REFRESH = 0;
     public static final int CONTENT_REFRESH = 1;
+
+    public static final int REQUEST_CODE = 0x11;
+
+    //咨询
+    public static final int HEALTH_INFORMATION = 0;
+//    public static final int HEALTH_ADD = 1;
+
+    public static final int HEALTH_PICTURE_DEFAULT = 2;
+    public static final int HEALTH_PICTURE_ITEM = 3;
+
+    public static final int HEALTH_PICTURE_INFOR_DEFAULT = 4;
+    public static final int HEALTH_PICTURE_INFOR_ITEM = 5;
 }

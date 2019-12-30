@@ -20,8 +20,7 @@
         android:id="@+id/cardLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/padding_less2"
-        android:layout_toLeftOf="@id/chat_icon"
+        android:layout_marginStart="@dimen/padding_less2"
         android:background="@drawable/shape_button_lines7"
         android:minWidth="220dp"
         android:orientation="vertical">
