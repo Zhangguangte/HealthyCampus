@@ -40,4 +40,24 @@ public class ServiceRepository implements ServiceDataSource {
     public void searchBookDetail(@NonNull RequestForm requestForm, @NonNull GetBookDetail callback) {
         mServiceRemoteDataSource.searchBookDetail(requestForm, callback);
     }
+
+    @Override
+    public void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback) {
+        mServiceRemoteDataSource.sendFeed(requestForm, callback);
+    }
+
+    @Override
+    public void getTimeTable(@NonNull RequestForm requestForm, @NonNull GetTimeTable callback) {
+        mServiceRemoteDataSource.getTimeTable(requestForm, callback);
+    }
+
+    @Override
+    public void getLectureList(@NonNull RequestForm requestForm, @NonNull GetLectureList callback) {
+        mServiceRemoteDataSource.getLectureList(requestForm, callback);
+    }
+
+    @Override
+    public void getLectureDetail(@NonNull RequestForm requestForm, @NonNull GetLectureDetail callback) {
+        mServiceRemoteDataSource.getLectureDetail(requestForm, callback);
+    }
 }

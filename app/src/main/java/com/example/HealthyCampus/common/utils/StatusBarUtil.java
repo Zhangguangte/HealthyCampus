@@ -107,7 +107,7 @@ public class StatusBarUtil {
     }
 
     /**
-     * 设置状态栏透明
+     * 设置状态栏全屏
      */
     @TargetApi(19)
     public static void setFullsceen(Activity activity) {

@@ -416,6 +416,43 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <!--体质测试-->
+        <activity
+            android:name=".module.Mine.Physique.PhysiqueActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--心理讲座-->
+        <activity
+            android:name=".module.Mine.Service.Lecture.LectureActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--课表-->
+        <activity
+            android:name=".module.Mine.Service.timeTable.TimeTableActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--反馈-->
+        <activity
+            android:name=".module.Mine.Feedback.FeedbackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--讲座细节-->
+        <activity
+            android:name=".module.Mine.Service.Lecture.Detail.LectureDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+
         <!-- UmengShare START -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -451,11 +488,11 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5d7b68b84ca3576ca500060a"></meta-data>
+            android:value="5d7b68b84ca3576ca500060a" />
         <!-- UmengShare END -->
 
         <!-- LeacCloud反馈组件 START -->
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>
+        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
         <!-- LeacCloud反馈组件 END -->
 
         <!-- bugly 升级更新 START-->
@@ -474,84 +511,11 @@
             android:name="BUGLY_APP_CHANNEL"
             android:value="${CHANNEL_VALUE}" />
 
-        <!--***********************极光配置***********************-->
-        <!-- Required SDK 核心功能-->
-        <!-- 可配置android:process参数将PushService放在其他进程中 -->
-        <service
-            android:name="cn.jpush.android.service.PushService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTER" />
-                <action android:name="cn.jpush.android.intent.REPORT" />
-                <action android:name="cn.jpush.android.intent.PushService" />
-                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
-            </intent-filter>
-        </service>
-
-        <!-- Required SDK核心功能-->
         <receiver
-            android:name="cn.jpush.android.service.PushReceiver"
+            android:name=".Step.StepStarter"
             android:enabled="true"
-            android:exported="false">
-            <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                <category android:name="com.example.HealthyCampus" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <!-- Optional -->
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+            android:exported="true" />
 
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Required SDK核心功能-->
-        <receiver
-            android:name="cn.jpush.android.service.AlarmReceiver"
-            android:exported="false" />
-
-        <!-- Required JMessage SDK核心功能-->
-        <receiver
-            android:name="cn.jpush.im.android.helpers.IMReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.im.android.action.IM_RESPONSE" />
-                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY" />
-
-                <category android:name="com.example.HealthyCampus" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Required. For publish channel feature -->
-        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
-        <!-- 例如: -->
-        <!-- 发到 Google Play 的APK可以设置为 google-play; -->
-        <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
-        <!-- 目前这个渠道统计功能的报表还未开放。-->
-        <meta-data
-            android:name="JPUSH_CHANNEL"
-            android:value="developer-default"
-            tools:replace="android:value" />
-
-        <!-- Required. AppKey copied from Portal -->
-        <meta-data
-            android:name="JPUSH_APPKEY"
-            android:value="4771768eedbbaf7afe9b81c5"
-            tools:replace="android:value" />
-
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="6dbd8c37fccc07e16672da5a8eb9f3ad" />
-
-        <service android:name="com.amap.api.location.APSService" />
 
     </application>
 

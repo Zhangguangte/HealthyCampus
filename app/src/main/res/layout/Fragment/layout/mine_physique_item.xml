@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="280dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/radius_button4">
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/padding3">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_less"
+            android:layout_marginBottom="@dimen/margin"
+            android:gravity="center"
+            android:text="@string/mine_physique"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f0" />
+
+        <Button
+            android:id="@+id/btnFirst"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_marginTop="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f3" />
+
+        <Button
+            android:id="@+id/btnSecond"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_marginTop="@dimen/margin_mo"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_f3" />
+
+
+        <Button
+            android:id="@+id/btnThird"
+            android:layout_width="@dimen/icon_size_more_hundred2"
+            android:layout_height="@dimen/icon_size_more_more"
+            android:layout_marginTop="@dimen/margin_mo"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:textSize="@dimen/text_f3" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

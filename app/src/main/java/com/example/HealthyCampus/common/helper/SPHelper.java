@@ -21,6 +21,11 @@ public class SPHelper {
     public static final String USER_MODIFYTIME = "USER_MODIFYTIME";
     public static final String USER_PHONE = "USER_PHONE";
 
+    //学生信息
+    public static final String MAJOR = "MAJOR";
+    public static final String YEAR = "YEAR";
+    public static final String STUDENT_ID  = "STUDENT_ID";
+
 
     //    登录
     public static final String AUTH_CODE = "AUTH_CODE";

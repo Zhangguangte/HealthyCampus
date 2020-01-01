@@ -1,11 +1,11 @@
 package com.example.HealthyCampus.common.network.api;
 
-import com.example.HealthyCampus.common.data.form.ConsultPictureForm;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.network.vo.BookDetailVo;
 import com.example.HealthyCampus.common.network.vo.BookVo;
+import com.example.HealthyCampus.common.network.vo.CourseVo;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.nostra13.universalimageloader.utils.L;
+import com.example.HealthyCampus.common.network.vo.LectureVo;
 
 import java.util.List;
 
@@ -20,4 +20,17 @@ public interface ServiceApi {
 
     @POST("/service/library/searchBookDetail/")
     Observable<BookDetailVo> searchBookDetail(@Body RequestForm requestForm);
+
+    @POST("/service/feedback/sendFeed/")
+    Observable<DefaultResponseVo> sendFeed(@Body RequestForm requestForm);
+
+    @POST("/service/course/getTimeTable/")
+    Observable<List<CourseVo>> getTimeTable(@Body RequestForm requestForm);
+
+    @POST("/service/lecture/getLectureList/")
+    Observable<List<LectureVo>> getLectureList(@Body RequestForm requestForm);
+
+    @POST("/service/lecture/getLectureDetail/")
+    Observable<LectureVo> getLectureDetail(@Body RequestForm requestForm);
+
 }

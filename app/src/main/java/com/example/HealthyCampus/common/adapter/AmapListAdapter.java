@@ -60,7 +60,7 @@ public class AmapListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public AmapListAdapter(Context context, List<PoiItem> pois, onItemClick onItemClick) {
         this.context = context;
         this.onItemClick = onItemClick;
-        this.pois = (ArrayList<PoiItem>) pois;
+        this.pois = pois;
     }
 
 

@@ -32,4 +32,24 @@ public class ServiceLocalDataSource implements ServiceDataSource {
     public void searchBookDetail(@NonNull RequestForm requestForm, @NonNull GetBookDetail callback) {
 
     }
+
+    @Override
+    public void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback) {
+
+    }
+
+    @Override
+    public void getTimeTable(@NonNull RequestForm requestForm, @NonNull GetTimeTable callback) {
+
+    }
+
+    @Override
+    public void getLectureList(@NonNull RequestForm requestForm, @NonNull GetLectureList callback) {
+
+    }
+
+    @Override
+    public void getLectureDetail(@NonNull RequestForm requestForm, @NonNull GetLectureDetail callback) {
+
+    }
 }

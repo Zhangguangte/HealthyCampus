@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_service" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/left_margin1"
+        android:text="@string/mine_feed_question_and_advice"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_size_more_hundred"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/top_margin_less_less"
+            android:textColor="@color/text_level_3"
+            android:textSize="@dimen/text_f4" />
+
+
+        <EditText
+            android:id="@+id/etAdvice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvNumber"
+            android:background="@null"
+            android:ellipsize="none"
+            android:gravity="top"
+            android:hint="@string/mine_feed_least_limit"
+            android:maxLength="200"
+            android:paddingTop="@dimen/padding"
+            android:lines="4"
+            android:paddingEnd="@dimen/padding"
+            android:paddingStart="@dimen/padding"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_less"
+        android:background="@color/white"
+        android:hint="@string/mine_feed_contact_way"
+        android:inputType="number"
+        android:padding="@dimen/padding"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_f2"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_less"
+        android:gravity="center_horizontal"
+        android:text="@string/mine_feed_info"
+        android:textColor="@color/text_level_3"
+        android:textSize="@dimen/text_f4" />
+
+    <TextView
+        android:id="@+id/tvSumbit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_mo"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin_mo"
+        android:enabled="false"
+        android:background="@drawable/shape_button_lines14"
+        android:padding="@dimen/padding_less"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_f2" />
+
+
+</LinearLayout>

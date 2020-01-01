@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,17 +13,17 @@ import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.StatusBarUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.Find.Recipes.Customization.activity.CustomizationActivity;
+import com.example.HealthyCampus.module.Mine.Service.Lecture.LectureActivity;
 import com.example.HealthyCampus.module.Mine.Service.Library.LibraryActivity;
 import com.example.HealthyCampus.module.Mine.Service.Weather.WeatherActivity;
 import com.example.HealthyCampus.module.Mine.Service.WebView.WebViewActivity;
+import com.example.HealthyCampus.module.Mine.Service.timeTable.TimeTableActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static android.view.View.VISIBLE;
 
 
 public class ServiceActivity extends BaseActivity<ServiceContract.View, ServiceContract.Presenter> implements ServiceContract.View {
@@ -96,7 +95,17 @@ public class ServiceActivity extends BaseActivity<ServiceContract.View, ServiceC
 
     @OnClick(R.id.libraryLayout)
     public void libraryLayout(View view) {
-        startActivity(new Intent(this,LibraryActivity.class));
+        startActivity(new Intent(this, LibraryActivity.class));
+    }
+
+    @OnClick(R.id.lectureLayout)
+    public void lectureLayout(View view) {
+        startActivity(new Intent(this, LectureActivity.class));
+    }
+
+    @OnClick(R.id.timeTableLayout)
+    public void timeTableLayout(View view) {
+        startActivity(new Intent(this, TimeTableActivity.class));
     }
 
 

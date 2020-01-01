@@ -18,16 +18,16 @@
         <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_less"
             android:layout_marginEnd="@dimen/right_margin"
-            android:layout_gravity="center"
             app:srcCompat="@drawable/mine_service" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/mine_service"
             android:textColor="@color/black"
             android:textSize="@dimen/text_f1" />
@@ -57,7 +57,9 @@
             android:textSize="@dimen/text_f1" />
     </LinearLayout>
 
+
     <LinearLayout
+        android:id="@+id/physiqueLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_button_lines9"
@@ -69,42 +71,66 @@
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/margin_less"
             android:layout_marginEnd="@dimen/right_margin"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/mine_history" />
+            app:srcCompat="@drawable/mine_physique" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/mine_history"
+            android:text="@string/mine_physique"
             android:textColor="@color/black"
             android:textSize="@dimen/text_f1" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_button_lines9"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_less2">
 
-        <ImageView
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:layout_marginStart="@dimen/margin_less"
-            android:layout_marginEnd="@dimen/right_margin"
-            app:srcCompat="@drawable/mine_order" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/shape_button_lines9"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:padding="@dimen/padding_less2">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/mine_order"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="@dimen/text_f1" />
-    </LinearLayout>
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/icon_size"-->
+    <!--android:layout_height="@dimen/icon_size"-->
+    <!--android:layout_marginStart="@dimen/margin_less"-->
+    <!--android:layout_marginEnd="@dimen/right_margin"-->
+    <!--android:layout_gravity="center"-->
+    <!--app:srcCompat="@drawable/mine_history" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:text="@string/mine_history"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="@dimen/text_f1" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/shape_button_lines9"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:padding="@dimen/padding_less2">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/icon_size"-->
+    <!--android:layout_height="@dimen/icon_size"-->
+    <!--android:layout_marginStart="@dimen/margin_less"-->
+    <!--android:layout_marginEnd="@dimen/right_margin"-->
+    <!--app:srcCompat="@drawable/mine_order" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/mine_order"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:textSize="@dimen/text_f1" />-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -123,16 +149,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/mine_collectionpng"
             android:textColor="@color/black"
-            android:layout_gravity="center"
             android:textSize="@dimen/text_f1" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/feedbackLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_less"
         android:background="@drawable/shape_button_lines9"
         android:orientation="horizontal"
         android:padding="@dimen/padding_less2">
@@ -147,9 +175,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/mine_opinion"
-            android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="@dimen/text_f1" />
     </LinearLayout>

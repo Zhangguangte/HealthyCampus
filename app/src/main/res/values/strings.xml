@@ -285,6 +285,7 @@
     <string name="mine_integral">我的积分</string>
     <string name="mine_service">校园服务</string>
     <string name="mine_case">电子病历</string>
+    <string name="mine_physique">体质测试</string>
     <string name="mine_history">自测历史</string>
     <string name="mine_order">药品订单</string>
     <string name="mine_collectionpng">我的收藏</string>
@@ -421,6 +422,10 @@
     <string name="mine_service_life">💗</string>
     <string name="mine_service_life_service">生活服务</string>
     <string name="mine_service_canteen">校园食堂</string>
+    <string name="mine_service_study_room">自习室查询</string>
+    <string name="mine_service_search_study">成绩查询</string>
+    <string name="mine_service_lecture">讲座</string>
+    <string name="mine_service_timetable">课表</string>
     <!--快递-->
     <string name="mine_service_my_deliver">我的快递</string>
     <string name="mine_service_deliver_search">快递查询</string>
@@ -437,6 +442,21 @@
     <string name="mine_service_library_detail">图书详情</string>
     <string name="mine_service_library_introo">简介</string>
     <string name="mine_service_library_place">藏馆信息</string>
+
+    <!--体质自测-->
+    <string name="mine_physique_behavior">常见表现</string>
+    <string name="mine_physique_feature">特点</string>
+    <string name="mine_physique_inner_feature">心理特征</string>
+    <string name="mine_physique_patience">注意事项</string>
+
+    <!--反馈-->
+    <!--界面-->
+    <string name="mine_feed_question_and_advice">问题和意见</string>
+    <string name="mine_feed_least_limit">请填写10字以上的问题描述</string>
+    <string name="mine_feed_most_limit">请填写200字以下的问题描述</string>
+    <string name="mine_feed_contact_way">电话、微信或者QQ</string>
+    <string name="mine_feed_info">您的联系方式有助于我们沟通和解决问题，仅工作人员可见</string>
+
 
 
 </resources>

@@ -7,6 +7,7 @@ import com.example.HealthyCampus.common.network.vo.DiseaseDetailVo;
 import com.example.HealthyCampus.common.network.vo.DiseaseSortListVo;
 import com.example.HealthyCampus.common.network.vo.DiseaseSortVo;
 import com.example.HealthyCampus.common.network.vo.DishVo;
+import com.example.HealthyCampus.common.network.vo.LectureVo;
 
 import java.util.List;
 

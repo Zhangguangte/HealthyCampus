@@ -9,6 +9,8 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.framework.BaseFragment;
 import com.example.HealthyCampus.framework.ITabFragment;
 import com.example.HealthyCampus.module.Find.Drug_Bank.DrugBankActivity;
+import com.example.HealthyCampus.module.Mine.Feedback.FeedbackActivity;
+import com.example.HealthyCampus.module.Mine.Physique.PhysiqueActivity;
 import com.example.HealthyCampus.module.Mine.Service.ServiceActivity;
 
 import butterknife.BindView;
@@ -42,6 +44,18 @@ public class MineFragment extends BaseFragment<MineContract.View, MineContract.P
     @OnClick(R.id.ServiceLayout)
     public void ServiceLayout(View view) {
         startActivity(new Intent(mActivity, ServiceActivity.class));
+        mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+    }
+
+    @OnClick(R.id.physiqueLayout)
+    public void physiqueLayout(View view) {
+        startActivity(new Intent(mActivity, PhysiqueActivity.class));
+        mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+    }
+
+    @OnClick(R.id.feedbackLayout)
+    public void feedbackLayout(View view) {
+        startActivity(new Intent(mActivity, FeedbackActivity.class));
         mActivity.overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
     }
 }

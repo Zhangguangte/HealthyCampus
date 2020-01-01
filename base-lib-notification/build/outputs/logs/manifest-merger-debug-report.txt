@@ -1,0 +1,39 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+	package
+		ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:3:5-50
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:1-9:12
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml:5:5-7:19
+uses-sdk
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		ADDED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml
+		INJECTED from G:\HEALTH\base-lib-notification\src\main\AndroidManifest.xml

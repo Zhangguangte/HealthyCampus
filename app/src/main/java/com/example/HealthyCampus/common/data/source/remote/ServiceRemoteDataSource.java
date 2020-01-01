@@ -72,4 +72,96 @@ public class ServiceRemoteDataSource implements ServiceDataSource {
                 });
     }
 
+    @Override
+    public void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback) {
+        NetworkManager.getInstance().getServiceApi()
+                .sendFeed(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("ServiceRemoteDa" + "123456", "sendFeed:7"))
+                .subscribe(defaultResponseVo -> {
+                    try {
+                        Log.e("ServiceRemoteDa" + "123456", "sendFeed success");
+                        callback.onDataAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void getTimeTable(@NonNull RequestForm requestForm, @NonNull GetTimeTable callback) {
+        NetworkManager.getInstance().getServiceApi()
+                .getTimeTable(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("ServiceRemoteDa" + "123456", "getTimeTable:7"))
+                .subscribe(courses -> {
+                    try {
+                        Log.e("ServiceRemoteDa" + "123456", "getTimeTable success");
+                        callback.onDataAvailable(courses);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void getLectureList(@NonNull RequestForm requestForm, @NonNull GetLectureList callback) {
+        NetworkManager.getInstance().getServiceApi()
+                .getLectureList(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("ServiceRemoteDa" + "123456", "getLectureList:7"))
+                .subscribe(lectureVos -> {
+                    try {
+                        Log.e("ServiceRemoteDa" + "123456", "getLectureList success");
+                        callback.onDataAvailable(lectureVos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    public void getLectureDetail(@NonNull RequestForm requestForm, @NonNull GetLectureDetail callback) {
+        NetworkManager.getInstance().getServiceApi()
+                .getLectureDetail(requestForm)
+                .subscribeOn(Schedulers.newThread())//子线程访问网络
+                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
+                .doOnSubscribe(() -> Log.e("ServiceRemoteDa" + "123456", "getLectureDetail:7"))
+                .subscribe(lectureVo -> {
+                    try {
+                        Log.e("ServiceRemoteDa" + "123456", "getLectureDetail success");
+                        callback.onDataAvailable(lectureVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, throwable -> {
+                    try {
+                        callback.onDataNotAvailable(throwable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
 }

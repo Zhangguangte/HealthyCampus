@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginStart="@dimen/left_margin1"
                     android:text="@string/mine_service_study"
                     android:textSize="@dimen/text_f0" />
 
@@ -45,7 +45,7 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
+                android:layout_margin="@dimen/top_margin0"
                 android:columnCount="3"
                 android:rowCount="2"
                 tools:ignore="UnusedAttribute">
@@ -128,19 +128,124 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/lectureLayout"
+                    android:layout_width="67dp"
+                    android:layout_height="66dp"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_lecture" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_lecture"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/timeTableLayout"
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_timetable" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_timetable"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+                </LinearLayout>
+                <!-- <LinearLayout-->
+                <!--android:layout_columnSpan="1"-->
+                <!--android:layout_columnWeight="1"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:background="@drawable/press_item"-->
+                <!--android:orientation="vertical"-->
+                <!--android:padding="@dimen/padding_less3">-->
+
+                <!--<ImageView-->
+                <!--android:layout_width="@dimen/icon_size"-->
+                <!--android:layout_height="@dimen/icon_size"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:background="@drawable/mine_service_study_room" />-->
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="@dimen/top_margin_less_less"-->
+                <!--android:text="@string/mine_service_study_room"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/text_f3" />-->
+
+                <!--</LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_columnSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/press_item"
+                    android:layout_marginTop="@dimen/top_margin_less_less"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_less3">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/mine_service_search_study" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/top_margin_less_less"
+                        android:text="@string/mine_service_search_study"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_f3" />
+
+                </LinearLayout>
             </GridLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin"
+                android:layout_marginTop="@dimen/top_margin0"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginStart="@dimen/left_margin1"
                     android:text="@string/mine_service_life"
                     android:textSize="@dimen/text_f0" />
 

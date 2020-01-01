@@ -7,5 +7,15 @@
         <attr name="gravity" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="FunctionView">
+        <attr name="normal_layout" format="reference" />
+        <attr name="loading_layout" format="reference" />
+        <attr name="failure_layout" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="CourseTable">
+        <attr name="totalDays" format="integer" />
+        <attr name="totalJC" format="integer" />
+    </declare-styleable>
+
 
 </resources>
