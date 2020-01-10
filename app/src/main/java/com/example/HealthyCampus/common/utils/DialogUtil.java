@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.common.utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -37,9 +38,7 @@ public class DialogUtil {
         }
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(msg);
-        progressDialog.setOnKeyListener((dialog, keyCode, event) -> {
-            return keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0;
-        });
+        progressDialog.setOnKeyListener((dialog, keyCode, event) -> keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         try {
@@ -55,6 +54,7 @@ public class DialogUtil {
             progressDialog.dismiss();
         }
     }
+
 
     public static void showPopMenu(View view, Context context) {
         PopupMenu menu = new PopupMenu(context, view);

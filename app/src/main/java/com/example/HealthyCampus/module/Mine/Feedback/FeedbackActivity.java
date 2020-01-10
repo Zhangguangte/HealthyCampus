@@ -99,11 +99,4 @@ public class FeedbackActivity extends BaseActivity<FeedbackContract.View, Feedba
         return this;
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

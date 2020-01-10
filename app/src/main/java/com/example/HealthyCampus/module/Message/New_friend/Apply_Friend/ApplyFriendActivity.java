@@ -3,8 +3,6 @@ package com.example.HealthyCampus.module.Message.New_friend.Apply_Friend;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +23,7 @@ import com.example.HealthyCampus.module.Mine.User.UserInformationActivity;
 import org.raphets.roundimageview.RoundImageView;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,8 +56,6 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
     RelativeLayout rlUser;
 
 
-    private boolean val = false;
-    private String staus;
 
     @Override
     protected void setUpContentView() {
@@ -98,11 +95,16 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1001) {
-                    Log.e("AddressListActi" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, "用户信息错误");
-                } else {
-                    ToastUtil.show(this, "未知错误:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -116,7 +118,6 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
 
     @Override
     public void showSuccess(DefaultResponseVo defaultResponseVo, int i) {
-        Intent intent = getIntent();
         if (defaultResponseVo.code == 3000) {
             if (i == 0) {
                 ToastUtil.show(getContext(), R.string.user_new_friend_apply_already_agree);
@@ -126,7 +127,6 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
                 ToastUtil.show(getContext(), R.string.user_new_friend_apply_already_refuse);
                 tvTip.setText(R.string.user_new_friend_apply_already_refuse);
             }
-            val = true;
             btnLayout.setVisibility(View.GONE);
             tvTip.setVisibility(View.VISIBLE);
         }
@@ -138,7 +138,7 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
         if (null != getIntent().getExtras()) {
             tvNickname.setText(getIntent().getExtras().getString("nickname"));
             tvContent.setText(getIntent().getExtras().getString("content"));
-            switch (getIntent().getExtras().getString("status")) {
+            switch (Objects.requireNonNull(getIntent().getExtras().getString("status"))) {
                 case "REQUEST":
                     break;
                 case "F_REQUEST":
@@ -162,11 +162,6 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
                     break;
             }
         }
-
-//        Picasso.with(this)
-//                    .load(getIntent().getExtras().getString(""))
-//                    .placeholder(R.mipmap.head_default)
-//                    .into(rvHead);
     }
 
     @Override
@@ -198,7 +193,7 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
 
     @OnClick(R.id.rlUser)
     public void rlUser(View view) {
-        requestResponse(getIntent().getExtras().getString("userid"));
+        requestResponse(Objects.requireNonNull(getIntent().getExtras()).getString("userid"));
     }
 
 
@@ -211,13 +206,13 @@ public class ApplyFriendActivity extends BaseActivity<ApplyFriendContract.View, 
 
     @OnClick(R.id.btnAgree)
     public void btnAgree(View view) {
-        RequestForm requestForm = new RequestForm(getIntent().getExtras().getString("userid"), "");
+        RequestForm requestForm = new RequestForm(Objects.requireNonNull(getIntent().getExtras()).getString("userid"), "");
         mPresenter.saveRequestFriend(requestForm);
     }
 
     @OnClick(R.id.btnRefuse)
     public void btnRefuse(View view) {
-        RequestForm requestForm = new RequestForm(getIntent().getExtras().getString("userid"), "");
+        RequestForm requestForm = new RequestForm(Objects.requireNonNull(getIntent().getExtras()).getString("userid"), "");
         mPresenter.refuseRequestFriend(requestForm);
     }
 

@@ -3,7 +3,6 @@ package com.example.HealthyCampus.common.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.example.HealthyCampus.common.network.vo.MedicineListVo;
 import com.example.HealthyCampus.common.utils.GlideUtils;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,9 +26,8 @@ import butterknife.ButterKnife;
 public class MedicineAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Context context;
     private onItemClick onItemClick;
-    private List<MedicineListVo> mData = new ArrayList<MedicineListVo>();
+    private List<MedicineListVo> mData;
     private final int ITEM_TYPE = 0; //item布局类型
-    private final int FOOTER_TYPPE = 1; //footer布局类型
     private boolean isLoad = true;
 
     public boolean isLoad() {
@@ -71,14 +68,16 @@ public class MedicineAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
         if (position + 1 == getItemCount() && isLoad) {  //最后一个为footer布局
-            return FOOTER_TYPPE;
+            //footer布局类型
+            return 1;
         }
         return ITEM_TYPE;
 
     }
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == ITEM_TYPE) {
             View view = LayoutInflater.from(context).inflate(R.layout.find_drug_bank_medicine_list, parent, false);
             return new ItemViewHolder(view);
@@ -118,16 +117,11 @@ public class MedicineAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBindViewHolder(int position) {
             Log.e("MedicineAdapter" + "123456", "account" + mData.get(position).toString());
-            tvPrice.setText(TextUtils.isEmpty(mData.get(position).getPrice()) ? context.getString(R.string.mine_drug_bank_price_unknown) : context.getString(R.string.mine_drug_bank_price) + mData.get(position).getPrice());
+            tvPrice.setText(null == mData.get(position).getPrice() ? context.getString(R.string.mine_drug_bank_price_unknown) : (context.getString(R.string.mine_drug_bank_price) + mData.get(position).getPrice()));
             tvGoods.setText(mData.get(position).getGoodName());
             tvDescription.setText(mData.get(position).getDescription());
             tvType.setText(mData.get(position).getIsOct());
-            medicineLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.selectedMedicine(mData.get(position).getId());
-                }
-            });
+            medicineLayout.setOnClickListener(v -> onItemClick.selectedMedicine(mData.get(position).getId()));
             GlideUtils.displayMedicineImage(ivIcon,"http:"+mData.get(position).getImage());
         }
 

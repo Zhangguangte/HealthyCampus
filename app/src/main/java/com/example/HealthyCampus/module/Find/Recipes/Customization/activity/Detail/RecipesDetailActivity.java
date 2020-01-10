@@ -172,10 +172,20 @@ public class RecipesDetailActivity extends BaseActivity<RecipesDetailContract.Vi
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    ToastUtil.show(getContext(), getString(R.string.database_empty_data));
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1014:
+                        ToastUtil.show(getContext(), getString(R.string.database_empty_data));
+                        finish();
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -132,7 +132,6 @@ public class CustomizationActivity extends BaseActivity<CustomizationContract.Vi
     }
 
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void initData(Bundle savedInstanceState) {
@@ -174,12 +173,20 @@ public class CustomizationActivity extends BaseActivity<CustomizationContract.Vi
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    ToastUtil.show(this, "无数据");
-                } else if (response.code == 1003) {
-                    ToastUtil.show(this, "无效参数");
-                } else
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        ToastUtil.show(this, R.string.data_lose);
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -246,33 +253,21 @@ public class CustomizationActivity extends BaseActivity<CustomizationContract.Vi
         rvContent.scrollToPosition(0);
         foodList.clear();
         customizationAdapter.notifyDataSetChanged();
-
+        btnClick(true);
         switch (view.getId()) {
             case R.id.btnBreakfast:
-                btnBreakfast.setEnabled(false);
-                btnBreakfast.setTextSize(18.0f);
-                btnBreakfast.setTextColor(getResources().getColor(R.color.white));
-                btnClick();
                 type.setLength(0);
                 type.append("breakfast");
                 dayTitle = 0;
                 btn = btnBreakfast;
                 break;
             case R.id.btnLunch:
-                btnLunch.setEnabled(false);
-                btnLunch.setTextSize(18.0f);
-                btnLunch.setTextColor(getResources().getColor(R.color.white));
-                btnClick();
                 type.setLength(0);
                 type.append("lunch");
                 dayTitle = 1;
                 btn = btnLunch;
                 break;
             case R.id.btnDinner:
-                btnDinner.setEnabled(false);
-                btnDinner.setTextSize(18.0f);
-                btnDinner.setTextColor(getResources().getColor(R.color.white));
-                btnClick();
                 type.setLength(0);
                 type.append("dinner");
                 dayTitle = 2;
@@ -280,15 +275,22 @@ public class CustomizationActivity extends BaseActivity<CustomizationContract.Vi
                 break;
             default:
                 break;
-        }
 
+        }
+        btnClick(false);
         mPresenter.getRecipesByThreeMeals(dayTitle, type.toString(), weekId);
     }
 
-    private void btnClick() {
-        btn.setTextSize(16.0f);
-        btn.setEnabled(true);
-        btn.setTextColor(getResources().getColor(R.color.black));
+    private void btnClick(boolean val) {
+        if (val) {
+            btn.setTextSize(16.0f);
+            btn.setEnabled(true);
+            btn.setTextColor(getResources().getColor(R.color.black));
+        } else {
+            btn.setTextSize(18.0f);
+            btn.setEnabled(false);
+            btn.setTextColor(getResources().getColor(R.color.white));
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -301,12 +303,10 @@ public class CustomizationActivity extends BaseActivity<CustomizationContract.Vi
         foodList.clear();
         customizationAdapter.notifyDataSetChanged();
 
-        btnClick();
+        btnClick(true);
         //初始化为早餐
-        btnBreakfast.setEnabled(false);
-        btnBreakfast.setTextSize(18.0f);
-        btnBreakfast.setTextColor(getResources().getColor(R.color.white));
         btn = btnBreakfast;
+        btnClick(false);
         switch (view.getId()) {
             case R.id.btnPreday:
                 weekId = weekId == 0 ? 6 : --weekId;

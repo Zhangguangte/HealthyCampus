@@ -3,10 +3,12 @@ package com.example.HealthyCampus.common.network;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.HealthyCampus.application.HealthApp;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.Interceptor.AuthorizationRequestInterceptor;
 import com.example.HealthyCampus.common.network.Interceptor.HttpCacheInterceptor;
 import com.example.HealthyCampus.common.network.api.BaiduApi;
@@ -33,6 +35,7 @@ import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import okhttp3.Request;
@@ -97,7 +100,8 @@ public class NetworkManager {
     public static NetworkManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new NetworkManager();
-            Retrofit retrofit = new Retrofit.Builder()
+            Retrofit retrofit = new Retrofit
+                    .Builder()
                     .client(createOkHttp2())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -198,7 +202,7 @@ public class NetworkManager {
                     .addInterceptor(new HttpCacheInterceptor())//本地拦截缓存
                     .addInterceptor(createLogInterceptor()) //请求日志拦截
                     .protocols(Collections.singletonList(Protocol.HTTP_1_1))
-                    .authenticator(new AuthorizationRequestInterceptor())
+                    .addInterceptor(new AuthorizationRequestInterceptor())
                     .retryOnConnectionFailure(true)
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .build();
@@ -207,7 +211,7 @@ public class NetworkManager {
                     .addInterceptor(createLogInterceptor()) //请求日志拦截
                     .retryOnConnectionFailure(true)
                     .protocols(Collections.singletonList(Protocol.HTTP_1_1))
-                    .authenticator(new AuthorizationRequestInterceptor())
+                    .addInterceptor(new AuthorizationRequestInterceptor())
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .build();
         }
@@ -226,15 +230,14 @@ public class NetworkManager {
                     .cache(createCache()) //设置缓存
                     .addInterceptor(new HttpCacheInterceptor())//本地拦截缓存
                     .addInterceptor(createLogInterceptor()) //请求日志拦截
-                    .authenticator(new AuthorizationRequestInterceptor())
+                    .addInterceptor(new AuthorizationRequestInterceptor())
                     .retryOnConnectionFailure(true)
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .build();
+                    .connectTimeout(15, TimeUnit.SECONDS).build();
         } else {
             okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(createLogInterceptor()) //请求日志拦截
                     .retryOnConnectionFailure(true)
-                    .authenticator(new AuthorizationRequestInterceptor())
+                    .addInterceptor(new AuthorizationRequestInterceptor())
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .build();
         }
@@ -247,7 +250,10 @@ public class NetworkManager {
     }
 
     public static HttpLoggingInterceptor createLogInterceptor() {
-        HttpLoggingInterceptor.Logger logger = message -> LogUtil.logI("http", message);
+        HttpLoggingInterceptor.Logger logger = message -> {
+            LogUtil.logI("http", message);
+
+        };
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(logger);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return loggingInterceptor;

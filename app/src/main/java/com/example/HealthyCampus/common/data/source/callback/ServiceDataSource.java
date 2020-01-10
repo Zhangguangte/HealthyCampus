@@ -31,14 +31,7 @@ public interface ServiceDataSource {
 
     void searchBookDetail(@NonNull RequestForm requestForm, @NonNull GetBookDetail callback);
 
-    interface SendFeed {
-
-        void onDataNotAvailable() throws Exception;
-
-        void onDataAvailable() throws Exception;
-    }
-
-    void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback);
+    void sendFeed(@NonNull RequestForm requestForm);
 
     interface GetTimeTable {
 

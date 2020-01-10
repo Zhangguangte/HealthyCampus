@@ -15,15 +15,17 @@ public class HomePageArticlePresenter extends HomePageArticleContract.Presenter 
         HomePageRepository.getInstance().getArticle(articleId, new HomePageDataSource.GetArticleCallback() {
             @Override
             public void onLatestNewsLoaded(HomePageArticleBean articleBean) throws Exception {
-                getView().loadComplete();
-                if (articleBean != null) {
-                    getView().setArticle(articleBean);
+                if (null != getView()) {
+                    getView().loadComplete();
+                    if (articleBean != null) {
+                        getView().setArticle(articleBean);
+                    }
                 }
             }
 
             @Override
             public void onDataNotAvailable() throws Exception {
-                getView().loadError();
+                if (null != getView())    getView().loadError();
             }
         });
     }

@@ -25,9 +25,12 @@ interface DrugBankContract {
 
         void showClassify(Map<String, List<String>> classifyMap, List<String> typeList);
 
-        void showAllMedicineSuccess(List<MedicineListVo> medicineListVos);
+        void showAllMedicineSuccess(List<MedicineListVo> medicineListVos,String classifyName);
 
         void showMedicineByKey(List<MedicineListVo> medicineListVos);
+
+        boolean isClassify(String classifyName);
+        boolean isKeyword(String keyword);
     }
 
     abstract class Presenter extends BasePresenter<View> {

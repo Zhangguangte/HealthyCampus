@@ -17,12 +17,12 @@ public class RecommendPresenter extends RecommendContract.Presenter {
         RecipesRepository.getInstance().getRecommendRecipes(new RecipesDataSource.RecipesGetRecommend() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())       getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<FoodRecommendVo> foodRecommendVos) throws Exception {
-                getView().showRecommendSuccess(foodRecommendVos);
+                if (null != getView())        getView().showRecommendSuccess(foodRecommendVos);
             }
         });
     }

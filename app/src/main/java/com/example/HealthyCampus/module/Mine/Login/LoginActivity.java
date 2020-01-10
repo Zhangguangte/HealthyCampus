@@ -22,6 +22,7 @@ import com.example.HealthyCampus.common.engine.MyTextWatcher;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.common.utils.JsonUtil;
+import com.example.HealthyCampus.common.utils.StatusBarUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
 import com.example.HealthyCampus.module.MainActivity;
@@ -71,6 +72,12 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
     }
 
     @Override
+    protected void initImmersionBar() {
+        StatusBarUtil.setStatusBarColor(this, R.color.login_backgroud);
+        StatusBarUtil.setStatusBarDarkTheme(this, true);     //黑色字体
+    }
+
+    @Override
     protected void initView() {
         initProgressView();
     }
@@ -93,8 +100,8 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
     @OnClick(R.id.btnLogin)
     public void login(View view) {
         showProgressView();
-        LoginForm dataForm = mPresenter.encapsulationData(etUsername.getText().toString(), etPassword.getText().toString());
-        mPresenter.login(dataForm, etPassword.getText().toString());
+        LoginForm form = mPresenter.encapsulationData(etUsername.getText().toString(), etPassword.getText().toString());
+        mPresenter.login(form, etPassword.getText().toString());
     }
 
 
@@ -171,18 +178,24 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
 
     @Override
     public void showLoginError(Throwable throwable) {
-        Log.e("LoginActivity" + "123456", "Login error");
         if (throwable instanceof HttpException) {
             Response httpException = ((HttpException) throwable).response();
             try {
-                String errorbody = httpException.errorBody().string();
-                DefaultResponseVo response = JsonUtil.format(errorbody, DefaultResponseVo.class);
-                Log.e("LoginActivity" + "123456", "errorbody:" + errorbody);
+                DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
                 Log.e("LoginActivity" + "123456", "response.toString:" + response.toString());
-                if (response.code == 1001) {
-                    ToastUtil.show(LoginActivity.this, "账号或者密码错误");
-                } else {
-                    ToastUtil.show(LoginActivity.this, "未知错误:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1005:
+                        ToastUtil.show(LoginActivity.this, "账号或者密码错误");
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -191,15 +204,12 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
             Log.e("LoginActivity" + "123456", "throwable.getMessage()" + throwable.getMessage());
             ToastUtil.show(LoginActivity.this, "未知错误:" + throwable.getMessage());
         }
-        // Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
     }
 
     @Override
     public void jumpToMain() {
+        ToastUtil.show(getContext(), R.string.user_login_success);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//        userService.registerJPush(LoginActivity.this, "1");
-//        userService.persistenceUser(userVo, password);
-
         finish();
     }
 
@@ -213,6 +223,7 @@ public class LoginActivity extends BaseActivity<LoginContract.View, LoginContrac
     public void initProgressView() {
         MaterialDialog.Builder builder = DialogUtil.ProgressView(this);
         builder.title(R.string.network_request)// 标题
+                .cancelable(false)
                 .content(R.string.netwotk_loginig);
         progressDialog = builder.build();// 创建对话框
     }

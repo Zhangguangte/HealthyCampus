@@ -17,34 +17,36 @@ public class DiseaseDetailPresenter extends DiseaseDetailContract.Presenter {
 
     @Override
     protected void getDiseaseDetailById(String id) {
-        RequestForm requestForm = new RequestForm("ID",id);
+        RequestForm requestForm = new RequestForm("ID", id);
         DiseaseRepository.getInstance().getDiseaseDetail(requestForm, new DiseaseDataSource.DiseaseGetDetail() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DiseaseDetailVo diseaseDetailVo) throws Exception {
-                getView().showDiseaseDetailSuccess(diseaseDetailVo);
+                if (null != getView()) getView().showDiseaseDetailSuccess(diseaseDetailVo);
             }
         });
     }
 
+    @Override
     protected void getDiseaseDetailByName(String name) {
-        RequestForm requestForm = new RequestForm("NAME",name);
+        RequestForm requestForm = new RequestForm("NAME", name);
         DiseaseRepository.getInstance().getDiseaseDetail(requestForm, new DiseaseDataSource.DiseaseGetDetail() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DiseaseDetailVo diseaseDetailVo) throws Exception {
-                getView().showDiseaseDetailSuccess(diseaseDetailVo);
+                if (null != getView()) getView().showDiseaseDetailSuccess(diseaseDetailVo);
             }
         });
     }
+
 
 
 }

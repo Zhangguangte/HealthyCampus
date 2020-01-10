@@ -1,5 +1,6 @@
 package com.example.HealthyCampus.greendao;
 
+import com.example.HealthyCampus.greendao.model.NoticeBean;
 import com.example.HealthyCampus.greendao.model.PatienInforBean;
 import com.example.HealthyCampus.greendao.model.SearchAdd;
 import com.example.HealthyCampus.greendao.model.SearchBook;
@@ -21,10 +22,12 @@ import java.util.Map;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig noticeBeanDaoConfig;
     private final DaoConfig patienInforBeanDaoConfig;
     private final DaoConfig searchAddDaoConfig;
     private final DaoConfig searchBookDaoConfig;
 
+    private final NoticeBeanDao noticeBeanDao;
     private final PatienInforBeanDao patienInforBeanDao;
     private final SearchAddDao searchAddDao;
     private final SearchBookDao searchBookDao;
@@ -32,6 +35,9 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        noticeBeanDaoConfig = daoConfigMap.get(NoticeBeanDao.class).clone();
+        noticeBeanDaoConfig.initIdentityScope(type);
 
         patienInforBeanDaoConfig = daoConfigMap.get(PatienInforBeanDao.class).clone();
         patienInforBeanDaoConfig.initIdentityScope(type);
@@ -42,19 +48,26 @@ public class DaoSession extends AbstractDaoSession {
         searchBookDaoConfig = daoConfigMap.get(SearchBookDao.class).clone();
         searchBookDaoConfig.initIdentityScope(type);
 
+        noticeBeanDao = new NoticeBeanDao(noticeBeanDaoConfig, this);
         patienInforBeanDao = new PatienInforBeanDao(patienInforBeanDaoConfig, this);
         searchAddDao = new SearchAddDao(searchAddDaoConfig, this);
         searchBookDao = new SearchBookDao(searchBookDaoConfig, this);
 
+        registerDao(NoticeBean.class, noticeBeanDao);
         registerDao(PatienInforBean.class, patienInforBeanDao);
         registerDao(SearchAdd.class, searchAddDao);
         registerDao(SearchBook.class, searchBookDao);
     }
     
     public void clear() {
+        noticeBeanDaoConfig.clearIdentityScope();
         patienInforBeanDaoConfig.clearIdentityScope();
         searchAddDaoConfig.clearIdentityScope();
         searchBookDaoConfig.clearIdentityScope();
+    }
+
+    public NoticeBeanDao getNoticeBeanDao() {
+        return noticeBeanDao;
     }
 
     public PatienInforBeanDao getPatienInforBeanDao() {

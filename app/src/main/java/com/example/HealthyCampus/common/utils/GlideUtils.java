@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.renderscript.Allocation;
@@ -17,25 +16,19 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.HealthyCampus.R;
 
 import java.io.File;
 import java.security.MessageDigest;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
 public class GlideUtils {
@@ -50,12 +43,6 @@ public class GlideUtils {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.loading)
             .error(R.mipmap.picture_lose);
-
-    private static RequestOptions diseaseOptions = new RequestOptions()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.loading)
-            .error(R.mipmap.picture_lose)
-            .centerCrop();
 
     /**
      * glide加载图片
@@ -203,29 +190,29 @@ public class GlideUtils {
 
 
     public static void displayBlurImage(ImageView view, String url) {
-
-        if (view == null) {
-            return;
-        }
-        Context context = view.getContext();
-        if (context instanceof Activity) {
-            if (((Activity) context).isFinishing()) {
-                return;
-            }
-        }
-        try {
-            RequestOptions blurOptions = RequestOptions
-                    .bitmapTransform(new BlurTransformation(context, 23))
-                    .placeholder(R.drawable.loading)
-                    .error(R.mipmap.picture_lose)
-                    .centerCrop();
-
-            Glide.with(context)
-                    .load(url)
-                    .apply(blurOptions) // 参数
-                    .into(view);
-        } catch (Exception ignored) {
-        }
+//
+//        if (view == null) {
+//            return;
+//        }
+//        Context context = view.getContext();
+//        if (context instanceof Activity) {
+//            if (((Activity) context).isFinishing()) {
+//                return;
+//            }
+//        }
+//        try {
+//            RequestOptions blurOptions = RequestOptions
+//                    .bitmapTransform(new BlurTransformation(context, 23))
+//                    .placeholder(R.drawable.loading)
+//                    .error(R.mipmap.picture_lose)
+//                    .centerCrop();
+//
+//            Glide.with(context)
+//                    .load(url)
+//                    .apply(blurOptions) // 参数
+//                    .into(view);
+//        } catch (Exception ignored) {
+//        }
     }
 
 

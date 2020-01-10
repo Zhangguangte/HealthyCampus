@@ -1,6 +1,7 @@
 package com.example.HealthyCampus.module.Message.Chat;
 
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -46,14 +47,13 @@ public class ChatPresenter extends ChatContract.Presenter {
     protected void allChatByRoomId(RequestForm requestForm) {
         MessageRepository.getInstance().allChatByRoomId(requestForm, new MessageDataSource.MessageAllChat() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+            public void onDataNotAvailable(Throwable throwable) {
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(List<MessageListVo> messageListVos) throws Exception {
-                List<ChatItemBean> chatItemBeans = changeItemBean(messageListVos);
-                getView().showRecyclerView(chatItemBeans);
+            public void onDataAvailable(List<MessageListVo> messageListVos) {
+                if (null != getView()) getView().showRecyclerView(changeItemBean(messageListVos));
             }
         });
     }
@@ -63,17 +63,15 @@ public class ChatPresenter extends ChatContract.Presenter {
     protected void allChatByUid(RequestForm requestForm) {
         MessageRepository.getInstance().allChatByUid(requestForm, new MessageDataSource.MessageAllChat() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+            public void onDataNotAvailable(Throwable throwable) {
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<MessageListVo> messageListVos) {
-                try {
+                if (null != getView()) {
                     List<ChatItemBean> chatItemBeans = changeItemBean(messageListVos);
                     getView().showRecyclerView(chatItemBeans);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });
@@ -84,18 +82,16 @@ public class ChatPresenter extends ChatContract.Presenter {
     protected void searchRoomid(RequestForm requestForm) {
         MessageRepository.getInstance().searchRoomid(requestForm, new MessageDataSource.MessageSearchRoomid() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().finish();
+            public void onDataNotAvailable(Throwable throwable) {
+                if (null != getView()) getView().finish();
             }
 
             @Override
             public void onDataAvailable(MessageListVo messageListVo) {
-                try {
+                if (null != getView()) {
                     getView().setRoomId(messageListVo.getRoom_id());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    allChatByUid(requestForm);
                 }
-                allChatByUid(requestForm);
             }
         });
     }
@@ -106,8 +102,8 @@ public class ChatPresenter extends ChatContract.Presenter {
         String userid = SPHelper.getString(SPHelper.USER_ID);
 
         Collections.reverse(messageListVos);        //倒叙查询数据
-        List<ChatItemBean> chatItemBeans = new ArrayList<ChatItemBean>();
-        ChatItemBean chatItemBean = null;
+        List<ChatItemBean> chatItemBeans = new ArrayList<>();
+        ChatItemBean chatItemBean;
         int itemSize = 8 - messageListVos.size();            /*用于判断是否数据超过屏幕。不合理，因为目前手机为魅族MX6，适合8个文本Item，不同手机大小不一。
                                                                 预方案：测量手机高度，计算item总高度，进行比对
                                                                 目的：用于优化聊天显示
@@ -129,10 +125,10 @@ public class ChatPresenter extends ChatContract.Presenter {
 
     //添加内容:文本、录音、图片、地图、文件
     @Override
-    protected void insertContent(String content, String roomId, String filePath, String type,int position) {
+    protected void insertContent(String content, String roomId, String filePath, String type, int position) {
         ChatForm chatForm = encapsulation(content, roomId, filePath, type);
         chatForm.setFile_path(filePath);
-        saveContent(chatForm,position);
+        saveContent(chatForm, position);
     }
 
     //添加卡片
@@ -150,18 +146,19 @@ public class ChatPresenter extends ChatContract.Presenter {
         MultipartBody.Builder mul = new MultipartBody.Builder();
         RequestBody body;
         String bitmapStr = PictureUtil.imageToBase64(path.replace("file://", ""));
+        assert bitmapStr != null;
         mul.addFormDataPart(name, bitmapStr);
         body = mul.build();
         Request request = new Request.Builder().url("http://192.168.0.105:8095/GETE/UpImage").post(body)
                 .addHeader("account", SPHelper.getString(SPHelper.USER_ID)).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.e("ChatPresenter123456", "SavePicture:不可以可以3");
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
                 Log.v("ChatPresenter123456", "SavePicture:可以可以3");
             }
         });
@@ -169,7 +166,7 @@ public class ChatPresenter extends ChatContract.Presenter {
 
     @Override
     protected void loadPicture(String belongId, String filename, ImageView sivPicture) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("belongId", belongId);
         map.put("filename", filename);
         Gson gson = new Gson();
@@ -181,7 +178,7 @@ public class ChatPresenter extends ChatContract.Presenter {
         client.newCall(request).enqueue(new Callback() {
 
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 try {
                     getView().loadPictureFail(sivPicture);
                 } catch (Exception e1) {
@@ -190,9 +187,10 @@ public class ChatPresenter extends ChatContract.Presenter {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (response.isSuccessful()) {
                     try {
+                        assert response.body() != null;
                         String result = new String(response.body().bytes());
                         getView().loadPictureSuccess(sivPicture, result);
                         PictureUtil.saveBmpToSd(PictureUtil.stringToBitmap(result), filename, 100, true);
@@ -232,17 +230,19 @@ public class ChatPresenter extends ChatContract.Presenter {
         return chatForm;
     }
 
-    private void saveContent(ChatForm chatForm,int position) {
+    private void saveContent(ChatForm chatForm, int position) {
         MessageRepository.getInstance().insertContent(chatForm, new MessageDataSource.MessageAddContent() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
-                getView().saveFail(position);
+            public void onDataNotAvailable(Throwable throwable) {
+                if (null != getView()) {
+                    getView().showError(throwable);
+                    getView().saveFail(position);
+                }
             }
 
             @Override
             public void onDataAvailable() {
-                getView().saveSuccess(position);
+                if (null != getView()) getView().saveSuccess(position);
             }
         });
     }
@@ -250,13 +250,13 @@ public class ChatPresenter extends ChatContract.Presenter {
     private void saveCard(ChatForm chatForm) {
         MessageRepository.getInstance().insertCard(chatForm, new MessageDataSource.MessageAddCard() {
             @Override
-            public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+            public void onDataNotAvailable(Throwable throwable) {
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
-            public void onDataAvailable(UserVo userVo) throws Exception {
-                getView().addCardItem(userVo);
+            public void onDataAvailable(UserVo userVo) {
+                if (null != getView()) getView().addCardItem(userVo);
             }
         });
     }

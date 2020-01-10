@@ -190,7 +190,6 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     private void initRecyclerView() {
         //音频
         //用于activity结束时
-        MediaManager mediaManager = new MediaManager();
         mSwipeRefresh.setOnRefreshListener(this);
         mAdapter = new ChatRecyclerAdapter(chatItemBeanList, HealthApp.getAppContext(), this);
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -281,12 +280,25 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    mSwipeRefresh.setEnabled(false);
-                    if (1 != row)
-                        ToastUtil.show(this, "无数据");
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1006:
+                        mSwipeRefresh.setEnabled(false);
+                        if (1 != row)
+                            ToastUtil.show(this, "无数据");
+                        break;
+                    case 1010:
+                        ToastUtil.show(getContext(), "暂无好友关系");
+                        finish();
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -793,13 +805,11 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
     //添加：名片项
     @Override
     public void addCardItem(UserVo userVo) {
-        ChatItemBean chatItem = new ChatItemBean();
-        chatItem.setType("CARD");
-        chatItem.setSentstatus("SENT");
-        chatItem.setContent(userVo.avatar + "," + userVo.nickname + "," + userVo.account);
-        chatItemBeanList.add(chatItem);
-        mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
-        rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
+        Message message = mHandler.obtainMessage();
+        message.what = 3;
+        message.obj = userVo;
+        mHandler.sendMessage(message);
+
     }
 
     //数据库添加失败
@@ -888,6 +898,16 @@ public class ChatActivity extends BaseActivity<ChatContract.View, ChatContract.P
                 case 2:             //失败：图片显示
                     ImageView sivPicture1 = (ImageView) msg.obj;
                     sivPicture1.setImageDrawable(getResources().getDrawable(R.mipmap.picture_lose));
+                    break;
+                case 3:     //用户名片
+                    UserVo userVo = (UserVo) msg.obj;
+                    ChatItemBean chatItem = new ChatItemBean();
+                    chatItem.setType("CARD");
+                    chatItem.setSentstatus("SENT");
+                    chatItem.setContent(userVo.avatar + "," + userVo.nickname + "," + userVo.account);
+                    chatItemBeanList.add(chatItem);
+                    mAdapter.notifyItemInserted(chatItemBeanList.size() - 1);
+                    rvChatting.smoothScrollToPosition(chatItemBeanList.size() > 0 ? chatItemBeanList.size() - 1 : 0);
                     break;
             }
         }

@@ -23,19 +23,23 @@ public class DrugBankPresenter extends DrugBankContract.Presenter {
         MedicineRepository.getInstance().getAllClassify(new MedicineDataSource.MedicineAllClassify() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
-                getView().showTypeError();
+                if (null != getView()) {
+                    getView().showError(throwable);
+                    getView().showTypeError();
+                }
             }
 
             @Override
             public void onDataAvailable(List<MedicineVo> medicineVos) throws Exception {
-                Map<String, List<String>> classifyMap = new HashMap<>();
-                List<String> type = new ArrayList<>();
-                for (MedicineVo medicineVo : medicineVos) {
-                    type.add(medicineVo.getTypeName());
-                    classifyMap.put(medicineVo.getTypeName(), java.util.Arrays.asList(medicineVo.getClassifyName().split(",")));
+                if (null != getView()) {
+                    Map<String, List<String>> classifyMap = new HashMap<>();
+                    List<String> type = new ArrayList<>();
+                    for (MedicineVo medicineVo : medicineVos) {
+                        type.add(medicineVo.getTypeName());
+                        classifyMap.put(medicineVo.getTypeName(), java.util.Arrays.asList(medicineVo.getClassifyName().split(",")));
+                    }
+                    getView().showClassify(classifyMap, type);
                 }
-                getView().showClassify(classifyMap, type);
             }
         });
     }
@@ -65,15 +69,23 @@ public class DrugBankPresenter extends DrugBankContract.Presenter {
     protected void getAllMedicine(String classifyName, int row) {        //根据分类名，获得分类数据
         RequestForm requestForm = new RequestForm("", classifyName, row);
         MedicineRepository.getInstance().getAllMedicine(requestForm, new MedicineDataSource.MedicineGetAllMedicine() {
+
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
-                getView().showAllMedicineError();
+                if (null != getView()) {
+                    if (getView().isClassify(classifyName)) {
+                        getView().showError(throwable);
+                        getView().showAllMedicineError();
+                    }
+                }
             }
 
             @Override
-            public void onDataAvailable(List<MedicineListVo> medicineListVos) throws Exception {
-                getView().showAllMedicineSuccess(medicineListVos);
+            public void onDataAvailable(List<MedicineListVo> medicineListVos) throws
+                    Exception {
+                if (null != getView()) {
+                    getView().showAllMedicineSuccess(medicineListVos, classifyName);
+                }
             }
         });
     }
@@ -83,13 +95,21 @@ public class DrugBankPresenter extends DrugBankContract.Presenter {
         MedicineRepository.getInstance().getAllMedicineByKey(changEncapsulation(scope, "%" + keyWord + "%", row), new MedicineDataSource.MedicineGetAllMedicine() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
-                getView().showMedicineError();
+                if (null != getView()) {
+                    if (getView().isKeyword(keyWord)) {
+                        getView().showError(throwable);
+                        getView().showMedicineError();
+                    }
+                }
             }
 
             @Override
             public void onDataAvailable(List<MedicineListVo> medicineListVos) throws Exception {
-                getView().showMedicineByKey(medicineListVos);
+                if (null != getView()) {
+                    if (getView().isKeyword(keyWord)) {
+                        getView().showMedicineByKey(medicineListVos);
+                    }
+                }
             }
         });
     }

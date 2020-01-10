@@ -62,13 +62,17 @@ public class ConsultPictureAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     @Override
     public int getItemCount() {
         if (null != mData && mData.size() > 0) {
-            return mData.size() + 1;
+            if (mData.size() < 9)
+                return mData.size() + 1;
+            else
+                return mData.size();
         }
         return 1;
     }
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == ConstantValues.HEALTH_PICTURE_ITEM) {
             view = LayoutInflater.from(context).inflate(R.layout.health_consult_picture_item, parent, false);

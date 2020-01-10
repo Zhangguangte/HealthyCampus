@@ -235,11 +235,18 @@ public class LibraryActivity extends BaseActivity<LibraryContract.View, LibraryC
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    Log.e("LibraryDetailAc" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, "查无结果");
-                } else {
-                    ToastUtil.show(this, "未知错误:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        ToastUtil.show(this, "查无结果");
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -254,18 +261,14 @@ public class LibraryActivity extends BaseActivity<LibraryContract.View, LibraryC
 
     @Override
     public void showSuccess(List<BookVo> bookVos) {
-        if (null == bookVos || bookVos.size() == 0)
-            ToastUtil.show(this, "查无结果");
-        else {
-            if (emptyLayout.isShown()) {
-                this.bookVos.addAll(bookVos);
-                bookAdapter.notifyDataSetChanged();
-                //添加信息与搜索历史
-                if (!TextUtils.isEmpty(etSearch.getText().toString()) && -1 == list.indexOf(etSearch.getText().toString())) {
-                    dao.save(new SearchBook(null, etSearch.getText().toString()));
-                    list.add(0, etSearch.getText().toString());
-                    historyAdapter.notifyDataSetChanged();
-                }
+        if (emptyLayout.isShown()) {
+            this.bookVos.addAll(bookVos);
+            bookAdapter.notifyDataSetChanged();
+            //添加信息与搜索历史
+            if (!TextUtils.isEmpty(etSearch.getText().toString()) && -1 == list.indexOf(etSearch.getText().toString())) {
+                dao.save(new SearchBook(null, etSearch.getText().toString()));
+                list.add(0, etSearch.getText().toString());
+                historyAdapter.notifyDataSetChanged();
             }
         }
         loadingData(false);

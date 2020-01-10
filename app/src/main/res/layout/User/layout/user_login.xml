@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/left_padding"
+    android:background="@color/login_backgroud"
     android:paddingRight="@dimen/left_padding">
 
     <!--<include-->

@@ -110,12 +110,9 @@ public class TimeTableActivity extends BaseActivity<TimeTableContract.View, Time
 
     @Override
     public void showSuccess(List<CourseVo> courses) {
-
         loadingData(false);
         emptyLayout.setVisibility(View.GONE);
         tableView.updateCourseViews(courses);
-
-
     }
 
     @Override
@@ -125,10 +122,18 @@ public class TimeTableActivity extends BaseActivity<TimeTableContract.View, Time
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    ToastUtil.show(getContext(),R.string.data_lose );
-                } else {
-                    ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        ToastUtil.show(getContext(),R.string.data_lose );
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.framework.BaseFragment;
-import com.example.HealthyCampus.module.Find.Recipes.Functionality.RecipesList.activity.RecipesListActivity;
+import com.example.HealthyCampus.module.Find.Recipes.Functionality.List.RecipesListActivity;
 
 import butterknife.OnClick;
 

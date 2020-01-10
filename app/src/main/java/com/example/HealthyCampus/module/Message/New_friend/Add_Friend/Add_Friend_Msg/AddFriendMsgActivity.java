@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class AddFriendMsgActivity extends BaseActivity<AddFriendMsgContract.View
     EditText etContent;
 
     private String Content = "";
+    private InputMethodManager mImm;        //软键盘
 
     @Override
     protected void setUpContentView() {
@@ -67,7 +69,7 @@ public class AddFriendMsgActivity extends BaseActivity<AddFriendMsgContract.View
     protected void initData(Bundle savedInstanceState) {
         tvName.setText(getIntent().getStringExtra("NICKNAME"));
         etContent.setText("你好！我是" + SPHelper.getString(SPHelper.NICKNAME));
-
+        mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); //软键盘
 //        Picasso.with(AddFriendMsgActivity.this)
 //                .load(getIntent().getStringExtra("ICON"))
 //                .placeholder(R.mipmap.head_default)
@@ -123,10 +125,18 @@ public class AddFriendMsgActivity extends BaseActivity<AddFriendMsgContract.View
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
                 Log.e("AddFriendActivity" + "123456", "response.toString:" + response.toString());
-                if (response.code == 1003) {
-                    ToastUtil.show(this, "Invalid Parameter");
-                } else {
-                    ToastUtil.show(this, "未知错误2:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -142,10 +152,11 @@ public class AddFriendMsgActivity extends BaseActivity<AddFriendMsgContract.View
     @Override
     public void sendSuccess() {
         ToastUtil.show(getContext(), R.string.user_add_friend_add_msg_send_success);
-        Intent intent = getIntent();
-        intent.putExtra("fresh", true);
-        setResult(2, intent);
+        hideSoftInput();
         finish();
     }
 
+    public void hideSoftInput() {
+        mImm.hideSoftInputFromWindow(etContent.getWindowToken(), 0);
+    }
 }

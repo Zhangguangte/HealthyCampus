@@ -32,7 +32,6 @@
                 android:layout_marginTop="@dimen/margin_less"
                 android:layout_toRightOf="@+id/ivIcon"
                 android:paddingBottom="@dimen/padding_less2"
-                android:text="Pony"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_f2" />
 
@@ -57,7 +56,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:ellipsize="end"
-        android:maxLength="200"
+        android:maxLength="150"
         android:paddingLeft="@dimen/padding"
         android:paddingTop="@dimen/padding_less2"
         android:paddingBottom="@dimen/padding_less2"

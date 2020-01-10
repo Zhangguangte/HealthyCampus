@@ -109,8 +109,8 @@ public class MedicineDetailActivity extends BaseActivity<MedicineDetailContract.
         tvTitle.setText(medicineVo.getName());
         tvDetail.setText(StringUtil.dealHtmlText(medicineVo.getDetail()));
         tvSpecifications.setText("规格:" + medicineVo.getSpec() + "/" + medicineVo.getUnit());
-        tvIndications.setText(TextUtils.isEmpty(medicineVo.getZhuzhi()) ? getString(R.string.find_self_diagnosis_detail_no) : "主治:\n" + medicineVo.getZhuzhi().replace(" ", "、"));
-        tvPrice.setText(TextUtils.isEmpty(medicineVo.getPrice()) ? getString(R.string.mine_drug_bank_price_unknown) : getString(R.string.mine_drug_bank_price) + medicineVo.getPrice());
+        tvIndications.setText("主治:" + (TextUtils.isEmpty(medicineVo.getZhuzhi()) ? getString(R.string.find_self_diagnosis_detail_no) : medicineVo.getZhuzhi().replace(" ", "、")));
+        tvPrice.setText(null == medicineVo.getPrice() ? getString(R.string.mine_drug_bank_price_unknown) : (getString(R.string.mine_drug_bank_price) + medicineVo.getPrice()));
         GlideUtils.displayMedicineImage(ivDrug, "http:" + medicineVo.getImage());
         dismissProgressDialog();
     }

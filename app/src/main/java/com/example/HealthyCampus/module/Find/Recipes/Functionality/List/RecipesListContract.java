@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.module.Find.Recipes.Functionality.RecipesList.activity;
+package com.example.HealthyCampus.module.Find.Recipes.Functionality.List;
 
 import android.content.Context;
 
@@ -20,6 +20,8 @@ interface RecipesListContract {
         void showRecipesSuccess(List<FoodMenuVo> foodMenuVos);
 
         void showRecipesListSuccess(List<String> list);
+
+        boolean isList(String list);
     }
 
     abstract class Presenter extends BasePresenter<View> {

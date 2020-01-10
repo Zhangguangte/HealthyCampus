@@ -238,7 +238,7 @@ public class HomePageListFragment extends BaseListFragment<HomePageListContract.
             StoriesBean bean = mDataList.get(position);
             if (bean != null) {
                 mItemTitle.setText(bean.getTitle());
-                GlideUtils.display(mItemImg, bean.getImages().get(0));
+                GlideUtils.display(mItemImg, bean.getImages().get(0),false);
             }
         }
 

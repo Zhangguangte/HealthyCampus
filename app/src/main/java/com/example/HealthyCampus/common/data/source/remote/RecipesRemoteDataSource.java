@@ -3,8 +3,10 @@ package com.example.HealthyCampus.common.data.source.remote;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.HealthyCampus.common.constants.ConstantValues;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.data.source.callback.RecipesDataSource;
+import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.NetworkManager;
 import com.example.HealthyCampus.common.network.vo.FoodMenuVo;
 
@@ -19,7 +21,6 @@ public class RecipesRemoteDataSource implements RecipesDataSource {
     private static RecipesRemoteDataSource INSTANCE = null;
 
 
-
     public static RecipesRemoteDataSource getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new RecipesRemoteDataSource();
@@ -29,7 +30,7 @@ public class RecipesRemoteDataSource implements RecipesDataSource {
 
 
     @Override
-    public void getRecipesByThreeMeals(@NonNull RequestForm requestForm,@NonNull RecipesThreesMeals callback) {
+    public void getRecipesByThreeMeals(@NonNull RequestForm requestForm, @NonNull RecipesThreesMeals callback) {
         NetworkManager.getInstance().getRecipesApi()
                 .getRecipesByThreeMeals(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
@@ -105,7 +106,7 @@ public class RecipesRemoteDataSource implements RecipesDataSource {
     @Override
     public void getDishResult(@NonNull String data, @NonNull RecipesGetDish callback) {
         NetworkManager.getBaiduApi()
-                .getDishResult(data,"5")
+                .getDishResult(data, "5", SPHelper.getString(SPHelper.BAIDU_TOKEN))
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .doOnSubscribe(() -> Log.e("RecipesRem" + "123456", "getDishResult:7"))
@@ -132,7 +133,7 @@ public class RecipesRemoteDataSource implements RecipesDataSource {
     @Override
     public void getIngredientResult(@NonNull String data, @NonNull RecipesGetIngredient callback) {
         NetworkManager.getBaiduApi()
-                .getIngredientResult(data,"5")
+                .getIngredientResult(data, "5", SPHelper.getString(SPHelper.BAIDU_TOKEN))
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .doOnSubscribe(() -> Log.e("RecipesRem" + "123456", "getIngredientResult:7"))

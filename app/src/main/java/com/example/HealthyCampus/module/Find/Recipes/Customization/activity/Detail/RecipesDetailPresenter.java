@@ -24,12 +24,12 @@ public class RecipesDetailPresenter extends RecipesDetailContract.Presenter {
         RecipesRepository.getInstance().getRecipeDetail(requestForm, new RecipesDataSource.RecipesGetDetail() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(FoodVo foodVo) throws Exception {
-                changedData(foodVo);
+                if (null != getView())  changedData(foodVo);
             }
         });
     }

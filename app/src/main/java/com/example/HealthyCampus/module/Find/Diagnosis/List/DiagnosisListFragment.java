@@ -65,6 +65,7 @@ public class DiagnosisListFragment extends BaseFragment<DiagnosisListContract.Vi
         loadAnimation.start();
 
         mDataList.clear();
+        assert getArguments() != null;
         belong = getArguments().getInt("id", 0);
         diagnosisListAdapter.setType(getArguments().getInt("id", 0));
         mPresenter.getDiseaseSortList(belong);
@@ -94,7 +95,6 @@ public class DiagnosisListFragment extends BaseFragment<DiagnosisListContract.Vi
         emptyLayout.setVisibility(View.GONE);
         mDataList.addAll(diseaseSortListVos);
         diagnosisListAdapter.notifyDataSetChanged();
-        DialogUtil.dismissProgressDialog();
     }
 
     @Override
@@ -104,10 +104,19 @@ public class DiagnosisListFragment extends BaseFragment<DiagnosisListContract.Vi
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    ToastUtil.show(mActivity, "无数据");
-                } else {
-                    ToastUtil.show(mActivity, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        ToastUtil.show(getContext(), "无数据");
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -120,7 +129,6 @@ public class DiagnosisListFragment extends BaseFragment<DiagnosisListContract.Vi
         if (mDataList.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
         }
-        DialogUtil.dismissProgressDialog();
     }
 
     @OnClick(R.id.NetworkLayout)      //重试:类型、分类数据为空

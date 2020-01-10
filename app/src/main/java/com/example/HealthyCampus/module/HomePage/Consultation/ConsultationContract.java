@@ -17,9 +17,9 @@ interface ConsultationContract {
 
         void showError(Throwable throwable);
 
-        void showSuccess(String room_id);
+        void showSuccess(String room_id,String name);
 
-        void showtDoctorSuccess(List<MessageListVo> listVos);
+        void showtDoctorSuccess(String nickName1, String room1, String nickName2, String room2);
 
     }
 
@@ -28,6 +28,6 @@ interface ConsultationContract {
 
         protected abstract void createRoom(String name);
 
-        protected abstract void deleteRoomId(String name);
+        protected abstract void deleteRoomId(String name, int number);
     }
 }

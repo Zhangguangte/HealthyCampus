@@ -18,30 +18,30 @@ public class NewFriendListPresenter extends NewFriendListContract.Presenter {
 
     @Override
     public void clearRequestFriends() {
-        FriendRepository.getInstance().clearRequestFriends(new FriendDataSource.ClearRequestFriends(){
+        FriendRepository.getInstance().clearRequestFriends(new FriendDataSource.ClearRequestFriends() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
-                  getView().clearList();
+                if (null != getView()) getView().clearList();
             }
         });
     }
 
     @Override
-    public void saveRequestFriend(RequestForm requestForm,int position) {
-        FriendRepository.getInstance().saveRequestFriend(requestForm,new FriendDataSource.SaveRequestFriend() {
+    public void saveRequestFriend(RequestForm requestForm, int position) {
+        FriendRepository.getInstance().saveRequestFriend(requestForm, new FriendDataSource.SaveRequestFriend() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
-                getView().showSuccess(defaultResponseVo,position);
+                if (null != getView()) getView().showSuccess(defaultResponseVo, position);
             }
         });
     }

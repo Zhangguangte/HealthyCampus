@@ -21,7 +21,10 @@ interface NoticeContract {
         void showSuccess(List<NoticeVo> noticeVos);
 
         void showSuccess(String message);
+
         void clearSuccess();
+
+        void loadData();
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -30,6 +33,7 @@ interface NoticeContract {
         protected abstract void getAllNotice();     //获得所有通知
 
         protected abstract void deleteNotice(String id);     //删除通知
+
         protected abstract void lookNotice(String id);     //查看通知
     }
 }

@@ -1,12 +1,31 @@
 package com.example.HealthyCampus.common.network.vo;
 
+import com.example.HealthyCampus.greendao.model.NoticeBean;
+
 public class NoticeVo {
-    private String id;
+    private Long n_id;      //Green数据库内的ID
+    private String id;      //服务器的ID
     private String create_time;
     private String content;
-    private String sender;
     private String status;
     private String noticeType;
+
+    public NoticeVo(NoticeBean bean) {
+        this.id = bean.getN_id();
+        this.create_time = bean.getCreate_time();
+        this.content = bean.getContent();
+        this.status = bean.getStatus();
+        this.noticeType = bean.getNoticeType();
+        this.n_id = bean.getId();
+    }
+
+    public Long getN_id() {
+        return n_id;
+    }
+
+    public void setN_id(Long n_id) {
+        this.n_id = n_id;
+    }
 
     public String getId() {
         return id;
@@ -40,13 +59,6 @@ public class NoticeVo {
         this.content = content;
     }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
 
     public String getStatus() {
         return status;
@@ -56,13 +68,4 @@ public class NoticeVo {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "NoticeVo{" +
-                "create_time='" + create_time + '\'' +
-                ", content='" + content + '\'' +
-                ", sender='" + sender + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

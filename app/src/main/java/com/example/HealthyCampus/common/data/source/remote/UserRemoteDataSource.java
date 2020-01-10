@@ -59,11 +59,10 @@ public class UserRemoteDataSource implements UserDataSource {
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .doOnSubscribe(() -> Log.e("UserRemoteDa" + "123456", "register:7"))
-                .subscribe(defaultResponseVo -> {
+                .subscribe(userVo -> {
                     try {
                         Log.e("UserRemoteDa" + "123456", "register:8");
-                        Log.e("UserRemoteDa" + "123456", "register:defaultResponseVo" + defaultResponseVo.toString());
-                        callback.registerSuccess(defaultResponseVo.message);
+                        callback.registerSuccess(userVo);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

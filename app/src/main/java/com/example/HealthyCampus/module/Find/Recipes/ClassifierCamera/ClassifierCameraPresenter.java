@@ -22,17 +22,17 @@ public class ClassifierCameraPresenter extends ClassifierCameraContract.Presente
         RecipesRepository.getInstance().getDishResult(data, new RecipesDataSource.RecipesGetDish() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DishVo dishVo) throws Exception {
-                getView().showDishSuccess(dishVo);
+                if (null != getView()) getView().showDishSuccess(dishVo);
             }
 
             @Override
             public void onFinish() throws Exception {
-                getView().enableClick(false);
+                if (null != getView()) getView().enableClick(false);
             }
         });
     }
@@ -43,17 +43,17 @@ public class ClassifierCameraPresenter extends ClassifierCameraContract.Presente
         RecipesRepository.getInstance().getIngredientResult(data, new RecipesDataSource.RecipesGetIngredient() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(IngredientVo ingredientVo) throws Exception {
-                getView().showIngredientSuccess(ingredientVo);
+                if (null != getView()) getView().showIngredientSuccess(ingredientVo);
             }
 
             @Override
             public void onFinish() throws Exception {
-                getView().enableClick(false);
+                if (null != getView()) getView().enableClick(false);
             }
         });
     }

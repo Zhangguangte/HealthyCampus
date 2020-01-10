@@ -20,12 +20,13 @@ public class AddFriendMsgPresenter extends AddFriendMsgContract.Presenter {
 
             @Override
             public void onDataNotAvailable(Throwable throwable) {
-                getView().showError(throwable);
+                if (null != getView())
+                    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DefaultResponseVo defaultResponseVo) {
-                getView().sendSuccess();
+                if (null != getView()) getView().sendSuccess();
             }
 
         });
@@ -33,6 +34,6 @@ public class AddFriendMsgPresenter extends AddFriendMsgContract.Presenter {
 
     @Override
     protected RequestForm encapsulationData(String quest_id, String content) {
-        return new RequestForm(quest_id,content);
+        return new RequestForm(quest_id, content);
     }
 }

@@ -19,10 +19,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.data.form.RegisterFrom;
 import com.example.HealthyCampus.common.engine.MyTextWatcher;
+import com.example.HealthyCampus.common.helper.UserHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.LogUtil;
+import com.example.HealthyCampus.common.utils.StatusBarUtil;
 import com.example.HealthyCampus.common.utils.StringUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
@@ -69,6 +71,12 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
     private MaterialDialog progressDialog;
 
     @Override
+    protected void initImmersionBar() {
+        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimary);
+        StatusBarUtil.setStatusBarDarkTheme(this, true);
+    }
+
+    @Override
     protected void setUpContentView() {
         setContentView(R.layout.user_register2);
     }
@@ -80,15 +88,14 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
 
     @Override
     protected void initView() {
-        //initPhone();
+        initPhone();
         initProgressView();
-        showTipsView("13264");
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         try {
-        mPresenter.foucusRegisterEditText();
+            mPresenter.foucusRegisterEditText();
             mPresenter.listenRegisterEditText();
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,23 +200,19 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
     @Override
     public void jumpToMain() {
         startActivity(new Intent(RegisterActivity2.this, MainActivity.class));
-//        userService.registerJPush(LoginActivity.this, "1");
-//        userService.persistenceUser(userVo, password);
         finish();
     }
 
     @Override
     public void jumpToRegister1() {
         startActivity(new Intent(RegisterActivity2.this, RegisterActivity1.class));
-//        userService.registerJPush(LoginActivity.this, "1");
-//        userService.persistenceUser(userVo, password);
         finish();
     }
 
     @Override
     public void jumpToLogin() {
         startActivity(new Intent(this, LoginActivity.class));
-//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
 
@@ -246,10 +249,10 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
     }
 
     @Override
-    public void showTipsView(String username) {
+    public void showTipsView(String account) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.register2_register_success)
-                .setMessage("您的登录账号为:" + username + "\n\n点击进入首页.")
+                .setMessage("您的登录账号为:" + account + "\n\n点击进入首页.")
                 .setPositiveButton("确定", (dialog, which) -> {
                     dialog.dismiss();
                     jumpToMain();
@@ -259,12 +262,6 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
                     jumpToMain();
                 })
                 .show();
-    }
-
-    @Override
-    public void setPageEnable(){
-        registerPage.setEnabled(false);
-        registerPage.setAlpha(0.5f);
     }
 
     @Override
@@ -278,23 +275,33 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
             if (throwable instanceof HttpException) {
                 Response httpException = ((HttpException) throwable).response();
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                Log.e("LoginActivity" + "123456", "throwable.toString:" + throwable.toString());
-                Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
-                Log.e("LoginActivity" + "123456", "httpException.headers:" + httpException.headers());
-                Log.e("LoginActivity" + "123456", "httpException.message:" + httpException.message());
-                Log.e("LoginActivity" + "123456", "httpException.body:" + httpException.body());
-                Log.e("LoginActivity" + "123456", "httpException.errorBody:" + httpException.errorBody().toString());
-                if (response.code == 1003) {
-                    ToastUtil.show(this, R.string.register2_invalid_parameter);
-                } else {
-                    ToastUtil.show(this, R.string.register2_try_again);
-                    Logger.e("Response:" + JsonUtil.toJson(response));
+//                Log.e("LoginActivity" + "123456", "throwable.toString:" + throwable.toString());
+//                Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
+//                Log.e("LoginActivity" + "123456", "httpException.headers:" + httpException.headers());
+//                Log.e("LoginActivity" + "123456", "httpException.message:" + httpException.message());
+//                Log.e("LoginActivity" + "123456", "httpException.body:" + httpException.body());
+//                Log.e("LoginActivity" + "123456", "httpException.errorBody:" + httpException.errorBody().toString());
+                switch (response.code) {
+                    case 999:
+                        ToastUtil.show(getContext(), R.string.data_lose);
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    case 1004:
+                        ToastUtil.show(getContext(), "电话号码已注册");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } else {
                 ToastUtil.show(this, "未知错误:" + throwable.getMessage());
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -319,8 +326,8 @@ public class RegisterActivity2 extends BaseActivity<RegisterContract2.View, Regi
 //        String phoneNo = "13486799112";
 
 
-        LogUtil.logE("RegisterActivity2" + "123456", "pwd" + pwd);
-        LogUtil.logE("RegisterActivity2" + "123456", "StringUtil.isPassword(pwd)" + StringUtil.isPassword(pwd));
+//        LogUtil.logE("RegisterActivity2" + "123456", "pwd" + pwd);
+//        LogUtil.logE("RegisterActivity2" + "123456", "StringUtil.isPassword(pwd)" + StringUtil.isPassword(pwd));
 
         if (!StringUtil.isPassword(pwd)) {
             ToastUtil.show(this, R.string.register2_password_not_in_Standard);

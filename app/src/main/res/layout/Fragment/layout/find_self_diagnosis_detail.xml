@@ -9,8 +9,7 @@
     <include layout="@layout/title_bar" />
 
     <include
-        layout="@layout/layout_empty"
-        android:visibility="gone" />
+        layout="@layout/layout_empty" />
 
     <ScrollView
         android:layout_width="match_parent"

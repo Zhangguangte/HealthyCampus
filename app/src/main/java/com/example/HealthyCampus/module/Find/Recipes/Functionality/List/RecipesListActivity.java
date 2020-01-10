@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.module.Find.Recipes.Functionality.RecipesList.activity;
+package com.example.HealthyCampus.module.Find.Recipes.Functionality.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -64,10 +64,11 @@ public class RecipesListActivity extends BaseActivity<RecipesListContract.View, 
     @BindView(R.id.ivEmpty)
     ImageView ivEmpty;
 
-
+    //功能列表
     private List<String> list = new LinkedList<>();
     private ListTextAdapter listAdapter;
 
+    //菜肴列表
     private List<FoodMenuVo> foodList = new LinkedList<>();
     private CustomizationAdapter customizationAdapter;
 
@@ -168,13 +169,29 @@ public class RecipesListActivity extends BaseActivity<RecipesListContract.View, 
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    if (row != 0)
-                        ToastUtil.show(this, getString(R.string.data_lose));
-                    customizationAdapter.setLoad(false);
-                    customizationAdapter.notifyDataSetChanged();
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+
+                switch (response.code) {
+                    case 999:
+                        if (row != 0)
+                            ToastUtil.show(this, getString(R.string.data_lose));
+                        else {
+                            emptyLayout.setVisibility(View.VISIBLE);
+                            ivEmpty.setImageResource(R.drawable.empty_data);
+                            tvEmpty.setText(getString(R.string.empty_data));
+                            NetworkLayout.setEnabled(false);
+                        }
+                        customizationAdapter.setLoad(false);
+                        customizationAdapter.notifyDataSetChanged();
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -196,13 +213,6 @@ public class RecipesListActivity extends BaseActivity<RecipesListContract.View, 
         loadingData(false);
         emptyLayout.setVisibility(View.GONE);
         rvContent.setVisibility(VISIBLE);
-        if (foodList.size() == 0 && row == 0) {
-            emptyLayout.setVisibility(View.VISIBLE);
-            ivEmpty.setImageResource(R.drawable.empty_data);
-            tvEmpty.setText(getString(R.string.search_no_result));
-            NetworkLayout.setEnabled(false);
-        }
-
     }
 
     @Override
@@ -217,6 +227,11 @@ public class RecipesListActivity extends BaseActivity<RecipesListContract.View, 
         rvList.setVisibility(VISIBLE);
         foodTitleLayout.setVisibility(VISIBLE);
         vDivider.setVisibility(VISIBLE);
+    }
+
+    @Override
+    public boolean isList(String list) {
+        return stringBuffer.toString().trim().equals(list);
     }
 
 

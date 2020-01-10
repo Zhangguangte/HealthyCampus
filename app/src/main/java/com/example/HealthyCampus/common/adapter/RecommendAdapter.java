@@ -7,14 +7,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -66,8 +63,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return 0;
     }
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == ConstantValues.RECIPES_RECOMMEDN) {
             view = LayoutInflater.from(context).inflate(R.layout.find_recipes_recommend_dish, parent, false);
@@ -100,7 +98,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @BindView(R.id.tvTitle)
         TextView tvTitle;
 
-        public DishViewHolder(View view) {
+        DishViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -110,13 +108,10 @@ public class RecommendAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void onBindViewHolder(int position) {
             Glide.with(context).load(mData.get(position).getPicture()).into(ivRecommend);
             tvTitle.setText(mData.get(position).getTitle());
-            dishLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, RecipesDetailActivity.class);
-                    intent.putExtra("ID", mData.get(position).getId());
-                    context.startActivity(intent);
-                }
+            dishLayout.setOnClickListener(v -> {
+                Intent intent = new Intent(context, RecipesDetailActivity.class);
+                intent.putExtra("ID", mData.get(position).getId());
+                context.startActivity(intent);
             });
         }
 
@@ -138,7 +133,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @BindView(R.id.tvDescription)
         TextView tvDescription;
 
-        public TipsViewHolder(View view) {
+        TipsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -147,18 +142,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void onBindViewHolder(int position) {
             Glide.with(context).load(mData.get(position).getPicture()).into(ivIcon);
-            tvTitle.setText(mData.get(position).getTitle());
+            tvTitle.setText(mData.get(position).getTitle().substring(1,mData.get(position).getTitle().indexOf(')')));
             tvDescription.setText("\t\t\t\t" + mData.get(position).getDescription());
-            tipsLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("小知识")
-                            .setMessage(mData.get(position).getDescription().replace("', '", "\n")).setIcon(R.drawable.find_recipes_recommend_dialog);
-                    AlertDialog dialog = builder.create();
-                    dialog.setCanceledOnTouchOutside(true);
-                    dialog.setCancelable(true);
-                    dialog.show();
-                }
+            tipsLayout.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("小知识")
+                        .setMessage(mData.get(position).getDescription().replace("', '", "\n")).setIcon(R.drawable.find_recipes_recommend_dialog);
+                AlertDialog dialog = builder.create();
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.setCancelable(true);
+                dialog.show();
             });
 
         }

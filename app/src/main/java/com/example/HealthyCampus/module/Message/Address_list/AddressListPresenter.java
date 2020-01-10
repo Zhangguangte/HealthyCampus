@@ -16,38 +16,42 @@ public class AddressListPresenter extends AddressListContract.Presenter {
     }
 
     @Override
-    protected void getFriendsInformation() throws Exception {
-      DialogUtil.showProgressDialog(getView().getContext(),"正在加载中");
-        FriendRepository.getInstance().allFriend(new FriendDataSource.GetAllFriend(){
+    protected void getFriendsInformation() {
+        FriendRepository.getInstance().allFriend(new FriendDataSource.GetAllFriend() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showViewByDataStatus(false);
-                getView().showError(throwable);
+                if (null != getView()) {
+                    getView().showViewByDataStatus(false);
+                    getView().showError(throwable);
+                }
             }
 
             @Override
             public void onDataAvailable(ArrayList<AddressListVo> addressLists) throws Exception {
-                getView().showViewByDataStatus(addressLists.size()>0);
-                getView().showFriends(addressLists);
-                getView().listenItemStatus();
+                if (null != getView()) {
+                    getView().showViewByDataStatus(addressLists.size() > 0);
+                    getView().showFriends(addressLists);
+                    getView().listenItemStatus();
+                }
             }
 
             @Override
             public void finish() throws Exception {
-                getView().sidebarShow();
-                DialogUtil.dismissProgressDialog();
+                if (null != getView()) {
+                    getView().sidebarShow();
+                }
             }
         });
 
     }
 
     @Override
-    protected void listenTouch() throws Exception {
+    protected void listenTouch()  {
         getView().listenTouchStatus();
     }
 
     @Override
-    protected void listenItem() throws Exception {
+    protected void listenItem() {
         getView().listenItemStatus();
     }
 }

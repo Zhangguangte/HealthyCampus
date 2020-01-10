@@ -100,6 +100,7 @@
     <color name="transparent">#00000000</color>
     <color name="md_selected">#19000000</color>
     <color name="background_page">#EEEEEE</color>
+    <color name="login_backgroud">#BEFFFFFF</color>
 
     <color name="clear_press">#2AAAAAAA</color>
     <color name="clear_release">#EEEEEE</color>

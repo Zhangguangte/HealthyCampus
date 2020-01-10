@@ -18,13 +18,15 @@ public class UserInformationPresenter extends UserInformationContract.Presenter 
         UserRepository.getInstance().getUserInformation(account, new UserDataSource.UserInformation() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(UserVo userVo) throws Exception {
-                userVo.isfriends = true;
-                getView().initUserInfo(userVo);
+                if (null != getView()) {
+                    userVo.isfriends = true;
+                    getView().initUserInfo(userVo);
+                }
             }
 
         });
@@ -35,13 +37,15 @@ public class UserInformationPresenter extends UserInformationContract.Presenter 
         UserRepository.getInstance().searchUser(requestForm, new UserDataSource.UserInformation() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(UserVo userVo) throws Exception {
-                userVo.isfriends = false;
-                getView().initUserInfo(userVo);
+                if (null != getView()) {
+                    userVo.isfriends = false;
+                    getView().initUserInfo(userVo);
+                }
             }
 
         });

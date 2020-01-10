@@ -42,8 +42,8 @@ public class ServiceRepository implements ServiceDataSource {
     }
 
     @Override
-    public void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback) {
-        mServiceRemoteDataSource.sendFeed(requestForm, callback);
+    public void sendFeed(@NonNull RequestForm requestForm) {
+        mServiceRemoteDataSource.sendFeed(requestForm);
     }
 
     @Override

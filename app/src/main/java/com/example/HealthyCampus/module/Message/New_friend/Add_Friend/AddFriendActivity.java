@@ -183,14 +183,13 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
     public void btnSearch(View view) {
         if (TextUtils.isEmpty(searchWord))
             ToastUtil.show(getContext(), "输入不可以为空");
-        else if(searchWord.equals(SPHelper.getString(SPHelper.ACCOUNT))||searchWord.equals(SPHelper.getString(SPHelper.USER_PHONE)))
-        {
+        else if (searchWord.equals(SPHelper.getString(SPHelper.ACCOUNT)) || searchWord.equals(SPHelper.getString(SPHelper.USER_PHONE))) {
             Intent intent = new Intent(this, UserInformationActivity.class);
-            intent.putExtra("self",true);
+            intent.putExtra("self", true);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
-        else {
+        } else {
+            showProgressDialog(getString(R.string.loading_footer_tips));
             mPresenter.searchUser(searchWord);
         }
     }
@@ -201,11 +200,19 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1005) {
-                    Log.e("AddFriendActivity" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, R.string.user_add_friend_no_result);
-                } else {
-                    ToastUtil.show(this, "未知错误2:" + throwable.getMessage());
+                Log.e("AddFriendActivity" + "123456", "response.toString:" + response.toString());
+                switch (response.code) {
+                    case 1005:
+                        ToastUtil.show(this, R.string.user_add_friend_no_result);
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -215,8 +222,10 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
         } else {
             ToastUtil.show(this, "未知错误3:" + throwable.getMessage());
         }
+        dismissProgressDialog();
     }
 
+    //查询成功：跳至申请消息界面
     @Override
     public void jumpToMsg(UserVo userVo) {
         if (null != userVo && userVo.isfriends) {
@@ -234,9 +243,10 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
             if (userVo.getAvatar() != null) {
                 intent.putExtra("ICON", userVo.getAvatar());
             }
-            startActivityForResult(intent, 1);
+            startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
+        dismissProgressDialog();
     }
 
 
@@ -277,16 +287,4 @@ public class AddFriendActivity extends BaseActivity<AddFriendContract.View, AddF
         etSearch.setText(content);
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == 2) {
-            if (null != data && data.getBooleanExtra("fresh", false)) {
-                Intent intent = getIntent();
-                intent.putExtra("fresh", true);
-                setResult(2, intent);
-            }
-        }
-    }
 }

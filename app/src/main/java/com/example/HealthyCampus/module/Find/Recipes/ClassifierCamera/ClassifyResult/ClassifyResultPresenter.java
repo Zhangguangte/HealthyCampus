@@ -21,12 +21,12 @@ public class ClassifyResultPresenter extends ClassifyResultContract.Presenter {
         RecipesRepository.getInstance().getIngredientResult(requestForm, new RecipesDataSource.RecipesGetSearch() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(IngredientResultVo ingredientResultVo) throws Exception {
-                getView().showIngredientSuccess(ingredientResultVo);
+                if (null != getView()) getView().showIngredientSuccess(ingredientResultVo);
             }
 
         });

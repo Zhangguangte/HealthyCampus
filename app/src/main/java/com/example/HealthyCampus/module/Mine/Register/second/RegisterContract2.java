@@ -28,8 +28,6 @@ public interface RegisterContract2 {
 
         void setSignButtonEnable();     //注册发送点击
 
-        void setPageEnable();         //界面点击
-
         void jumpToMain();             //跳转主界面
 
         void jumpToRegister1();             //跳转注册界面1
@@ -46,7 +44,7 @@ public interface RegisterContract2 {
 
         void dismissProgressView();       //关闭加载视图
 
-        void showTipsView(String username);       //注册成功视图
+        void showTipsView(String account);       //注册成功视图
     }
 
     //处理业务逻辑

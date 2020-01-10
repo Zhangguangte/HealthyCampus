@@ -1,4 +1,4 @@
-package com.example.HealthyCampus.Step;
+package com.example.HealthyCampus.Broadcast;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import com.example.HealthyCampus.module.Loading.LoadingActivity;
 import com.orhanobut.logger.Logger;
 import com.today.step.lib.BaseClickBroadcast;
 
+/**
+ * 计步消息广播监听
+ */
 public class StepStarter extends BaseClickBroadcast {
 
     @Override

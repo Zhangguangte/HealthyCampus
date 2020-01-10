@@ -27,12 +27,14 @@ public class ConsultPicturePresenter extends ConsultPictureContract.Presenter {
         ConsultRepository.getInstance().saveConsultPicture(consultPictureForm, new ConsultDataSource.ConsultUpPicture() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())
+                    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(DefaultResponseVo defaultResponseVo) throws Exception {
-                getView().showSuccess();
+                if (null != getView())
+                    getView().showSuccess();
             }
         });
     }

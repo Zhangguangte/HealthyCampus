@@ -22,8 +22,10 @@ import android.widget.TextView;
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.data.Bean.ChatItemBean;
 import com.example.HealthyCampus.common.record.MediaManager;
+import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.LogUtil;
 import com.example.HealthyCampus.common.utils.SpanStringUtils;
+import com.example.HealthyCampus.common.utils.TimestampUtils;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
 import com.example.HealthyCampus.module.Message.Chat.Vedio.VedioActivity;
 import com.example.HealthyCampus.module.Message.Chat.imageactivity.ImageActivity;
@@ -78,6 +80,8 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     //地图
     private static final int SEND_MAP = R.layout.chats_item_sender_map;
     private static final int RECEIVE_MAP = R.layout.chats_item_receiver_map;
+    //成为好友
+    private static final int FRIEND = R.layout.chats_item_friend;
 
     public void clear() {
         mData.clear();
@@ -106,10 +110,10 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return mData.get(position).isSelf() ? SEND_CARD : RECEIVE_CARD;
         } else if (mData.get(position).getType().equals("VEDIO")) {                                //视频
             return mData.get(position).isSelf() ? SEND_VIDEO : RECEIVE_VIDEO;
-        } else {
+        } else if (mData.get(position).getType().equals("FILE")) {
             return mData.get(position).isSelf() ? SEND_FILE : RECEIVE_FILE;                             //文件
-        }
-
+        } else
+            return FRIEND;
     }
 
     @Override
@@ -140,7 +144,8 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return new FileItemViewHolder(view);
         } else if (viewType == SEND_CARD || viewType == RECEIVE_CARD) {
             return new CardItemViewHolder(view);
-        }
+        } else if (viewType == FRIEND)
+            return new FriendItemViewHolder(view);
         return new TextItemViewHolder(view);
     }
 
@@ -445,6 +450,28 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         }
     }
+
+
+    class FriendItemViewHolder extends BaseViewHolder {
+
+        @BindView(R.id.tvTitle)
+        TextView tvTitle;
+        FriendItemViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void onBindViewHolder(int position) {
+            tvTitle.setText(TimestampUtils.getTimeState(mData.get(position).getTime(),"yyyy-MM-dd HH:mm:ss")+"\n"+mData.get(position).getContent());
+        }
+
+        @Override
+        public void onItemClick(View view, int position) {
+        }
+    }
+
 
     @SuppressLint("StaticFieldLeak")
     class ImagesCount extends AsyncTask<String, Void, ArrayList<String>> {

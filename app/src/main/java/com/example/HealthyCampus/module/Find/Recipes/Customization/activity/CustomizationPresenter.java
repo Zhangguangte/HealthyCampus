@@ -20,12 +20,12 @@ public class CustomizationPresenter extends CustomizationContract.Presenter {
         RecipesRepository.getInstance().getRecipesByThreeMeals(requestForm, new RecipesDataSource.RecipesThreesMeals() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())     getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<FoodMenuVo> foodMenuVos) throws Exception {
-                getView().showRecipesSuccess(foodMenuVos);
+                if (null != getView())     getView().showRecipesSuccess(foodMenuVos);
             }
         });
     }

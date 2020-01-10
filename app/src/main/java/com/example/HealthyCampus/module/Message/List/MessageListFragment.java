@@ -3,6 +3,7 @@ package com.example.HealthyCampus.module.Message.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.example.HealthyCampus.module.Message.MessageFragment;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,6 +115,7 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
 
     @Override
     public void noChatItem(boolean value) {
+        assert this.getParentFragment() != null;
         ((MessageFragment) (this.getParentFragment())).noChatItemVisible(value);
     }
 
@@ -124,11 +127,18 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1001) {
-                    Log.e("MessageListFragm" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(mActivity, "用户名密码错误");
-                } else {
-                    ToastUtil.show(mActivity, "未知错误:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1006:
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -138,8 +148,6 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
 
         } else {
             Toast.makeText(getContext(), "未知错误:" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("MessageListFragm" + "123456", "throwable.getMessage()" + throwable.getMessage());
-            Log.e("MessageListFragm" + "123456", "throwable.toString()" + throwable.toString());
         }
 
     }
@@ -158,7 +166,7 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
         @BindView(R.id.newTips)
         TextView newTips;
 
-        public MessageItemHolder(View itemView) {
+        MessageItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -172,7 +180,7 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
                 tvUsername.setText(mDataList.get(position).getAnother_name());
                 switch (mDataList.get(position).getType()) {
                     case "TEXT":
-                        lastMessage.setText(SpanStringUtils.getEmojiContent(1, getContext(), (int) (lastMessage.getTextSize() * 12 / 10), mDataList.get(position).getContent()));
+                        lastMessage.setText(SpanStringUtils.getEmojiContent(1, Objects.requireNonNull(getContext()), (int) (lastMessage.getTextSize() * 12 / 10), TextUtils.isEmpty(mDataList.get(position).getContent())?"":mDataList.get(position).getContent()));
                         break;
                     case "RECORD":
                         lastMessage.setText("[语音]");
@@ -192,8 +200,11 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
                     case "VEDIO":
                         lastMessage.setText("[视频]");
                         break;
-                    default:
+                    case "FIRST":
                         lastMessage.setText("你们已经成功加为好友");
+                        break;
+                    default:
+                        lastMessage.setText("");
                 }
                 if (mDataList.get(position).getUnread() > 0) {
                     newTips.setText(mDataList.get(position).getUnread() + "");
@@ -201,12 +212,7 @@ public class MessageListFragment extends BaseListFragment<MessageListContract.Vi
                 } else {
                     newTips.setVisibility(View.GONE);
                 }
-                newTips.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ToastUtil.show(getContext(), mDataList.get(position).toString());
-                    }
-                });
+                newTips.setOnClickListener(v -> ToastUtil.show(getContext(), mDataList.get(position).toString()));
                 try {
                     lastTime.setText(TimestampUtils.getTimeStringAutoShort2(mDataList.get(position).getCreate_time(), false));
                 } catch (ParseException e) {

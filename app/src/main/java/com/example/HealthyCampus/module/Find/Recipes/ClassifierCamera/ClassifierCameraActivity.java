@@ -25,6 +25,8 @@ import android.widget.RelativeLayout;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.constants.ConstantValues;
+import com.example.HealthyCampus.common.helper.SPHelper;
+import com.example.HealthyCampus.common.network.vo.BaiduErrorVo;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
 import com.example.HealthyCampus.common.network.vo.DishVo;
 import com.example.HealthyCampus.common.network.vo.IngredientVo;
@@ -160,6 +162,7 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
         takeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.take_picture);
         ivOk.setEnabled(false);
         ivPicture.setEnabled(false);
+        new Thread(() -> resetToken()).start();
 //        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tomato);
 //        bitmap = rotateBitmapByDegree(bitmap, 90);
 //        //缩放
@@ -177,30 +180,38 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
 
     @Override
     public void showError(Throwable throwable) {
-       DialogUtil. dismissProgressDialog();
+        DialogUtil.dismissProgressDialog();
         Log.e("ClassifierCame:" + "123456", "throwable.getMessage()" + throwable.getMessage());
         if (throwable instanceof HttpException) {
             Response httpException = ((HttpException) throwable).response();
             try {
-                DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1008) {
-                    ToastUtil.show(getContext(), getString(R.string.data_lose));
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                BaiduErrorVo baiduErrorVo = JsonUtil.format(httpException.errorBody().string(), BaiduErrorVo.class);
+                switch (baiduErrorVo.getError_code()) {
+                    case 111:
+                    case 110:
+                    case 100:
+                        ToastUtil.show(getContext(), "请点击重试");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), baiduErrorVo.getError_msg());
+                        break;
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("ClassifierCame:" + "123456", "99999999999999999999999999999999999");
+//                Log.e("ClassifierCame:" + "123456", "99999999999999999999999999999999999");
             }
         } else {
-            Log.e("ClassifierCame:" + "123456", "http:throwable" + throwable);
-            Log.e("ClassifierCame:" + "123456", "http:throwable.getCause()" + throwable.getCause());
-            Log.e("ClassifierCame:" + "123456", "http:throwable.getMessage()" + throwable.getMessage());
             ToastUtil.show(this, "http:未知错误:" + throwable.getMessage());
         }
+    }
 
+
+    private void resetToken() {
+        SPHelper.setString(SPHelper.BAIDU_TOKEN, AuthService.getAuth());
+        Log.e("ClassifierCame:" + "123456", "SPHelper.BAIDU_TOKEN" + SPHelper.getString(SPHelper.BAIDU_TOKEN));
     }
 
     @Override
@@ -215,7 +226,7 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
             }
             showIngredientDialog(names);
         }
-        DialogUtil.   dismissProgressDialog();
+        DialogUtil.dismissProgressDialog();
     }
 
     @Override
@@ -230,7 +241,7 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
             }
             showIngredientDialog(names);
         }
-        DialogUtil.  dismissProgressDialog();
+        DialogUtil.dismissProgressDialog();
     }
 
     private void showIngredientDialog(String... names) {
@@ -266,7 +277,7 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
             ivOk.setEnabled(true);
             ivPhoto.setEnabled(true);
             ivPicture.setEnabled(true);
-            DialogUtil.    dismissProgressDialog();
+            DialogUtil.dismissProgressDialog();
         }
     }
 
@@ -279,7 +290,6 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
         public void onAutoFocus(boolean success, Camera camera) {
             if (success) {
                 CameraUtils.takePicture(null, null, mPictureCallback);
-//                mCamera.takePicture(null, null, mPictureCallback);
             } else {
                 CameraUtils.takePicture(null, null, mPictureCallback);
             }
@@ -308,7 +318,6 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
     private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(final byte[] data, Camera camera) {
-//            Log.e("ClassifierCame:" + "123456", "bbbbbbbbbbbbbbbbbbbb");
             try {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                 if (bitmap == null) {
@@ -344,11 +353,11 @@ public class ClassifierCameraActivity extends BaseActivity<ClassifierCameraContr
 
     @OnClick(R.id.ivOk)
     public void ivOk(View view) {
-        DialogUtil.showProgressDialog(getContext(),getString(R.string.loading_classify));
+        DialogUtil.showProgressDialog(getContext(), getString(R.string.loading_classify));
         //是否已经进行过分析
         if (change1 == change2) {       //显示分析结果
             builder.show();
-            DialogUtil. dismissProgressDialog();
+            DialogUtil.dismissProgressDialog();
         } else {                        //请求分析
             enableClick(true);
             Bitmap bitmap = ((BitmapDrawable) ivPicture.getDrawable()).getBitmap();

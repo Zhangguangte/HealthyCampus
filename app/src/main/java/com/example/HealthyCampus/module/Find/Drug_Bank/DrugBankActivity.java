@@ -151,7 +151,6 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
     private Map<String, List<String>> mData;                    //类型、分类数据
     private StringBuffer type = new StringBuffer("");                    //类型名
     private StringBuffer classifyName = new StringBuffer("");           //分类名
-    private InputMethodManager mImm;        //软键盘
 
     private AnimationDrawable loadAnimation, loadMedicineAnimation;
 
@@ -222,12 +221,7 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
     public void tvSearch(View view) {
         CharSequence[] scope = getResources().getTextArray(R.array.medicine);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setItems(R.array.medicine, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                tvSearch.setText(scope[which]);
-            }
-        });
+        builder.setItems(R.array.medicine, (dialog, which) -> tvSearch.setText(scope[which]));
         builder.show();
     }
 
@@ -249,7 +243,6 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
         loadMedicineAnimation = (AnimationDrawable) ivMedicineLoading.getDrawable();
         loadAnimation.start();
 
-        mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);  //软键盘
         mPresenter.getAllClassify();
     }
 
@@ -274,7 +267,6 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
 
     @Override
     public void showMedicineError() {       //类型：根据关键字，获得药品数据空显示
-        loadingData(false);
         btnSearch.setEnabled(true);
         etSearch.setEnabled(true);
     }
@@ -288,11 +280,7 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
 
     //查询药品数据
     private void searchMedicine() {
-        keyWord.setLength(0);
-        keyWord.append(etSearch.getText().toString().trim());
-        if (keyWord.equals(etSearch.getText().toString().trim())) {
-            return;
-        } else {
+        if (!keyWord.toString().equals(etSearch.getText().toString().trim())) {
             //加载数据
             emptyLayout.setVisibility(VISIBLE);
             srlSearchMedicine.setVisibility(View.GONE);
@@ -309,32 +297,52 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
 
             hideSoftInput();
             mPresenter.getAllMedicineByKey(tvSearch.getText().toString().trim(), etSearch.getText().toString().trim(), row);
+            keyWord.setLength(0);
+            keyWord.append(etSearch.getText().toString().trim());
         }
+
     }
 
 
     @Override
     public void showError(Throwable throwable) {
+        loadingData(false);
         if (throwable instanceof HttpException) {
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006)
-                    ToastUtil.show(this, getResources().getString(R.string.empty_data));
-                else if (response.code == 1007) {
-                    searchMedicineAdapter.setLoad(false);
-                    ToastUtil.show(this, getResources().getString(R.string.data_finish));
-                } else if (response.code == 999) {
-                    if (ivMedicineEmpty.isShown()) {
-                        mEmptyLayout.setEnabled(false);
-                        ivMedicineEmpty.setImageResource(R.drawable.empty_data);
-                        tvMedicineEmpty.setText(R.string.empty_data);
-                    } else {
+                switch (response.code) {
+                    case 999:   //分类药品数据
+                        if (ivMedicineEmpty.isShown()) {
+                            mEmptyLayout.setEnabled(false);
+                            ivMedicineEmpty.setImageResource(R.drawable.empty_data);
+                            tvMedicineEmpty.setText(R.string.empty_data);
+                        } else {
+                            searchMedicineAdapter.setLoad(false);
+                            ToastUtil.show(this, getResources().getString(R.string.data_lose));
+                        }
+                        break;
+                    case 1007:  //查询药品数据
                         searchMedicineAdapter.setLoad(false);
-                        ToastUtil.show(this, getResources().getString(R.string.data_lose));
-                    }
-                } else
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                        if (0 == row) {
+                            emptyLayout.setVisibility(View.VISIBLE);
+                            ivEmpty.setImageResource(R.drawable.empty_data);
+                            tvEmpty.setText(getString(R.string.search_no_result));
+                            NetworkLayout.setEnabled(false);
+                            ToastUtil.show(this, getResources().getString(R.string.search_no_result));
+                        } else
+                            ToastUtil.show(this, getResources().getString(R.string.data_finish));
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -344,7 +352,6 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
             ToastUtil.show(this, "未知错误2:" + throwable.getMessage());
         }
 
-        dismissProgressDialog();
 
     }
 
@@ -470,30 +477,24 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
             }
         });
 
-        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                /*判断是否是“搜索”键*/
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (TextUtils.isEmpty(etSearch.getText().toString().trim())) {
-                        ToastUtil.show(getContext(), getString(R.string.input_no_empty));
-                        return true;
-                    }
-                    searchMedicine();
+        etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            /*判断是否是“搜索”键*/
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (TextUtils.isEmpty(etSearch.getText().toString().trim())) {
+                    ToastUtil.show(getContext(), getString(R.string.input_no_empty));
                     return true;
                 }
-                return false;
+                searchMedicine();
+                return true;
             }
+            return false;
         });
 
-        etSearch.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    showSearchMedicineViewStatus(false);
-                }
-                return false;
+        etSearch.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                showSearchMedicineViewStatus(false);
             }
+            return false;
         });
 
 
@@ -513,7 +514,7 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
     @Override
     public void selectType(String typ) {       //选择类型,切换相应的分类数据
         classifyList.clear();
-        classifyList.addAll(mData.get(typ));
+        classifyList.addAll(Objects.requireNonNull(mData.get(typ)));
         typeAdapter.setPosi(typeList.indexOf(type));
         classifyAdapter.notifyDataSetChanged();
         medicineAdapter.setLoad(true);
@@ -528,7 +529,7 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
         row = 0;
         classifyName.setLength(0);
         classifyName.append(classify);
-        typeAdapter.setPosi(mData.get(type.toString()).indexOf(classifyName.toString()) + 1);
+        typeAdapter.setPosi(Objects.requireNonNull(mData.get(type.toString())).indexOf(classifyName.toString()) + 1);
 
         rvMedicine.scrollToPosition(0);
         medicineLists.clear();
@@ -539,14 +540,16 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
     }
 
     @Override
-    public void showAllMedicineSuccess(List<MedicineListVo> medicineListVos) {    //显示药品信息
-        loadingMedicineData(false);
-        medicineEmptyLayout.setVisibility(View.GONE);
-        if (medicineListVos.size() < 20)
-            medicineAdapter.setLoad(false);
-        medicineLists.addAll(medicineListVos);
-        medicineAdapter.notifyDataSetChanged();
-        showMedicineStatus(false);
+    public void showAllMedicineSuccess(List<MedicineListVo> medicineListVos, String classifyName) {    //显示药品信息
+        if (this.classifyName.toString().equals(classifyName)) {
+            loadingMedicineData(false);
+            medicineEmptyLayout.setVisibility(View.GONE);
+            if (medicineListVos.size() < 15)
+                medicineAdapter.setLoad(false);
+            medicineLists.addAll(medicineListVos);
+            medicineAdapter.notifyDataSetChanged();
+            showMedicineStatus(false);
+        }
     }
 
     private void showMedicineStatus(boolean val) {
@@ -603,19 +606,23 @@ public class DrugBankActivity extends BaseActivity<DrugBankContract.View, DrugBa
             srlSearchMedicine.setVisibility(VISIBLE);
             emptyLayout.setVisibility(View.GONE);
         }
-        if (medicineListVos.size() < 20) {
+        if (medicineListVos.size() < 15) {
             searchMedicineAdapter.setLoad(false);
         }
         searchMedicineLists.addAll(medicineListVos);
         searchMedicineAdapter.notifyDataSetChanged();
-        if (medicineListVos.size() == 0 && row == 0) {
-            emptyLayout.setVisibility(View.VISIBLE);
-            ivEmpty.setImageResource(R.drawable.empty_data);
-            tvEmpty.setText(getString(R.string.search_no_result));
-            NetworkLayout.setEnabled(false);
-        }
         btnSearch.setEnabled(true);
         etSearch.setEnabled(true);
+    }
+
+    @Override
+    public boolean isClassify(String classifyName) {
+        return this.classifyName.toString().equals(classifyName);
+    }
+
+    @Override
+    public boolean isKeyword(String keyword) {
+        return etSearch.getText().toString().equals(keyword);
     }
 
 

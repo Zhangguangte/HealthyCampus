@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 
 public class TypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Context context;
-    private List<String> mData = new ArrayList<String>();
+    private List<String> mData;
     private onItemClick onItemClick;
     private int posi = 0;
     private TextView typeNameView;
@@ -72,8 +72,9 @@ public class TypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.find_drug_bank_type, parent, false);
         return new ItemViewHolder(view);
 
@@ -114,22 +115,19 @@ public class TypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 typeNameView = tvTypeName;
             }
             tvTypeName.setText(mData.get(position));
-            typeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!isdominate) {
+            typeLayout.setOnClickListener(v -> {
+                if (!isdominate) {
+                    if (position != posi) {
+                        selectedView(position);
+                        onItemClick.selectType(mData.get(position));
+                    }
+                } else {
+                    if (position == 0) {
+                        onItemClick.backType();
+                    } else {
                         if (position != posi) {
                             selectedView(position);
-                            onItemClick.selectType(mData.get(position));
-                        }
-                    } else {
-                        if (position == 0) {
-                            onItemClick.backType();
-                        } else {
-                            if (position != posi) {
-                                selectedView(position);
-                                onItemClick.selectClassify(mData.get(position));
-                            }
+                            onItemClick.selectClassify(mData.get(position));
                         }
                     }
                 }
@@ -143,7 +141,7 @@ public class TypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             tvTypeName .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             checkView.setVisibility(View.GONE);
             //取消之前的效果
-            typeNameView.setTextColor(context.getResources().getColor(R.color.text_level_3));
+            typeNameView.setTextColor(context.getResources().getColor(R.color.text_level_1));
             typeNameView.setTextSize(14.0f);
             tvTypeName .setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
             ivCheck.setVisibility(View.VISIBLE);

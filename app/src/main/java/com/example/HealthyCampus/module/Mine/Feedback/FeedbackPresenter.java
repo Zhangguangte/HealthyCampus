@@ -18,17 +18,6 @@ public class FeedbackPresenter extends FeedbackContract.Presenter {
     @Override
     protected void sendFeed(String advice, String contract) {
         RequestForm requestForm = new RequestForm(contract,advice);
-        ServiceRepository.getInstance().sendFeed(requestForm, new ServiceDataSource.SendFeed() {
-            @Override
-            public void onDataNotAvailable() throws Exception {
-
-            }
-
-            @Override
-            public void onDataAvailable() throws Exception {
-
-            }
-
-        });
+        ServiceRepository.getInstance().sendFeed(requestForm);
     }
 }

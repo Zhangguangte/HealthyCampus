@@ -21,7 +21,6 @@ public interface MedicineDataSource {
     void getAllClassify(@NonNull MedicineAllClassify callback);
 
     interface MedicineGetAllMedicine {
-
         void onDataNotAvailable(Throwable throwable) throws Exception;
 
         void onDataAvailable(List<MedicineListVo> medicineVos) throws Exception;

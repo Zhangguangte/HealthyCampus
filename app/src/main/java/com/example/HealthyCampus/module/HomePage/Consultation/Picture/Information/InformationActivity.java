@@ -157,15 +157,16 @@ public class InformationActivity extends BaseActivity<InformationContract.View, 
     }
 
     @Override
-    public void selected(PatienInforBean patienInforBean, boolean val) {
-        if ((max - list.size()) > 0) {
+    public boolean selected(PatienInforBean patienInforBean, boolean val) {
+        if ((max - list.size()) == 0) {
             ToastUtil.show(getContext(), "最大选取" + max + "个");
-            return;
+            return false;
         }
         if (val)
             list.add(patienInforBean);
         else
             list.remove(patienInforBean);
+        return true;
     }
 
 }

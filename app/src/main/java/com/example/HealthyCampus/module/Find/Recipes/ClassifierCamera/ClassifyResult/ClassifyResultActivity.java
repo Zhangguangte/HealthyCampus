@@ -3,7 +3,6 @@ package com.example.HealthyCampus.module.Find.Recipes.ClassifierCamera.ClassifyR
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import com.example.HealthyCampus.framework.BaseActivity;
 import java.io.IOException;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -48,8 +46,6 @@ public class ClassifyResultActivity extends BaseActivity<ClassifyResultContract.
 
 
     //加载布局
-
-
     @Override
     protected void initImmersionBar() {
         StatusBarUtil.setStatusBarColor(this, R.color.cyan);
@@ -97,22 +93,31 @@ public class ClassifyResultActivity extends BaseActivity<ClassifyResultContract.
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    ToastUtil.show(getContext(), getString(R.string.database_empty_data));
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1015:
+                        ToastUtil.show(getContext(), getString(R.string.database_empty_data));
+                        finish();
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("ClassifierCame:" + "123456", "99999999999999999999999999999999999");
             }
         } else {
-            Log.e("ClassifierCame:" + "123456", "http:throwable" + throwable);
-            Log.e("ClassifierCame:" + "123456", "http:throwable.getCause()" + throwable.getCause());
-            Log.e("ClassifierCame:" + "123456", "http:throwable.getMessage()" + throwable.getMessage());
-            ToastUtil.show(this, "http:未知错误:" + throwable.getMessage());
+//            Log.e("ClassifierCame:" + "123456", "http:throwable" + throwable);
+//            Log.e("ClassifierCame:" + "123456", "http:throwable.getCause()" + throwable.getCause());
+//            Log.e("ClassifierCame:" + "123456", "http:throwable.getMessage()" + throwable.getMessage());
+            ToastUtil.show(this, "未知错误2:" + throwable.getMessage());
         }
         dismissProgressDialog();
     }
@@ -132,7 +137,7 @@ public class ClassifyResultActivity extends BaseActivity<ClassifyResultContract.
         tvEffect.setText(ingredientResultVo.getEffect().replaceAll("\n", "\n\t\t\t\t"));
         tvNutritive.setText(ingredientResultVo.getNutritive().replaceAll("\n", "\n\t\t\t\t"));
         tvSynopsis.setText(ingredientResultVo.getSynopsis().replaceAll("\n", "\n\t\t\t\t"));
-        tvFoodName.setText(ingredientResultVo.getName());
+        tvFoodName.setText(ingredientResultVo.getName().substring(1,ingredientResultVo.getName().indexOf(')')));
 
         GlideUtils.display(ivIcon, ingredientResultVo.getUrl());
 

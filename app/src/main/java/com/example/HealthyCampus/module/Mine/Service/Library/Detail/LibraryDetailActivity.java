@@ -103,11 +103,19 @@ public class LibraryDetailActivity extends BaseActivity<LibraryDetailContract.Vi
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    Log.e("LibraryDetailAct" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, R.string.data_lose);
-                } else {
-                    ToastUtil.show(this, "未知错误:" + throwable.getMessage());
+                Log.e("LibraryDetailAct" + "123456", "response.toString:" + response.toString());
+                switch (response.code) {
+                    case 999:
+                        ToastUtil.show(this, R.string.data_lose);
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

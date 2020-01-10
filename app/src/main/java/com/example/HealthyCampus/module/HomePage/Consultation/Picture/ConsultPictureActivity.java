@@ -209,13 +209,10 @@ public class ConsultPictureActivity extends BaseActivity<ConsultPictureContract.
                 .positiveColor(Color.BLACK)
                 .negativeText("取消")
                 .negativeColor(Color.BLACK)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        showProgressDialog(getString(R.string.loading_sumbit));
-                        btnSubmit.setEnabled(false);
-                        mPresenter.saveConsultPicture(etWord.getText().toString().trim(), list, patienInforBeans, cbPrescription.isChecked(), cbHistory.isChecked());
-                    }
+                .onPositive((dialog, which) -> {
+                    showProgressDialog(getString(R.string.loading_sumbit));
+                    btnSubmit.setEnabled(false);
+                    mPresenter.saveConsultPicture(etWord.getText().toString().trim(), list, patienInforBeans, cbPrescription.isChecked(), cbHistory.isChecked());
                 }).build();
     }
 
@@ -235,10 +232,16 @@ public class ConsultPictureActivity extends BaseActivity<ConsultPictureContract.
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    ToastUtil.show(this, "无数据");
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1000:
+                        ToastUtil.show(this, "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(this, "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -255,6 +258,7 @@ public class ConsultPictureActivity extends BaseActivity<ConsultPictureContract.
     @Override
     public void showSuccess() {
         ToastUtil.show(getContext(), "提交成功");
+        btnSubmit.setEnabled(false);
         new Handler().postDelayed(this::finish, 2000);
         dismissProgressDialog();
     }

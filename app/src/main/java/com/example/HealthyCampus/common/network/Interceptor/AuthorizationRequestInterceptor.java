@@ -8,23 +8,21 @@ import com.example.HealthyCampus.common.helper.SPHelper;
 import java.io.IOException;
 
 import okhttp3.Authenticator;
+import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
 
-public class AuthorizationRequestInterceptor implements Authenticator {
+public class AuthorizationRequestInterceptor implements Interceptor {
 
     @Override
-    public Request authenticate(@NonNull Route route, @NonNull Response response) throws IOException {
-
-        Request.Builder request =  response.request().newBuilder()
+    public Response intercept(Chain chain) throws IOException {
+        Request.Builder request = chain.request().newBuilder()
                 .addHeader("User-Agent", "HealthyCampus-Android");
-
         String authCode = SPHelper.getString(SPHelper.AUTH_CODE);
-//        Log.e("AuthorizationReq"+"123456","authCode"+authCode);
         if (!TextUtils.isEmpty(authCode)) {
             request.addHeader("Authorization", authCode);
         }
-        return request.build();
+        return chain.proceed(request.build());
     }
 }

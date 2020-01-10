@@ -47,6 +47,7 @@
             android:imeOptions="actionSearch"
             android:drawableStart="@mipmap/icon_search_grey"
             android:hint="@string/user_add_friend_search"
+            android:maxLength="15"
             android:textColorHint="@color/text_level_3"
             android:padding="@dimen/padding_less2"
             android:singleLine="true"

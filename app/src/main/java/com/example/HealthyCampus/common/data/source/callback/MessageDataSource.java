@@ -69,7 +69,7 @@ public interface MessageDataSource {
 
         void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable();
+        void onDataAvailable() throws Exception;
 
     }
 
@@ -91,7 +91,7 @@ public interface MessageDataSource {
 
         void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void onDataAvailable(MessageListVo messageListVo);
+        void onDataAvailable(MessageListVo messageListVo) throws Exception;
 
     }
 
@@ -112,6 +112,7 @@ public interface MessageDataSource {
 
         void onDataAvailable(List<NoticeVo> noticeVos) throws Exception;
 
+        void finishList() throws Exception;
     }
 
     interface MessagClearNotice {

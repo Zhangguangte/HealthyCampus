@@ -34,8 +34,7 @@ public class ServiceLocalDataSource implements ServiceDataSource {
     }
 
     @Override
-    public void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback) {
-
+    public void sendFeed(@NonNull RequestForm requestForm) {
     }
 
     @Override

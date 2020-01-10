@@ -3,10 +3,8 @@ package com.example.HealthyCampus.module.Message.Address_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +17,7 @@ import com.example.HealthyCampus.common.adapter.AddressListAdapter;
 import com.example.HealthyCampus.common.comparator.AddressPinyinComparator;
 import com.example.HealthyCampus.common.network.vo.AddressListVo;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
+import com.example.HealthyCampus.common.utils.DialogUtil;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.SideBar;
@@ -28,6 +27,7 @@ import com.example.HealthyCampus.module.Mine.User.UserInformationActivity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,7 +53,7 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
     ImageView ivBack;
 
     private AddressListAdapter listAdapter;
-    private ArrayList<AddressListVo> addressLists;
+    private List<AddressListVo> addressLists;
 
     /**
      * 根据拼音来排列ListView里面的数据类
@@ -93,11 +93,19 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1001) {
-                    Log.e("AddressListActi" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, "用户信息错误");
-                } else {
-                    ToastUtil.show(this, "未知错误:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1012:
+                        ToastUtil.show(this, "快去添加新好友吧");
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,7 +115,6 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
         } else {
             ToastUtil.show(this, "未知错误:" + throwable.getMessage());
         }
-        dismissProgressDialog();
     }
 
     //返回数据：成功：显示好友
@@ -123,32 +130,27 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
     // 设置右侧触摸监听
     @Override
     public void listenTouchStatus() {
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                //该字母首次出现的位置
-                int position = listAdapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    sortListView.setSelection(position);
-                }
+        sideBar.setOnTouchingLetterChangedListener(s -> {
+            //该字母首次出现的位置
+            int position = listAdapter.getPositionForSection(s.charAt(0));
+            if (position != -1) {
+                sortListView.setSelection(position);
             }
         });
     }
 
     @Override
     public void listenItemStatus() {
-        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String nickname = addressLists.get(position).getNickname();
-                Toast.makeText(getContext(), "nickname:" + nickname, Toast.LENGTH_SHORT).show();
-            }
+        sortListView.setOnItemClickListener((parent, view, position, id) -> {
+            String nickname = addressLists.get(position).getNickname();
+            Toast.makeText(getContext(), "nickname:" + nickname, Toast.LENGTH_SHORT).show();
         });
     }
 
     @Override
     public void sidebarShow() {
         sideBar.setVisibility(View.VISIBLE);
+        DialogUtil.dismissProgressDialog();
     }
 
 
@@ -160,30 +162,22 @@ public class AddressListActivity extends BaseActivity<AddressListContract.View, 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        try {
-            mPresenter.getFriendsInformation();
-            mPresenter.listenTouch();
-            mPresenter.listenItem();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        DialogUtil.showProgressDialog(getContext(), "正在加载中");
+        mPresenter.getFriendsInformation();
+        mPresenter.listenTouch();
+        mPresenter.listenItem();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     public Context getContext() {
         return this;
     }
 
-    @Override
-    public void showProgressDialog(String msg) {
-        super.showProgressDialog(msg);
-    }
-
-    @Override
-    public void dismissProgressDialog() {
-        super.dismissProgressDialog();
-    }
 
     @Override
     public void onItemClick(String account) {

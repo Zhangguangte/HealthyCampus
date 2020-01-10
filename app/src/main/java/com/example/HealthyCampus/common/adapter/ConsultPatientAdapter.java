@@ -88,7 +88,7 @@ public class ConsultPatientAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
         void update(int position);
 
-        void selected(PatienInforBean patienInforBean, boolean val);
+        boolean selected(PatienInforBean patienInforBean, boolean val);
     }
 
 
@@ -111,7 +111,7 @@ public class ConsultPatientAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         @BindView(R.id.PatientLayout)
         LinearLayout PatientLayout;
 
-        public ItemHolder(View view) {
+        ItemHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -127,29 +127,20 @@ public class ConsultPatientAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             tvSex.setText(mData.get(position).getSex());
             tvName.setText(mData.get(position).getName());
             tvWeight.setText(mData.get(position).getWeight() + "kg");
-            PatientLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setItems(R.array.operation, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (0 == which)
-                                onItemClick.remove(position);
-                            else
-                                onItemClick.update(position);
-                        }
-                    });
-                    builder.show();
-                    return true;
-                }
+            PatientLayout.setOnLongClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(R.array.operation, (dialog, which) -> {
+                    if (0 == which)
+                        onItemClick.remove(position);
+                    else
+                        onItemClick.update(position);
+                });
+                builder.show();
+                return true;
             });
-            PatientLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClick.selected(mData.get(position), !PatientLayout.isSelected());
+            PatientLayout.setOnClickListener(v -> {
+                if (onItemClick.selected(mData.get(position), !PatientLayout.isSelected()))
                     PatientLayout.setSelected(!PatientLayout.isSelected());
-                }
             });
         }
 

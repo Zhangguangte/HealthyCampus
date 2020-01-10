@@ -126,11 +126,23 @@ public class DiseaseSortActivity extends BaseActivity<DiseaseSortContract.View, 
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    diagnosisSortAdapter.setLoad(false);
-                    ToastUtil.show(this, "无数据");
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1008:
+                        diagnosisSortAdapter.setLoad(false);
+                        if (row == 0)
+                            ToastUtil.show(this, "无数据");
+                        else
+                            ToastUtil.show(this, "数据到底");
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -149,8 +161,7 @@ public class DiseaseSortActivity extends BaseActivity<DiseaseSortContract.View, 
     public void showDiagnosisSortListSuccess(List<DiseaseSortVo> diseasSortVos) {
         loadingData(false);
         emptyLayout.setVisibility(View.GONE);
-        if(diseasSortVos.size()<20)
-        {
+        if (diseasSortVos.size() < 15) {
             diagnosisSortAdapter.setLoad(false);
         }
         mDataList.addAll(diseasSortVos);

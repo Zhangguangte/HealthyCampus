@@ -1,11 +1,9 @@
 package com.example.HealthyCampus.common.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,11 @@ import android.widget.TextView;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.widgets.pullrecycler.BaseViewHolder;
-import com.example.HealthyCampus.module.Find.Diagnosis.List.DiseaseSort.DiseaseSortActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 
 public class ListTextAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private Context context;
@@ -53,8 +49,9 @@ public class ListTextAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return 0;
     }
 
+    @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.find_drug_bank_type, parent, false);
         return new ItemViewHolder(view);
     }
@@ -98,13 +95,10 @@ public class ListTextAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 typeNameView = tvTypeName;
             }
             tvTypeName.setText(mData.get(position));
-            typeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (position != posi) {
-                        selectedView(position);
-                        onItemClick.selectType(mData.get(position));
-                    }
+            typeLayout.setOnClickListener(v -> {
+                if (position != posi) {
+                    selectedView(position);
+                    onItemClick.selectType(mData.get(position));
                 }
             });
         }
@@ -117,7 +111,7 @@ public class ListTextAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             ivCheck.setVisibility(View.VISIBLE);
             //取消之前的效果
             checkView.setVisibility(View.GONE);
-            typeNameView.setTextColor(context.getResources().getColor(R.color.text_level_3));
+            typeNameView.setTextColor(context.getResources().getColor(R.color.text_level_1));
             typeNameView.setTextSize(14.0f);
             tvTypeName.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 

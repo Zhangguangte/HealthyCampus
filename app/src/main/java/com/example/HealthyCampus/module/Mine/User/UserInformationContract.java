@@ -1,5 +1,7 @@
 package com.example.HealthyCampus.module.Mine.User;
 
+import android.content.Context;
+
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.network.vo.UserVo;
 import com.example.HealthyCampus.framework.BasePresenter;
@@ -7,6 +9,7 @@ import com.example.HealthyCampus.framework.BaseView;
 
 interface UserInformationContract {
     interface View extends BaseView {
+        Context getContext();
         void initUserInfo(UserVo userVo);           //他人信息
 
         void initUserInfo();            //自己信息

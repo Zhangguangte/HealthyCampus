@@ -16,21 +16,21 @@ public class DiseaseSortPresenter extends DiseaseSortContract.Presenter {
 
     @Override
     protected void getDiseaseSort(int row, String content, int type) {
-        RequestForm requestForm = new RequestForm(type + "", "%("+content+")%", row);
+        RequestForm requestForm = new RequestForm(type + "", "%(" + content + ")%", row);
         DiseaseRepository.getInstance().getDiseaseSort(requestForm, new DiseaseDataSource.DiseaseGetSort() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())
+                    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<DiseaseSortVo> diseasSortVos) throws Exception {
-                getView().showDiagnosisSortListSuccess(diseasSortVos);
+                if (null != getView())
+                    getView().showDiagnosisSortListSuccess(diseasSortVos);
             }
         });
     }
-
-
 
 
 }

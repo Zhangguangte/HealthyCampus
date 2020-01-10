@@ -4,19 +4,15 @@ import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.adapter.RecommendAdapter;
-import com.example.HealthyCampus.common.network.vo.FoodRecommendVo;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.example.HealthyCampus.common.utils.DialogUtil;
+import com.example.HealthyCampus.common.network.vo.FoodRecommendVo;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.common.widgets.RecycleOnscrollListener;
@@ -92,12 +88,11 @@ public class RecommendFragment extends BaseFragment<RecommendContract.View, Reco
             }
         });
         //刷新
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mDataList.clear();
-                mPresenter.getRecommendRecipes();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            mDataList.clear();
+            recommendAdapter.setLoad(true);
+            recommendAdapter.notifyDataSetChanged();
+            mPresenter.getRecommendRecipes();
         });
         //下滑
         rvRecommend.addOnScrollListener(new RecycleOnscrollListener() {
@@ -118,8 +113,9 @@ public class RecommendFragment extends BaseFragment<RecommendContract.View, Reco
     public void showRecommendSuccess(List<FoodRecommendVo> recommendFoodBeans) {
         loadingData(false);
         emptyLayout.setVisibility(View.GONE);
-
         mDataList.addAll(recommendFoodBeans);
+        if(mDataList.size() >= 150)
+            recommendAdapter.setLoad(false);
         recommendAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -131,10 +127,18 @@ public class RecommendFragment extends BaseFragment<RecommendContract.View, Reco
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1006) {
-                    ToastUtil.show(mActivity, "无数据");
-                } else {
-                    ToastUtil.show(mActivity, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

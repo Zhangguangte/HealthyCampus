@@ -66,6 +66,10 @@ public class ConstantValues {
     public static final String MOBSMSSDK_ID = "2c9b8ddbdb4b2";
     public static final String MOBSMSSDK_SECRET = "71f3a0e022ec6007c72fbf16d2f6b56e";
 
+    //美洽
+    public static final String MEIQIA_KEY = "d3690ff916523c0f202dba28ab918445";
+    public static final String MEIQIA_CUSTOMER = "1295087";    //指定客服ID
+
     //极光
 //    public static final String JAPP_KEY = "4771768eedbbaf7afe9b81c5";
 

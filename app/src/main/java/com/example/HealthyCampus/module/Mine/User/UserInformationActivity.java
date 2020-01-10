@@ -1,6 +1,7 @@
 package com.example.HealthyCampus.module.Mine.User;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,21 +14,16 @@ import com.example.HealthyCampus.R;
 import com.example.HealthyCampus.common.data.form.RequestForm;
 import com.example.HealthyCampus.common.helper.SPHelper;
 import com.example.HealthyCampus.common.network.vo.DefaultResponseVo;
-import com.example.HealthyCampus.common.network.vo.RequestFriendVo;
 import com.example.HealthyCampus.common.network.vo.UserVo;
-import com.example.HealthyCampus.common.utils.DateUtils;
 import com.example.HealthyCampus.common.utils.JsonUtil;
 import com.example.HealthyCampus.common.utils.ToastUtil;
 import com.example.HealthyCampus.framework.BaseActivity;
-import com.example.HealthyCampus.module.Message.Address_list.AddressListActivity;
 import com.example.HealthyCampus.module.Message.Chat.ChatActivity;
 import com.example.HealthyCampus.module.Message.New_friend.Add_Friend.Add_Friend_Msg.AddFriendMsgActivity;
-import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
 
 import org.raphets.roundimageview.RoundImageView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,11 +69,11 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
 
     @Override
     protected void initView() {
-        showProgressDialog("正在加载中");
+        showProgressDialog(getString(R.string.loading_footer_tips));
         if (null != getIntent().getExtras())
             userVo = (UserVo) getIntent().getExtras().getSerializable("uservo");
         if (null != userVo) initUserInfo(userVo);
-        else if (getIntent().getBooleanExtra("self", false))
+        else if (getIntent().getBooleanExtra("self", false))           //用户自身
             initUserInfo();
         else if (!TextUtils.isEmpty(getIntent().getStringExtra("ACCOUNT"))) {       //聊天名片
             mPresenter.getUserInformation(getIntent().getStringExtra("ACCOUNT"));
@@ -115,16 +111,23 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
 
     @Override
     public void showError(Throwable throwable) {
-        Log.e("UserInformat" + "123456", "getUserInformation error");
         if (throwable instanceof HttpException) {
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1001) {
-                    Log.e("UserInformat" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, "未知错误1");
-                } else {
-                    ToastUtil.show(this, "未知错误2:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1005:
+                        ToastUtil.show(getContext(), "用户不存在");
+                        finish();
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -133,10 +136,15 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
             ToastUtil.show(this, "未知错误3:" + throwable.getMessage());
         }
         dismissProgressDialog();
-        Log.e("LoginActivity" + "123456", "throwable.toString:" + throwable.toString());
-        Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
+//        Log.e("LoginActivity" + "123456", "throwable.toString:" + throwable.toString());
+//        Log.e("LoginActivity" + "123456", "throwable.getMessage:" + throwable.getMessage());
     }
 
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -149,7 +157,7 @@ public class UserInformationActivity extends BaseActivity<UserInformationContrac
                 addFriend.setVisibility(View.GONE);
                 sendMsg.setVisibility(View.VISIBLE);
             }
-            Log.e("UserInformat" + "123456", "userVo.toString:" + userVo.toString());
+//            Log.e("UserInformat" + "123456", "userVo.toString:" + userVo.toString());
             uid = userVo.getId();
             tvUsername.setText(userVo.getNickname() + "(" + userVo.getAccount() + ")");
             tvGender.setText(userVo.getSex());

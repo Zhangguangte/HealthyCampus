@@ -24,16 +24,17 @@ public class DiagnosisPresenter extends DiagnosisContract.Presenter {
 
     @Override
     protected void getDiseaseInfo(String keyword, int row) {
-        RequestForm requestForm = new RequestForm( "2", "%"+keyword+"%", row);
+        RequestForm requestForm = new RequestForm("2", "%" + keyword + "%", row);
         DiseaseRepository.getInstance().getDiseaseSort(requestForm, new DiseaseDataSource.DiseaseGetSort() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())
+                    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<DiseaseSortVo> diseasSortVos) throws Exception {
-                getView().showDiseaseSuccess(diseasSortVos);
+                if (null != getView()) getView().showDiseaseSuccess(diseasSortVos);
             }
         });
     }

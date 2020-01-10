@@ -17,13 +17,15 @@ public class AddFriendPresenter extends AddFriendContract.Presenter {
         UserRepository.getInstance().searchUser(searchWords, new UserDataSource.UserInformation() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView()) getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(UserVo userVo) throws Exception {
-                getView().initInsert(searchWords);
-                getView().jumpToMsg(userVo);
+                if (null != getView()) {
+                    getView().initInsert(searchWords);
+                    getView().jumpToMsg(userVo);
+                }
             }
         });
     }

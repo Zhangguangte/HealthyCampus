@@ -73,26 +73,13 @@ public class ServiceRemoteDataSource implements ServiceDataSource {
     }
 
     @Override
-    public void sendFeed(@NonNull RequestForm requestForm, @NonNull SendFeed callback) {
+    public void sendFeed(@NonNull RequestForm requestForm) {
         NetworkManager.getInstance().getServiceApi()
                 .sendFeed(requestForm)
                 .subscribeOn(Schedulers.newThread())//子线程访问网络
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .doOnSubscribe(() -> Log.e("ServiceRemoteDa" + "123456", "sendFeed:7"))
-                .subscribe(defaultResponseVo -> {
-                    try {
-                        Log.e("ServiceRemoteDa" + "123456", "sendFeed success");
-                        callback.onDataAvailable();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }, throwable -> {
-                    try {
-                        callback.onDataNotAvailable();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                .subscribe();
     }
 
     @Override

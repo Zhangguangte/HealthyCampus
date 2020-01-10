@@ -163,7 +163,11 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "searchRoomid:7"))
                 .subscribe(messageListVo -> {
                     Log.e("MessageRemoteDa" + "123456", "searchRoomid:8");
-                    callback.onDataAvailable(messageListVo);
+                    try {
+                        callback.onDataAvailable(messageListVo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }, throwable -> {
                     Log.e("MessageRemoteDa" + "123456", "searchRoomid:9");
                     try {
@@ -208,7 +212,11 @@ public class MessageRemoteDataSource implements MessageDataSource {
                 .doOnSubscribe(() -> Log.e("MessageRemoteDa" + "123456", "insertText:7"))
                 .subscribe(defaultResponseVo -> {
                     Log.e("MessageRemoteDa" + "123456", "insertText success");
-                    callback.onDataAvailable();
+                    try {
+                        callback.onDataAvailable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }, throwable -> {
                     Log.e("MessageRemoteDa" + "123456", "insertText:9");
                     try {
@@ -270,6 +278,7 @@ public class MessageRemoteDataSource implements MessageDataSource {
                     Log.e("MessageRemoteDa" + "123456", "getAllNotice success");
                     try {
                         callback.onDataAvailable(noticeVos);
+                        callback.finishList();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -277,6 +286,7 @@ public class MessageRemoteDataSource implements MessageDataSource {
                     Log.e("MessageRemoteDa" + "123456", "getAllNotice:9");
                     try {
                         callback.onDataNotAvailable(throwable);
+                        callback.finishList();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

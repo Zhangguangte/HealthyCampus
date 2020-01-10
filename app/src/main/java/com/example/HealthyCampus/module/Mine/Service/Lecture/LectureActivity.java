@@ -152,10 +152,20 @@ public class LectureActivity extends BaseActivity<LectureContract.View, LectureC
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 999) {
-                    ToastUtil.show(getContext(), R.string.data_lose);
-                } else {
-                    ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        if (0 == row)
+                            ToastUtil.show(getContext(), R.string.data_lose);
+                        lectureAdapter.setLoad(false);
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -176,7 +186,7 @@ public class LectureActivity extends BaseActivity<LectureContract.View, LectureC
         loadingData(false);
         emptyLayout.setVisibility(View.GONE);
 
-        if (null == lectureVos || lectureVos.size() < 15)
+        if (lectureVos.size() < 15)
             lectureAdapter.setLoad(false);
         mDataList.addAll(lectureVos);
         lectureAdapter.notifyDataSetChanged();

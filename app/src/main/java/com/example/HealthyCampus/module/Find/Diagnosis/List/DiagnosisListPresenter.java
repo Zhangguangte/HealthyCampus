@@ -15,16 +15,18 @@ public class DiagnosisListPresenter extends DiagnosisListContract.Presenter {
 
     @Override
     protected void getDiseaseSortList(int position) {
-        RequestForm requestForm = new RequestForm(position+"");
-        DiseaseRepository.getInstance().getDiseaseSortList(requestForm,new DiseaseDataSource.DiseaseGetSortList() {
+        RequestForm requestForm = new RequestForm(position + "");
+        DiseaseRepository.getInstance().getDiseaseSortList(requestForm, new DiseaseDataSource.DiseaseGetSortList() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())
+                    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(List<DiseaseSortListVo> diseaseSortListVos) throws Exception {
-                getView().showDiagnosisSortSuccess(diseaseSortListVos);
+                if (null != getView())
+                    getView().showDiagnosisSortSuccess(diseaseSortListVos);
             }
         });
     }

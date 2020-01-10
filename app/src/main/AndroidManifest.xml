@@ -73,10 +73,11 @@
     <application
         android:name=".application.HealthApp"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_app_round_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@drawable/ic_app_round_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -157,7 +158,8 @@
             android:name=".module.Mine.Register.first.RegisterActivity1"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
 
         <!--注册2-->
         <activity
@@ -316,7 +318,7 @@
 
         <!--功能食谱-->
         <activity
-            android:name=".module.Find.Recipes.Functionality.RecipesList.activity.RecipesListActivity"
+            android:name=".module.Find.Recipes.Functionality.List.RecipesListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
@@ -512,7 +514,7 @@
             android:value="${CHANNEL_VALUE}" />
 
         <receiver
-            android:name=".Step.StepStarter"
+            android:name=".Broadcast.StepStarter"
             android:enabled="true"
             android:exported="true" />
 

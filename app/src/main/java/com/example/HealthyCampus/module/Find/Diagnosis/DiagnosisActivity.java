@@ -211,15 +211,21 @@ public class DiagnosisActivity extends BaseActivity<DiagnosisContract.View, Diag
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1008) {
-                    diseaseAdapter.setIsLoad(false);
-//                    if (row != 0)
-//                        ToastUtil.show(this, "数据到底");
-//                    else
-                    if (row == 0)
-                        ToastUtil.show(this, "查无数据");
-                } else {
-                    ToastUtil.show(this, "未知错误1:" + throwable.getMessage());
+                switch (response.code) {
+                    case 1008:
+                        diseaseAdapter.setIsLoad(false);
+                        if (row == 0)
+                            ToastUtil.show(this, "查无数据");
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -13,6 +13,7 @@
         android:padding="@dimen/padding_less3"
         android:gravity="center"
         android:textColor="@color/black"
+        android:visibility="gone"
         android:textSize="@dimen/text_f2" />
 
     <TextView

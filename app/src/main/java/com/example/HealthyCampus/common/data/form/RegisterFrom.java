@@ -3,8 +3,8 @@ package com.example.HealthyCampus.common.data.form;
 import com.example.HealthyCampus.common.utils.StringUtil;
 
 public class RegisterFrom {
-    public String password;
-    public String phone;
+    private String password;
+    private String phone;
 
 
     public RegisterFrom(String password, String phone) {

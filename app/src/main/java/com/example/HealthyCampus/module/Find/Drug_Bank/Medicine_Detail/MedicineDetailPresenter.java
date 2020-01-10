@@ -42,12 +42,14 @@ public class MedicineDetailPresenter extends MedicineDetailContract.Presenter {
         MedicineRepository.getInstance().getMedicineDetail(requestForm, new MedicineDataSource.MedicineGetMedicineDetail() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().showError(throwable);
+                if (null != getView())
+
+                    getView().showError(throwable);
             }
 
             @Override
             public void onDataAvailable(MedicineDetailVo medicineVo) throws Exception {
-                getView().showMedicineDetail(medicineVo);
+                if (null != getView()) getView().showMedicineDetail(medicineVo);
             }
         });
     }

@@ -21,7 +21,7 @@ public interface UserDataSource {
 
         void onDataNotAvailable(Throwable throwable) throws Exception;
 
-        void registerSuccess(String username) throws Exception;
+        void registerSuccess(UserVo userVo) throws Exception;
 
     }
 

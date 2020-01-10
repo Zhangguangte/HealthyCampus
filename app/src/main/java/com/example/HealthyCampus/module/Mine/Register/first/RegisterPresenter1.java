@@ -28,14 +28,18 @@ public class RegisterPresenter1 extends RegisterContract1.Presenter {
         UserRepository.getInstance().searchPhone(registerFrom, new UserDataSource.UserSearchPhone() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().dismissProgressView();
-                getView().phoneExist();
+                if (null != getView()) {
+                    getView().dismissProgressView();
+                    getView().showError(throwable);
+                }
             }
 
             @Override
             public void onDataAvailable(String username) throws Exception {
-                getView().dismissProgressView();
-                getView().phoneNotExist();
+                if (null != getView()) {
+                    getView().dismissProgressView();
+                    getView().phoneNotExist();
+                }
             }
         });
     }

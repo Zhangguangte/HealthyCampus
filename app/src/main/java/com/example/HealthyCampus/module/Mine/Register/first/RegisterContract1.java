@@ -29,10 +29,6 @@ public interface RegisterContract1 {
 
         void jumpToNext();        //跳转注册界面2
 
-        void jumpToLogin();        //跳转登录界面
-
-        void phoneExist();       //号码已存在
-
         void phoneNotExist();       //号码不存在
 
         void showProgressView();       //显示加载视图
@@ -41,6 +37,7 @@ public interface RegisterContract1 {
 
         void dismissProgressView();       //关闭加载视图
 
+        void showError(Throwable throwable);
     }
 
     //处理业务逻辑

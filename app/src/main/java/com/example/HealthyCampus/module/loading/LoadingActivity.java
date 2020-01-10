@@ -55,7 +55,7 @@ public class LoadingActivity extends BaseActivity<LoadingContract.View, LoadingC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppStatusTracker.getInstance().setAppStatus(ConstantValues.STATUS_OFFLINE);
+        AppStatusTracker.getInstance().setAppStatus(ConstantValues.STATUS_ONLINE);
         super.onCreate(savedInstanceState);
     }
 

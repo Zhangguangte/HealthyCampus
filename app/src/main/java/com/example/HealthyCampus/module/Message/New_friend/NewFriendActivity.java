@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -91,11 +90,18 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
             Response httpException = ((HttpException) throwable).response();
             try {
                 DefaultResponseVo response = JsonUtil.format(httpException.errorBody().string(), DefaultResponseVo.class);
-                if (response.code == 1001) {
-                    Log.e("AddressListActi" + "123456", "response.toString:" + response.toString());
-                    ToastUtil.show(this, "用户信息错误");
-                } else {
-                    ToastUtil.show(this, "未知错误:" + throwable.getMessage());
+                switch (response.code) {
+                    case 999:
+                        break;
+                    case 1000:
+                        ToastUtil.show(getContext(), "Bad Server");
+                        break;
+                    case 1003:
+                        ToastUtil.show(getContext(), "Invalid Parameter");
+                        break;
+                    default:
+                        ToastUtil.show(getContext(), "未知错误1:" + throwable.getMessage());
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -109,11 +115,9 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
 
     @Override
     public void showSuccess(DefaultResponseVo defaultResponseVo, int position) {
-        if (defaultResponseVo.code == 3000) {
-            ToastUtil.show(getContext(), "添加成功");
-            noticeAdapter.agree(position);
-            mPresenter.requestFriends();
-        }
+        ToastUtil.show(getContext(), "添加成功");
+        noticeAdapter.agree(position);
+        mPresenter.requestFriends();
     }
 
     @Override
@@ -135,11 +139,6 @@ public class NewFriendActivity extends BaseActivity<NewFriendContract.View, NewF
     @Override
     public void showRequestFriends(ArrayList<RequestFriendVo> requestFriendVos) {
         noticeAdapter.clear();
-        if (requestFriendVos == null || requestFriendVos.size() == 0) {
-            rvNotice.setVisibility(View.GONE);
-        } else {
-            rvNotice.setVisibility(View.VISIBLE);
-        }
         bundle.putSerializable("list", requestFriendVos);
         noticeAdapter.addList(requestFriendVos);
     }

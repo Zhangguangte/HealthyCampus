@@ -28,20 +28,18 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvNotice"
             android:layout_width="match_parent"
+            android:overScrollMode="never"
             android:layout_height="wrap_content"
             android:background="@color/white" />
 
         <TextView
             android:id="@+id/noticeMore"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:paddingBottom="@dimen/padding_less3"
             android:paddingTop="@dimen/padding_less3"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:background="@color/white"
-            android:drawableRight="@mipmap/icon_right"
             android:gravity="center"
             android:text="@string/user_new_friend_more"
             android:textColor="@color/text_level_3"
@@ -59,7 +57,8 @@
             android:layout_height="wrap_content"
             android:background="@color/address_list_titleBackground"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/left_margin"
+            android:paddingStart="@dimen/left_margin"
+            android:paddingLeft="@dimen/padding_less"
             android:paddingTop="@dimen/padding_less3"
             android:paddingBottom="@dimen/padding_less3"
             android:text="@string/user_new_friend_recommend"
@@ -70,15 +69,13 @@
             android:id="@+id/rvRecommend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
             android:background="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:drawableRight="@mipmap/icon_right"
             android:gravity="center"
             android:text="@string/user_new_friend_add_more"
             android:textColor="@color/text_level_3"

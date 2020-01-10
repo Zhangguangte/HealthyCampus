@@ -3,6 +3,9 @@ package com.example.HealthyCampus.module.Mine.Register.second;
 import com.example.HealthyCampus.common.data.form.RegisterFrom;
 import com.example.HealthyCampus.common.data.source.callback.UserDataSource;
 import com.example.HealthyCampus.common.data.source.repository.UserRepository;
+import com.example.HealthyCampus.common.helper.UserHelper;
+import com.example.HealthyCampus.common.network.vo.UserVo;
+import com.example.HealthyCampus.module.Mine.Login.LoginActivity;
 
 public class RegisterPresenter2 extends RegisterContract2.Presenter {
 
@@ -28,14 +31,19 @@ public class RegisterPresenter2 extends RegisterContract2.Presenter {
         UserRepository.getInstance().register(registerFrom, new UserDataSource.UserRegister() {
             @Override
             public void onDataNotAvailable(Throwable throwable) throws Exception {
-                getView().dismissProgressView();
-                getView().showRegisterError(throwable);
+                if (null != getView()) {
+                    getView().dismissProgressView();
+                    getView().showRegisterError(throwable);
+                }
             }
+
             @Override
-            public void registerSuccess(String username) throws Exception {
-//                getView().setPageEnable();
-                getView().dismissProgressView();
-                getView().showTipsView(username);
+            public void registerSuccess(UserVo userVo) throws Exception {
+                if (null != getView()) {
+                    getView().dismissProgressView();
+                    UserHelper.persistenceUser(userVo, registerFrom.getPassword());
+                    getView().showTipsView(userVo.getAccount());
+                }
             }
         });
     }

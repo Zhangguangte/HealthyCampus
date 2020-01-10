@@ -18,7 +18,7 @@ public interface UserApi {
     Observable<UserVo> login(@Body LoginForm dataForm);
 
     @POST("/users/register")
-    Observable<DefaultResponseVo> register(@Body RegisterFrom registerFrom);
+    Observable<UserVo> register(@Body RegisterFrom registerFrom);
 
     @POST("/users/register/searchPhone")
     Observable<DefaultResponseVo> searchPhone(@Body RegisterFrom registerFrom);

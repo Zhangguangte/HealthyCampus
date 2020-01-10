@@ -77,7 +77,6 @@ public class AppStatusTracker implements Application.ActivityLifecycleCallbacks 
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
     }
 
 }

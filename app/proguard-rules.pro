@@ -301,3 +301,7 @@ public static final ** CREATOR;
 -keepattributes Signature
 -keepattributes EnclosingMethod
 
+#Picasso相关
+-keep class com.squareup.picasso.Picasso { *; }
+-dontwarn com.squareup.okhttp.**
+-dontwarn com.squareup.picasso.**
